@@ -121,6 +121,8 @@ myMethod (value, element, e) {
 }
 '''
 
+## Examples
+https://github.com/KlausSchaefers/qux-standalone-example
 
 
 # Dev Setup
