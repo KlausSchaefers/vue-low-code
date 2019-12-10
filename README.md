@@ -122,7 +122,7 @@ myMethod (value, element, e) {
 ```
 
 ## Examples
-https://github.com/KlausSchaefers/qux-standalone-example
+https://github.com/KlausSchaefers/qux-low-code-example
 
 
 # Dev Setup
