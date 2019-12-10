@@ -1,4 +1,4 @@
-# qux-lowcode
+# qux-low-code
 Quant-UX is an OpenSource low code environment that enables the visual development of VUE.js based user interfaces. Quant-UX enables:
 
 1. Clear seperation of UI and business logic
