@@ -96,7 +96,7 @@ export default {
   computed: {
       treeModel () {
           if (this.model) {
-              let transformer = new ModelTransformer(this.model, this.config)
+              let transformer = new ModelTransformer(this.model, this.mergedConfig)
               let tree = transformer.transform()
               this.setGlobalCSS(tree)
               return tree
@@ -120,8 +120,8 @@ export default {
   },
   methods: {
     setGlobalCSS (tree) {
-        let compressed = new CSSOptimizer(this.config).runTree(tree)
-        let classes = new CSSFactory(this.config).generate(compressed)
+        let compressed = new CSSOptimizer(this.mergedConfig).runTree(tree)
+        let classes = new CSSFactory(this.mergedConfig).generate(compressed)
         let css = []
         css = Object.values(classes).flatMap(element => {
             return element.map(e => {
@@ -208,7 +208,7 @@ export default {
     }
   },
   async mounted () {
-      Logger.log(0, 'QUX.mounted() > 0.0.4', this.value)
+      Logger.log(0, 'QUX.mounted() > 0.0.5', this.value)
       this.initComponents()
       if (this.config) {
           this.setConfig(this.config)

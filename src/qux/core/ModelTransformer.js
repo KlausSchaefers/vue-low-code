@@ -285,7 +285,7 @@ export default class ModelTransformer {
             /**
              * determine fixed columns and rows
              */
-            this.setFixed(parent, columns, rows)
+            this.setFixedGirdRowsAndColumns(parent, columns, rows)
 
             return {
                 rows: rows,
@@ -295,7 +295,7 @@ export default class ModelTransformer {
         return null
     }
 
-    setFixed (parent, columns, rows) {
+    setFixedGirdRowsAndColumns (parent, columns, rows) {
          /**
           * Set fixed. For ech child check if the 
           * 1) We have fixed Vertical or Horizontal
@@ -311,18 +311,27 @@ export default class ModelTransformer {
                 })
             }
             if (Util.isPinnedLeft(e)) {
-                columns.forEach(column => {
-                    if (column.v < e.x) {
-                        column.fixed = true
-                    }
-                })
+                // FIXME: Just fix the closest
+                let before = columns.filter(column => column.v < e.x)
+                if (before.length > 0) {
+                    before[before.length-1].fixed = true
+                }
+                //columns.forEach(column => {
+                //    if (column.v < e.x) {
+                //        column.fixed = true
+                //    }
+                //})
             }
             if (Util.isPinnedRight(e)) {
-                columns.forEach(column => {
-                    if (column.v >= e.x + e.w) {
-                        column.fixed = true
-                    }
-                })
+                let after = columns.filter(column => column.v >= e.x + e.w)
+                if (after.length > 0) {
+                    after[0].fixed = true
+                }
+                //columns.forEach(column => {
+                //    if (column.v >= e.x + e.w) {
+                //        column.fixed = true
+                //    }
+                //})
             }
 
             if (Util.isFixedVertical(e)) {
@@ -488,10 +497,10 @@ export default class ModelTransformer {
             
                     node.canGrow = true
                     /**
-                     * Make right fixed, left fixed 
+                     * Make right fixed, left fixed
                      */
                     if (lastNode && Util.isPinnedRight(lastNode)) {
-                        Logger.log(1, 'ModelTRansformer.setOrderAndRelativePositons() > fix rightPinned :' + lastNode.name, node.name)
+                        Logger.log(5, 'ModelTRansformer.setOrderAndRelativePositons() > fix rightPinned :' + lastNode.name, node.name)
                         node.props.resize.left = true
                         node.canGrow = false
                     }

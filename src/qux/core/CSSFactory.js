@@ -490,7 +490,7 @@ export default class {
 	}
 
 	getGridPosition (widget) {
-		Logger.log(5, 'CSSFactory.getGridPosition()', widget.name)
+		Logger.log(3, 'CSSFactory.getGridPosition() > ' + widget.name, widget.grid) 
 		let result = ''
 	
 		if (widget.grid) {
