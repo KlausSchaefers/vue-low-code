@@ -8,7 +8,7 @@
 </style>
 <script>
 
-import _Base from './_Base'
+import _Base from './_Base.vue'
 
 export default {
   name: 'qLabel',

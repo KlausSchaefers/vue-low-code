@@ -95,7 +95,7 @@ export default {
           Logger.log(6, '_Base.dataBindingInput() > ' + path, `"${value}"`)
           return value
         }
-        return ''
+        return null
       },
        dataBindingInputPath () {
         if (this.element && this.element.props && this.element.props.databinding) {
@@ -107,7 +107,8 @@ export default {
       dataBindingLabel () {
         if (this.hasDataBinding) {
           let value = this.dataBindingInput
-          if (value !== undefined) {
+          if (value !== undefined && value != null) {
+            Logger.log(6, '_Base.dataBindingLabel() > ',`"${value}"`)
             return value
           }
         }

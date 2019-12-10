@@ -28,7 +28,7 @@
 </style>
 <script>
 
-import _Base from './_Base'
+import _Base from './_Base.vue'
 import JSONPath from '../core/JSONPath'
 import Logger from '../core/Logger'
 

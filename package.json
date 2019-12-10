@@ -1,11 +1,12 @@
 {
   "name": "qux-lowcode",
-  "version": "0.0.1",
-  "description": "Quant-UX standalone widget",
-  "main": "index.js",
+  "version": "0.0.4",
+  "description": "Quant-UX Low Code - Smart Renderer for design handoffs",
+  "main": "./dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "bili --name index --plugin vue --vue.css false"
+    "build": "bili --name index --plugin vue --vue.css false",
+    "export": "npx bili --bundle-node-modules"
   },
   "repository": {
     "type": "git",
@@ -13,21 +14,34 @@
   },
   "keywords": [
     "Quant-UX",
-    "prototyping",
-    "lowcode"
+    "Prototyping",
+    "Low Code"
   ],
   "author": "Klaus Schaefers",
   "license": "BSD-2-Clause",
   "bugs": {
-    "url": "https://github.com/KlausSchaefers/qux-standalone/issues"
+    "url": "https://github.com/KlausSchaefers/qux-lowcode/issues"
   },
-  "homepage": "https://github.com/KlausSchaefers/qux-standalone#readme",
+  "homepage": "https://github.com/KlausSchaefers/qux-lowcode#readme",
   "devDependencies": {
     "bili": "^4.8.1",
     "rollup-plugin-vue": "^5.1.4",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "@vue/cli-plugin-babel": "^4.0.0",
+    "@vue/cli-plugin-eslint": "^4.0.0",
+    "@vue/cli-plugin-unit-jest": "^4.0.0",
+    "@vue/cli-service": "^4.0.0",
+    "@vue/test-utils": "1.0.0-beta.29",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^8.0.0"
   },
   "dependencies": {
     "@mdi/font": "^4.7.95"
-  }
+  },
+  "files": [
+    "dist/*"
+   ]
 }

@@ -1,4 +1,4 @@
-import QUX from "./qux/QUX";
+import QUX from "./qux/QUX.vue";
 
 export default {
  install(Vue, options) {

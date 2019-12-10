@@ -35,14 +35,14 @@ import CSSFactory from './core/CSSFactory'
 import CSSWriter from './core/CSSWriter'
 import Vue from 'vue'
 
-import Button from './web/Button'
-import Label from './web/Label'
-import Icon from './web/Icon'
-import TextBox from './web/TextBox'
-import Container from './web/Container'
-import Repeater from './web/Repeater'
+import Button from './web/Button.vue'
+import Label from './web/Label.vue'
+import Icon from './web/Icon.vue'
+import TextBox from './web/TextBox.vue'
+import Container from './web/Container.vue'
+import Repeater from './web/Repeater.vue'
 
-import Event from './mixins/Event'
+import Event from './mixins/Event.vue'
 
 export default {
   mixins:[Event],
@@ -58,10 +58,11 @@ export default {
           type: String
       },
       'value': {
-          type: Object
-      },
-      'showDebug': {
-        type: Boolean
+          type: Object,
+          default: function () {
+            return {
+            }
+          }
       },
       'config' : {
         type: Object,
@@ -207,7 +208,7 @@ export default {
     }
   },
   async mounted () {
-      Logger.log(2, 'QUX.mounted() >', this.value)
+      Logger.log(0, 'QUX.mounted() > 0.0.4', this.value)
       this.initComponents()
       if (this.config) {
           this.setConfig(this.config)

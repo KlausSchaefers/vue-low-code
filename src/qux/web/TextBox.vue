@@ -3,7 +3,7 @@
     :class="['qux-textbox', cssClass]" 
     @click="onClick"
     @change="onChange"
-    @keypress="onKeyPress"
+    @keyup="onKeyPress"
     :value="dataBindingInput" 
     :placeholder="dataBindingInput" />
 </template>
@@ -12,7 +12,7 @@
 </style>
 <script>
 
-import _Base from './_Base'
+import _Base from './_Base.vue'
 import Logger from '../core/Logger'
 
 export default {
