@@ -1,0 +1,33 @@
+{
+  "name": "qux-lowcode",
+  "version": "0.0.1",
+  "description": "Quant-UX standalone widget",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "bili --name index --plugin vue --vue.css false"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KlausSchaefers/qux-standalone.git"
+  },
+  "keywords": [
+    "Quant-UX",
+    "prototyping",
+    "lowcode"
+  ],
+  "author": "Klaus Schaefers",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/KlausSchaefers/qux-standalone/issues"
+  },
+  "homepage": "https://github.com/KlausSchaefers/qux-standalone#readme",
+  "devDependencies": {
+    "bili": "^4.8.1",
+    "rollup-plugin-vue": "^5.1.4",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "dependencies": {
+    "@mdi/font": "^4.7.95"
+  }
+}

@@ -1,0 +1,7 @@
+.qux-textbox{
+    border: 2px sold red;
+
+    &:focus {
+        outline: none;
+    }
+}

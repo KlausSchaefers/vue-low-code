@@ -1,0 +1,49 @@
+.qux{
+    background: none;
+    height: 100%;
+}
+
+.qux-screen {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+
+    .qux-action {
+        cursor: pointer;
+    }
+
+    .qux-valign-middle {
+        position: relative;
+ 
+        .qux-common-label {
+            width: 100%;
+            position: absolute;
+            top:50%;
+            left: 0px;
+            transform: translateY(-50%);
+        }
+    }
+
+    .qux-valign-bottom  {
+        position: relative;
+
+        .qux-common-label{
+            width: 100%;
+            position: absolute;
+            bottom:0px;
+            left: 0px;
+        }
+    }
+}
+
+.qux-resize-left::before {
+    content:'';
+    width: 3px;
+    background: orange;
+}
+
+.qux-resize-right::after {
+    content:'';
+    width: 3px;
+    background: orange;
+}
