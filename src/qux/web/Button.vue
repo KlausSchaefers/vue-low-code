@@ -1,5 +1,5 @@
 <template>
-  <a :class="['qux-button', cssClass]" v-if="hasLink" :href="link">
+  <a :class="['qux-button', cssClass]" v-if="hasLink" :href="link" @click="onClick">
     <span class="qux-common-label">
       {{label}}
     </span>

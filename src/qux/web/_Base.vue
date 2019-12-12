@@ -97,9 +97,16 @@ export default {
         }
         return null
       },
-       dataBindingInputPath () {
+      dataBindingInputPath () {
         if (this.element && this.element.props && this.element.props.databinding) {
           let path =  this.element.props.databinding.default
+          return path
+        }
+        return ''
+      },
+      dataBindingOutputPath () {
+        if (this.element && this.element.props && this.element.props.databinding) {
+          let path =  this.element.props.databinding.output
           return path
         }
         return ''

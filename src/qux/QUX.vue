@@ -41,6 +41,7 @@ import Icon from './web/Icon.vue'
 import TextBox from './web/TextBox.vue'
 import Container from './web/Container.vue'
 import Repeater from './web/Repeater.vue'
+import Image from './web/Image.vue'
 
 import Event from './mixins/Event.vue'
 
@@ -89,7 +90,8 @@ export default {
             router: {
                 key: 'screenName',
                 prefix: ''
-            }
+            },
+            imageFolder: '/public/img'
         }
       }
   },
@@ -116,12 +118,18 @@ export default {
             }
             return screen
           }
+      },
+      imagePrefix () {
+          if (this.debug) {
+            return `${this.server}/rest/images/${this.debug}/`
+          }
+          return this.mergedConfig.imageFolder
       }
   },
   methods: {
     setGlobalCSS (tree) {
         let compressed = new CSSOptimizer(this.mergedConfig).runTree(tree)
-        let classes = new CSSFactory(this.mergedConfig).generate(compressed)
+        let classes = new CSSFactory(this.mergedConfig, this.imagePrefix).generate(compressed)
         let css = []
         css = Object.values(classes).flatMap(element => {
             return element.map(e => {
@@ -186,11 +194,13 @@ export default {
     },
     initComponents () {
         Vue.component('qButton', Button);
+        Vue.component('qBox', Button)
         Vue.component('qLabel', Label);
         Vue.component('qContainer', Container)
         Vue.component('qIcon', Icon)
         Vue.component('qTextBox', TextBox)
         Vue.component('qRepeater', Repeater)
+        Vue.component('qImage', Image)
     }
   },
   watch: {
@@ -208,7 +218,7 @@ export default {
     }
   },
   async mounted () {
-      Logger.log(0, 'QUX.mounted() > 0.0.5', this.value)
+      Logger.log(0, 'QUX.mounted() > 0.0.8', this.value) 
       this.initComponents()
       if (this.config) {
           this.setConfig(this.config)

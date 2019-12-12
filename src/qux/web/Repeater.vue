@@ -12,7 +12,7 @@
             :model="model"
             :config="config"
             v-model="value"
-            @qClick="forwardClick"
+            @qClick="forwardClick(i, $event)"
             @qChange="forwardChange"
             @qKeyPress="forwardKeyPress"
             @qFocus="forwardFocus"
@@ -72,7 +72,7 @@ export default {
             if (Object.prototype.hasOwnProperty.call(obj, key)) {
                 if (key !== 'parent') {
                     /**
-                     * Make this somehow better
+                     * FIXME: Make this somehow better
                      */
                     obj['isActiveClone'] = null;
                     temp[key] = this.clone(obj[key]);
@@ -85,7 +85,7 @@ export default {
         return temp;
     },
     updateDataBinding (copy, i, parentPath) {
-        Logger.log(0, 'Repeater.updateDataBinding() > exit : > ' + i, copy.name)
+        Logger.log(5, 'Repeater.updateDataBinding() > exit : > ' + i, copy.name)
         if (copy.children) {
             copy.children.forEach(child => {
                 if (child && child.props && child.props.databinding) {
@@ -112,7 +112,16 @@ export default {
             })
         }
     },
-    forwardClick (element, e) {
+    forwardClick (i, element, e) {
+      if (element.lines && element.lines.length > 0) {
+        if (this.dataBindingOutputPath && this.dataBindingInputPath) {
+          let row = JSONPath.get(this.value, `${this.dataBindingInputPath}[${i}]`)
+          if (row) {
+            Logger.log(0, 'qRepeater.forwardClick() ' + this.dataBindingOutputPath, row)
+            JSONPath.set(this.value, this.dataBindingOutputPath, row)
+          }
+        }
+      }
       this.$emit('qClick', element, e);
     },
     forwardChange (element, e) {

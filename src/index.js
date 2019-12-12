@@ -7,3 +7,7 @@ export default {
   Vue.component("QUX", QUX);
  }
 };
+
+export function download () {
+    console.debug('DownLoad')
+}

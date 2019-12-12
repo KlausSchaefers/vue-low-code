@@ -43,6 +43,10 @@ export default class ModelTransformer {
         this.model = Util.createInheritedModel(this.model)
 
         /**
+         * FIXME: fix doubles names
+         */
+
+        /**
          * Embedd links
          */
         this.model = this.addActions(this.model)
@@ -423,17 +427,19 @@ export default class ModelTransformer {
          */
         let nodes = parent.children
         if (Util.isWrappedContainer(parent)) {
-            Logger.log(5, 'ModelTransformer.setOrderAndRelativePositons() > Wrapper Container', parent.name)
+            Logger.log(1, 'ModelTransformer.setOrderAndRelativePositons() > Wrapper Container', parent.name)
 
             /**
              * Sort by bz row and column
              */
             nodes.sort((a,b) => {
-                if (Util.isOverLappingX(a, b)) {
+                if (Util.isOverLappingY(a, b)) {
                     return a.x - b.x
                 }
                 return a.y - b.y
             })
+
+            console.debug(nodes.map(n => n.name))
            
             /**
              * We take as the position, the offset of the first element

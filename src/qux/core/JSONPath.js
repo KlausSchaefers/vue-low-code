@@ -5,7 +5,7 @@ class JSONPath {
             if (data[path]) {
                 return data[path]
             }
-            if (path.indexOf('.') >=0 ){
+            if (path.indexOf('.') >=0  || path.indexOf('[') >=0 ){
                 let elements = this.getJsonPath(path)
                 let current = elements.shift()
                 let value = data[current]

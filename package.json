@@ -1,6 +1,6 @@
 {
   "name": "qux-lowcode",
-  "version": "0.0.5",
+  "version": "0.0.9",
   "description": "Quant-UX Low Code - Smart Renderer for design handoffs",
   "main": "./dist/index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/KlausSchaefers/qux-standalone.git"
+    "url": "git+https://github.com/KlausSchaefers/qux-low-code.git"
   },
   "keywords": [
     "Quant-UX",
@@ -20,9 +20,9 @@
   "author": "Klaus Schaefers",
   "license": "BSD-2-Clause",
   "bugs": {
-    "url": "https://github.com/KlausSchaefers/qux-lowcode/issues"
+    "url": "https://github.com/KlausSchaefers/qux-low-code/issues"
   },
-  "homepage": "https://github.com/KlausSchaefers/qux-lowcode#readme",
+  "homepage": "https://github.com/KlausSchaefers/qux-low-code#readme",
   "devDependencies": {
     "bili": "^4.8.1",
     "rollup-plugin-vue": "^5.1.4",

@@ -121,6 +121,27 @@ export function hasWrappedParent(e) {
     return false
 }
 
+export function hasGrid(e) {
+    return e.grid
+}
+
+export function hasParentGrid(e) {
+    if (e.parent) {
+        return hasGrid(e.parent)
+    }
+    return false;
+}
+
+export function hasRowGrid(e) {
+    return e.grid && e.grid.isRow
+}
+
+export function hasParentRowGrid(e) {
+    if (e.parent) {
+        return hasRowGrid(e.parent)
+    }
+    return false;
+}
 
 export function getImages (app) {
     let images = []

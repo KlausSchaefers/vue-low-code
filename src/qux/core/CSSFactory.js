@@ -3,10 +3,11 @@ import * as Util from './ExportUtil'
 import Logger from './Logger'
 export default class {
 
-	constructor (config = {}) {
+	constructor (config = {}, imagePrefix='') {
 		Logger.log(1, 'CSSFactory.constructor() ', config)
-		this.marginWhiteSpaceCorrect = 0;
+		this.marginWhiteSpaceCorrect = 0
 		this.gridAutoErrorThreshold = 5
+		this.imagePrefix = imagePrefix
 		if (config.css) {
 			this.isGrid = config.css.grid
 			this.justifyContentInWrapper = config.css.justifyContentInWrapper
@@ -16,8 +17,7 @@ export default class {
 	
 
 		this.mapping = {
-			"background" : "background-color",
-
+	
 			"color" : "color",
 			"textAlign" : "text-align",
 			"fontFamily" : "font-family",
@@ -246,7 +246,7 @@ export default class {
 
 		let selector = this.getSelector(widget, screen);
 		result += selector + ' {\n'
-		result += this.getRawStyle(style);
+		result += this.getRawStyle(style, widget);
 
 		if (position) {
 			result += this.getPosition(widget, screen);
@@ -258,19 +258,19 @@ export default class {
 	
 		if (widget.hover) {
 			result += selector + ':hover {\n'
-			result += this.getRawStyle(widget.hover);
+			result += this.getRawStyle(widget.hover, widget);
 			result += '}\n\n'
 		}
 
 		if (widget.focus) {
 			result += selector + ':focus {\n'
-			result += this.getRawStyle(widget.focus);
+			result += this.getRawStyle(widget.focus, widget);
 			result += '}\n\n'
 		}
 
 		if (widget.error) {
 			result += selector + ':invalid {\n'
-			result += this.getRawStyle(widget.error);
+			result += this.getRawStyle(widget.error, widget);
 			result += '}\n\n'
 		}
 
@@ -278,11 +278,6 @@ export default class {
 		return result
 	}
 
-	getCSS_XRepeater(style, widget) {
-		let result = ''
-		result += `  font-size:${widget.h}px;\n`
-		return result
-	}
 
 	getCSS_Icon(style, widget) {
 		let result = ''
@@ -290,9 +285,9 @@ export default class {
 		return result
 	}
 
-	getCSS_Image() {
+	getCSS_Image(widget) {
 		let result = ''
-		if (this.isGrid) {
+		if (Util.hasParentGrid(widget) && !Util.hasParentRowGrid(widget)) {
 			result += `  height:100%;\n`
 			result += `  width:100%;\n`
 		}
@@ -312,14 +307,24 @@ export default class {
 	}
 
 	getWrappedPosition (widget) {
-		Logger.log(5, 'CSSFactory.getWrappedPosition()' + widget.name, widget.props.resize)
+		Logger.log(3, 'CSSFactory.getWrappedPosition()' + widget.name)
 		let result = ''
+		/**
+		 * For wrapped we just add margins
+		 */
 		result += `  min-height: ${this.getWrappedHeight(widget)};\n`
 		result += `  width: ${this.getWrappedWidth(widget)};\n`
-		// result += `  flex-grow: 1;\n`
-		// if we 
-		// result += `  margin-right: ${widget.right}px;\n`
 		result += `  margin: ${widget.wrapOffSetY}px ${widget.wrapOffSetX}px;\n`
+
+		/**
+		 * If the wrapped element has a grid, add it as well
+		 */
+		if (this.isGrid && Util.hasGrid(widget)) {
+			Logger.log(3, 'CSSFactory.getWrappedPosition() > add grid' + widget.name)
+			result += '  display: grid;\n'
+			result += '  grid-template-columns: ' + this.getGridTracks(widget.w, widget.grid.columns, widget) + ';\n'
+			result += '  grid-template-rows: ' + this.getGridTracks(widget.h, widget.grid.rows, widget) + ';\n'
+		}
 		return result
 	}
 
@@ -334,9 +339,6 @@ export default class {
 		return result
 	}
 
-	getWrappedMargin () {
-		return '10px';
-	}
 
 	getWrappedHeight (widget) {
 		return this.getCorrectedHeight(widget);
@@ -355,13 +357,7 @@ export default class {
 		let result = ''
 
 		if (Util.isWrappedContainer(widget)) {
-			result += '  display: flex;\n'
-			result += '  flex-direction: row;\n'
-			result += '  flex-wrap: wrap;\n'
-			result += '  align-items: flex-start;\n'
-			if (this.justifyContentInWrapper) {
-				result += '  justify-content: space-between;\n'
-			}
+			result += this.setWrappedContainer(widget)
 		} else if (widget.isRow) {
 			result += '  display: flex;\n'
 			result += '  flex-direction: row;\n'
@@ -380,6 +376,19 @@ export default class {
 			if (Util.isLastChild(widget) && !Util.isRepeater(widget.parent)){
 				result += `  margin-bottom: ${this.getFlexBottom(widget)};\n`
 			}
+		}
+		return result
+	}
+
+	setWrappedContainer (widget) {
+		Logger.log(1, 'CSSFactory.setWrappedContainer() ' + widget.name)
+		let result = ''
+		result += '  display: flex;\n'
+		result += '  flex-direction: row;\n'
+		result += '  flex-wrap: wrap;\n'
+		result += '  align-items: flex-start;\n'
+		if (this.justifyContentInWrapper) {
+			result += '  justify-content: space-between;\n'
 		}
 		return result
 	}
@@ -490,12 +499,13 @@ export default class {
 	}
 
 	getGridPosition (widget) {
-		Logger.log(3, 'CSSFactory.getGridPosition() > ' + widget.name, widget.grid) 
+		Logger.log(4, 'CSSFactory.getGridPosition() > ' + widget.name, widget) 
 		let result = ''
 	
 		if (widget.grid) {
-			// FIXME: Remove the false!
-			if (Util.isRowGrid(widget)) {
+			if (Util.isWrappedContainer(widget)) {
+				result += this.setWrappedContainer(widget)
+			} else if (Util.isRowGrid(widget)) {
 				widget.grid.isRow = true
 				result += `  display: flex;\n`
 				result += `  flex-direction: column;\n`
@@ -507,13 +517,19 @@ export default class {
 		}
 
 		if (widget.parent) {
-			// console.debug(widget.name, widget.parent.name, widget.parent.grid !== undefined)
+			/**
+			 * Check if we have to do a normal flex layout because the grid
+			 * is row (=== 1 columns)
+			 */
 			if (widget.parent.grid && widget.parent.grid.isRow) {	
-				//FIXME: Here we should have some where fancz logic to take pins and fix into account
+		
 				if (Util.isPinnedLeft(widget) && Util.isPinnedRight(widget)) {
+
 					result += `  margin-left: ${this.getPinnedLeft(widget)};\n`
 					result += `  margin-right: ${this.getPinnedRight(widget)};\n`
+
 				} else if (Util.isPinnedLeft(widget)){
+
 					if (Util.isFixedHorizontal(widget)){
 						result += `  width: ${this.getFixedWidth(widget)};\n`
 						result += `  margin-left: ${this.getPinnedLeft(widget)};\n`
@@ -523,6 +539,7 @@ export default class {
 					}
 					
 				} else if (Util.isPinnedRight(widget)){
+
 					if (Util.isFixedHorizontal(widget)){
 						result += `  width: ${this.getFixedWidth(widget)};\n`
 						result += `  margin-left: ${this.getCalcLeft(widget)};\n`
@@ -530,7 +547,12 @@ export default class {
 						result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
 						result += `  margin-right: ${this.getPinnedRight(widget)};\n`
 					}
+
 				} else {
+					/**
+					 * We are in a rowGrid, this means the widget is alone. Therefore
+					 * we can set the margin left and right and not the width.
+					 */
 					if (Util.isFixedHorizontal(widget)){
 						result += `  width: ${this.getFixedWidth(widget)};\n`
 						result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
@@ -539,6 +561,7 @@ export default class {
 						result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
 					}
 				}
+
 				if (Util.isFixedVertical(widget)){
 					result += `  height: ${this.getCorrectedHeight(widget)};\n`
 				} else {
@@ -741,7 +764,7 @@ export default class {
 		return []
 	}
 
-	getRawStyle (style) {
+	getRawStyle (style, widget) {
 		var result = ''
 		for (var key in this.mapping) {
 			if (style[key] !== undefined && style[key] !== null) {
@@ -749,7 +772,47 @@ export default class {
 				result += '  ' + this.getKey(key) + ': ' + this.getValue(key, value) + ';\n'
 			}
 		}
+		result += this.getBackGround(style, widget)
 		return result;
+	}
+
+	getBackGround(style, widget) {
+		let result = ''
+		if (style.background) {
+			if (style.background.colors) {
+				let background = style.background
+				let gradient = "(" + background.direction + "deg";
+				for (var i = 0; i < background.colors.length; i++) {
+					var color = background.colors[i];
+					gradient += "," + color.c + " " + color.p + "% ";
+				}
+				gradient += ")";
+				result += `  background: linear-gradient${gradient};\n`
+				//result += `  background: -webkit-linear-gradient${gradient};\n`
+			} else {
+				result += `  background-color: ${style.background};\n`
+			}
+		}
+
+		if (style.backgroundImage) {
+			result += `  background-image: url(${this.imagePrefix}/${style.backgroundImage.url});\n`
+			if (style.backgroundSize) {
+				result += `  background-size: ${style.backgroundSize }%;\n`
+			} else {
+				result += `  background-size: 100%;\n`
+			}
+	
+			if (style.backgroundPosition) {
+				var pos = style.backgroundPosition;
+				let w = Math.round(pos.left * widget.w)
+				let h = Math.round(pos.top * widget.h)
+				result += `  background-position: ${w}px ${h}px;\n`
+			} else {
+				result += `  background-position: 0px 0px;\n`
+			}
+			result += `  background-repeat: no-repeat;\n`
+		}
+		return result
 	}
 
 	getKey (key) {
