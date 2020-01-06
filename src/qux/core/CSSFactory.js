@@ -238,54 +238,89 @@ export default class {
 		return name
 	}
 
-	getCSS (widget, screen, position = true) {
+	getCSS (widget, screen) {
 		var result = "";
 
 		var style = widget.style;
 		style = Util.fixAutos(style, widget)
 
 		let selector = this.getSelector(widget, screen);
-		result += selector + ' {\n'
-		result += this.getRawStyle(style, widget);
-
-		if (position) {
-			result += this.getPosition(widget, screen);
-		}
 		if (this['getCSS_' + widget.type]) {
-			result += this['getCSS_' + widget.type](widget.style, widget, selector)
-		}
-		result += '}\n\n'
-	
-		if (widget.hover) {
-			result += selector + ':hover {\n'
-			result += this.getRawStyle(widget.hover, widget);
+			result += this['getCSS_' + widget.type](selector, widget.style, widget, selector)
+		} else {
+			result += selector + ' {\n'
+			result += this.getRawStyle(style, widget);
+			result += this.getPosition(widget, screen);
 			result += '}\n\n'
-		}
+		
+			if (widget.hover) {
+				result += selector + ':hover {\n'
+				result += this.getRawStyle(widget.hover, widget);
+				result += '}\n\n'
+			}
 
-		if (widget.focus) {
-			result += selector + ':focus {\n'
-			result += this.getRawStyle(widget.focus, widget);
-			result += '}\n\n'
-		}
+			if (widget.focus) {
+				result += selector + ':focus {\n'
+				result += this.getRawStyle(widget.focus, widget);
+				result += '}\n\n'
+			}
 
-		if (widget.error) {
-			result += selector + ':invalid {\n'
-			result += this.getRawStyle(widget.error, widget);
-			result += '}\n\n'
+			if (widget.error) {
+				result += selector + ':invalid {\n'
+				result += this.getRawStyle(widget.error, widget);
+				result += '}\n\n'
+			}
 		}
 
 		
 		return result
 	}
 
-
-	getCSS_Icon(style, widget) {
+	getCSS_Repeater(selector, style, widget) {
+		Logger.log(0, 'getCSS_Repeater', widget)
 		let result = ''
-		result += `  font-size:${widget.h}px;\n`
+		result += selector + ' {\n'
+		result += this.getRawStyle(style, widget);
+		result += this.getPosition(widget, screen);
+		result += '}\n\n'
+
+		if (Util.isRepeaterGrid(widget)) {
+			Logger.log(5, 'getCSS_Repeater () > grid', widget)
+			result += selector + ' .qux-repeater-child {\n'
+			result += '  display: inline-block;\n';
+			let width = 100 / widget.props.columns
+			result += `  width: calc(${width}% - ${widget.props.distanceX}px);\n`;
+			result += `  margin-bottom:${widget.props.distanceY}px;\n`;
+			result += `  align-self: stretch;\n`;
+			result += '}\n\n'
+		} else if (Util.isRepeaterWrap(widget)) {
+			Logger.log(0, 'getCSS_Repeater () > wrap', widget)
+			result += selector + ' .qux-repeater-child {\n'
+			result += '  display: inline-block;\n';
+			let width = this.getChildWidth(widget)
+			result += `  width: ${width};\n`;
+			result += `  margin-bottom:${widget.props.distanceY}px;\n`;
+			result += '}\n\n'
+		} else {
+			result += selector + ' .qux-repeater-child {\n'
+			result += `  margin-bottom:${widget.props.distanceY}px;\n`;
+			result += '}\n\n'
+		}
+
 		return result
 	}
 
-	getCSS_Image(widget) {
+	getCSS_Icon(selector, style, widget) {
+		let result = ''
+		result += selector + ' {\n'
+		result += this.getRawStyle(style, widget);
+		result += `  font-size:${widget.h}px;\n`
+		result += this.getPosition(widget, screen);
+		result += '}\n\n'
+		return result
+	}
+
+	XgetCSS_Image(widget) {
 		let result = ''
 		if (Util.hasParentGrid(widget) && !Util.hasParentRowGrid(widget)) {
 			result += `  height:100%;\n`
@@ -305,6 +340,18 @@ export default class {
 			return this.getGridPosition(widget)
 		}
 	}
+
+	getWrappedReapterPosition (widget) {
+		Logger.log(3, 'CSSFactory.getWrappedPosition()' + widget.name)
+		let result = ''
+		result += `  min-height: ${this.getWrappedHeight(widget)};\n`
+		//result += `  width: ${this.getWrappedWidth(widget)};\n`
+		return result
+	}
+
+	/*********************************************************************
+	 * Wrapped Position
+	 *********************************************************************/
 
 	getWrappedPosition (widget) {
 		Logger.log(3, 'CSSFactory.getWrappedPosition()' + widget.name)
@@ -352,34 +399,6 @@ export default class {
 		}
 	}
 
-	getFlexPosition (widget) {
-		Logger.log(5, 'CSSFactory.getFlexPosition()' + widget.name, widget.props.resize)
-		let result = ''
-
-		if (Util.isWrappedContainer(widget)) {
-			result += this.setWrappedContainer(widget)
-		} else if (widget.isRow) {
-			result += '  display: flex;\n'
-			result += '  flex-direction: row;\n'
-			result += '  justify-content: space-between;\n'
-		} else if (widget.isColumn) {
-			result += ' display: flex;\n'
-			result += '  flex-direction: column;\n'
-		} else if (widget.children.length > 0) {
-			result += '  display: flex;\n'
-			result += '  flex-direction: column;\n'
-		}
-
-		if (widget.parent) {
-			result += this.setFlexY(widget, result)
-			result += this.setFlexX(widget, result)
-			if (Util.isLastChild(widget) && !Util.isRepeater(widget.parent)){
-				result += `  margin-bottom: ${this.getFlexBottom(widget)};\n`
-			}
-		}
-		return result
-	}
-
 	setWrappedContainer (widget) {
 		Logger.log(1, 'CSSFactory.setWrappedContainer() ' + widget.name)
 		let result = ''
@@ -393,135 +412,52 @@ export default class {
 		return result
 	}
 
-	setFlexY (widget, result) {
-		Logger.log(5, 'CSSFactory.setFlexY() ' + widget.name, Util.isFixedVertical(widget))
-		result += `  margin-top: ${this.getFlexTop(widget)};\n`
-		/**
-		 * FixedHeigth if set, or if widget.parent.isWrap
-		 */
-		if (!Util.isWrappedContainer(widget)) {
-			if (Util.isFixedVertical(widget) && Util.hasNoChildren(widget) 
-				|| this.hasAllwaysFixedHeight(widget) 
-				|| Util.isWrappedContainer(widget.parent)){
-				result += `  height: ${this.getFlexHeight(widget)};\n`
-			} else {
-				result += `  min-height: ${this.getFlexHeight(widget)};\n`
-			}
-		}
-		return result
-	}
-
-	setFlexX (widget, result) {
-		Logger.log(5, 'CSSFactory.setFlexX() ' + widget.name, Util.isPinnedLeft(widget))
-		
-		if (Util.isPinnedLeft(widget) && Util.isPinnedRight(widget)) {
-			Logger.log(5, 'CSSFactory.setFlexX() > left & right: ' + widget.name)
-
-			/**
-			 * FIXME: This is sooo complex. we should somhow chekc some more stuff
-			 * if pinned left and right, we just set the margins and let the width be auto
-			 */
-			result += `  margin-left: ${this.getPinnedLeft(widget)};\n`
-			if (widget.parent.isRow ){
-				if (!widget.canGrow) {
-					result += `  width: ${this.getFixedWidth(widget)};\n`	
-				} else {
-					result += `  flex-grow: 1;\n`
-				}
-			} else {
-				result += `  margin-right: ${this.getPinnedRight(widget)};\n`
-			}
-			// result += `  width: 100%;\n`
-		} else {
-			result += `  width: ${this.getFlexWidth(widget)};\n`
-			/**
-			 * If pinned right and we are in a row (space-between) we
-			 * just add relative left margin. If we are alone in a row,
-			 * add the calculated left margin. 
-			 */
-			if (Util.isPinnedRight(widget)) {
-				Logger.log(1, 'CSSFactory.setFlexX() > right: ' + widget.name)
-				result += `  margin-right: ${this.getPinnedRight(widget)};\n`
-				if (Util.isSingleChildInRow(widget)) {
-					result += `  margin-left: ${this.getCalcLeft(widget)};\n`
-				} else {
-					result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
-				}
-			} else if (Util.isPinnedLeft(widget)){
-				result += `  margin-left: ${this.getPinnedLeft(widget)};\n`
-				if (!Util.isFixedHorizontal(widget)) {
-					result += `  flex-grow: 1;\n`
-				}
-			} else {
-				result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
-			}
-		}
-		return result
-	}
-	
-	getFlexHeight (widget) {
-		return this.getCorrectedHeight(widget);
-	}
-
-	getFlexTop (widget) {
-		return widget.y + 'px'
-	}
-
-	getFlexBottom (widget) {
-		return this.getPinnedBottom(widget)
-	}
-
-	getFlexWidth (widget) {
-		if (Util.isFixedHorizontal(widget)){
-			return this.getFixedWidth(widget);
-		} else {
-			return this.getResponsiveWidth(widget)
-		}
-	}
-
-	getFixedPosition (widget) {
-		let result = '  position: fixed;\n';
-		if (Util.isFixedHorizontal(widget)){
-			result += `  width: ${this.getFixedWidth(widget)};\n`
-		} else {
-			result += `  width: ${this.getResponsiveWidth(widget)};\n`
-		}
-		if (Util.isPinnedLeft(widget)) {
-			result += `  left: ${this.getPinnedLeft(widget)};\n`
-		} else if (Util.isPinnedRight(widget)) {
-			result += `  right: ${this.getPinnedRight(widget)};\n`
-		} else {
-			result += `  left: ${this.getResponsiveLeft(widget)};\n`
-		}
-		result += `  top: ${widget.y}px;\n`
-		result += `  height: ${this.getCorrectedHeight(widget)};\n`
-		return result
-	}
+	/*********************************************************************
+	 * Grid Position
+	 *********************************************************************/
 
 	getGridPosition (widget) {
 		Logger.log(4, 'CSSFactory.getGridPosition() > ' + widget.name, widget) 
 		let result = ''
 	
+		/**
+		 * First determine how we align the children
+		 */
 		if (widget.grid) {
-			if (Util.isWrappedContainer(widget)) {
-				result += this.setWrappedContainer(widget)
-			} else if (Util.isRowGrid(widget)) {
-				widget.grid.isRow = true
-				result += `  display: flex;\n`
-				result += `  flex-direction: column;\n`
-			} else {
-				result += '  display: grid;\n'
-				result += '  grid-template-columns: ' + this.getGridTracks(widget.w, widget.grid.columns, widget) + ';\n'
-				result += '  grid-template-rows: ' + this.getGridTracks(widget.h, widget.grid.rows, widget) + ';\n'
-			}
+			result = this.getGridChildAlignment(widget)
 		}
 
-		if (widget.parent) {
+		/**
+		 * Second align to parent
+		 */
+		result += this.getGridParentAlign(widget)
+		return result
+	}
+
+	getGridParentAlign (widget) {
+		Logger.log(5, 'CSSFactory.getGridParentAlign() > ' + widget.name, widget) 
+		let result = ''
+
+		if (Util.hasParentRepeaterGrid(widget) || Util.hasParentRepeaterWrap(widget)) {
+			/**
+			 * in a repeater we have a parent element that was 
+			 * aligned by the Grid (qux-repeater-child). We just set the
+			 * width
+			 */
+			result += `  width: 100%;\n`
+			if (Util.isFixedVertical(widget)){
+				result += `  height: ${this.getCorrectedHeight(widget)};\n`
+			} else {
+				result += `  min-height: ${this.getCorrectedHeight(widget)};\n`
+				result += `  height: 100%;\n`
+			}	
+		} else if (widget.parent) {
 			/**
 			 * Check if we have to do a normal flex layout because the grid
 			 * is row (=== 1 columns)
 			 */
-			if (widget.parent.grid && widget.parent.grid.isRow) {	
+			if (widget.parent.grid && widget.parent.grid.isRow) {
+				Logger.log(1, 'CSSFactory.getGridParentAlign() > as row' + widget.name, widget) 
 		
 				if (Util.isPinnedLeft(widget) && Util.isPinnedRight(widget)) {
 
@@ -539,11 +475,16 @@ export default class {
 					}
 					
 				} else if (Util.isPinnedRight(widget)){
-
+					/**
+					 * This is a tricky one. 
+					 */
 					if (Util.isFixedHorizontal(widget)){
 						result += `  width: ${this.getFixedWidth(widget)};\n`
 						result += `  margin-left: ${this.getCalcLeft(widget)};\n`
 					} else {
+						/**
+						 * FIXME: can we use somehow a reposnive calculated left?
+						 */
 						result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
 						result += `  margin-right: ${this.getPinnedRight(widget)};\n`
 					}
@@ -582,7 +523,66 @@ export default class {
 		} else {
 			result += `  min-height: 100%;\n`
 		}
+		return result;
+	}
+
+	getGridChildAlignment (widget) {
+		let result = ''
+		if (Util.isWrappedContainer(widget)) {
+			result += this.setWrappedContainer(widget)
+		} else if (Util.isRepeaterGrid(widget) || Util.isRepeaterWrap(widget)) {
+			result += this.setWrappedContainer(widget)
+		} else if (Util.isRowGrid(widget)) {
+			widget.grid.isRow = true
+			result += `  display: flex;\n`
+			result += `  flex-direction: column;\n`
+		} else {
+			result += '  display: grid;\n'
+			result += '  grid-template-columns: ' + this.getGridTracks(widget.w, widget.grid.columns, widget) + ';\n'
+			result += '  grid-template-rows: ' + this.getGridTracks(widget.h, widget.grid.rows, widget) + ';\n'
+		}
 		return result
+	}
+
+	getGridTracks (total, list, widget) {
+		Logger.log(6, 'CSSFactory.getGridTracks() > ' + widget.name, list)
+		if (list) {
+			let max = Math.max(...list.map(i => i.l))
+			return list.map(i => {
+				if (i.fixed) {
+					return i.l + 'px'
+				}
+				/**
+				 * We might want several autos. This is very sensitive
+				 * to small changes in the editor. Therefore we give a 
+				 * small error marginf
+				 */
+				if (Math.abs(max - i.l) <= this.gridAutoErrorThreshold) { // max === i.l
+					return 'auto'
+				}
+				return Math.round(i.l * 100 / total) + '%'
+			}).join(' ') 
+		}
+	}
+
+	/*********************************************************************
+	 * Position Helpers
+	 *********************************************************************/
+
+	getChildWidth (widget) {
+		if (widget.children) {
+			let maxWidget = {w: 0}
+			widget.children.forEach(child => {
+				if (child.w > maxWidget.w) {
+					maxWidget = child
+				}
+			})
+			if (Util.isFixedHorizontal(maxWidget)) {
+				return this.getFixedWidth(maxWidget)
+			}
+			return this.getResponsiveWidth(maxWidget)
+		}
+		return '20%'
 	}
 
 	getPinnedBottom (widget) {
@@ -674,26 +674,143 @@ export default class {
 		return h + 'px'
 	}
 
+	/*********************************************************************
+	 * Flex Position
+	 *********************************************************************/
 
-	getGridTracks (total, list, widget) {
-		Logger.log(6, 'CSSFactory.getGridTracks() > ' + widget.name, list)
-		if (list) {
-			let max = Math.max(...list.map(i => i.l))
-			return list.map(i => {
-				if (i.fixed) {
-					return i.l + 'px'
-				}
-				/**
-				 * We might want several autos. This is very sensitive
-				 * to small changes in the editor. Therefore we give a 
-				 * small error marginf
-				 */
-				if (Math.abs(max - i.l) <= this.gridAutoErrorThreshold) { // max === i.l
-					return 'auto'
-				}
-				return Math.round(i.l * 100 / total) + '%'
-			}).join(' ') 
+
+	getFlexPosition (widget) {
+		Logger.log(5, 'CSSFactory.getFlexPosition()' + widget.name, widget.props.resize)
+		let result = ''
+
+		if (Util.isWrappedContainer(widget)) {
+			result += this.setWrappedContainer(widget)
+		} else if (widget.isRow) {
+			result += '  display: flex;\n'
+			result += '  flex-direction: row;\n'
+			result += '  justify-content: space-between;\n'
+		} else if (widget.isColumn) {
+			result += ' display: flex;\n'
+			result += '  flex-direction: column;\n'
+		} else if (widget.children.length > 0) {
+			result += '  display: flex;\n'
+			result += '  flex-direction: column;\n'
 		}
+
+		if (widget.parent) {
+			result += this.setFlexY(widget, result)
+			result += this.setFlexX(widget, result)
+			if (Util.isLastChild(widget) && !Util.isRepeater(widget.parent)){
+				result += `  margin-bottom: ${this.getFlexBottom(widget)};\n`
+			}
+		}
+		return result
+	}
+	
+	setFlexY (widget, result) {
+		Logger.log(5, 'CSSFactory.setFlexY() ' + widget.name, Util.isFixedVertical(widget))
+		result += `  margin-top: ${this.getFlexTop(widget)};\n`
+		/**
+		 * FixedHeigth if set, or if widget.parent.isWrap
+		 */
+		if (!Util.isWrappedContainer(widget)) {
+			if (Util.isFixedVertical(widget) && Util.hasNoChildren(widget) 
+				|| this.hasAllwaysFixedHeight(widget) 
+				|| Util.isWrappedContainer(widget.parent)){
+				result += `  height: ${this.getFlexHeight(widget)};\n`
+			} else {
+				result += `  min-height: ${this.getFlexHeight(widget)};\n`
+			}
+		}
+		return result
+	}
+
+
+	setFlexX (widget, result) {
+		Logger.log(5, 'CSSFactory.setFlexX() ' + widget.name, Util.isPinnedLeft(widget))
+		
+		if (Util.isPinnedLeft(widget) && Util.isPinnedRight(widget)) {
+			Logger.log(5, 'CSSFactory.setFlexX() > left & right: ' + widget.name)
+
+			/**
+			 * FIXME: This is sooo complex. we should somhow chekc some more stuff
+			 * if pinned left and right, we just set the margins and let the width be auto
+			 */
+			result += `  margin-left: ${this.getPinnedLeft(widget)};\n`
+			if (widget.parent.isRow ){
+				if (!widget.canGrow) {
+					result += `  width: ${this.getFixedWidth(widget)};\n`	
+				} else {
+					result += `  flex-grow: 1;\n`
+				}
+			} else {
+				result += `  margin-right: ${this.getPinnedRight(widget)};\n`
+			}
+			// result += `  width: 100%;\n`
+		} else {
+			result += `  width: ${this.getFlexWidth(widget)};\n`
+			/**
+			 * If pinned right and we are in a row (space-between) we
+			 * just add relative left margin. If we are alone in a row,
+			 * add the calculated left margin. 
+			 */
+			if (Util.isPinnedRight(widget)) {
+				Logger.log(1, 'CSSFactory.setFlexX() > right: ' + widget.name)
+				result += `  margin-right: ${this.getPinnedRight(widget)};\n`
+				if (Util.isSingleChildInRow(widget)) {
+					result += `  margin-left: ${this.getCalcLeft(widget)};\n`
+				} else {
+					result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
+				}
+			} else if (Util.isPinnedLeft(widget)){
+				result += `  margin-left: ${this.getPinnedLeft(widget)};\n`
+				if (!Util.isFixedHorizontal(widget)) {
+					result += `  flex-grow: 1;\n`
+				}
+			} else {
+				result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
+			}
+		}
+		return result
+	}
+	
+	getFlexHeight (widget) {
+		return this.getCorrectedHeight(widget);
+	}
+
+	getFlexTop (widget) {
+		return widget.y + 'px'
+	}
+
+	getFlexBottom (widget) {
+		return this.getPinnedBottom(widget)
+	}
+
+	getFlexWidth (widget) {
+		if (Util.isFixedHorizontal(widget)){
+			return this.getFixedWidth(widget);
+		} else {
+			return this.getResponsiveWidth(widget)
+		}
+	}
+
+	getFixedPosition (widget) {
+		let result = '  position: fixed;\n';
+		if (Util.isFixedHorizontal(widget)){
+			result += `  width: ${this.getFixedWidth(widget)};\n`
+		} else {
+			result += `  width: ${this.getResponsiveWidth(widget)};\n`
+		}
+		if (Util.isPinnedLeft(widget)) {
+			result += `  left: ${this.getPinnedLeft(widget)};\n`
+		} else if (Util.isPinnedRight(widget)) {
+			result += `  right: ${this.getPinnedRight(widget)};\n`
+		} else {
+			result += `  left: ${this.getResponsiveLeft(widget)};\n`
+		}
+		result += `  top: ${widget.y}px;\n`
+		result += `  height: ${this.getCorrectedHeight(widget)};\n`
+		return result
 	}
 
 	getAbsolutePosition (widget) {

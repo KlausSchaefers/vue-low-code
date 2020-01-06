@@ -4,35 +4,54 @@
 </template>
 <script>
 import Logger from '../core/Logger'
+import * as Util from '../core/ExportUtil'
 
 export default {
   name: 'Event',
   methods: {
     onClick (element, e) {
-          if (element.action) {
-              if (element.action.type === 'back') {
-                  Logger.log(1, 'QUX.onClick() > Go back')
-                  this.$router.go(-1)
-              }
-              if (element.action.type === 'js' && element.action.callbacks) {
-                  let callback = element.action.callbacks.find(c => c.event === 'click')
-                  if (callback) {
-                      Logger.log(3, 'QUX.onClick() > callback', callback)
-                      if (this.$parent) {
-                          if (this.$parent[callback.method]) {
-                              let func = this.$parent[callback.method]
-                              if (func instanceof Function) {
-                                  func(this.value, element, e)
-                              } else {
-                                   console.warn('QUX.onClick() > Callback is not method ', callback)
-                              }
-                          } else {
-                              console.warn('QUX.onClick() > no method in $parent with name ', callback)
-                          }
-                      }
-                  }
-              }
-          }
+        
+        if (element.lines) {
+            let line = Util.getClickLine(element)
+            if (line) {
+                let box = Util.getBoxById(line.to, this.model)
+                if (box.type === 'Screen') {
+                    let prefix = ''
+                    if (this.config && this.config.router && this.config.router.prefix) {
+                        prefix = this.config.router.prefix + '/'
+                    }
+                    let url = `#/${prefix}${box.name}.html`
+                    location.hash = url
+                }
+            }
+        }
+
+        if (element.action) {
+            if (element.action.type === 'back') {
+                Logger.log(2, 'QUX.onClick() > Go back')
+                this.$router.go(-1)
+                return
+            }
+        }
+        if (element.props && element.props.callbacks) {
+            let callback = element.props.callbacks.click
+            if (callback) {
+                Logger.log(2, 'QUX.onClick() > callback', callback)
+                if (this.$parent) {
+                    if (this.$parent[callback]) {
+                        let func = this.$parent[callback]
+                        if (func instanceof Function) {
+                            func(this.value, element, e)
+                            return;
+                        } else {
+                            console.warn('QUX.onClick() > Callback is not method ', callback)
+                        }
+                    } else {
+                        console.warn('QUX.onClick() > no method in $parent with name ', callback)
+                    }
+                }
+            }
+        }
     },
     onChange (e) {
         this.$emit('qChange', this.element, e)

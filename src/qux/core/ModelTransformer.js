@@ -170,16 +170,16 @@ export default class ModelTransformer {
     setCSSClassNames (parent, screenName) {
         let name = parent.name
         let cssSelector = `.${name.replace(/\s+/g, '_')}`
-        let cssClass = `${name.replace(/\s+/g, '_')}`
+        parent.cssClass = `${name.replace(/\s+/g, '_')}`
         if (parent.parent) {
             cssSelector = `.${screenName.replace(/\s+/g, '_')} ${cssSelector}`
-            cssClass = `${screenName.replace(/\s+/g, '_')} ${cssClass}`
+            // cssClass = `${screenName.replace(/\s+/g, '_')} ${cssClass}`
         } else {
             cssSelector = `.qux-screen${cssSelector}`
-            cssClass = `qux-screen ${cssClass}`
+            // cssClass = `qux-screen ${cssClass}`
         }
         parent.cssSelector = cssSelector
-        parent.cssClass = cssClass
+       
         if (parent && parent.children) {
             parent.children.forEach(c => {
                 this.setCSSClassNames(c, screenName)
@@ -301,7 +301,7 @@ export default class ModelTransformer {
 
     setFixedGirdRowsAndColumns (parent, columns, rows) {
          /**
-          * Set fixed. For ech child check if the 
+          * Set fixed. For each child check if the 
           * 1) We have fixed Vertical or Horizontal
           * 2) If pinned. e.g. if pinned right, all
           *    columns < e.v must be fixed
@@ -438,9 +438,7 @@ export default class ModelTransformer {
                 }
                 return a.y - b.y
             })
-
-            console.debug(nodes.map(n => n.name))
-           
+   
             /**
              * We take as the position, the offset of the first element
              * Then we add half as padding and the rest a masgin for 
@@ -806,16 +804,21 @@ export default class ModelTransformer {
                             up: false,
                             left: false,
                             down: false,
-                            fixedHorizontal: false,
+                            fixedHorizontal: Util.allChildrenAreFixedHorizontal(children),
                             fixedVertical: false
                         }
                     }
                 }
+                /**
+                 * Position the children in the container
+                 */
                 children.forEach((c) => {
                     c.x = c.x - container.x,
                     c.y = c.y - container.y,
                     c.parent = container
                 })
+                
+
                 newChildren.push(container)
             }
             parent.children = newChildren

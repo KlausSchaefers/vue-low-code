@@ -143,6 +143,51 @@ export function hasParentRowGrid(e) {
     return false;
 }
 
+export function isRepeaterWrap (e) {
+    if (e.type === 'Repeater' && e.props.layout == 'grid' && e.props.auto === true) {
+        return true
+    }
+    return false
+}
+
+export function hasParentRepeaterWrap (e) {
+    if (e.parent) {
+        return this.isRepeaterWrap(e.parent)
+    }
+    return false
+}
+
+export function isRepeaterGrid (e) {
+    if (e.type === 'Repeater' && e.props.layout == 'grid' && e.props.auto === false) {
+        return true
+    }
+    return false
+}
+
+export function hasParentRepeaterGrid (e) {
+    if (e.parent) {
+        return this.isRepeaterGrid(e.parent)
+    }
+    return false
+}
+
+export function getClickLine(element) {
+    if (element.lines) {
+        return element.lines.find(l => l.event === 'click')
+    }
+    return null
+}
+
+
+export function allChildrenAreFixedHorizontal(children) {
+    let fixedChildren = children.filter(f => {
+        return f.props && f.props.resize && f.props.resize.fixedHorizontal
+    })
+    return fixedChildren.length === children.length
+}
+
+
+
 export function getImages (app) {
     let images = []
     let urls = {}
