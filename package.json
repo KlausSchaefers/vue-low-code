@@ -1,6 +1,6 @@
 {
   "name": "qux-lowcode",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Quant-UX Low Code - Smart Renderer for design handoffs",
   "main": "./dist/index.js",
   "scripts": {

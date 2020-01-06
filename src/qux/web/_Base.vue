@@ -57,7 +57,8 @@ export default {
       hasAction () {
         return this.element &&
               (this.element.actions && Object.values(this.element.actions).length > 0) || 
-              (this.element.lines && this.element.lines.length > 0)
+              (this.element.lines && this.element.lines.length > 0) ||
+              (this.element.props.callbacks && this.element.props.callbacks.click)
       },
       label () {
           if (this.element && this.element.props) {
