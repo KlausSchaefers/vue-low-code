@@ -164,7 +164,7 @@ you have to enable the Beta features. To do so:
 
 1. Login at http://www.quant-ux.com
 2. Open the prototype
-3. Click on the menu and select settings
+3. Click on the menu and select "Settings"
 4. Select "Enable Beta Features"
 5. In the upper right corner you can now toggle between "Design" and "Data & Code" view
 
