@@ -1,5 +1,5 @@
 # QUX-LowCode
-Quant-UX is an OpenSource UX tool for the design and test of user interfaces. The QUX-LowCode package
+Quant-UX (http://www.quant-ux.com) is an OpenSource UX tool for the design and test of user interfaces. The QUX-LowCode package
 provides a new approach to the hand-off problem (See details below). The core of the solution is the QUX component,
 which renders the visual design and allows the developers to focus on business logic, without restricting the developers' freedom. The component enables:
 
@@ -162,10 +162,11 @@ import '@mdi/font/css/materialdesignicons.css'
 You can define the data binding and the callbacks in the normal Quant-UX designer. Before you start,
 you have to enable the Beta features. To do so:
 
-1. Open the prototype
-2. Click on the menu and select settings
-3. Select "Enable Beta Features"
-4. In the upper right corner you can now toggle between "Design" and "Data & Code" view
+1. Login at http://www.quant-ux.com
+2. Open the prototype
+3. Click on the menu and select settings
+4. Select "Enable Beta Features"
+5. In the upper right corner you can now toggle between "Design" and "Data & Code" view
 
 ![Open the settings and tick the beta feature checkbox](assets/Settings.png "Enable Beta features")
 
@@ -176,7 +177,7 @@ To set the code properties perform the following steps:
 3. Select a widget. 
 4. In the properties panel you can now define method name to be called.
 5. If the widet supports data binding, you can also configure the data binding variable 
-here. Please note, that Quunt-UX supports JSON Path, so a variable name can be "person.name"
+here. Please note, that Quant-UX supports JSON Path, so a variable name can be "person.name"
 
 
 ![Open the settings and tick the beta feature checkbox](assets/Code.png "Enable Beta features")
