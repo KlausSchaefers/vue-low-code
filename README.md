@@ -12,6 +12,10 @@ Quant-UX is an OpenSource low code environment that enables the visual developme
 ## The problem
 Designer and developers use different tools that do not allow a clean handoff between the two worlds. As a result, a UI design has to be completely implemented from scratch. Quant-UX addresses this issue by allowing the direct inclusion of the design artefacts into a VUE application without restricting the developers freedom. The rendering of the visual design is done by a dedicated component (QUX), that supports responsive rendering, data- and method-binding and offers a rich set of extension points to embed custom code into the designs. 
 
+## Envisioned workflow
+
+![alt text](assets/Workflow.png "Logo Title Text 1")
+
 
 # How to use qux-lowcode
 

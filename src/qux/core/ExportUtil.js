@@ -152,7 +152,7 @@ export function isRepeaterWrap (e) {
 
 export function hasParentRepeaterWrap (e) {
     if (e.parent) {
-        return this.isRepeaterWrap(e.parent)
+        return isRepeaterWrap(e.parent)
     }
     return false
 }
@@ -166,7 +166,7 @@ export function isRepeaterGrid (e) {
 
 export function hasParentRepeaterGrid (e) {
     if (e.parent) {
-        return this.isRepeaterGrid(e.parent)
+        return isRepeaterGrid(e.parent)
     }
     return false
 }
@@ -329,27 +329,6 @@ export function getOrderedWidgets (widgets) {
     return result;
 }
 
-/**
- * Sort Screen children to render them in the correct order!
- *
- * Pass the children as parameter
- */
-export function sortChildren (children) {
-    var result = [];
-    for (var i = 0; i < children.length; i++) {
-        var widgetID = children[i];
-        var widget = this.model.widgets[widgetID];
-        if (widget) {
-            fixMissingZValue(widget);
-            result.push(widget);
-        }
-    }
-
-    sortWidgetList(result);
-
-    //console.debug("sortChildren > ", result);
-    return result;
-}
 
 /**
  * This method is super important for the correct rendering!
