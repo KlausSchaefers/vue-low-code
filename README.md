@@ -157,7 +157,7 @@ Afterwards import the icons in the App.vue
 import '@mdi/font/css/materialdesignicons.css'
 ```
 
-# Define data binding and callback in Quant-UX.
+# Define data binding and callbacks in Quant-UX.
 
 You can define the data binding and the callbacks in the normal Quant-UX designer. Before you start,
 you have to enable the Beta features. To do so:
@@ -174,7 +174,10 @@ To set the code properties perform the following steps:
 1. Click on "Data & Code" in the upper right corner
 2. The canvas will turn gray now.
 3. Select a widget. 
-4. In the properties panel you can now define the data binding or set a method name to be called.
+4. In the properties panel you can now define method name to be called.
+5. If the widet supports data binding, you can also configure the data binding variable 
+here. Please note, that Quunt-UX supports JSON Path, so a variable name can be "person.name"
+
 
 ![Open the settings and tick the beta feature checkbox](assets/Code.png "Enable Beta features")
 
@@ -188,6 +191,7 @@ https://github.com/KlausSchaefers/qux-low-code-example
 npm install
 ```
 
+Build:
 ```
 npx bili --bundle-node-modules
 ```
