@@ -1,25 +1,43 @@
-# qux-low-code
-Quant-UX is an OpenSource low code environment that enables the visual development of VUE.js based user interfaces. Quant-UX enables:
+# QUX-LowCode
+Quant-UX is an OpenSource UX tool for the design and test of user interfaces. The QUX-LowCode package
+provides a new approach to the hand-off problem (See details below). The core of the solution is the QUX component,
+which renders the visual design and allows the developers to focus on business logic, without restricting the developers' freedom. The component enables:
 
-1. Clear seperation of UI and business logic
-2. Developers do not have to worry about the design and animations
-3. Designers can use powerfull visual design tool
-3. Easy extension with custom callback functions
-4. Full support of VUE data binding.
-5. Extension with custom components
-6. Rich library of stylable components.
+1. Zero Code rendering of visual design and animations
+2. Clear separation of UI and business logic
+3. Developers can focus on code
+4. Developers can use the tools and frameworks of their choice.
+5. Designers can use the powerful visual design tool
+6. Easy extension with custom callback functions
+7. Full support of VUE data binding.
+8. Extension with custom components
+9. Extension with custom CSS
+10. Rich library of stylable components.
 
-## The problem
-Designer and developers use different tools that do not allow a clean handoff between the two worlds. As a result, a UI design has to be completely implemented from scratch. Quant-UX addresses this issue by allowing the direct inclusion of the design artefacts into a VUE application without restricting the developers freedom. The rendering of the visual design is done by a dedicated component (QUX), that supports responsive rendering, data- and method-binding and offers a rich set of extension points to embed custom code into the designs. 
+## The handoff problem
+Designers and developers use different tools to build user interfaces. Once a designer has completed the interface design, he hands-off the design to the developer, usually in the form of an image and some specs. 
+The developer has now to rebuild the entire design using the programming language of his choice. 
+Although this process is proven, it is rather slow and not very efficient. In particular later changes in 
+the design makes it hard to automize this work through code generation tools.
 
 ## Envisioned workflow
 
-![alt text](assets/Workflow.png "Logo Title Text 1")
+We envision the following workflow to enable painless collaboration between designers and developers:
+
+![The QUX low code workflow](assets/Workflow.png "QUX LowCode workflow")
+
+1. The designer creates an initial design in Quant-UX
+2. The developer adds data binding and method callbacks in Quant-UX using a dedicated view.
+3. The developer sets up a new project (Vue.js for now) and includes the QUX component
+4. The developer loads the design from Quant-UX and creates the required methods and fills them with business logic.
+5. The QUX component renders the design and invokes the callbacks in clicks.
+6. Changes in the design are transparent to the developer, he just reloads the design from Quant-UX.
 
 
 # How to use qux-lowcode
 
-First, you have to install the QUX-LowCode  package via NPM
+First, you have to install the QUX-LowCode package via NPM
+
 ```
 npm i qux-lowcode
 ```
@@ -125,7 +143,42 @@ myMethod (value, element, e) {
 }
 ```
 
-## Examples
+## MDI Icons
+
+If you are using the Quant-UX icons components, you have to install the mdi-font package.
+
+```
+npm install @mdi/font
+```
+
+Afterwards import the icons in the App.vue
+
+```
+import '@mdi/font/css/materialdesignicons.css'
+```
+
+# Define data binding and callback in Quant-UX.
+
+You can define the data binding and the callbacks in the normal Quant-UX designer. Before you start,
+you have to enable the Beta features. To do so:
+
+1. Open the prototype
+2. Click on the menu and select settings
+3. Select "Enable Beta Features"
+4. In the upper right corner you can now toggle between "Design" and "Data & Code" view
+
+![Open the settings and tick the beta feature checkbox](assets/Settings.png "Enable Beta features")
+
+To set the code properties perform the following steps:
+
+1. Click on "Data & Code" in the upper right corner
+2. The canvas will turn gray now.
+3. Select a widget. 
+4. In the properties panel you can now define the data binding or set a method name to be called.
+
+![Open the settings and tick the beta feature checkbox](assets/Code.png "Enable Beta features")
+
+# Examples
 https://github.com/KlausSchaefers/qux-low-code-example
 
 
