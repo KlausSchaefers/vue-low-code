@@ -1,3 +1,4 @@
+import Logger from "./Logger";
 
 export function getFileName(name) {
     return name.replace(/\s/g, '_');
@@ -248,6 +249,7 @@ export function removeCommonPath (a, b) {
 
 
 
+
 /**
  * Generates the css for a given screen. Includes the styles for the screen and all
  * its children. Certain elements, like common, might be excluded.
@@ -421,6 +423,17 @@ export function isContainedInBox (obj, parent) {
     return false;
 }
 
+export function getBoundingBoxByIds (ids, model) {
+    let children = ids.map(id => {
+        if (model.widgets && model.widgets[id]) {
+            return model.widgets[id]
+        } else {
+            Logger.log(1, 'ExportUtil.getBoundingBoxByIds() > No child with id', id)
+        }
+        return null
+    }).filter(child => child !== null)
+    return getBoundingBoxByBoxes(children)
+}
 
 export function getBoundingBoxByBoxes (boxes) {
     var result = { x: 100000000, y: 100000000, w: 0, h: 0 };

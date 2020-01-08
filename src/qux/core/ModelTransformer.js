@@ -43,6 +43,11 @@ export default class ModelTransformer {
         this.model = Util.createInheritedModel(this.model)
 
         /**
+         * Flatten all groups
+         */
+        this.model = this.flattenGroups(this.model)
+
+        /**
          * FIXME: fix doubles names
          */
 
@@ -74,47 +79,35 @@ export default class ModelTransformer {
             let screen = this.model.screens[screenID]
 
             /**
-             * First we build a hirachical parent child relation.
+             * First we build a hierachical parent child relation.
              */
-            screen = this.transformScreenToTree(screen)
+            screen = this.transformScreenToTree(screen, this.model)
 
             /**
              * If we do not do a responsive layout we have to add rows
              * and columns to make 'old school' layout.
              */
             if (!this.isGrid) {
-                /**
-                 * now check for every node in the tree if
-                 * we have a single row and add containers
-                 */
                 screen = this.addRows(screen)
                 screen = this.addRowContainer(screen)
 
-                /**
-                 * now check in every containering box (parent != null)
-                 * if we have columns. If so, add also a container
-                 */
                 screen = this.addColumns(screen)
                 screen = this.addColumnsContainer(screen)
 
-                /**
-                 * cleanup single containers. It can happen
-                 * that a row gets one column...
-                 */
                 screen = this.cleanUpContainer(screen)
-
-                /**
-                 * Order elements and set relative positions
-                 */
                 screen = this.setOrderAndRelativePositons(screen, relative)
 
                 this.fixParents(screen)
 
             } else {
+                screen = this.addGroupCntr(screen)
+
                 screen = this.addRows(screen)
                 screen = this.addRowContainer(screen)
+
                 screen = this.setOrderAndRelativePositons(screen, false)
                 this.fixParents(screen)
+
                 screen = this.addGrid(screen)
             }
             
@@ -191,7 +184,6 @@ export default class ModelTransformer {
             })
         }
     }
-
 
     getWidgetType (element) {
         if (element.children && element.children.length > 0) {
@@ -636,6 +628,74 @@ export default class ModelTransformer {
         return parent
     }
 
+    addGroupCntr (parent) {
+        let nodes = parent.children
+    
+        let groups = {}
+        let newChildren = []
+        nodes.forEach(n => {
+            if (n.group) {
+                let groupId = n.group.id
+                if (!groups[groupId]) {
+                    Logger.log(3, "ModelTransformer.addGroupCntr() > Create: " + n.group.name, n.group.id)
+                    let groupCntr = {
+                        id: n.group.id,
+                        name: n.group.name,
+                        isGroup: true,
+                        children: [],
+                        type: 'Box',
+                        parent: parent,
+                        style: {},
+                        props: {
+                            resize: {
+                                right: false,
+                                up: false,
+                                left: false,
+                                down: false,
+                                fixedHorizontal: false,
+                                fixedVertical: false
+                            }
+                        }
+                    }
+                    groups[groupId] = groupCntr
+                    newChildren.push(groupCntr)
+                }
+                groups[groupId].children.push(n)
+            } else {
+                newChildren.push(n)
+            }
+        })
+
+
+        /**
+         * Calculate Bounding boxes
+         */
+        Object.values(groups).forEach(group => {
+            let children = group.children
+            let boundingBox = Util.getBoundingBoxByBoxes(children)
+            group.x = boundingBox.x
+            group.y = boundingBox.y
+            group.w = boundingBox.w
+            group.h = boundingBox.h
+            
+            children.forEach(child => {
+                child.x = child.x - boundingBox.x
+                child.y = child.y - boundingBox.y
+            })
+        })
+        parent.children = newChildren
+
+        /**
+         * Go down recursive
+         */
+        nodes.forEach(a => {
+            if (a.children && a.children.length > 0 ){
+                this.addGroupCntr(a)
+            }
+        })
+        return parent
+    }
+
     addColumnsContainer (parent) {
         let nodes = parent.children
 
@@ -781,6 +841,8 @@ export default class ModelTransformer {
 
         /**
          * For each row create a container and reposition the children
+         * 
+         * FIXME: For groups we should not need to add a now row?
          */
         if (!Util.isWrappedContainer(parent)) {
             for (let row in rows) {
@@ -804,6 +866,9 @@ export default class ModelTransformer {
                             up: false,
                             left: false,
                             down: false,
+                            /**
+                             * check of all children are fixed width. Then we set this one too.
+                             */
                             fixedHorizontal: Util.allChildrenAreFixedHorizontal(children),
                             fixedVertical: false
                         }
@@ -897,9 +962,8 @@ export default class ModelTransformer {
 
     /**
      * Transforms and screen into a hiearchical presentation. return the root node.
-     * @param {MATCScreen} screen
      */
-    transformScreenToTree(screen) {
+    transformScreenToTree(screen, model) {
         let result = this.clone(screen)
         delete result.children;
         delete result.has;
@@ -925,6 +989,11 @@ export default class ModelTransformer {
             let element = this.clone(widget);
             element.children = []
             delete element.has
+
+            let group = Util.getTopParentGroup(widget.id, model)
+            if (group) {
+                element.group = group
+            }
 
             if (widget.style.fixed) {
                 element.x = widget.x - screen.x
@@ -958,6 +1027,47 @@ export default class ModelTransformer {
             }
         })
         return result;
+    }
+
+    flattenGroups (model) {
+        let toDelete = []
+
+        if (model.groups) {
+            /**
+             * Check for each  group if it is a child group.
+             * If so, pull up children to top, and remove it
+             */
+            for (let id in model.groups) {
+                let group = model.groups[id];
+                let parentGroup = Util.getTopParentGroup(id, model)
+                if (parentGroup && parentGroup.id !== group.id) {
+                    toDelete.push(group.id)
+                    let children = group.children
+                    children.forEach(childId => {
+                        if (parentGroup.children.indexOf(childId) < 0) {
+                            parentGroup.children.push(childId)
+                        }
+                    })
+                    Logger.log(2, "ModelTransformer.flattenGroups() > merge " + group.name, parentGroup.name)
+                }
+            }
+
+            /**
+             * Remove child groups
+             */
+            toDelete.forEach(id => {
+                delete model.groups[id]
+            })     
+            
+            /**
+             * remove subgroups
+             */
+            for (let id in model.groups) {
+                let group = model.groups[id];
+                group.groups = []
+            }
+        }
+        return model
     }
 
 

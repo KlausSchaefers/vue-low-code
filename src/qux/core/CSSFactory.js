@@ -457,7 +457,7 @@ export default class {
 			 * is row (=== 1 columns)
 			 */
 			if (widget.parent.grid && widget.parent.grid.isRow) {
-				Logger.log(1, 'CSSFactory.getGridParentAlign() > as row' + widget.name, widget) 
+				Logger.log(5, 'CSSFactory.getGridParentAlign() > as row' + widget.name, widget) 
 		
 				if (Util.isPinnedLeft(widget) && Util.isPinnedRight(widget)) {
 
@@ -483,7 +483,7 @@ export default class {
 						result += `  margin-left: ${this.getCalcLeft(widget)};\n`
 					} else {
 						/**
-						 * FIXME: can we use somehow a reposnive calculated left?
+						 * TODO: can we use somehow a reposnive calculated left?
 						 */
 						result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
 						result += `  margin-right: ${this.getPinnedRight(widget)};\n`

@@ -50,7 +50,6 @@ export default {
   name: 'QUX',
   props: {
       'app': {
-        type: Object
       },
       'screen': {
           type: String
@@ -77,6 +76,9 @@ export default {
       return {
         server: 'https://quant-ux.com',
         model: null,
+        mobileModel: null,
+        tabletModel: null,
+        desktoModel: null,
         selectedScreenId: null,
         msg: 'Loading...',
         mergedConfig: {
@@ -91,7 +93,21 @@ export default {
                 key: 'screenName',
                 prefix: ''
             },
-            imageFolder: '/public/img'
+            imageFolder: '/public/img',
+            responsive: {
+                mobile: {
+                    min: 0,
+                    max: 400
+                },
+                tablet: {
+                    min: 401,
+                    max: 1000
+                },
+                desktop: {
+                    min: 1201,
+                    max: 1000000
+                }
+            }
         }
       }
   },
@@ -104,20 +120,21 @@ export default {
               return tree
           }
           return {
-              screens: []
+            screens: []
           }
       },
       currentScreen () {
-          if (this.selectedScreenId) {
+        if (this.selectedScreenId) {
             let screen = this.treeModel.screens.find(screen => screen.id === this.selectedScreenId)
-            return screen
-          } else {
-            let screen = this.treeModel.screens.find(screen => screen.props.start === true)
-            if (!screen) {
-                screen = this.treeModel.screens[0]
+            if (screen) {
+                return screen
             }
-            return screen
-          }
+        }  
+        let screen = this.treeModel.screens.find(screen => screen.props.start === true)
+        if (!screen) {
+            screen = this.treeModel.screens[0]
+        }
+        return screen
       },
       imagePrefix () {
           if (this.debug) {
@@ -139,15 +156,44 @@ export default {
         css = css.join('\n')
         CSSWriter.write(css)
     },
-    setApp (app) {
-        this.model = app
+    async setApp (app) {
+        if (app.substring) {
+            let model = await this.loadAppByKey(app)
+            this.model = model
+        } else if (app.mobile || app.desktop) {
+            Logger.log(1, 'QUX.setApp() > reponsive', app)
+            if (app.mobile) {
+                if (app.mobile.substring) {
+                    this.mobileModel = await this.loadAppByKey(app.mobile)
+                } else {
+                    this.mobileModel = app.mobile
+                }
+            }
+            if (app.tablet) {
+                if (app.tablet.substring) {
+                    this.tabletModel = await this.loadAppByKey(app.tablet)
+                } else {
+                    this.tabletModel = app.tablet
+                }
+            } 
+            if (app.desktop) {
+                if (app.desktop.substring) {
+                    this.desktoModel = await this.loadAppByKey(app.desktop)
+                } else {
+                    this.desktoModel = app.desktop
+                }
+            }
+            this.onResize()
+        } else {
+            this.model = app
+        }
     },
     async loadAppByKey (key) {
+        Logger.log(1, 'QUX.setApp() > loadAppByKey', key)
         let url = `${this.server}/rest/invitation/${key}/app.json`
         const response = await fetch(url);
         if (response.status === 200) {
-            const result = await response.json();
-            this.setApp(result)
+            return await response.json();
         } else {
             this.msg = 'The debug id is wrong!'
         }
@@ -201,6 +247,29 @@ export default {
         Vue.component('qTextBox', TextBox)
         Vue.component('qRepeater', Repeater)
         Vue.component('qImage', Image)
+    },
+    initReziseListener () {
+        window.addEventListener("resize", this.onResize);
+    },
+    onResize () {
+        let w = window.outerWidth
+        let conf = this.mergedConfig.responsive
+        if (w < conf.mobile.max && this.mobileModel) {
+            Logger.log(2, 'QUX.onResize > exit mobile', w)
+            this.model = this.mobileModel
+            return
+        }
+        if (w < conf.tablet.max && this.tabletModel) {
+            Logger.log(2, 'QUX.onResize > exit tablet', w)
+            this.model = this.tabletModel
+            return
+        }
+        if (this.desktoModel) {
+            Logger.log(2, 'QUX.onResize > exit desktop', w)
+            this.model = this.desktoModel
+            return
+        }
+        Logger.warn('QUX.onResize > No model for ', w)
     }
   },
   watch: {
@@ -215,6 +284,11 @@ export default {
     'value' (v) {
         Logger.log(3, 'QUX.watch(value) > enter', v)
         this.value = v
+    },
+    'app' (v) {
+        Logger.log(3, 'QUX.watch(app) > enter', v)
+        this.app = v
+        this.setApp(this.app)
     }
   },
   async mounted () {
@@ -224,9 +298,10 @@ export default {
           this.setConfig(this.config)
       }
       if (this.app) {
-          this.setApp(this.app)
+          await this.setApp(this.app)
       }
       if (this.debug) {
+          console.warn('QUX > debug propertz is decrecated. Use "app" instead.')
           await this.loadAppByKey(this.debug)
       }
       if (this.screen) {
@@ -234,9 +309,10 @@ export default {
       } else {
         this.setScreenByRouter()
       }
+      this.initReziseListener()
   },
   beforeDestroy () {
-      // destroy the css
+      window.removeEventListener("resize", this.onResize);
   }
 }
 </script>

@@ -1,3 +1,4 @@
+import Logger from './Logger'
 class CSSWriter {
 
     constructor () {
@@ -7,6 +8,7 @@ class CSSWriter {
     write (css) {
         let head = document.head || document.getElementsByTagName('head')[0];
         if (this.styleElement) {
+            Logger.log(1, 'CSSWriter.write() > Clean up old')
             head.removeChild(this.styleElement)
         }
   

@@ -59,16 +59,22 @@ to the component, so it knows what to render. You can either pass a **javascrit 
 <QUX :app="app"/>
 ```
 
-```
-<QUX :debug="sharekey"/>
-```
 
-You can optain the share key from the http://quant-ux.com website by clicking share in the canvas menu. In general the share key is best for development. Updates in Quant-UX will be immediatly visible after a page reload. However, for production you should pass an app
-object. You can download the app json with the following command:
+You can optain the share key from the http://quant-ux.com website by clicking share in the canvas menu. In general the 
+share key is best for development. Updates in Quant-UX will be immediatly visible after a page reload. However, for production you should pass an app object. You can download the app json with the quant-ux command line interface:
 
 ```
-tbd
+npm install -g quant-ux-cli
 ```
+
+Now you can call quant-ux on the command line. Please pass the **share key** and selct download. The json file will be loaded and
+all images will be stored in the public folder
+
+```
+quant-ux
+```
+
+
 
 Please note that home component should be wrapped by a router-view, otherwise navigation will not work. If you use VUE-CLI to bootrap the project, everything will be configured out of the box.
 
@@ -179,8 +185,31 @@ To set the code properties perform the following steps:
 5. If the widet supports data binding, you can also configure the data binding variable 
 here. Please note, that Quant-UX supports JSON Path, so a variable name can be "person.name"
 
-
 ![Open the settings and tick the beta feature checkbox](assets/Code.png "Enable Beta features")
+
+# Reponsive Rendering for different devices types
+
+The QUX allows you to specify for each device type a different app. By doing this, you have to complete freedom
+to design for each device type, without worrying too much about the responsive behavior. Also, this approahc allows
+you to provide completly different navigation patters, e.g. a hamburger menu on mobile and a central navbar on desktop.
+
+To enable the responsive behavior do:
+
+```
+<QUX :app="apps"/>
+
+...
+let apps = {
+    mobile: <key or object>,
+    tablet: <key or object>
+    desktop: <key or object>
+}
+
+```
+
+You can pass weather the **share key** or the downloaded **app json**. Again, the share key is great for development, but
+for production you should download the artifacts.
+
 
 # Examples
 https://github.com/KlausSchaefers/qux-low-code-example
