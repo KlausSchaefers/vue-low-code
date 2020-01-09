@@ -31,7 +31,7 @@ export default {
           let line = this.element.lines.find(l => this.isClick(l))
           if (line) {
             let box = Util.getBoxById(line.to, this.model)
-            if (box.type === 'Screen') {
+            if (box.type === 'Screen' && !box.style.overlay) {
              return true
             }
           }

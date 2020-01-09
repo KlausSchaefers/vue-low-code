@@ -120,9 +120,9 @@ export default class ModelTransformer {
             screen.x = 0
             screen.y = 0
             
-            this.setWidgetTypes(screen)
             this.setCSSClassNames(screen, screen.name)
 
+            this.setWidgetTypes(screen)
 
             result.screens.push(screen)
         }
@@ -186,6 +186,27 @@ export default class ModelTransformer {
     }
 
     getWidgetType (element) {
+        // check if an overwrite matches
+        if (this.config.components) {
+            let matches = this.config.components.filter(o => {
+                if (o.qType) { 
+                    return o.type === element.type
+                }
+                if (o.cssSelector) {
+                    return element.cssSelector === o.cssSelector
+                }
+            })
+            if (matches.length > 0) {
+                if (matches.length === 1) {
+                    element.isCustomComponent = true
+                    let match = matches[0]
+                    return match.type
+                } else {
+                    Logger.warn('ModelTRansformer.getWidgetType() > Too many matches for', element)
+                }
+            }
+        }
+
         if (element.children && element.children.length > 0) {
             if (element.type === 'Repeater') {
                 return 'qRepeater'
@@ -240,14 +261,17 @@ export default class ModelTransformer {
                         }
                     })
                 })
+
             }
         }
+
         
         if (parent.children && parent.children.length > 0) {
             parent.children.forEach(c => {
                 this.addGridToElements(c)
             })
         }
+
         return parent
     }
 
@@ -413,6 +437,7 @@ export default class ModelTransformer {
 
 
     setOrderAndRelativePositons (parent, relative) {
+        // Logger.log(1, 'ModelTransformer.setOrderAndRelativePositons() > enter', parent.name)
         /**
          * FIXME: If we do not force rows, the parent element
          * might no sort correcty
@@ -455,6 +480,7 @@ export default class ModelTransformer {
             
 
         } else if (parent.isRow){
+            Logger.log(1, 'ModelTransformer.setOrderAndRelativePositons() > Row', parent.name)
             /**
              * In a row the elements are rendered form left to right
              */
@@ -483,6 +509,8 @@ export default class ModelTransformer {
                 }
                 // console.debug('absX', n.name, n.x, n.absX)
             })
+
+
             /**
              * Update responsive propeties in rows
              */
@@ -506,6 +534,7 @@ export default class ModelTransformer {
            
             
         } else {
+            Logger.log(5, 'ModelTransformer.setOrderAndRelativePositons() > Column', parent.name)
             /**
              * In a column, elements are rendered top to down
              */

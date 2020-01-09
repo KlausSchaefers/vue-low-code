@@ -149,6 +149,38 @@ myMethod (value, element, e) {
 }
 ```
 
+
+## Custom components and rendering
+
+Sometimes you want to render a certain part of the UI by your self, or replace existing widgets with custom implementations. 
+You can do this by passing a **components** array to the configuration. These components will be used at the specified screen 
+location instead of the default QUX component. This approach allows you to fully manage certain parts of the UI. Data is passed
+as a **value** property and follows default VUE practices.
+
+```
+<QUX :app="app" :config="config"/>
+...
+
+import MyWidget from 'src/myWidget'
+
+...
+
+config = {
+  components: [
+    {
+      cssSelector: ".StartScreen .Custom",
+      type: "MyWidget",
+      component: MyWidget
+    }
+  ]
+}
+```
+
+You specify the widget to be replaced by the custom widget by a css selector. For instance if you want to replace the 
+widget with the name "Custom" on the "StartScreen" screen, use the ".StartScreen .Custom" selector. The examples project
+contains a example for a custom widget. 
+
+
 ## MDI Icons
 
 If you are using the Quant-UX icons components, you have to install the mdi-font package.

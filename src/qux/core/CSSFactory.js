@@ -70,7 +70,9 @@ export default class {
 
 			"textDecoration" : "text-decoration",
 			"boxShadow" : "box-shadow",
-			"textShadow" : "text-shadow"
+			"textShadow" : "text-shadow",
+
+			"opacity": "opacity"
 		}
 
 		this.borderWidthProperties = ['borderBottomWidth', 'borderTopWidth', 'borderLeftWidth', 'borderRightWidth']
@@ -247,6 +249,13 @@ export default class {
 		let selector = this.getSelector(widget, screen);
 		if (this['getCSS_' + widget.type]) {
 			result += this['getCSS_' + widget.type](selector, widget.style, widget, selector)
+		} else if (widget.isCustomComponent){
+			/**
+			 * For custom components we just set the position!
+			 */
+			result += selector + ' {\n'
+			result += this.getPosition(widget, screen);
+			result += '}\n\n'
 		} else {
 			result += selector + ' {\n'
 			result += this.getRawStyle(style, widget);
@@ -519,6 +528,7 @@ export default class {
 				result += `  grid-column-end: ${widget.gridColumnEnd + 1};\n`
 				result += `  grid-row-start: ${widget.gridRowStart + 1};\n`
 				result += `  grid-row-end: ${widget.gridRowEnd + 1};\n`
+				result += `  z-index: ${widget.z};\n`
 			}
 		} else {
 			result += `  min-height: 100%;\n`
@@ -895,7 +905,7 @@ export default class {
 
 	getBackGround(style, widget) {
 		let result = ''
-		if (style.background) {
+		if (style.background && style.overlay !== true) {
 			if (style.background.colors) {
 				let background = style.background
 				let gradient = "(" + background.direction + "deg";

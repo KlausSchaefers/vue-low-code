@@ -16,12 +16,8 @@ export default {
             if (line) {
                 let box = Util.getBoxById(line.to, this.model)
                 if (box.type === 'Screen') {
-                    let prefix = ''
-                    if (this.config && this.config.router && this.config.router.prefix) {
-                        prefix = this.config.router.prefix + '/'
-                    }
-                    let url = `#/${prefix}${box.name}.html`
-                    location.hash = url
+                   this.naivateToScreen(box)
+                   return
                 }
             }
         }
@@ -29,7 +25,11 @@ export default {
         if (element.action) {
             if (element.action.type === 'back') {
                 Logger.log(2, 'QUX.onClick() > Go back')
-                this.$router.go(-1)
+                if (this.overlayScreenIds.length > 0) {
+                    this.popOverlay()
+                } else {
+                    this.$router.go(-1)
+                }
                 return
             }
         }
@@ -51,6 +51,27 @@ export default {
                     }
                 }
             }
+        }
+    },
+    naivateToScreen (screen) {
+        if (screen.style && screen.style.overlay === true) {
+            Logger.log(1, 'Qux(Event).navigateToScreen() > Overlay', screen.name)
+            this.overlayScreenIds.push(screen.id)
+        } else {
+            Logger.log(1, 'Qux(Event).navigateToScreen() > Link', screen.name)
+            this.overlayScreenIds = []
+            let prefix = ''
+            if (this.config && this.config.router && this.config.router.prefix) {
+                prefix = this.config.router.prefix + '/'
+            }
+            let url = `#/${prefix}${screen.name}.html`
+            location.hash = url
+        }
+    },
+    popOverlay () {
+        Logger.log(1, 'Qux(Event).popOverlay()')
+        if (this.overlayScreenIds.length > 0) {
+            this.overlayScreenIds.pop()
         }
     },
     onChange (e) {

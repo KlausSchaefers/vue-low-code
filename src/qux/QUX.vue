@@ -19,6 +19,22 @@
           {{msg}}
       </div>
     
+      <div v-if="hasOverlay" class="qux-overlay" @click="popOverlay">
+        <qContainer 
+                v-if="currentOverlay"
+                :element="currentOverlay" 
+                :class="'qux-screen'" 
+                :model="model" 
+                :config="mergedConfig"
+                @qClick="onClick"
+                @qChange="onChange"
+                @qKeyPress="onKeyPress"
+                @qFocus="onFocus"
+                @qBlur="onBlur"
+                @qMouseOver="onMouseOver"
+                @qMouseOut="onMouseOut"
+                v-model="value"/>
+      </div>
 
   </div>
 </template>
@@ -80,6 +96,7 @@ export default {
         tabletModel: null,
         desktoModel: null,
         selectedScreenId: null,
+        overlayScreenIds: [],
         msg: 'Loading...',
         mergedConfig: {
             debug: {
@@ -141,6 +158,13 @@ export default {
             return `${this.server}/rest/images/${this.debug}/`
           }
           return this.mergedConfig.imageFolder
+      },
+      hasOverlay () {
+        return this.overlayScreenIds.length > 0
+      },
+      currentOverlay () {
+          let overlayId = this.overlayScreenIds[this.overlayScreenIds.length -1]
+          return this.treeModel.screens.find(screen => screen.id === overlayId)
       }
   },
   methods: {
@@ -201,16 +225,19 @@ export default {
     setScreenByName (name) {
         // console.debug('QUX.setScreenByName() > enter ', name)
         if (this.model) {
-        let screen = Object.values(this.model.screens).find(s => s.name === name)
-        if (screen) {
-            this.selectedScreenId = screen.id
-        } else {
-            this.msg = `404 - No Screen with name ${this.msg}`
-            Logger.warn('QUX.setScreenByName() > No screen with name', name)
-        }
+            let screen = Object.values(this.model.screens).find(s => s.name === name)
+            if (screen) {
+                this.selectedScreenId = screen.id
+            } else {
+                this.msg = `404 - No Screen with name ${this.msg}`
+                Logger.warn('QUX.setScreenByName() > No screen with name', name)
+            }
         } else {
             Logger.warn('QUX.setScreenByName() > No Model')
         }
+    },
+    setStartScreen () {
+        this.selectedScreenId = null
     },
     setScreenByRouter () {
         let key = 'screenName'
@@ -222,7 +249,7 @@ export default {
             Logger.log(2, 'QUX.setScreenByRoute() > exit ', screenName, `(${key})`)
             this.setScreenByName(screenName)
         } else {
-            Logger.warn('QUX.setScreenByRoute() > No param in router ', key)
+            this.setStartScreen()
         }
     },
     setConfig (c) {
@@ -232,11 +259,24 @@ export default {
         if (c.router) {
             this.mergedConfig.router = Util.mixin(this.mergedConfig.router, c.router)
         }
+         if (c.components) {
+            this.mergedConfig.components = c.components
+            this.initCustomComponents(this.mergedConfig.components)
+        }
         if (c.debug) {
             this.mergedConfig.debug = Util.mixin(this.mergedConfig.debug, c.debug)
         }
         Logger.setLogLevel(this.mergedConfig.debug.logLevel)
         Logger.log(0, 'QUX.setConfig()', JSON.stringify(this.mergedConfig))
+    },
+    initCustomComponents (components) {
+        Logger.log(1, 'QUX.initCustomComponents()')
+        components.forEach(c => {
+            if (c.component && c.type) {
+                Logger.log(2, 'QUX.initCustomComponents() > register ', c.type)
+                Vue.component(c.type, c.component);
+            }
+        })
     },
     initComponents () {
         Vue.component('qButton', Button);
