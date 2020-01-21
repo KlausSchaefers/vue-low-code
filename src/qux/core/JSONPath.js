@@ -1,3 +1,4 @@
+import Vue from 'vue'
 class JSONPath {
 
     get (data, path) {
@@ -46,7 +47,8 @@ class JSONPath {
         /**
          * Not sure how this works for new props. Maybe we have to use VUE here
          */
-        node[key] =value
+        //node[key] =value
+        Vue.set(node, key, value)
     }
 
 

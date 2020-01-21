@@ -76,7 +76,13 @@ export function isFixedHorizontal(e) {
 }
 
 export function isFixedVertical(e) {
-    return e.props && e.props.resize && e.props.resize.fixedVertical
+    if (e.type === 'Box' || e.type === 'Button' || 
+        e.type === 'Container' || e.type === 'Repeater' || 
+        (e.children && e.children.length > 0)
+    ) {
+        return e.props && e.props.resize && e.props.resize.fixedVertical
+    }
+    return true
 }
 
 export function isPinnedLeft(e) {
@@ -102,6 +108,22 @@ export function isSingleChildInRow() {
     //    //return inSameRow.length === 1
     //}
     return false
+}
+
+export function isAtBottom(element, model, threshold = 10) {
+    if (element && model.screenSize) {
+        let dif = getDistanceFromScreenBottom(element, model)
+        return dif < threshold
+    }
+    return false
+}
+
+export function getDistanceFromScreenBottom(element, model) {
+    if (element && model.screenSize) {
+        let dif = model.screenSize.h - (element.y + element.h)
+        return dif;
+    }
+    return 0
 }
 
 export function isWrappedContainer(e) {
@@ -453,7 +475,7 @@ export function getBoundingBoxByBoxes (boxes) {
 }
 
 
-  export function createInheritedModel(model) {
+export function createInheritedModel(model) {
     /**
      * Build lookup map for overwrites
      */
@@ -622,6 +644,58 @@ export function createContaineredModel(inModel) {
         }
     }
 }
+
+export function inlineTemplateStyles (model) {
+    for (let widgetID in model.widgets){
+        let widget = model.widgets[widgetID]
+        if (widget.template) {
+            /**
+             * FIXME: What about style?
+             */
+            let hover = this.getTemplatedStyle(widget, model, 'hover')
+            if (hover) {
+                widget.hover = hover
+            }
+            let error = this.getTemplatedStyle(widget, model, 'error')
+            if (error) {
+                widget.error = error
+            }
+            let focus = this.getTemplatedStyle(widget, model, 'focus')
+            if (focus) {
+                widget.focus = focus
+            }
+            let active = this.getTemplatedStyle(widget, model, 'active')
+            if (active) {
+                widget.active = active
+            }
+        }
+        
+    }
+    return model
+}
+
+export function getTemplatedStyle(widget, model, prop) {
+    if (widget.template) {
+        if (model.templates) {
+            var t = model.templates[widget.template];
+            if (t && t[prop]) {
+                /**
+                 * Merge in overwriten styles
+                 */
+                var merged = clone(t[prop])
+                if (widget[prop]) {
+                    let props = widget[prop]
+                    for (var key in props) {
+                        merged[key] = props[key]
+                    }
+                }
+                return merged;
+            }
+        }
+    }
+    return widget[prop];
+}
+
 
 function getContainedChildWidgets (container, model) {
     let result = []

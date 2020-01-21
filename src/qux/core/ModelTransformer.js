@@ -48,6 +48,11 @@ export default class ModelTransformer {
         this.model = this.flattenGroups(this.model)
 
         /**
+         * Set default data binding
+         */
+        this.model = this.addDefaultDataBinding(this.model)
+
+        /**
          * FIXME: fix doubles names
          */
 
@@ -444,7 +449,7 @@ export default class ModelTransformer {
          */
         let nodes = parent.children
         if (Util.isWrappedContainer(parent)) {
-            Logger.log(1, 'ModelTransformer.setOrderAndRelativePositons() > Wrapper Container', parent.name)
+            Logger.log(3, 'ModelTransformer.setOrderAndRelativePositons() > Wrapper Container', parent.name)
 
             /**
              * Sort by bz row and column
@@ -480,7 +485,7 @@ export default class ModelTransformer {
             
 
         } else if (parent.isRow){
-            Logger.log(1, 'ModelTransformer.setOrderAndRelativePositons() > Row', parent.name)
+            Logger.log(5, 'ModelTransformer.setOrderAndRelativePositons() > Row', parent.name)
             /**
              * In a row the elements are rendered form left to right
              */
@@ -590,6 +595,43 @@ export default class ModelTransformer {
             }
         })
         return model
+    }
+
+    addDefaultDataBinding (model) {
+  
+        for (let screenId in model.screens) {
+            let screen = model.screens[screenId]
+            let children = screen.children
+            if (children) {
+           
+                children.forEach(widgetId => {
+                    let widget = model.widgets[widgetId]
+                    if (widget && widget.props) {
+                        if (!widget.props.databinding || !widget.props.databinding.default) {
+                            widget.props.databinding = {
+                                'default': this.getDefaultDataBinding(screen, widget)
+                            }
+                            Logger.log(4, 'ModelTransformer.addDefaultDataBinding() > ', widget.props.databinding)
+                        }
+                    }
+                })
+            }
+        }
+        return model
+    }
+
+    getDefaultDataBinding (screen, widget) {
+        /**
+         * RadioBoxes need some special handling. We create a binding for the group if specified
+         */
+        if (widget.type === 'RadioBox2' && widget.props && widget.props.formGroup) {
+            return  this.escapeSpaces(`${screen.name}.${widget.props.formGroup}`) 
+        }
+        return this.escapeSpaces(`${screen.name}.${widget.name}`)
+    }
+
+    escapeSpaces (s) {
+        return s.replace(/\s+/g, '_')
     }
 
 
@@ -941,6 +983,7 @@ export default class ModelTransformer {
      */
     addRows (parent) {
         let nodes = parent.children
+   
         nodes.sort((a, b) => {
             return a.y - b.y
         })
@@ -986,6 +1029,7 @@ export default class ModelTransformer {
                 }
             })
         })
+
         return parent
     }
 
@@ -1004,6 +1048,25 @@ export default class ModelTransformer {
          * parent child relations.
          */
         let widgets = Util.getOrderedWidgets(this.getWidgets(screen));
+
+        /**
+         * FIXME: also build tree for fixed children. This is currently very
+         * ugly because we just produce and fixed layout. 
+         * 
+         * It would be bette to build one fixed container, and use the normal aligment
+         * in it, to have responsove ness and so. 
+         * 
+         * 1) Make tow lists for fixed and not fixed
+         * 2) Run the same code, but add different result lists. 
+         *    So fixed elements get just nested in fixed ones. Would be somehow nice, 
+         *    of this would somehow be natural?
+         * 3) Pin the fixed elements to the bottom
+         * 4) Add all is elements
+         * 
+         * For now it shall be ok, as we expect simple navbars and such...
+         * 
+         */
+
 
         /**
          *  now build child parent relations
@@ -1025,10 +1088,38 @@ export default class ModelTransformer {
             }
 
             if (widget.style.fixed) {
+
                 element.x = widget.x - screen.x
                 element.y = widget.y - screen.y
                 element.parent = screen
                 result.fixedChildren.push(element)
+
+                /**
+                 * We pinn fixed elements at the bottom if they are fixed.
+                 */
+                if (Util.isAtBottom(element, model)) {
+                    if (!element.props.resize) {
+                        element.props.resize = {
+                            right: false,
+                            up: false,
+                            left: false,
+                            down: false,
+                            fixedHorizontal: false,
+                            fixedVertical: false
+                        }
+                    }
+                    element.props.resize.down = true
+                    Logger.log(0, 'ModelTransformer.transformScreenToTree() > pinn fixed to bottom', element.name)
+                }
+                /**
+                 * IF we have an pinned bottom
+                 */
+                if (Util.isPinnedDown(element)) {
+                    element.bottom = Util.getDistanceFromScreenBottom(element, model)
+                }
+
+             
+
             } else {
                 /**
                  * Check if the widget has a parent (= is contained) widget.

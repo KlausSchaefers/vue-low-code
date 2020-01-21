@@ -15,6 +15,24 @@
         @qMouseOver="forwardMouseOver"
         @qMouseOut="forwardMouseOut"
         />
+
+      <template v-if="element.fixedChildren">
+        <component v-for="child in element.fixedChildren" 
+          :is="child.qtype" 
+          :key="child.id" 
+          :element="child" 
+          :model="model"
+          :config="config"
+          v-model="value"
+          @qClick="forwardClick"
+          @qChange="forwardChange"
+          @qKeyPress="forwardKeyPress"
+          @qFocus="forwardFocus"
+          @qBlur="forwardBlur"
+          @qMouseOver="forwardMouseOver"
+          @qMouseOut="forwardMouseOut"
+          />
+      </template>
   </div>
 </template>
 <style lang="scss">

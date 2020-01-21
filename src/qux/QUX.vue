@@ -18,7 +18,7 @@
       <div v-else>
           {{msg}}
       </div>
-    
+
       <div v-if="hasOverlay" class="qux-overlay" @click="popOverlay">
         <qContainer 
                 v-if="currentOverlay"
@@ -58,6 +58,10 @@ import TextBox from './web/TextBox.vue'
 import Container from './web/Container.vue'
 import Repeater from './web/Repeater.vue'
 import Image from './web/Image.vue'
+import CheckBox from './web/CheckBox.vue'
+import CheckBoxGroup from './web/CheckBoxGroup.vue'
+import RadioBox from './web/RadioBox.vue'
+import RadioGroup from './web/RadioGroup.vue'
 
 import Event from './mixins/Event.vue'
 
@@ -287,6 +291,11 @@ export default {
         Vue.component('qTextBox', TextBox)
         Vue.component('qRepeater', Repeater)
         Vue.component('qImage', Image)
+        Vue.component('qCheckBox', CheckBox)
+        Vue.component('qRadioBox', RadioBox)
+        Vue.component('qRadioBox2', RadioBox)
+        Vue.component('qRadioGroup', RadioGroup)
+        Vue.component('qCheckBoxGroup', CheckBoxGroup)
     },
     initReziseListener () {
         window.addEventListener("resize", this.onResize);

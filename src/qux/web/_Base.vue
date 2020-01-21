@@ -22,7 +22,9 @@ export default {
         type: Object
       },
       'value': {
-          type: Object
+      },
+      'lbl': {
+        type: String
       }
   },
   computed: {
@@ -64,6 +66,9 @@ export default {
           if (this.element && this.element.props) {
               return this.element.props.label
           }
+          if (this.lbl) {
+            return this.lbl
+          }
           return ''
       },
       cssClass () {
@@ -92,9 +97,11 @@ export default {
       dataBindingInput () {
         if (this.element && this.element.props && this.element.props.databinding) {
           let path =  this.element.props.databinding.default
-          let value = JSONPath.get(this.value, path)
-          Logger.log(6, '_Base.dataBindingInput() > ' + path, `"${value}"`)
-          return value
+          if (path) {
+            let value = JSONPath.get(this.value, path)
+            Logger.log(5, '_Base.dataBindingInput() > ' + path, `"${value}"`)
+            return value
+          }
         }
         return null
       },
@@ -124,11 +131,17 @@ export default {
             return this.element.props.label
         }
         return ''
+      },
+      options () {
+        if (this.element && this.element.props && this.element.props.options){
+          return this.element.props.options
+        }
+        return []
       }
   },
   watch: {
     value (v) {
-      Logger.log(1, '_Base.watch(value) > enter', v)
+      Logger.log(3, '_Base.watch(value) > enter', v)
       this.value = v
     }
   },

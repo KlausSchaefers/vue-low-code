@@ -1,7 +1,8 @@
 
 import * as Util from './ExportUtil'
+import CSSWidgetFactory from '../web/CSSWidgetFactory'
 import Logger from './Logger'
-export default class {
+export default class CSSFactory {
 
 	constructor (config = {}, imagePrefix='') {
 		Logger.log(1, 'CSSFactory.constructor() ', config)
@@ -14,6 +15,8 @@ export default class {
 			this.prefix = config.css.prefix ? config.css.prefix : ''
 			this.gridAutoErrorThreshold = config.css.gridAutoErrorThreshold ? config.css.gridAutoErrorThreshold : 5
 		}
+
+	
 	
 
 		this.mapping = {
@@ -75,8 +78,19 @@ export default class {
 			"opacity": "opacity"
 		}
 
+
+		this.borderProperties = [
+			'borderWidth', 'border', 'borderRadius', 'boderColor',
+			'borderBottomColor', 'borderTopColor', 'borderLeftColor', 'borderRightColor',
+			'borderTopStyle', 'borderBottomStyle', 'borderRightStyle', 'borderLeftStyle',
+			'borderBottomWidth', 'borderTopWidth', 'borderLeftWidth', 'borderRightWidth',
+			'borderBottomLeftRadius', 'borderTopLeftRadius', 'borderBottomRightRadius', 'borderTopRightRadius'
+		]
+
+		this.borderColorProperties = ['borderBottomColor', 'borderTopColor', 'borderLeftColor', 'borderRightColor']
 		this.borderWidthProperties = ['borderBottomWidth', 'borderTopWidth', 'borderLeftWidth', 'borderRightWidth']
 		this.borderStyleProperties = ['borderTopStyle', 'borderBottomStyle', 'borderRightStyle', 'borderLeftStyle']
+
 		this.textProperties = [
 			'color', 'textDecoration', 'textAlign', 'fontFamily',
 			'fontSize', 'fontStyle', 'fontWeight', 'letterSpacing', 'lineHeight'
@@ -111,6 +125,24 @@ export default class {
 			'borderBottomWidth',
 			'_borderBottomWidth'
 		]
+
+		this.widthProperties = [
+			'paddingLeft', 
+			'_paddingLeft', 
+			'paddingRight', 
+			'_paddingRight', 
+			'borderLeftWidth', 
+			'_borderLeftWidth',
+			'borderRightWidth',
+			'_borderRightWidth'
+		]
+
+		this.fontProperties = ['color', 'fontSize', 'fontWeight', 'textAlign', 'fontStyle', 'letterSpacing', 'lineHeight']
+
+		this.ignoreCorrectWidthAndHeigth = ['CheckBox', 'RadioBox', 'RadioBox2']
+		this.isAlwaysFixedHorizontal = []
+
+		this.widgetFactory = new CSSWidgetFactory(this)
 	}
 
 	generate(model) {
@@ -247,8 +279,8 @@ export default class {
 		style = Util.fixAutos(style, widget)
 
 		let selector = this.getSelector(widget, screen);
-		if (this['getCSS_' + widget.type]) {
-			result += this['getCSS_' + widget.type](selector, widget.style, widget, selector)
+		if (this.widgetFactory['getCSS_' + widget.type]) {
+			result += this.widgetFactory['getCSS_' + widget.type](selector, widget.style, widget, selector)
 		} else if (widget.isCustomComponent){
 			/**
 			 * For custom components we just set the position!
@@ -285,49 +317,6 @@ export default class {
 		return result
 	}
 
-	getCSS_Repeater(selector, style, widget) {
-		Logger.log(0, 'getCSS_Repeater', widget)
-		let result = ''
-		result += selector + ' {\n'
-		result += this.getRawStyle(style, widget);
-		result += this.getPosition(widget, screen);
-		result += '}\n\n'
-
-		if (Util.isRepeaterGrid(widget)) {
-			Logger.log(5, 'getCSS_Repeater () > grid', widget)
-			result += selector + ' .qux-repeater-child {\n'
-			result += '  display: inline-block;\n';
-			let width = 100 / widget.props.columns
-			result += `  width: calc(${width}% - ${widget.props.distanceX}px);\n`;
-			result += `  margin-bottom:${widget.props.distanceY}px;\n`;
-			result += `  align-self: stretch;\n`;
-			result += '}\n\n'
-		} else if (Util.isRepeaterWrap(widget)) {
-			Logger.log(0, 'getCSS_Repeater () > wrap', widget)
-			result += selector + ' .qux-repeater-child {\n'
-			result += '  display: inline-block;\n';
-			let width = this.getChildWidth(widget)
-			result += `  width: ${width};\n`;
-			result += `  margin-bottom:${widget.props.distanceY}px;\n`;
-			result += '}\n\n'
-		} else {
-			result += selector + ' .qux-repeater-child {\n'
-			result += `  margin-bottom:${widget.props.distanceY}px;\n`;
-			result += '}\n\n'
-		}
-
-		return result
-	}
-
-	getCSS_Icon(selector, style, widget) {
-		let result = ''
-		result += selector + ' {\n'
-		result += this.getRawStyle(style, widget);
-		result += `  font-size:${widget.h}px;\n`
-		result += this.getPosition(widget, screen);
-		result += '}\n\n'
-		return result
-	}
 
 	XgetCSS_Image(widget) {
 		let result = ''
@@ -401,7 +390,7 @@ export default class {
 	}
 
 	getWrappedWidth (widget) {
-		if (Util.isFixedHorizontal(widget)){
+		if (this.isFixedHorizontal(widget)){
 			return this.getFixedWidth(widget);
 		} else {
 			return this.getResponsiveWidth(widget)
@@ -455,9 +444,9 @@ export default class {
 			 */
 			result += `  width: 100%;\n`
 			if (Util.isFixedVertical(widget)){
-				result += `  height: ${this.getCorrectedHeight(widget)};\n`
+				result += `  height: ${this.getCorrectedHeight(widget, true)};\n`
 			} else {
-				result += `  min-height: ${this.getCorrectedHeight(widget)};\n`
+				result += `  min-height: ${this.getCorrectedHeight(widget, true)};\n`
 				result += `  height: 100%;\n`
 			}	
 		} else if (widget.parent) {
@@ -475,7 +464,7 @@ export default class {
 
 				} else if (Util.isPinnedLeft(widget)){
 
-					if (Util.isFixedHorizontal(widget)){
+					if (this.isFixedHorizontal(widget)){
 						result += `  width: ${this.getFixedWidth(widget)};\n`
 						result += `  margin-left: ${this.getPinnedLeft(widget)};\n`
 					} else {
@@ -487,7 +476,7 @@ export default class {
 					/**
 					 * This is a tricky one. 
 					 */
-					if (Util.isFixedHorizontal(widget)){
+					if (this.isFixedHorizontal(widget)){
 						result += `  width: ${this.getFixedWidth(widget)};\n`
 						result += `  margin-left: ${this.getCalcLeft(widget)};\n`
 					} else {
@@ -503,7 +492,7 @@ export default class {
 					 * We are in a rowGrid, this means the widget is alone. Therefore
 					 * we can set the margin left and right and not the width.
 					 */
-					if (Util.isFixedHorizontal(widget)){
+					if (this.isFixedHorizontal(widget)){
 						result += `  width: ${this.getFixedWidth(widget)};\n`
 						result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
 					} else {
@@ -513,9 +502,9 @@ export default class {
 				}
 
 				if (Util.isFixedVertical(widget)){
-					result += `  height: ${this.getCorrectedHeight(widget)};\n`
+					result += `  height: ${this.getCorrectedHeight(widget, true)};\n`
 				} else {
-					result += `  min-height: ${this.getCorrectedHeight(widget)};\n`
+					result += `  min-height: ${this.getCorrectedHeight(widget, true)};\n`
 				}				
 				result += `  margin-top: ${this.getPinnedTop(widget)};\n`
 
@@ -587,7 +576,7 @@ export default class {
 					maxWidget = child
 				}
 			})
-			if (Util.isFixedHorizontal(maxWidget)) {
+			if (this.isFixedHorizontal(maxWidget)) {
 				return this.getFixedWidth(maxWidget)
 			}
 			return this.getResponsiveWidth(maxWidget)
@@ -674,14 +663,37 @@ export default class {
 		return widget.h + 'px'
 	}
 
-	getCorrectedHeight (widget) {
-		let h = widget.h
+	getCorrectedHeight (widget, isPosition = false, h = -1) {
+		if (h < 0) {
+			h = widget.h
+		}
+		/**
+		 * when we are positioning, we only sustract 
+		 * for certain widgets
+		 */
+		if (isPosition && this.ignoreCorrectWidthAndHeigth.indexOf(widget.type) >= 0) {
+			return h + 'px'
+		}
 		this.heightProperties.forEach(key => {
 			if (widget.style[key]) {
 				h -= widget.style[key]
 			}
 		})
 		return h + 'px'
+	}
+
+	getCorrectedWidth (widget) {
+		let w = widget.w
+		this.widthProperties.forEach(key => {
+			if (widget.style[key]) {
+				w -= widget.style[key]
+			}
+		})
+		return w + 'px'
+	}
+
+	isFixedHorizontal (widget){
+		return Util.isFixedHorizontal(widget)
 	}
 
 	/*********************************************************************
@@ -774,7 +786,7 @@ export default class {
 				}
 			} else if (Util.isPinnedLeft(widget)){
 				result += `  margin-left: ${this.getPinnedLeft(widget)};\n`
-				if (!Util.isFixedHorizontal(widget)) {
+				if (!this.isFixedHorizontal(widget)) {
 					result += `  flex-grow: 1;\n`
 				}
 			} else {
@@ -797,7 +809,7 @@ export default class {
 	}
 
 	getFlexWidth (widget) {
-		if (Util.isFixedHorizontal(widget)){
+		if (this.isFixedHorizontal(widget)){
 			return this.getFixedWidth(widget);
 		} else {
 			return this.getResponsiveWidth(widget)
@@ -806,7 +818,7 @@ export default class {
 
 	getFixedPosition (widget) {
 		let result = '  position: fixed;\n';
-		if (Util.isFixedHorizontal(widget)){
+		if (this.isFixedHorizontal(widget)){
 			result += `  width: ${this.getFixedWidth(widget)};\n`
 		} else {
 			result += `  width: ${this.getResponsiveWidth(widget)};\n`
@@ -818,7 +830,12 @@ export default class {
 		} else {
 			result += `  left: ${this.getResponsiveLeft(widget)};\n`
 		}
-		result += `  top: ${widget.y}px;\n`
+		if (Util.isPinnedDown(widget)){
+			result += `  bottom: ${widget.bottom}px;\n`
+		} else {
+			result += `  top: ${widget.y}px;\n`
+		}
+	
 		result += `  height: ${this.getCorrectedHeight(widget)};\n`
 		return result
 	}
@@ -891,14 +908,19 @@ export default class {
 		return []
 	}
 
-	getRawStyle (style, widget) {
+	getStyleByKey (style, widget, keys) {
 		var result = ''
-		for (var key in this.mapping) {
+		keys.forEach( key => {
 			if (style[key] !== undefined && style[key] !== null) {
 				var value = style[key];
 				result += '  ' + this.getKey(key) + ': ' + this.getValue(key, value) + ';\n'
 			}
-		}
+		})
+		return result;
+	}
+
+	getRawStyle (style, widget) {
+		var result = this.getStyleByKey(style, widget, Object.keys(this.mapping))
 		result += this.getBackGround(style, widget)
 		return result;
 	}

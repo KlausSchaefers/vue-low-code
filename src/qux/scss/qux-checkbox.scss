@@ -1,0 +1,43 @@
+.qux-checkbox{
+    display: inline-block;
+    overflow: hidden;
+
+    .qux-checkbox-cntr{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .qux-checkbox-hook{
+        opacity:0;
+        transition-duration: 0.3s;
+        transition-property: opacity;
+        border-bottom: 3px solid #1973e8;
+        border-right: 2px solid #1973e8;
+        transform:rotate(45deg);
+        -ms-transform:rotate(45deg); /* IE 9 */
+        -webkit-transform:rotate(45deg); /* Opera, Chrome, and Safari */
+
+        display: inline-block;
+        height: 70%;
+        width: 45%;
+        left: 25%;
+        position: absolute;
+        opacity: 0;
+        top: 0;
+    }
+
+    .qux-checkbox-label {
+        margin-left: 10px;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+}
+
+.qux-checkbox-checked {
+    .qux-checkbox-hook{
+        opacity:1;
+    }
+}

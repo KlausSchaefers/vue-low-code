@@ -1,0 +1,10 @@
+.qux-checkgroup{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .qux-checkbox{
+        display: block;
+    }
+    
+}

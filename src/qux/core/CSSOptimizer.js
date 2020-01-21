@@ -48,7 +48,12 @@ export default class CSSOptimizer {
             screen.style = this.compress(screen.style, screen)
 			screen.children.forEach(child => {
 				this.compressChildren(child)
-			})
+            })
+            if (screen.fixedChildren) {
+                screen.fixedChildren.forEach(child => {
+                    this.compressChildren(child)
+                })
+            }
         })
         
         return model
@@ -118,7 +123,6 @@ export default class CSSOptimizer {
     }
 
     resizeToBoxModel (widget) {
-        console.debug('CSSOptimizer.resizeToBoxModel()')
         if (widget.style) {
 			if (widget.style.paddingTop) {
 				widget.h -= widget.style.paddingTop
