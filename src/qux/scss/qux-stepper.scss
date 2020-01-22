@@ -1,0 +1,26 @@
+.qux-stepper{
+    display: inline-block;
+    border: 1px solid #333;
+    color:#333;
+    display: flex;
+
+    .qux-stepper-minus {
+        width: 50%;
+        position: relative;
+        text-align: center;
+    }
+    .qux-stepper-plus {
+        width: calc(50% - 1px);
+        border-left: 1px solid #333;
+        position: relative;
+        text-align: center;
+    }
+
+    .qux-stepper-label{
+        position: absolute;
+        top:45%;
+        left:0px;
+        width: 100%;
+        transform: translateY(-50%);
+    }
+}

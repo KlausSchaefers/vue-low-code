@@ -132,7 +132,13 @@ export default {
         }
         return ''
       },
+      hasError () {
+        return false
+      },
       options () {
+        /**
+         * FIXME: Check here for custom options
+         */
         if (this.element && this.element.props && this.element.props.options){
           return this.element.props.options
         }
@@ -181,6 +187,28 @@ export default {
     },
     hasDataBinding () {
       return this.element && this.element.props && this.element.props.databinding
+    },
+    on (node, event, callback) {
+ 
+        if (node && node.toLowerCase) {
+            node = document.getElementById(node)
+        }
+        if (node && node.addEventListener) {
+            node.addEventListener(event, callback)
+            return {
+                'callback': callback,
+                'node': node,
+                'event': event,
+                'remove': function () {
+                    this.node.removeEventListener(this.event, this.callback)
+                }
+            }
+        } else {
+            console.warn('on() > Pass a node of valid id')
+        }
+    },
+    body () {
+        return document.getElementsByTagName("BODY")[0]
     }
   }
 }

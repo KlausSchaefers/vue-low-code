@@ -14,11 +14,11 @@
 
 import _Base from './_Base.vue'
 import Logger from '../core/Logger'
-import CheckBox from './CheckBox'
+import CheckBox from './CheckBox.vue'
 import Vue from 'vue'
 
 export default {
-  name: 'qRadioGroup',
+  name: 'qCheckBoxGroup',
   mixins: [_Base],
   data: function () {
       return {

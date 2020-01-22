@@ -62,6 +62,12 @@ import CheckBox from './web/CheckBox.vue'
 import CheckBoxGroup from './web/CheckBoxGroup.vue'
 import RadioBox from './web/RadioBox.vue'
 import RadioGroup from './web/RadioGroup.vue'
+import Toggle from './web/Toggle.vue'
+import Switch from './web/Switch.vue'
+import DropDown from './web/DropDown.vue'
+import TextArea from './web/TextArea.vue'
+import Stepper from './web/Stepper.vue'
+import Slider from './web/Slider.vue'
 
 import Event from './mixins/Event.vue'
 
@@ -289,6 +295,8 @@ export default {
         Vue.component('qContainer', Container)
         Vue.component('qIcon', Icon)
         Vue.component('qTextBox', TextBox)
+        Vue.component('qPassword', TextBox)
+        Vue.component('qTextArea', TextArea)
         Vue.component('qRepeater', Repeater)
         Vue.component('qImage', Image)
         Vue.component('qCheckBox', CheckBox)
@@ -296,6 +304,11 @@ export default {
         Vue.component('qRadioBox2', RadioBox)
         Vue.component('qRadioGroup', RadioGroup)
         Vue.component('qCheckBoxGroup', CheckBoxGroup)
+        Vue.component('qToggleButton', Toggle)
+        Vue.component('qSwitch', Switch)
+        Vue.component('qDropDown', DropDown)
+        Vue.component('qStepper', Stepper)
+        Vue.component('qHSlider', Slider)
     },
     initReziseListener () {
         window.addEventListener("resize", this.onResize);

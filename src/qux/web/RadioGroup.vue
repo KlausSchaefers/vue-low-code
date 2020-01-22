@@ -14,7 +14,7 @@
 
 import _Base from './_Base.vue'
 import Logger from '../core/Logger'
-import RadioBox from './RadioBox'
+import RadioBox from './RadioBox.vue'
 
 export default {
   name: 'qRadioGroup',
@@ -28,7 +28,7 @@ export default {
       'RadioBox': RadioBox
   },
   methods: {
-     isChecked (option) {
+      isChecked (option) {
           let input = this.dataBindingInput
           Logger.log(5, 'qRadioGroup.isChecked() >' +  option, input)
           if (input) {

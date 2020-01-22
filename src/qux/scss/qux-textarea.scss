@@ -1,5 +1,6 @@
-.qux-textbox{
+.qux-textarea{
     border: 1px sold #333;
+    resize: none;
 
     &:focus {
         outline: none;

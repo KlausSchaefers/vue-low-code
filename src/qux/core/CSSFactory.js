@@ -78,6 +78,7 @@ export default class CSSFactory {
 			"opacity": "opacity"
 		}
 
+		this.paddingProperties = ["paddingBottom", "paddingLeft", "paddingRight", "paddingTop", "padding"]
 
 		this.borderProperties = [
 			'borderWidth', 'border', 'borderRadius', 'boderColor',
@@ -139,8 +140,8 @@ export default class CSSFactory {
 
 		this.fontProperties = ['color', 'fontSize', 'fontWeight', 'textAlign', 'fontStyle', 'letterSpacing', 'lineHeight']
 
-		this.ignoreCorrectWidthAndHeigth = ['CheckBox', 'RadioBox', 'RadioBox2']
-		this.isAlwaysFixedHorizontal = []
+		this.ignoreCorrectWidthAndHeigth = ['CheckBox', 'RadioBox', 'RadioBox2', 'Switch', 'Stepper']
+		this.isAlwaysFixedHorizontal = ['Switch', 'Stepper']
 
 		this.widgetFactory = new CSSWidgetFactory(this)
 	}
@@ -309,6 +310,12 @@ export default class CSSFactory {
 			if (widget.error) {
 				result += selector + ':invalid {\n'
 				result += this.getRawStyle(widget.error, widget);
+				result += '}\n\n'
+			}
+
+			if (widget.active) {
+				result += selector + '.qux-active {\n'
+				result += this.getRawStyle(widget.active, widget);
 				result += '}\n\n'
 			}
 		}
@@ -682,8 +689,13 @@ export default class CSSFactory {
 		return h + 'px'
 	}
 
-	getCorrectedWidth (widget) {
-		let w = widget.w
+	getCorrectedWidth (widget, isPosition = false, w = -1) {
+		if (w < 0) {
+			w = widget.w
+		}
+		if (isPosition && this.ignoreCorrectWidthAndHeigth.indexOf(widget.type) >= 0) {
+			return w + 'px'
+		}
 		this.widthProperties.forEach(key => {
 			if (widget.style[key]) {
 				w -= widget.style[key]
@@ -693,6 +705,9 @@ export default class CSSFactory {
 	}
 
 	isFixedHorizontal (widget){
+		if (this.isAlwaysFixedHorizontal.indexOf(widget.type) >=0) {
+			return true
+		}
 		return Util.isFixedHorizontal(widget)
 	}
 

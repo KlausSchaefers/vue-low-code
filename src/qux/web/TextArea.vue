@@ -1,16 +1,16 @@
 <template>
-  <input 
-    :class="['qux-textbox', cssClass]" 
+  <textarea 
+    :class="['qux-textarea', cssClass]" 
     :placeholder="placeholder"
     :type="type"
     @click="onClick"
     @change="onChange"
     @keyup="onKeyPress"
     :value="dataBindingInput" 
-     />
+    />
 </template>
 <style lang="scss">
-    @import '../scss/qux-textbox.scss';
+    @import '../scss/qux-textarea.scss';
 </style>
 <script>
 

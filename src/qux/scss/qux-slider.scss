@@ -1,0 +1,29 @@
+.qux-slider {
+    position: relative;
+   
+    .qux-slider-input{
+        -webkit-appearance: none; /* Override default look */
+        appearance: none;
+        width: 100%;
+        height: 33%;
+        cursor: pointer; /* Cursor on hover */
+        position: absolute;
+        top:50%;
+        left:0px;
+        border: 0px;
+        transform: translateY(-50%);
+
+        &:focus{
+            outline: none;
+        }
+    }
+
+    .qux-slider-input::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%; 
+        cursor: pointer;
+    }
+}
