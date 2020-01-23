@@ -1,0 +1,39 @@
+.qux-date {
+  
+
+    .qux-date-header {
+        display: flex;
+        border: 1px solid red;
+        width: 100%;
+        height: 15%;
+        font-size: 120%;
+
+        .qux-date-header-btn {
+            position: relative;
+            width: 15%;
+            text-align: center;
+        }
+
+        .qux-date-header-label {
+            position: relative;
+            text-align: center;
+            flex-grow: 1;
+        }
+    }
+
+    .qux-date-body {
+        width: 100%;
+        height: 85%;
+        border: 1px solid blue;
+
+        table {
+            width: 100%;
+            height: 85%;
+            border: 1px solid orange;
+        }
+    }
+
+
+
+    
+}

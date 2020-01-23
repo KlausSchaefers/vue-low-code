@@ -141,7 +141,7 @@ export default class CSSFactory {
 		this.fontProperties = ['color', 'fontSize', 'fontWeight', 'textAlign', 'fontStyle', 'letterSpacing', 'lineHeight']
 
 		this.ignoreCorrectWidthAndHeigth = ['CheckBox', 'RadioBox', 'RadioBox2', 'Switch', 'Stepper']
-		this.isAlwaysFixedHorizontal = ['Switch', 'Stepper']
+		//this.isAlwaysFixedHorizontal = ['Switch', 'Stepper']
 
 		this.widgetFactory = new CSSWidgetFactory(this)
 	}
@@ -705,9 +705,6 @@ export default class CSSFactory {
 	}
 
 	isFixedHorizontal (widget){
-		if (this.isAlwaysFixedHorizontal.indexOf(widget.type) >=0) {
-			return true
-		}
 		return Util.isFixedHorizontal(widget)
 	}
 

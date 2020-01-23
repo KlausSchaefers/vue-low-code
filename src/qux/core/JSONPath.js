@@ -2,8 +2,8 @@ import Vue from 'vue'
 class JSONPath {
 
     get (data, path) {
-        if (data) {
-            if (data[path]) {
+        if (data != null && data != undefined) {
+            if (data[path] != null && data[path] != null) {
                 return data[path]
             }
             if (path.indexOf('.') >=0  || path.indexOf('[') >=0 ){

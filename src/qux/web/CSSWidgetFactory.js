@@ -314,25 +314,33 @@ export default class CSSWidgetFactory {
   }
 
   getCSS_HSlider(selector, style, widget) {
-    console.debug('hsldier', widget)
     let result = ''
 
     result += selector + ' {\n'
     result += this.cssFactory.getPosition(widget, screen);  
     result += '}\n\n'
 
-    result += selector + ' .qux-slider-input {\n'
+    result += selector + ' .qux-slider-track {\n'
     result += `  background:${style.background};\n`
     result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.borderProperties)   
     result += '}\n\n'
 
+    result += selector + ' .qux-slider-progress {\n'
+    result += `  background:${style.barColor};\n`
+    result += '}\n\n'
     
-    result += selector + ' .qux-slider-input::-webkit-slider-thumb  {\n'
+    result += selector + ' .qux-slider-handle  {\n'
     result += `  background:${style.handleColor};\n`
-    result += `  border-radius:${style.handleRadius};\n`
+    result += `  border-radius:${style.handleRadius}%;\n`
     result += `  height:${style.handleHeight * widget.h}px;\n` 
     result += `  width:${style.handleWidth }px;\n` 
     result += '}\n\n'
+
+    result += selector + ' .qux-slider-handle-cntr  {\n'
+    result += `  margin-left: ${style.handleWidth / 2}px;\n`
+    result += `  width: calc(100% - ${style.handleWidth}px);\n`
+    result += '}\n\n'
+    
 
     // result += selector + ' .qux-slider-input::-webkit-slider-runnable-track   {\n'
     // result += `  background:${style.barColor};\n`

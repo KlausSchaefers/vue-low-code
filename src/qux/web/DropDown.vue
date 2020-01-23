@@ -19,11 +19,12 @@
 <script>
 
 import _Base from './_Base.vue'
+import _DND from './_DND.vue'
 import Logger from '../core/Logger'
 
 export default {
-  name: 'qSwitch',
-  mixins: [_Base],
+  name: 'qDropDown',
+  mixins: [_Base, _DND],
   data: function () {
       return {
         isOpen: false,

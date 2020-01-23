@@ -53,6 +53,16 @@ export default class ModelTransformer {
         this.model = this.addDefaultDataBinding(this.model)
 
         /**
+         * Set certain widgets horizontal fixed
+         */
+        this.model = this.fixHorizontal(this.model)
+
+        /**
+         * Make sure names are unique
+         */
+        this.model = this.fixNames(this.model, result)
+
+        /**
          * FIXME: fix doubles names
          */
 
@@ -617,6 +627,51 @@ export default class ModelTransformer {
                 })
             }
         }
+        return model
+    }
+
+    fixHorizontal (model) {
+        let fixed = ['Switch', 'Stepper']
+        for (let widgetId in model.widgets) {
+            let widget = model.widgets[widgetId]
+            if (fixed.indexOf(widget.type) >= 0) {
+                if (!widget.props.resize) {
+                    widget.props.resize = {}
+                }
+                widget.props.resize.fixedHorizontal = true
+            }
+        }
+
+        return model
+    }
+
+    fixNames (model, result) {
+
+        let screens = Object.values(model.screens)
+
+  
+        screens.forEach((screen, j) => {
+            let otherScreensWithSameName = screens.filter(o => o.name === screen.name)
+            if (otherScreensWithSameName.length > 1) {
+                result.warnings.push('Fix double screen name:' + screen.name)
+                screen.name += '_' + j
+            }
+
+            let children = screen.children
+            if (children) {
+                let widgets = children.map(widgetId => {
+                    return model.widgets[widgetId]
+                })
+                
+                widgets.forEach((w, i) => {
+                    let others = widgets.filter(o => o.name === w.name)
+                    if (others.length > 1) {
+                        result.warnings.push('Fix double widget name: ' + w.name + " in screen " + screen.name)
+                        w.name += '_' + i
+                    } 
+                })
+            }
+        })
         return model
     }
 

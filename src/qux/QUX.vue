@@ -68,6 +68,7 @@ import DropDown from './web/DropDown.vue'
 import TextArea from './web/TextArea.vue'
 import Stepper from './web/Stepper.vue'
 import Slider from './web/Slider.vue'
+import qDate from './web/Date.vue'
 
 import Event from './mixins/Event.vue'
 
@@ -309,6 +310,7 @@ export default {
         Vue.component('qDropDown', DropDown)
         Vue.component('qStepper', Stepper)
         Vue.component('qHSlider', Slider)
+        Vue.component('qDate', qDate)
     },
     initReziseListener () {
         window.addEventListener("resize", this.onResize);
