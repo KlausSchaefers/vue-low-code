@@ -1,5 +1,5 @@
 <template>
-  <div :class="['qux-dropdown', cssClass, {'qux-error': hasError}, {'qux-open': isOpen}]" @click="open">
+  <div :class="['qux-dropdown', cssClass, {'qux-error': hasError}, {'qux-open': isOpen}, {'qux-dropdown-mobile': isMobile}]" @click="open">
       <span class="qux-common-label">
             {{selectOption}}
       </span>
@@ -32,6 +32,13 @@ export default {
       }
   },
   computed: {
+      isMobile () {
+          if (this.element && this.element.type === 'MobileDropDown') {
+              return true
+          }
+          let userAgent = navigator.userAgent || navigator.vendor || window.opera;
+          return /iPad|iPhone|iPod/.test(userAgent) || /android/i.test(userAgent)
+      },
       dropDownOption () {
           if (this.element) {
               return this.options.map(o => {

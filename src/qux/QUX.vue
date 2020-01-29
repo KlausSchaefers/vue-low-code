@@ -309,6 +309,7 @@ export default {
         Vue.component('qToggleButton', Toggle)
         Vue.component('qSwitch', Switch)
         Vue.component('qDropDown', DropDown)
+        Vue.component('qMobileDropDown', DropDown)
         Vue.component('qStepper', Stepper)
         Vue.component('qHSlider', Slider)
         Vue.component('qDate', qDate)

@@ -210,7 +210,6 @@ export default class CSSWidgetFactory {
 
     let cntrHeight = this.cssFactory.getCorrectedHeight(widget, false, widget.h)
     let cntrWidth = this.cssFactory.getCorrectedWidth(widget, false, widget.w)
-    console.debug(widget.name, widget.w, cntrWidth)
     if (style.cssClass === 'MatcWidgetTypeSwitchThin') {
       cntrHeight = '50%';
     }
@@ -242,7 +241,34 @@ export default class CSSWidgetFactory {
     result += `  background:${style.colorForeGround};\n`
     result += '}\n\n'
 
-    console.debug('swucth', style)
+    return result
+  }
+
+  getCSS_MobileDropDown(selector, style, widget) {
+    let result = ''
+
+    result += selector + ' {\n'
+    result += this.cssFactory.getRawStyle(style, widget);
+    result += this.cssFactory.getPosition(widget, screen);
+    result += '}\n\n'
+
+    result += this._addCaret(selector, widget, style)
+  
+    result += selector + ' .qux-dropdown-popup {\n'
+    result += `  background:${style.popupBackground};\n`
+    result += `  color:${style.popupColor};\n`
+    result += '}\n\n'
+
+    if (widget.focus) {
+      result += selector + ':hover {\n'
+      result += this.cssFactory.getRawStyle(widget.focus, widget);
+      result += '}\n\n'
+      result += this._addCaret(selector + ':hover', widget, widget.focus)
+    
+      result += selector + ':hover .qux-dropdown-popup {\n'
+      result += this.cssFactory.getStyleByKey(widget.focus, widget, this.cssFactory.borderProperties)   
+      result += '}\n\n'
+    }
 
     return result
   }
@@ -258,22 +284,29 @@ export default class CSSWidgetFactory {
 
     result += this._addCaret(selector, widget, style)
   
-  
-    result += selector + ' .qux-dropdown-popup {\n'
+    // make sure we have always some focus
+    result += selector + '.qux-open {\n'
+    result += `  z-index: 1000;\n`  
+    result += '}\n\n'
+
+   // FIXME: set not mobile in selector_
+    result += selector + ':not(.qux-dropdown-mobile) .qux-dropdown-popup {\n'
     result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.borderProperties)   
     result += '}\n\n'
 
-    result += selector + ' .qux-dropdown-item {\n'
+    result += selector + ':not(.qux-dropdown-mobile) .qux-dropdown-item {\n'
     result += `  background:${style.popupBackground};\n`
     result += `  color:${style.popupColor};\n`
     result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.paddingProperties)  
     result += '}\n\n'
 
 
-    result += selector + ' .qux-dropdown-item:hover {\n'
+    result += selector + ':not(.qux-dropdown-mobile) .qux-dropdown-item:hover {\n'
     result += `  background:${style.selectedOptionBackground};\n`
     result += `  color:${style.selectedOptionColor};\n`
     result += '}\n\n'
+
+    // FIXME: make here a default style for mobile?
 
 
     if (widget.focus) {
