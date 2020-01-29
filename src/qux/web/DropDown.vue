@@ -6,7 +6,7 @@
       <div class="qux-dropdown-expend">
         <span class="qux-dropdown-carret"></span>
       </div>
-      <div class="qux-dropdown-popup">
+      <div class="qux-dropdown-popup" v-if="isOpen">
           <span v-for="o in dropDownOption" :key="o.label" class="qux-dropdown-item" @mousedown.stop="select(o)">
               {{o.label}}
           </span>
@@ -67,14 +67,14 @@ export default {
           }
       },
       close () {
-          Logger.log(0, 'qDropDown.close()')
+          Logger.log(5, 'qDropDown.close()')
           this.isOpen = false
           if (this._bodyListener) {
               this._bodyListener.remove()
           }
       },
       select (option) {
-        Logger.log(0, 'qDropDown.select()', option)
+        Logger.log(5, 'qDropDown.select()', option)
         if (this.element) {
           this.onValueChange(option.value, 'default')
           Logger.log(5, 'qDropDown.toggle() >' + this.dataBindingInputPath, option.value)

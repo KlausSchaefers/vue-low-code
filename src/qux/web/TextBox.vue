@@ -6,7 +6,7 @@
     @click="onClick"
     @change="onChange"
     @keyup="onKeyPress"
-    :value="dataBindingInput" 
+    :value="selectedValue" 
      />
 </template>
 <style lang="scss">
@@ -36,6 +36,24 @@ export default {
         return this.element.props.label
       }
       return ''
+    },
+    selectedValue () {
+       if (this.element) {
+            let input = this.dataBindingInput
+            if (input) {
+              if (!input.toLowerCase) {
+                if (isNaN(input)) {
+                  try {
+                    input = JSON.stringify(input)
+                  } catch (e) {
+                    Logger.warn('TextBox.selectedValue() > Can stringify ', input)
+                  }
+                }
+              }
+            }
+            return input
+       }
+       return ''
     }
   },
   methods: {

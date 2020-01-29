@@ -1,9 +1,19 @@
-.qux-dropdown{
+.qux-date-picker{
     border:1px solid #333;
     position: relative;
-    transition: all 0.2s;
 
-    .qux-dropdown-expend {
+    .qux-common-placeholder{
+        opacity: 0.7;
+    }
+
+    .qux-date-picker-icon {
+        position: absolute;
+        right: 50%;
+        top: 50%;
+        transform: translateY(-50%) translateX(50%);
+    }
+
+    .qux-date-picker-expend {
         position: absolute;
         height: 100%;
         top: 0px;
@@ -11,7 +21,7 @@
         width: 40px;
     }
 
-    .qux-dropdown-carret {
+    .qux-date-picker-carret {
         border-left: 4px solid transparent;
         border-right: 4px solid transparent;
         border-top: 4px solid;
@@ -27,24 +37,28 @@
         cursor: pointer;
     }
 
-    .qux-dropdown-popup{
+    .qux-date-picker-popup{
         position: absolute;
         top: calc(100% + 1px);
         left: 0px;
         display: none;
         border:1px solid #333;
         width: 100%;
+        height: 300px;
         z-index: 1000;
         background: #fff;
+
+        .qux-date{
+            height: 100%;
+        }
     }
 
-    .qux-dropdown-item {
+    .qux-date-picker-item {
         display: block;
         cursor: pointer;
-        
     }
 
-    &.qux-open .qux-dropdown-popup{
+    &.qux-open .qux-date-picker-popup{
         display: block;
     }
 }

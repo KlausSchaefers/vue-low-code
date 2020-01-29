@@ -52,6 +52,8 @@ export default {
       left () {
         let offSet = this.handleWidth / 2
         let left =  this.sliderValue / (this.maxValue - this.minValue)
+        left = Math.min(1, left)
+        left = Math.max(0, left)
         return `calc(${left * 100}% - ${offSet}px)`
       },
       progress () {

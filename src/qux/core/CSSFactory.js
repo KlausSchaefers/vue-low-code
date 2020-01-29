@@ -281,7 +281,7 @@ export default class CSSFactory {
 
 		let selector = this.getSelector(widget, screen);
 		if (this.widgetFactory['getCSS_' + widget.type]) {
-			result += this.widgetFactory['getCSS_' + widget.type](selector, widget.style, widget, selector)
+			result += this.widgetFactory['getCSS_' + widget.type](selector, widget.style, widget)
 		} else if (widget.isCustomComponent){
 			/**
 			 * For custom components we just set the position!

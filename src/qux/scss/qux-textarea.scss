@@ -1,6 +1,7 @@
 .qux-textarea{
-    border: 1px sold #333;
+    border: 1px solid #333;
     resize: none;
+    transition: all 0.2s;
 
     &:focus {
         outline: none;

@@ -210,6 +210,7 @@ export default class CSSWidgetFactory {
 
     let cntrHeight = this.cssFactory.getCorrectedHeight(widget, false, widget.h)
     let cntrWidth = this.cssFactory.getCorrectedWidth(widget, false, widget.w)
+    console.debug(widget.name, widget.w, cntrWidth)
     if (style.cssClass === 'MatcWidgetTypeSwitchThin') {
       cntrHeight = '50%';
     }
@@ -223,6 +224,7 @@ export default class CSSWidgetFactory {
     result += selector + ' .qux-switch-handle {\n'
     result += `  background:${style.colorButton};\n`
     result += `  border-radius:${style.borderRadius};\n`
+    result += this.cssFactory.getStyleByKey(style, widget, ['boxShadow'])   
     result += `  height: ${widget.h}px;\n`
     result += `  width: ${widget.h}px;\n`
     result += '}\n\n'
@@ -239,6 +241,8 @@ export default class CSSWidgetFactory {
     result += selector + ' .qux-switch-off {\n'
     result += `  background:${style.colorForeGround};\n`
     result += '}\n\n'
+
+    console.debug('swucth', style)
 
     return result
   }
@@ -346,6 +350,109 @@ export default class CSSWidgetFactory {
     // result += `  background:${style.barColor};\n`
     // result += '}\n\n'
     
+    return result
+  }
+
+
+  getCSS_Date(selector, style, widget, isInPopup = false) {
+    let result = ''
+
+    if (!isInPopup) {
+      result += selector + ' {\n'
+      result += this.cssFactory.getRawStyle(style, widget);
+      result += this.cssFactory.getPosition(widget, screen); 
+      result += '}\n\n'
+    }
+
+    if (style.tableBorderWidth) {
+      result += selector + ' table {\n'
+      result += `  border-spacing:${style.tableBorderWidth}px;\n`
+      result += `  border-collapse: separate;\n`
+      result += '}\n\n'
+    }
+
+    result += selector + ' .qux-date-week-days {\n'
+    result += `  background:${style.tableHeaderBackground};\n`
+    result += `  color:${style.tableHeaderColor};\n`
+    result += '}\n\n'
+
+    result += selector + ' .qux-date-header {\n'
+    result += `  background:${style.headerBackground};\n`
+    result += `  color:${style.headerColor};\n`
+    result += '}\n\n'
+
+    if (style.weekendBackground && style.weekendColor) {
+      result += selector + ' .qux-date-weekend {\n'
+      result += `  background:${style.weekendBackground};\n`
+      result += `  color:${style.weekendColor};\n`
+      result += '}\n\n'
+    }
+
+    if (style.weekdayBackground && style.weekdayColor) {
+      result += selector + ' .qux-date-workday {\n'
+      result += `  background:${style.weekdayBackground};\n`
+      result += `  color:${style.weekdayColor};\n`
+      result += '}\n\n'
+    }
+
+    if (widget.props.range) {
+
+      result += selector + ' .qux-date-range-start {\n'
+      result += `  background:${style.selectedBackground};\n`
+      result += `  color:${style.selectedColor};\n`
+      if (style.itemBorderRadius) {
+        result += `  border-radius:${style.itemBorderRadius}%;\n`
+      }
+      result += '}\n\n'
+
+      result += selector + ' .qux-date-range-end {\n'
+      result += `  background:${style.selectedBackground};\n`
+      result += `  color:${style.selectedColor};\n`
+      if (style.itemBorderRadius) {
+        result += `  border-radius:${style.itemBorderRadius}%;\n`
+      }
+      result += '}\n\n'
+
+      result += selector + ' .qux-date-range-middle {\n'
+      result += `  background:${style.selectedInRangeBackground};\n`
+      result += `  color:${style.selectedInRangeColor};\n`
+      if (style.itemBorderRadius) {
+        result += `  border-radius:${style.itemBorderRadius}%;\n`
+      }
+      result += '}\n\n'
+
+    } else {
+      result += selector + ' .qux-date-selected {\n'
+      result += `  background:${style.selectedBackground};\n`
+      result += `  color:${style.selectedColor};\n`
+      if (style.itemBorderRadius) {
+        result += `  border-radius:${style.itemBorderRadius}%;\n`
+      }
+      result += '}\n\n'
+    }
+
+
+    return result
+  }
+
+  getCSS_DateDropDown(selector, style, widget) {
+    let result = ''
+
+    result += selector + ' {\n'
+    result += this.cssFactory.getRawStyle(style, widget);
+    result += this.cssFactory.getPosition(widget, screen);
+    result += '}\n\n'
+
+    result += this._addCaret(selector, widget, style)
+  
+    result += selector + ' .qux-date-picker-popup {\n'
+    result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.borderProperties)   
+    result += `  width:${style.fontSize * 18}px;\n`
+    result += `  height:${style.fontSize * 18}px;\n`
+    result += '}\n\n'
+
+    result += this.getCSS_Date(selector + " .qux-date-picker-popup", style, widget, true)
+
     return result
   }
 }
