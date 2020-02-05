@@ -1,0 +1,10 @@
+.qux-segment{
+    display: flex;
+    justify-content: stretch;
+
+    .qux-segment-item{
+        flex-grow: 1;
+        height: 100%;
+        cursor: pointer;
+    }
+}

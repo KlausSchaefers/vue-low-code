@@ -25,7 +25,14 @@ export default class ModelTransformer {
         this.textProperties = [
 			'color', 'textDecoration', 'textAlign', 'fontFamily',
 			'fontSize', 'fontStyle', 'fontWeight', 'letterSpacing', 'lineHeight'
-		]
+        ]
+        
+        this.supportedWidgetTypes = [
+            'Button', 'Box', 'Label', 'Container', 'Icon', 'Image', 'CheckBox', 'RadioBox', 'RadioBox2', 
+            'TextBox', 'Password', 'TextArea', 'Repeater', 'RadioGroup', 'CheckBoxGroup', 'ToggleButton',
+            'Switch', 'DropDown', 'MobileDropDown', 'Stepper', 'HSlider', 'Date', 'DateDropDown',
+            'SegmentButton', 'Rating', 'IconToggle', 'LabeledIconToggle', 'TypeAheadTextBox'
+        ]
     }
 
     transform (relative = true) {
@@ -137,7 +144,7 @@ export default class ModelTransformer {
             
             this.setCSSClassNames(screen, screen.name)
 
-            this.setWidgetTypes(screen)
+            this.setWidgetTypes(screen, result)
 
             result.screens.push(screen)
         }
@@ -156,21 +163,21 @@ export default class ModelTransformer {
         return result
     }
 
-    setWidgetTypes (parent) {
-        parent.qtype = this.getWidgetType(parent)
+    setWidgetTypes (parent, result) {
+        parent.qtype = this.getWidgetType(parent, result)
         if (parent.children) {
             parent.children.forEach(c => {
-                this.setWidgetTypes(c)
+                this.setWidgetTypes(c, result)
             })
         }
         if (parent.fixedChildren) {
             parent.fixedChildren.forEach(c => {
-                this.setWidgetTypes(c)
+                this.setWidgetTypes(c, result)
             })
         }
         if (parent.templates) {
             parent.templates.forEach(c => {
-                this.setWidgetTypes(c)
+                this.setWidgetTypes(c, result)
             })
         }
     }
@@ -200,7 +207,7 @@ export default class ModelTransformer {
         }
     }
 
-    getWidgetType (element) {
+    getWidgetType (element, result) {
         // check if an overwrite matches
         if (this.config.components) {
             let matches = this.config.components.filter(o => {
@@ -228,10 +235,12 @@ export default class ModelTransformer {
             }
             return 'qContainer'
         } else {
-            /**
-             * Check here for options mapping...
-             */
-            return `q${element.type}`
+            if (this.supportedWidgetTypes.indexOf(element.type) >= 0) {
+                return `q${element.type}`
+            }
+            result.warnings.push('Not supported widget type: ' + element.type)
+            return 'qBox'
+           
         }
     }
 

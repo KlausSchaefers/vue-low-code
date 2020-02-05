@@ -69,7 +69,11 @@ import TextArea from './web/TextArea.vue'
 import Stepper from './web/Stepper.vue'
 import Slider from './web/Slider.vue'
 import qDate from './web/Date.vue'
-import DatePicker from './web/DatePicker.vue'
+import qDatePicker from './web/DatePicker.vue'
+import Segment from './web/Segment.vue'
+import Rating from './web/Rating.vue'
+import IconToggle from './web/IconToggle.vue'
+import Combo from './web/Combo.vue'
 
 import Event from './mixins/Event.vue'
 
@@ -279,7 +283,7 @@ export default {
             this.mergedConfig.debug = Util.mixin(this.mergedConfig.debug, c.debug)
         }
         Logger.setLogLevel(this.mergedConfig.debug.logLevel)
-        Logger.log(0, 'QUX.setConfig()', JSON.stringify(this.mergedConfig))
+        Logger.log(5, 'QUX.setConfig()', JSON.stringify(this.mergedConfig))
     },
     initCustomComponents (components) {
         Logger.log(1, 'QUX.initCustomComponents()')
@@ -313,7 +317,12 @@ export default {
         Vue.component('qStepper', Stepper)
         Vue.component('qHSlider', Slider)
         Vue.component('qDate', qDate)
-        Vue.component('qDateDropDown', DatePicker)
+        Vue.component('qDateDropDown', qDatePicker)
+        Vue.component('qSegmentButton', Segment)
+        Vue.component('qRating', Rating)
+        Vue.component('qIconToggle', IconToggle)
+        Vue.component('qLabeledIconToggle', IconToggle)
+        Vue.component('qTypeAheadTextBox', Combo)
     },
     initReziseListener () {
         window.addEventListener("resize", this.onResize);
@@ -359,7 +368,7 @@ export default {
     }
   },
   async mounted () {
-      Logger.log(0, 'QUX.mounted() > 0.0.8', this.value) 
+      Logger.log(0, 'QUX.mounted() > 0.1.9', this.value) 
       this.initComponents()
       if (this.config) {
           this.setConfig(this.config)
@@ -368,7 +377,7 @@ export default {
           await this.setApp(this.app)
       }
       if (this.debug) {
-          console.warn('QUX > debug propertz is decrecated. Use "app" instead.')
+          console.warn('QUX > debug property is decrecated. Use "app" instead.')
           await this.loadAppByKey(this.debug)
       }
       if (this.screen) {

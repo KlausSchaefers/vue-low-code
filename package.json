@@ -1,6 +1,6 @@
 {
-  "name": "qux-lowcode",
-  "version": "0.0.19",
+  "name": "vue-low-code",
+  "version": "0.0.21",
   "description": "Quant-UX Low Code - Smart Renderer for design handoffs",
   "main": "./dist/index.js",
   "scripts": {
@@ -15,7 +15,8 @@
   "keywords": [
     "Quant-UX",
     "Prototyping",
-    "Low Code"
+    "Low Code",
+    "vue.js"
   ],
   "author": "Klaus Schaefers",
   "license": "BSD-2-Clause",

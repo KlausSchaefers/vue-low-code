@@ -39,7 +39,7 @@ We envision the following workflow to enable painless collaboration between desi
 First, you have to install the QUX-LowCode package via NPM
 
 ```
-npm i qux-lowcode
+npm i vue-low-code
 ```
 
 Second, you have to globaly import the QUX component
