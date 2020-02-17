@@ -141,7 +141,7 @@ export default class CSSFactory {
 
 		this.fontProperties = ['color', 'fontSize', 'fontWeight', 'textAlign', 'fontStyle', 'letterSpacing', 'lineHeight']
 
-		this.ignoreCorrectWidthAndHeigth = ['CheckBox', 'RadioBox', 'RadioBox2', 'Switch', 'Stepper']
+		this.ignoreCorrectWidthAndHeigth = ['CheckBox', 'RadioBox', 'RadioBox2', 'Switch', 'Stepper', 'TypeAheadTextBox']
 		//this.isAlwaysFixedHorizontal = ['Switch', 'Stepper']
 
 		this.widgetFactory = new CSSWidgetFactory(this)

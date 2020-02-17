@@ -1,9 +1,9 @@
 <template>
   <div :class="['qux-stepper qux-common-no-select', cssClass]">
-    <div class="qux-stepper-minus" @click="onMinus">
+    <div class="qux-stepper-btn qux-stepper-minus" @click="onMinus">
         <span class="qux-stepper-label">-</span>
     </div>
-    <div class="qux-stepper-plus" @click="onPlus">
+    <div class="qux-stepper-btn qux-stepper-plus" @click="onPlus">
         <span class="qux-stepper-label">
             +
         </span>

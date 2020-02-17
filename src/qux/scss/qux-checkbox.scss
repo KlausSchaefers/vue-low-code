@@ -8,14 +8,15 @@
         height: 100%;
         display: inline-block;
         vertical-align: middle;
+        border:1px solid #333;
     }
 
     .qux-checkbox-hook{
         opacity:0;
         transition-duration: 0.3s;
         transition-property: opacity;
-        border-bottom: 3px solid #1973e8;
-        border-right: 2px solid #1973e8;
+        border-bottom: 3px solid #333;
+        border-right: 2px solid #333;
         transform:rotate(45deg);
         -ms-transform:rotate(45deg); /* IE 9 */
         -webkit-transform:rotate(45deg); /* Opera, Chrome, and Safari */

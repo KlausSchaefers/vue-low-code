@@ -9,6 +9,22 @@ import * as Util from '../core/ExportUtil'
 export default {
   name: 'Event',
   methods: {
+    onCallback (element, e) {
+        Logger.log(5, 'QUX.onCallback() > ' + element.name, e)
+        if (this.$parent) {
+            if (this.$parent[e.callback]) {
+                let func = this.$parent[e.callback]
+                if (func instanceof Function) {
+                    func(this.value, element, e.params)
+                    return;
+                } else {
+                    console.warn('QUX.onCallback() > Callback is not method ', e.callback)
+                }
+            } else {
+                console.warn('QUX.onCallback() > no method in $parent with name ', e.callback)
+            }
+        }
+    },
     onClick (element, e) {
         
         if (element.lines) {

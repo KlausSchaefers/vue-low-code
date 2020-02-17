@@ -7,6 +7,7 @@
             :element="currentScreen" 
             :model="model" 
             :config="mergedConfig"
+            @qCallback="onCallback"
             @qClick="onClick"
             @qChange="onChange"
             @qKeyPress="onKeyPress"
@@ -26,6 +27,7 @@
                 :class="'qux-screen'" 
                 :model="model" 
                 :config="mergedConfig"
+                @qCallback="onCallback"
                 @qClick="onClick"
                 @qChange="onChange"
                 @qKeyPress="onKeyPress"
@@ -74,6 +76,7 @@ import Segment from './web/Segment.vue'
 import Rating from './web/Rating.vue'
 import IconToggle from './web/IconToggle.vue'
 import Combo from './web/Combo.vue'
+import Table from './web/Table.vue'
 
 import Event from './mixins/Event.vue'
 
@@ -323,6 +326,7 @@ export default {
         Vue.component('qIconToggle', IconToggle)
         Vue.component('qLabeledIconToggle', IconToggle)
         Vue.component('qTypeAheadTextBox', Combo)
+        Vue.component('qTable', Table)
     },
     initReziseListener () {
         window.addEventListener("resize", this.onResize);

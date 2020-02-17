@@ -7,6 +7,7 @@
         :model="model"
         :config="config"
         v-model="value"
+        @qCallback="forwardCallback"
         @qClick="forwardClick"
         @qChange="forwardChange"
         @qKeyPress="forwardKeyPress"
@@ -24,6 +25,7 @@
           :model="model"
           :config="config"
           v-model="value"
+          @qCallback="forwardCallback"
           @qClick="forwardClick"
           @qChange="forwardChange"
           @qKeyPress="forwardKeyPress"
@@ -71,7 +73,10 @@ export default {
     },
     forwardKeyPress (element, e) {
       this.$emit('qKeyPress', element, e)
-    } 
+    },
+    forwardCallback (element, e) {
+      this.$emit('qCallback', element, e)
+    }
   },
   mounted () {
      //console.debug('Container.mounted()', this.element.name, this.element.isColumn, this.element.isRow)

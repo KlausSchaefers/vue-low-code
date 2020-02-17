@@ -1,0 +1,29 @@
+.qux-table {
+    table {
+        width: 100%;
+        height: 100%;
+        border-spacing: 0;
+        border-collapse: collapse;
+
+        .qux-table-action{
+            cursor: pointer;
+        }
+        .qux-table-action:hover{
+            text-decoration: underline;
+        }
+
+        .qux-table-action-hover{
+            opacity: 0;
+        }
+
+        tr:hover .qux-table-action-hover{
+            opacity: 1;
+        }
+
+        .qux-table-action-cntr{
+            text-align: right;
+        }
+    }
+
+    
+}

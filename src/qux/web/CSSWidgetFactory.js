@@ -343,6 +343,13 @@ export default class CSSWidgetFactory {
     result += this.cssFactory.getPosition(widget, screen);
     result += '}\n\n'
 
+    if (widget.hover) {
+      result += selector + ' .qux-stepper-btn:hover {\n'
+      result += `  background:${widget.hover.background};\n`
+      result += `  color:${widget.hover.color};\n`
+      result += '}\n\n'
+    }
+
     return result
   }
 
@@ -606,6 +613,7 @@ export default class CSSWidgetFactory {
     result += selector + ' .qux-combo-item:hover,\n'
     result += selector + ' .qux-combo-item-selected {\n'
     result += `  background:${style.selectedOptionBackground};\n`
+    result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.paddingProperties)
     result += `  color:${style.selectedOptionColor};\n`
     result += '}\n\n'
 
@@ -618,11 +626,162 @@ export default class CSSWidgetFactory {
       result += '}\n\n'
       result += this._addCaret(selector + ':hover', widget, widget.focus)
 
-      result += selector + ':hover .qux-combo-popup {\n'
-      result += this.cssFactory.getStyleByKey(widget.focus, widget, this.cssFactory.borderProperties)
-      result += '}\n\n'
+      //result += selector + ':hover .qux-combo-popup {\n'
+      //result += this.cssFactory.getStyleByKey(widget.focus, widget, this.cssFactory.borderProperties)
+      //result += '}\n\n'
     }
 
     return result
+  }
+
+  getCSS_Table(selector, style, widget) {
+
+
+    let result = ''
+    let borderStyle = this.getBorderStyle(widget) 
+
+    result += selector + ' {\n'
+    result += this.cssFactory.getPosition(widget, screen);
+    result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.textProperties)
+
+    if (borderStyle === 'Out') {
+      result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.borderProperties)
+    }
+    result += '}\n\n'
+
+    result += selector + ' .qux-table-action,'
+    result += selector + ' .qux-table-cell{\n'
+    result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.paddingProperties)
+    result += '}\n\n'
+
+
+    if (borderStyle === 'Cell') {
+      result += selector + ' th,'
+      result += selector + ' td{\n'
+      result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.borderProperties)
+      result += '}\n\n'
+    }
+
+    if (borderStyle === 'VLines') {
+      result += selector + ' th,'
+      result += selector + ' td{\n'
+      result += `  border-right-color:${style._borderBottomColor};\n`
+      result += `  border-right-width:${style._borderBottomWidth}px;\n`
+      result += `  border-right-style:solid;\n`
+      result += '}\n\n'
+
+      result += selector + ' th:last-child,'
+      result += selector + ' td:last-Child{\n'
+      result += `  border:none;\n`
+      result += '}\n\n'
+    }
+
+    if (borderStyle === 'HLines') {
+      result += selector + ' th,'
+      result += selector + ' td{\n'
+      result += `  border-bottom-color:${style._borderBottomColor};\n`
+      result += `  border-bottom-width:${style._borderBottomWidth}px;\n`
+      result += `  border-bottom-style:solid;\n`
+      result += '}\n\n'
+
+      result += selector + ' tr:last-child th,'
+      result += selector + ' tr:last-Child td{\n'
+      result += `  border:none;\n`
+      result += '}\n\n'
+    }
+
+    result += selector + ' thead tr{\n'
+    result += `  background:${style.headerBackground};\n`
+    result += `  color:${style.headerColor};\n`
+    if (style.headerFontStyle) {
+      result += `  font-style:${style.headerFontStyle};\n`
+    }
+    if (style.headerFontWeight) {
+      result += `  font-weight:${style.headerFontWeight};\n`
+    }
+    if (style.headerTextDecoration) {
+      result += `  text-decoration:${style.headerTextDecoration};\n`
+    }
+    result += '}\n\n'
+
+    result += selector + ' tbody tr:nth-child(2){\n'
+    result += `  background:${style.evenRowBackground};\n`
+    result += `  color:${style.evenRowColor};\n`
+    result += '}\n\n'
+
+    result += selector + ' tbody tr:hover{\n'
+    if (style.hoverBackground) {
+      result += `  background:${style.hoverBackground};\n`
+    }
+    if (style.hoverColor) {
+      result += `  color:${style.hoverColor};\n`
+    }
+    result += '}\n\n'
+
+    if (widget.props.tableActions) {
+      widget.props.tableActions.forEach((action, i) => {
+        result += selector + ' .qux-table-action-cntr .qux-table-action-' + i + '{\n'
+        if (action.color) {
+          result += `  color:${action.color};\n`
+        }
+        result += '}\n\n'
+      })
+    }
+
+    if (style.checkBox) {
+      result += selector + ' .qux-checkbox-cntr{\n'
+      let s = style.checkBoxSize ? style.checkBoxSize : style.fontSize
+      result += `  width:${s}px;\n`
+      result += `  height:${s}px;\n`
+      result += `  background:${style.checkBoxBackground};\n`
+      result += `  border-color:${style.checkBoxBorderColor};\n`
+      result += `  border-radius:${style.checkBoxBorderRadius}px;\n`
+      result += `  border-width:${style.borderWidth}px;\n`
+
+      result += '}\n\n'
+
+      result += selector + ' .qux-checkbox-hook {\n'
+      result += `  border-color:${style.checkBoxHookColor};\n`
+      result += '}\n\n'
+    }
+
+  
+
+    return result
+  }
+
+  renderRowBorder (tr, r, style, borderStyle, rows) {
+    if ("HLines" == borderStyle) {
+      tr.style.border = "none";
+      if (r < rows - 1) {
+        tr.style.borderBottomColor = style.borderBottomColor;
+        tr.style.borderBottomWidth =
+          this._getBorderWidth(style.borderBottomWidth) + "px";
+        tr.style.borderBottomStyle = "solid";
+      }
+      return;
+    }
+  }
+
+  renderCellBorder (td, r, c, style, borderStyle, rows, columns) {
+    if ("Cell" === borderStyle) {
+      td.style.borderColor = style.borderBottomColor;
+      td.style.borderWidth = this._getBorderWidth(style.borderBottomWidth) + "px";
+      td.style.borderStyle = "solid";
+    }
+    if ("VLines" === borderStyle) {
+      if (c < columns - 1) {
+        td.style.borderRightColor = style.borderBottomColor;
+        td.style.borderRightWidth = this._getBorderWidth(style.borderBottomWidth) + "px";
+        td.style.borderRightStyle = "solid";
+      }
+    }
+  }
+
+  getBorderStyle (model) {
+    if (model.props.borderStyle) {
+      return model.props.borderStyle;
+    }
+    return "Cell";
   }
 }
