@@ -94,6 +94,12 @@ export default {
         }
         return result
       },
+      dataBinding () {
+        if (this.element && this.element.props && this.element.props.databinding) {
+          return this.element.props.databinding
+        }
+        return null
+      },
       dataBindingInput () {
         if (this.element && this.element.props && this.element.props.databinding) {
           let path =  this.element.props.databinding.default
@@ -155,11 +161,18 @@ export default {
     isClick (line) {
       return line.event = 'click'
     },
+    hasDataBinding () {
+      return this.element && this.element.props && this.element.props.databinding
+    },
+    /**
+     * Default event handlers which just delegate up
+     * the hierachy
+     */
     onClick (e) {
       this.$emit('qClick', this.element, e)
     },
     onChange (e) {
-      this.$emit('qChange', this.element, e)
+      this.$emit('qChange', this.element, e, this.getValue())
     },
     onKeyPress (e) {
       this.$emit('qKeyPress', this.element, e)
@@ -176,6 +189,16 @@ export default {
     onMouseOut (e) {
       this.$emit('qMouseOut', this.element, e)
     },
+    /**
+     * Template method which can be implemnted by children to 
+     * give the current value to the onChange
+     */
+    getValue () {
+      return this.dataBindingInput
+    },
+    /**
+     * Method wich sets the value accoridng to the dataBing path.
+     */
     onValueChange (value, key = 'default') {
       if (this.element && this.element.props && this.element.props.databinding) {
         let path =  this.element.props.databinding[key]
@@ -184,9 +207,6 @@ export default {
           JSONPath.set(this.value, path, value)
         }
       }
-    },
-    hasDataBinding () {
-      return this.element && this.element.props && this.element.props.databinding
     }
   }
 }

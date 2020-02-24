@@ -1,4 +1,20 @@
 .qux-table {
+    overflow: auto;
+
+    &.qux-table-fixed {
+        display: flex;
+        flex-direction: column;
+
+        .qux-table-header {
+
+        }
+
+        .qux-table-body {
+            overflow: auto;
+            flex-grow: 1;
+        }
+    }
+
     table {
         width: 100%;
         height: 100%;
@@ -14,6 +30,10 @@
 
         .qux-table-action-hover{
             opacity: 0;
+        }
+
+        th {
+            cursor: pointer;
         }
 
         tr:hover .qux-table-action-hover{

@@ -49,10 +49,14 @@ export default {
                 return
             }
         }
-        if (element.props && element.props.callbacks) {
-            let callback = element.props.callbacks.click
+       
+        this.dispatchCallback(element, e, 'click')
+    },
+    dispatchCallback (element, e, type) {
+         if (element.props && element.props.callbacks) {
+            let callback = element.props.callbacks[type]
             if (callback) {
-                Logger.log(2, 'QUX.onClick() > callback', callback)
+                Logger.log(2, 'QUX.dispatchCallback() > callback > ' + type, callback)
                 if (this.$parent) {
                     if (this.$parent[callback]) {
                         let func = this.$parent[callback]
@@ -90,23 +94,28 @@ export default {
             this.overlayScreenIds.pop()
         }
     },
-    onChange (e) {
-        this.$emit('qChange', this.element, e)
+    onChange (element, e) {
+        Logger.log(4, 'Qux(Event).onChange() > ', element)
+        this.$emit('qChange', element, e)
+        this.dispatchCallback(element, e, 'change')
     },
-    onKeyPress (e) {
-        this.$emit('qKeyPress', this.element, e)
+    onKeyPress (element, e) {
+        this.$emit('qKeyPress', element, e)
+        this.dispatchCallback(element, e, 'change')
     },
-    onFocus (e) {
-        this.$emit('qFocus', this.element, e)
+    onFocus (element, e) {
+        this.$emit('qFocus', element, e)
+        this.dispatchCallback(element, e, 'focus')
     },
-    onBlur (e) {
-        this.$emit('qBlur', this.element, e)
+    onBlur (element, e) {
+        this.$emit('qBlur', element, e)
+        this.dispatchCallback(element, e, 'blur')
     },
-    onMouseOver (e) {
-        this.$emit('qMouseOver', this.element, e)
+    onMouseOver (element, e) {
+        this.$emit('qMouseOver', element, e)
     },
-    onMouseOut (e) {
-        this.$emit('qMouseOut', this.element, e)
+    onMouseOut (element, e) {
+        this.$emit('qMouseOut', element, e)
     }
   }
 }

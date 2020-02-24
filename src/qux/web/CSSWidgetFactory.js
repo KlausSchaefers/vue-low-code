@@ -638,7 +638,7 @@ export default class CSSWidgetFactory {
 
 
     let result = ''
-    let borderStyle = this.getBorderStyle(widget) 
+    let borderStyle = this.getTableBorderStyle(widget) 
 
     result += selector + ' {\n'
     result += this.cssFactory.getPosition(widget, screen);
@@ -745,40 +745,48 @@ export default class CSSWidgetFactory {
       result += '}\n\n'
     }
 
-  
-
+    let widths = this.getTableWidths(widget.props, style)
+    widths.forEach((w,i) => {
+      result += selector + ' .qux-table-column-' + i + '{\n'
+      result += `  width:${Math.round(w * widget.w)}px;\n`
+      result += '}\n\n'
+    })
+    //widths.forEach((w,i) => {
+    //  result += selector + ' td:nth-child(' + (i +1 ) + '){\n'
+    //  result += `  width:${Math.round(w * widget.w)}px;\n`
+    //  result += '}\n\n'
+    //})
     return result
   }
 
-  renderRowBorder (tr, r, style, borderStyle, rows) {
-    if ("HLines" == borderStyle) {
-      tr.style.border = "none";
-      if (r < rows - 1) {
-        tr.style.borderBottomColor = style.borderBottomColor;
-        tr.style.borderBottomWidth =
-          this._getBorderWidth(style.borderBottomWidth) + "px";
-        tr.style.borderBottomStyle = "solid";
+  getTableWidths (props,style, fontFactor = 0.6) {
+    var result = [];
+    if (props.widths) {
+      let widths = props.widths
+  
+      var sum = 0;
+      let padding = style._paddingLeft + style._paddingRight
+      if (style.checkBox) {
+        let w = style.checkBoxSize ? style.checkBoxSize : style.fontSize 
+        widths = [w + padding].concat(widths);
       }
-      return;
-    }
-  }
-
-  renderCellBorder (td, r, c, style, borderStyle, rows, columns) {
-    if ("Cell" === borderStyle) {
-      td.style.borderColor = style.borderBottomColor;
-      td.style.borderWidth = this._getBorderWidth(style.borderBottomWidth) + "px";
-      td.style.borderStyle = "solid";
-    }
-    if ("VLines" === borderStyle) {
-      if (c < columns - 1) {
-        td.style.borderRightColor = style.borderBottomColor;
-        td.style.borderRightWidth = this._getBorderWidth(style.borderBottomWidth) + "px";
-        td.style.borderRightStyle = "solid";
+      if (props.tableActions && props.tableActions.length > 0) {
+        let text = props.tableActions.map(a => a.label).join()
+        let w = text.length * style.fontSize * fontFactor + padding * props.tableActions.length
+        widths = widths.concat(w)
+      }
+      for (let i = 0; i < widths.length; i++) {
+        sum += widths[i];
+      } 
+      for (let i = 0; i < widths.length; i++) {
+        result[i] = widths[i] / sum;
       }
     }
+    return result;
   }
 
-  getBorderStyle (model) {
+
+  getTableBorderStyle (model) {
     if (model.props.borderStyle) {
       return model.props.borderStyle;
     }

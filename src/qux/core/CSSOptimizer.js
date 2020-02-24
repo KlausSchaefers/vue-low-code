@@ -187,6 +187,7 @@ export default class CSSOptimizer {
                     value += unit
                 } 
                 values.push(value)
+                style['_' + key] = style[key]
                 delete style[key]
             })
             style[prop] = values.join(' ')
