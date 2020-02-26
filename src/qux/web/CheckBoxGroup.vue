@@ -1,10 +1,10 @@
 <template>
   <div :class="['qux-checkgroup', cssClass]">
-		<CheckBox v-for="option in options" 
-            :key="option" 
-            :lbl="option" 
-            :value="isChecked(option)" 
-            @change="select(option)"/>
+		<CheckBox v-for="option in checkBoxOptions" 
+            :key="option.value" 
+            :lbl="option.label" 
+            :value="isChecked(option.value)" 
+            @change="select(option.value)"/>
   </div>
 </template>
 <style lang="scss">
@@ -29,6 +29,21 @@ export default {
       'CheckBox': CheckBox
   },
   computed: {
+       checkBoxOptions () {
+          if (this.element) {
+            console.debug('checkBoxOptions', this.options)
+            return this.options.map(o => {
+                if (o.toLowerCase) {
+                    return {
+                        label: o,
+                        value: o
+                    }
+                }
+                return o
+            })
+          }
+          return []
+      },
   },
   methods: {
       isChecked (option) {

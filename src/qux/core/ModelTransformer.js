@@ -69,14 +69,34 @@ export default class ModelTransformer {
          */
         this.model = this.fixNames(this.model, result)
 
-        /**
-         * FIXME: fix doubles names
-         */
 
         /**
          * Embedd links
          */
         this.model = this.addActions(this.model)
+
+        /**
+         * Set tenplates in widgets
+         */
+        result.templates.forEach(t => {
+            t.cssSelector = `.qux-template-${t.name.replace(/\s+/g, '_')}`
+            t.cssClass = `qux-template-${t.name.replace(/\s+/g, '_')}`
+            Object.values(this.model.widgets).forEach(widget => {
+                if (widget.template === t.id) {
+                    if (!widget.sharedCssClasses) {
+                        widget.sharedCssClasses = []
+                    }
+                    widget.sharedCssClasses.push(t.cssClass)
+                    /**
+                     * The vertical align is copied directly... This should be some how handled
+                     * by the css factory...
+                     */
+                    if (t.style && t.style.verticalAlign && !widget.style.verticalAlign) {
+                        widget.style.verticalAlign = t.style.verticalAlign
+                    }
+                }
+            })
+        })
 
         /**
          * FIXME: We should fix doubles names. With mastre screens
@@ -975,11 +995,13 @@ export default class ModelTransformer {
         })
 
         /**
-         * For each row create a container and reposition the children
+         * For each row create a container and reposition the children.
+         * 
+         * For wrappend and grid containers, we do not do this.
          * 
          * FIXME: For groups we should not need to add a now row?
          */
-        if (!Util.isWrappedContainer(parent)) {
+        if (!Util.isWrappedContainer(parent) && !Util.isGridContainer(parent)) {
             for (let row in rows) {
                 let children = rows[row]
                 let boundingBox = Util.getBoundingBoxByBoxes(children)
@@ -1046,8 +1068,8 @@ export default class ModelTransformer {
      * Sets the row IDS to each child
      */
     addRows (parent) {
+    
         let nodes = parent.children
-   
         nodes.sort((a, b) => {
             return a.y - b.y
         })

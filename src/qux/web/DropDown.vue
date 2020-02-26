@@ -41,15 +41,15 @@ export default {
       },
       dropDownOption () {
           if (this.element) {
-              return this.options.map(o => {
-                  if (o.toLowerCase) {
-                      return {
-                          label: o,
-                          value: o
-                      }
-                  }
-                  return o
-              })
+            return this.options.map(o => {
+                if (o.toLowerCase) {
+                    return {
+                        label: o,
+                        value: o
+                    }
+                }
+                return o
+            })
           }
           return []
       },
@@ -57,9 +57,19 @@ export default {
           if (this.element) {
             let input = this.dataBindingInput
             if (input) {
+                let found = this.options.find(o => {
+                    return o.value === input
+                })
+                if (found) {
+                    return found.label
+                }
                 return input
             } else {
-                return this.options[0]
+                let option = this.options[0]
+                if (option.label) {
+                    return option.label
+                }
+                return option
             }
           }
           return this.selected

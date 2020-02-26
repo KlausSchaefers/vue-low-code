@@ -74,6 +74,9 @@ export default {
       cssClass () {
         let result = 'qux-element '
         if (this.element) {
+          /**
+           * FIXME: Move this to CSSFactory
+           */
           if (this.element.style && this.element.style.verticalAlign) {
             result += `qux-valign-${this.element.style.verticalAlign} `
           }
@@ -89,6 +92,11 @@ export default {
                 }
               }
             }
+          }
+
+          if (this.element.sharedCssClasses){
+            console.debug(this.element.sharedCssClasses)
+            result += this.element.sharedCssClasses.join(' ') + ' '
           }
           result += this.element.cssClass
         }
@@ -106,6 +114,17 @@ export default {
           if (path) {
             let value = JSONPath.get(this.value, path)
             Logger.log(5, '_Base.dataBindingInput() > ' + path, `"${value}"`)
+            return value
+          }
+        }
+        return null
+      },
+      dataBindingOptions () {
+        if (this.element && this.element.props && this.element.props.databinding) {
+          let path =  this.element.props.databinding.options
+          if (path) {
+            let value = JSONPath.get(this.value, path)
+            Logger.log(5, '_Base.dataBindingOptions() > ' + path, `"${value}"`)
             return value
           }
         }
@@ -142,9 +161,10 @@ export default {
         return false
       },
       options () {
-        /**
-         * FIXME: Check here for custom options
-         */
+        let dataBindingOptions = this.dataBindingOptions
+        if (dataBindingOptions) {
+            return dataBindingOptions
+        }
         if (this.element && this.element.props && this.element.props.options){
           return this.element.props.options
         }

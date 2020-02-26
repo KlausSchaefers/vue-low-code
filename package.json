@@ -1,6 +1,6 @@
 {
   "name": "vue-low-code",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "description": "Quant-UX Low Code - Smart Renderer for design handoffs",
   "main": "./dist/index.js",
   "scripts": {

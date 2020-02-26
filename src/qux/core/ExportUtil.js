@@ -130,6 +130,11 @@ export function isWrappedContainer(e) {
     return e.style.wrap
 }
 
+
+export function isGridContainer(e) {
+    return e.style.grid
+}
+
 export function isRepeater(e) {
     if (e) {
         return e.type === 'Repeater'
