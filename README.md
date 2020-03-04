@@ -46,7 +46,7 @@ Second, you have to globaly import the QUX component
 
 ```
 import Vue from "vue";
-import QUX from 'qux-lowcode'
+import QUX from 'vue-low-code'
 Vue.use(QUX);
 ```
 
