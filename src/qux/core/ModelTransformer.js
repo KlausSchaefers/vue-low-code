@@ -31,7 +31,8 @@ export default class ModelTransformer {
             'Button', 'Box', 'Label', 'Container', 'Icon', 'Image', 'CheckBox', 'RadioBox', 'RadioBox2', 
             'TextBox', 'Password', 'TextArea', 'Repeater', 'RadioGroup', 'CheckBoxGroup', 'ToggleButton',
             'Switch', 'DropDown', 'MobileDropDown', 'Stepper', 'HSlider', 'Date', 'DateDropDown',
-            'SegmentButton', 'Rating', 'IconToggle', 'LabeledIconToggle', 'TypeAheadTextBox', 'Table'
+            'SegmentButton', 'Rating', 'IconToggle', 'LabeledIconToggle', 'TypeAheadTextBox', 'Table',
+            'Paging'
         ]
     }
 
@@ -228,7 +229,9 @@ export default class ModelTransformer {
     }
 
     getWidgetType (element, result) {
-        // check if an overwrite matches
+        /**
+         * We check here different component overrides
+         */
         if (this.config.components) {
             let matches = this.config.components.filter(o => {
                 if (o.qType) { 
@@ -646,7 +649,7 @@ export default class ModelTransformer {
                 children.forEach(widgetId => {
                     let widget = model.widgets[widgetId]
                     if (widget && widget.props) {
-                        if (!widget.props.databinding || !widget.props.databinding.default) {
+                        if (!widget.props.databinding || Object.values(widget.props.databinding) === 0) {
                             widget.props.databinding = {
                                 'default': this.getDefaultDataBinding(screen, widget)
                             }

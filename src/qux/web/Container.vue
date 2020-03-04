@@ -53,29 +53,29 @@ export default {
       }
   },
   methods: {
-    forwardClick (element, e) {
-      this.$emit('qClick', element, e);
+    forwardClick (element, e, value) {
+      this.$emit('qClick', element, e, value);
     },
-    forwardChange (element, e) {
-      this.$emit('qChange', element, e);
+    forwardChange (element, e, value) {
+      this.$emit('qChange', element, e, value);
     },
-    forwardFocus (element, e) {
-      this.$emit('qFocus', element, e);
+    forwardFocus (element, e, value) {
+      this.$emit('qFocus', element, e, value);
     },
-    forwardBlur (element, e) {
-      this.$emit('qBlur', element, e);
+    forwardBlur (element, e, value) {
+      this.$emit('qBlur', element, e, value);
     },
-    forwardMouseOver (element, e) {
-      this.$emit('qMouseOver', element, e);
+    forwardMouseOver (element, e, value) {
+      this.$emit('qMouseOver', element, e, value);
     },
-    forwardMouseOut (element, e) {
-      this.$emit('qMouseOut', element, e);
+    forwardMouseOut (element, e, value) {
+      this.$emit('qMouseOut', element, e, value);
     },
-    forwardKeyPress (element, e) {
-      this.$emit('qKeyPress', element, e)
+    forwardKeyPress (element, e, value) {
+      this.$emit('qKeyPress', element, e, value)
     },
-    forwardCallback (element, e) {
-      this.$emit('qCallback', element, e)
+    forwardCallback (element, e, value) {
+      this.$emit('qCallback', element, e, value)
     }
   },
   mounted () {

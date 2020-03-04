@@ -189,7 +189,7 @@ export default {
      * the hierachy
      */
     onClick (e) {
-      this.$emit('qClick', this.element, e)
+      this.$emit('qClick', this.element, e, this.getValue())
     },
     onChange (e) {
       this.$emit('qChange', this.element, e, this.getValue())

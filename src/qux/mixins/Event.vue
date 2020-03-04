@@ -9,6 +9,10 @@ import * as Util from '../core/ExportUtil'
 export default {
   name: 'Event',
   methods: {
+    /**
+     * This event come from now from the table. The event 'e'
+     * contains the callback and the data of the row as 'params'.
+     */
     onCallback (element, e) {
         Logger.log(5, 'QUX.onCallback() > ' + element.name, e)
         if (this.$parent) {
@@ -25,8 +29,7 @@ export default {
             }
         }
     },
-    onClick (element, e) {
-        
+    onClick (element, e, value) {
         if (element.lines) {
             let line = Util.getClickLine(element)
             if (line) {
@@ -50,9 +53,9 @@ export default {
             }
         }
        
-        this.dispatchCallback(element, e, 'click')
+        this.dispatchCallback(element, e, 'click', value)
     },
-    dispatchCallback (element, e, type) {
+    dispatchCallback (element, e, type, value) {
          if (element.props && element.props.callbacks) {
             let callback = element.props.callbacks[type]
             if (callback) {
@@ -61,7 +64,11 @@ export default {
                     if (this.$parent[callback]) {
                         let func = this.$parent[callback]
                         if (func instanceof Function) {
-                            func(this.value, element, e)
+                            /**
+                             * This is crucial. we need to keep this signature the same. 
+                             * FIXME: Should we wrapp everything than the value in one context - event?
+                             */
+                            func(value, element, this.value, e)
                             return;
                         } else {
                             console.warn('QUX.onClick() > Callback is not method ', callback)
@@ -94,22 +101,22 @@ export default {
             this.overlayScreenIds.pop()
         }
     },
-    onChange (element, e) {
+    onChange (element, e, value) {
         Logger.log(4, 'Qux(Event).onChange() > ', element)
         this.$emit('qChange', element, e)
-        this.dispatchCallback(element, e, 'change')
+        this.dispatchCallback(element, e, 'change', value)
     },
-    onKeyPress (element, e) {
+    onKeyPress (element, e, value) {
         this.$emit('qKeyPress', element, e)
-        this.dispatchCallback(element, e, 'change')
+        this.dispatchCallback(element, e, 'change', value)
     },
-    onFocus (element, e) {
+    onFocus (element, e, value) {
         this.$emit('qFocus', element, e)
-        this.dispatchCallback(element, e, 'focus')
+        this.dispatchCallback(element, e, 'focus', value)
     },
-    onBlur (element, e) {
+    onBlur (element, e, value) {
         this.$emit('qBlur', element, e)
-        this.dispatchCallback(element, e, 'blur')
+        this.dispatchCallback(element, e, 'blur', value)
     },
     onMouseOver (element, e) {
         this.$emit('qMouseOver', element, e)

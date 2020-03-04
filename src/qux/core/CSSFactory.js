@@ -1,6 +1,6 @@
 
 import * as Util from './ExportUtil'
-import CSSWidgetFactory from '../web/CSSWidgetFactory'
+import CSSWidgetFactory from '../web/css/CSSWidgetFactory'
 import Logger from './Logger'
 export default class CSSFactory {
 
@@ -15,9 +15,6 @@ export default class CSSFactory {
 			this.prefix = config.css.prefix ? config.css.prefix : ''
 			this.gridAutoErrorThreshold = config.css.gridAutoErrorThreshold ? config.css.gridAutoErrorThreshold : 5
 		}
-
-	
-	
 
 		this.mapping = {
 	
@@ -141,7 +138,7 @@ export default class CSSFactory {
 
 		this.fontProperties = ['color', 'fontSize', 'fontWeight', 'textAlign', 'fontStyle', 'letterSpacing', 'lineHeight']
 
-		this.ignoreCorrectWidthAndHeigth = ['CheckBox', 'RadioBox', 'RadioBox2', 'Switch', 'Stepper', 'TypeAheadTextBox']
+		this.ignoreCorrectWidthAndHeigth = ['CheckBox', 'RadioBox', 'RadioBox2', 'Switch', 'Stepper', 'TypeAheadTextBox', 'Paging']
 		//this.isAlwaysFixedHorizontal = ['Switch', 'Stepper']
 
 		this.widgetFactory = new CSSWidgetFactory(this)

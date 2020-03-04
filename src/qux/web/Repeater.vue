@@ -1,8 +1,8 @@
 <template>
   <div :class="['qux-repeater', cssClass]">
       <!--
-          FIXME: I call the copy thing here a lot! Maybe it would be better
-          to add the children to the row? Dunno, let's see later.
+          FIXME: the forwardClick ($event) contains only the element that was called, nit the value, nor
+          teh dom event. We would need something like $event1,...$event2
       -->
       <div v-for="(row, i) in rows" :key="i" class="qux-repeater-child">
         <component v-for="child in element.children" 
@@ -12,7 +12,7 @@
             :model="model"
             :config="config"
             v-model="value"
-            @qClick="forwardClick(i, $event)"
+            @qClick="forwardClick(i, $event)" 
             @qChange="forwardChange"
             @qKeyPress="forwardKeyPress"
             @qFocus="forwardFocus"
@@ -45,7 +45,7 @@ export default {
         if (this.element && this.element.props && this.element.props.databinding) {
             let path =  this.element.props.databinding.default
             let value = JSONPath.get(this.value, path)
-            Logger.log(0, 'Repeater.rows() > exit path: > ' + path, value)
+            Logger.log(3, 'Repeater.rows() > exit path: > ' + path, value)
             if (Array.isArray(value)) {
                 return value
             }
@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     getDeepCopy (element, row, i) {
-        Logger.log(0, 'Repeater.getDeepCopy() > exit : > ' + i, row)
+        Logger.log(4, 'Repeater.getDeepCopy() > exit : > ' + i, row)
         let copy = this.clone(element)
         let path = this.dataBindingInputPath
         this.updateDataBinding(copy, i, path)
@@ -113,34 +113,38 @@ export default {
         }
     },
     forwardClick (i, element, e) {
+      let row = this.dataBindingInputPath ? JSONPath.get(this.value, `${this.dataBindingInputPath}[${i}]`) : null
       if (element.lines && element.lines.length > 0) {
         if (this.dataBindingOutputPath && this.dataBindingInputPath) {
-          let row = JSONPath.get(this.value, `${this.dataBindingInputPath}[${i}]`)
           if (row) {
-            Logger.log(0, 'qRepeater.forwardClick() ' + this.dataBindingOutputPath, row)
+            Logger.log(0, 'qRepeater.forwardClick() > Upodate databidning' + this.dataBindingOutputPath, row)
             JSONPath.set(this.value, this.dataBindingOutputPath, row)
           }
         }
       }
-      this.$emit('qClick', element, e);
+      Logger.log(3, 'qRepeater.forwardClick() ', row)
+      this.$emit('qClick', element, e, row);
     },
-    forwardChange (element, e) {
-      this.$emit('qChange', element, e);
+    forwardChange (element, e, value) {
+      this.$emit('qChange', element, e, value);
     },
-    forwardFocus (element, e) {
-      this.$emit('qFocus', element, e);
+    forwardFocus (element, e, value) {
+      this.$emit('qFocus', element, e, value);
     },
-    forwardBlur (element, e) {
-      this.$emit('qBlur', element, e);
+    forwardBlur (element, e, value) {
+      this.$emit('qBlur', element, e, value);
     },
-    forwardMouseOver (element, e) {
-      this.$emit('qMouseOver', element, e);
+    forwardMouseOver (element, e, value) {
+      this.$emit('qMouseOver', element, e, value);
     },
-    forwardMouseOut (element, e) {
-      this.$emit('qMouseOut', element, e);
+    forwardMouseOut (element, e, value) {
+      this.$emit('qMouseOut', element, e, value);
     },
-    forwardKeyPress (element, e) {
-      this.$emit('qKeyPress', element, e)
+    forwardKeyPress (element, e, value) {
+      this.$emit('qKeyPress', element, e, value)
+    },
+    forwardCallback (element, e, value) {
+      this.$emit('qCallback', element, e, value)
     },
     getRowsFromTable (widget) {
         let result = []
@@ -161,7 +165,7 @@ export default {
     }
   },
   mounted () {
-      Logger.log(0, 'Repeater.mounted() > enter', this.element)
+      Logger.log(3, 'Repeater.mounted() > enter', this.element)
      //console.debug('Container.mounted()', this.element.name, this.element.isColumn, this.element.isRow)
   }
 }

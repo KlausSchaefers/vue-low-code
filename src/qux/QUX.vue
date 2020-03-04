@@ -77,6 +77,7 @@ import Rating from './web/Rating.vue'
 import IconToggle from './web/IconToggle.vue'
 import Combo from './web/Combo.vue'
 import Table from './web/Table.vue'
+import Paging from './web/Paging.vue'
 
 import Event from './mixins/Event.vue'
 
@@ -327,6 +328,7 @@ export default {
         Vue.component('qLabeledIconToggle', IconToggle)
         Vue.component('qTypeAheadTextBox', Combo)
         Vue.component('qTable', Table)
+        Vue.component('qPaging', Paging)
     },
     initReziseListener () {
         window.addEventListener("resize", this.onResize);

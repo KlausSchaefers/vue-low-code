@@ -1,0 +1,14 @@
+.qux-paging{
+
+	display: flex;
+    justify-content: space-between;
+
+    .qux-paging-item {
+        cursor: pointer;
+        position: relative;
+    }
+
+    .qux-paging-item-active{
+        background: #333;
+    }
+}
