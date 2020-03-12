@@ -1,7 +1,7 @@
 {
   "name": "vue-low-code",
-  "version": "0.0.25",
-  "description": "Quant-UX Low Code - Smart Renderer for design handoffs",
+  "version": "0.0.27",
+  "description": "Vue Low Code - Smart Renderer for visual designs",
   "main": "./dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

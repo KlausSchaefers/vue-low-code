@@ -117,6 +117,7 @@ export default {
         desktoModel: null,
         selectedScreenId: null,
         overlayScreenIds: [],
+        hash: false,
         msg: 'Loading...',
         mergedConfig: {
             debug: {
@@ -174,8 +175,8 @@ export default {
         return screen
       },
       imagePrefix () {
-          if (this.debug) {
-            return `${this.server}/rest/images/${this.debug}/`
+          if (this.hash) {
+            return `${this.server}/rest/images/${this.hash}/`
           }
           return this.mergedConfig.imageFolder
       },
@@ -204,6 +205,7 @@ export default {
         if (app.substring) {
             let model = await this.loadAppByKey(app)
             this.model = model
+            this.hash = app
         } else if (app.mobile || app.desktop) {
             Logger.log(1, 'QUX.setApp() > reponsive', app)
             if (app.mobile) {

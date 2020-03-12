@@ -136,7 +136,7 @@ QUX-LowCode supports VUE data binding. You have to pass a v-model to the QUX com
 widgets must be defined in the Quant-UX canvas.
 
 ```
-<QUX :app="app" v-model="payloud"/>
+<QUX :app="app" v-model="view-model"/>
 ```
 
 ## Method Binding

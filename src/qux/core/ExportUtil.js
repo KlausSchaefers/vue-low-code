@@ -48,7 +48,7 @@ export function isOverLappingY(pos, box) {
 }
 
 export function  isTop(from, to) {
-    return (from.y) > (to.y + to.h);
+    return (from.y) >= (to.y + to.h);
 }
 
 export function  isStartingTop(from, to) {
@@ -56,7 +56,7 @@ export function  isStartingTop(from, to) {
 }
 
 export function  isBottom(from, to) {
-    return (from.y + from.h) < (to.y);
+    return (from.y + from.h) <= (to.y);
 }
 
 export function  isLeft(from, to) {

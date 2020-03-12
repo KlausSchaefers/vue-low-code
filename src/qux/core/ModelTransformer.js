@@ -1305,32 +1305,4 @@ export default class ModelTransformer {
         return clone
     }
 
-    isTop(from, to) {
-		return (from.y) > (to.y + to.h);
-	}
-
-	isStartingTop(from, to) {
-		return (from.y) >= (to.y); // && (from.y + from.h) <= (to.y + to.h);
-	}
-
-	isBottom(from, to) {
-		return (from.y + from.h) < (to.y);
-	}
-
-	isLeft(from, to) {
-		return (from.x) > (to.x + to.w);
-	}
-
-	isStartingLeft(from, to) {
-		return (from.x) >= (to.x);
-	}
-
-	isRight(from, to) {
-		return (from.x + from.w) < (to.x);
-    }
-
-    isEqualBox (parent, child) {
-        return child.x === 0 && child.y === 0 && parent.w === child.w && parent.h === child.h
-    }
-
 }

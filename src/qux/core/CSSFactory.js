@@ -548,14 +548,15 @@ export default class CSSFactory {
 		return result
 	}
 
+	/**
+	 * Returns the tracks for the grid. It makes sure the biggest element
+	 * is auto, so the grid is responsive... we could also use minmax()
+	 */
 	getGridTracks (total, list, widget) {
 		Logger.log(6, 'CSSFactory.getGridTracks() > ' + widget.name, list)
 		if (list) {
 			let max = Math.max(...list.map(i => i.l))
 			return list.map(i => {
-				if (i.fixed) {
-					return i.l + 'px'
-				}
 				/**
 				 * We might want several autos. This is very sensitive
 				 * to small changes in the editor. Therefore we give a 
@@ -563,6 +564,9 @@ export default class CSSFactory {
 				 */
 				if (Math.abs(max - i.l) <= this.gridAutoErrorThreshold) { // max === i.l
 					return 'auto'
+				}
+				if (i.fixed) {
+					return i.l + 'px'
 				}
 				return Math.round(i.l * 100 / total) + '%'
 			}).join(' ') 
