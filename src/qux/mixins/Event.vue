@@ -29,6 +29,7 @@ export default {
             }
         }
     },
+
     onClick (element, e, value) {
         if (element.lines) {
             let line = Util.getClickLine(element)
@@ -52,9 +53,9 @@ export default {
                 return
             }
         }
-       
         this.dispatchCallback(element, e, 'click', value)
     },
+
     dispatchCallback (element, e, type, value) {
          if (element.props && element.props.callbacks) {
             let callback = element.props.callbacks[type]
@@ -65,10 +66,14 @@ export default {
                         let func = this.$parent[callback]
                         if (func instanceof Function) {
                             /**
-                             * This is crucial. we need to keep this signature the same. 
-                             * FIXME: Should we wrapp everything than the value in one context - event?
+                             * This is crucial. we need to keep this signature the same.
                              */
-                            func(value, element, this.value, e)
+                            func({
+                                value: value,
+                                element: element,
+                                viewModel: this.value,
+                                event: e
+                            })
                             return;
                         } else {
                             console.warn('QUX.onClick() > Callback is not method ', callback)
@@ -80,6 +85,7 @@ export default {
             }
         }
     },
+
     naivateToScreen (screen) {
         if (screen.style && screen.style.overlay === true) {
             Logger.log(1, 'Qux(Event).navigateToScreen() > Overlay', screen.name)
@@ -95,32 +101,39 @@ export default {
             location.hash = url
         }
     },
+
     popOverlay () {
         Logger.log(1, 'Qux(Event).popOverlay()')
         if (this.overlayScreenIds.length > 0) {
             this.overlayScreenIds.pop()
         }
     },
+
     onChange (element, e, value) {
         Logger.log(4, 'Qux(Event).onChange() > ', element)
         this.$emit('qChange', element, e)
         this.dispatchCallback(element, e, 'change', value)
     },
+
     onKeyPress (element, e, value) {
         this.$emit('qKeyPress', element, e)
         this.dispatchCallback(element, e, 'change', value)
     },
+
     onFocus (element, e, value) {
         this.$emit('qFocus', element, e)
         this.dispatchCallback(element, e, 'focus', value)
     },
+
     onBlur (element, e, value) {
         this.$emit('qBlur', element, e)
         this.dispatchCallback(element, e, 'blur', value)
     },
+
     onMouseOver (element, e) {
         this.$emit('qMouseOver', element, e)
     },
+
     onMouseOut (element, e) {
         this.$emit('qMouseOut', element, e)
     }

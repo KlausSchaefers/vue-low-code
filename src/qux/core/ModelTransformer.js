@@ -17,7 +17,7 @@ export default class ModelTransformer {
             Logger.log(1, 'ModelTransformer.constructor() > ', config.css)
             this.isGrid = config.css.grid === true
         }
-  
+
         this._cloneId = 0
         this.config = config
         this.forceNesting = true
@@ -26,9 +26,9 @@ export default class ModelTransformer {
 			'color', 'textDecoration', 'textAlign', 'fontFamily',
 			'fontSize', 'fontStyle', 'fontWeight', 'letterSpacing', 'lineHeight'
         ]
-        
+
         this.supportedWidgetTypes = [
-            'Button', 'Box', 'Label', 'Container', 'Icon', 'Image', 'CheckBox', 'RadioBox', 'RadioBox2', 
+            'Button', 'Box', 'Label', 'Container', 'Icon', 'Image', 'CheckBox', 'RadioBox', 'RadioBox2',
             'TextBox', 'Password', 'TextArea', 'Repeater', 'RadioGroup', 'CheckBoxGroup', 'ToggleButton',
             'Switch', 'DropDown', 'MobileDropDown', 'Stepper', 'HSlider', 'Date', 'DateDropDown',
             'SegmentButton', 'Rating', 'IconToggle', 'LabeledIconToggle', 'TypeAheadTextBox', 'Table',
@@ -131,6 +131,8 @@ export default class ModelTransformer {
              * and columns to make 'old school' layout.
              */
             if (!this.isGrid) {
+                screen = this.addGroupCntr(screen)
+
                 screen = this.addRows(screen)
                 screen = this.addRowContainer(screen)
 
@@ -153,7 +155,7 @@ export default class ModelTransformer {
 
                 screen = this.addGrid(screen)
             }
-            
+
             /**
              * set screen pos to 0,0
              */
@@ -162,7 +164,7 @@ export default class ModelTransformer {
             })
             screen.x = 0
             screen.y = 0
-            
+
             this.setCSSClassNames(screen, screen.name)
 
             this.setWidgetTypes(screen, result)
@@ -215,7 +217,7 @@ export default class ModelTransformer {
             // cssClass = `qux-screen ${cssClass}`
         }
         parent.cssSelector = cssSelector
-       
+
         if (parent && parent.children) {
             parent.children.forEach(c => {
                 this.setCSSClassNames(c, screenName)
@@ -234,7 +236,7 @@ export default class ModelTransformer {
          */
         if (this.config.components) {
             let matches = this.config.components.filter(o => {
-                if (o.qType) { 
+                if (o.qType) {
                     return o.type === element.type
                 }
                 if (o.cssSelector) {
@@ -263,7 +265,7 @@ export default class ModelTransformer {
             }
             result.warnings.push('Not supported widget type: ' + element.type)
             return 'qBox'
-           
+
         }
     }
 
@@ -312,7 +314,7 @@ export default class ModelTransformer {
             }
         }
 
-        
+
         if (parent.children && parent.children.length > 0) {
             parent.children.forEach(c => {
                 this.addGridToElements(c)
@@ -322,7 +324,7 @@ export default class ModelTransformer {
         return parent
     }
 
-    computeGrid (parent) {  
+    computeGrid (parent) {
         if (parent.children && parent.children.length > 0) {
             let rows = {}
             let columns = {}
@@ -342,7 +344,7 @@ export default class ModelTransformer {
                 this.addGridRow(rows, c.y, c, true)
                 this.addGridRow(rows, c.y + c.h, c, false)
             })
-          
+
             /**
              * Set the width and convert objects to arrays
              */
@@ -364,7 +366,7 @@ export default class ModelTransformer {
 
     setFixedGirdRowsAndColumns (parent, columns, rows) {
          /**
-          * Set fixed. For each child check if the 
+          * Set fixed. For each child check if the
           * 1) We have fixed Vertical or Horizontal
           * 2) If pinned. e.g. if pinned right, all
           *    columns < e.v must be fixed
@@ -502,10 +504,10 @@ export default class ModelTransformer {
                 }
                 return a.y - b.y
             })
-   
+
             /**
              * We take as the position, the offset of the first element
-             * Then we add half as padding and the rest a masgin for 
+             * Then we add half as padding and the rest a masgin for
              * the children
              */
             let firstNode = nodes[0]
@@ -524,7 +526,7 @@ export default class ModelTransformer {
             /**
              * FIXME: can I calculate if we have to use justify-content: space-between?
              */
-            
+
 
         } else if (parent.isRow){
             Logger.log(5, 'ModelTransformer.setOrderAndRelativePositons() > Row', parent.name)
@@ -534,7 +536,7 @@ export default class ModelTransformer {
             nodes.sort((a,b) => {
                 return a.x - b.x
             })
-           
+
             let last = 0
             /**
              * We calculate now as x the position the the child before,
@@ -543,7 +545,7 @@ export default class ModelTransformer {
             nodes.forEach((n,i) => {
                 let x = n.x - last
                 last = n.x + n.w
-                n.absX = n.x 
+                n.absX = n.x
                 /**
                  * FIXME: add also right
                  */
@@ -565,7 +567,7 @@ export default class ModelTransformer {
                 let lastNode = null
                 nodes.forEach((node,i) => {
                     this.mergeResponsiveInParent(parent, node, i, nodes.length)
-            
+
                     node.canGrow = true
                     /**
                      * Make right fixed, left fixed
@@ -578,8 +580,8 @@ export default class ModelTransformer {
                     lastNode = node
                 })
             }
-           
-            
+
+
         } else {
             Logger.log(5, 'ModelTransformer.setOrderAndRelativePositons() > Column', parent.name)
             /**
@@ -640,12 +642,12 @@ export default class ModelTransformer {
     }
 
     addDefaultDataBinding (model) {
-  
+
         for (let screenId in model.screens) {
             let screen = model.screens[screenId]
             let children = screen.children
             if (children) {
-           
+
                 children.forEach(widgetId => {
                     let widget = model.widgets[widgetId]
                     if (widget && widget.props) {
@@ -681,7 +683,7 @@ export default class ModelTransformer {
 
         let screens = Object.values(model.screens)
 
-  
+
         screens.forEach((screen, j) => {
             let otherScreensWithSameName = screens.filter(o => o.name === screen.name)
             if (otherScreensWithSameName.length > 1) {
@@ -694,13 +696,13 @@ export default class ModelTransformer {
                 let widgets = children.map(widgetId => {
                     return model.widgets[widgetId]
                 })
-                
+
                 widgets.forEach((w, i) => {
                     let others = widgets.filter(o => o.name === w.name)
                     if (others.length > 1) {
                         result.warnings.push('Fix double widget name: ' + w.name + " in screen " + screen.name)
                         w.name += '_' + i
-                    } 
+                    }
                 })
             }
         })
@@ -712,7 +714,7 @@ export default class ModelTransformer {
          * RadioBoxes need some special handling. We create a binding for the group if specified
          */
         if (widget.type === 'RadioBox2' && widget.props && widget.props.formGroup) {
-            return  this.escapeSpaces(`${screen.name}.${widget.props.formGroup}`) 
+            return  this.escapeSpaces(`${screen.name}.${widget.props.formGroup}`)
         }
         return this.escapeSpaces(`${screen.name}.${widget.name}`)
     }
@@ -788,12 +790,13 @@ export default class ModelTransformer {
 
     addGroupCntr (parent) {
         let nodes = parent.children
-    
+
         let groups = {}
         let newChildren = []
         nodes.forEach(n => {
             if (n.group) {
                 let groupId = n.group.id
+                // Create group if needed
                 if (!groups[groupId]) {
                     Logger.log(3, "ModelTransformer.addGroupCntr() > Create: " + n.group.name, n.group.id)
                     let groupCntr = {
@@ -826,7 +829,7 @@ export default class ModelTransformer {
 
 
         /**
-         * Calculate Bounding boxes
+         * Calculate Bounding boxes and place chilren
          */
         Object.values(groups).forEach(group => {
             let children = group.children
@@ -835,11 +838,26 @@ export default class ModelTransformer {
             group.y = boundingBox.y
             group.w = boundingBox.w
             group.h = boundingBox.h
-            
+
+            // update poistion in group element
             children.forEach(child => {
                 child.x = child.x - boundingBox.x
                 child.y = child.y - boundingBox.y
             })
+
+            // check if the group is fixed
+            let oneChildIsFixedHorizontal = false
+            children.forEach(child => {
+                if (child.props && child.props.resize && child.props.resize.fixedHorizontal) {
+                    if (child.w === group.w) {
+                        oneChildIsFixedHorizontal = true
+                    }
+                }
+            })
+            if (oneChildIsFixedHorizontal) {
+                group.props.resize.fixedHorizontal = true
+            }
+
         })
         parent.children = newChildren
 
@@ -934,7 +952,7 @@ export default class ModelTransformer {
      */
     addColumns (parent) {
         let nodes = parent.children
-      
+
         // let rows = []
         let columnIDs = 0
         nodes.forEach(a => {
@@ -999,9 +1017,9 @@ export default class ModelTransformer {
 
         /**
          * For each row create a container and reposition the children.
-         * 
+         *
          * For wrappend and grid containers, we do not do this.
-         * 
+         *
          * FIXME: For groups we should not need to add a now row?
          */
         if (!Util.isWrappedContainer(parent) && !Util.isGridContainer(parent)) {
@@ -1042,7 +1060,7 @@ export default class ModelTransformer {
                     c.y = c.y - container.y,
                     c.parent = container
                 })
-                
+
 
                 newChildren.push(container)
             }
@@ -1071,7 +1089,7 @@ export default class ModelTransformer {
      * Sets the row IDS to each child
      */
     addRows (parent) {
-    
+
         let nodes = parent.children
         nodes.sort((a, b) => {
             return a.y - b.y
@@ -1088,7 +1106,7 @@ export default class ModelTransformer {
                         if (!a.row) {
                             a.row = rowIDs++
                         }
-                      
+
                         /**
                          * If b has no row, we put it in the same row as
                          * a
@@ -1140,20 +1158,20 @@ export default class ModelTransformer {
 
         /**
          * FIXME: also build tree for fixed children. This is currently very
-         * ugly because we just produce and fixed layout. 
-         * 
+         * ugly because we just produce and fixed layout.
+         *
          * It would be bette to build one fixed container, and use the normal aligment
-         * in it, to have responsove ness and so. 
-         * 
+         * in it, to have responsove ness and so.
+         *
          * 1) Make tow lists for fixed and not fixed
-         * 2) Run the same code, but add different result lists. 
-         *    So fixed elements get just nested in fixed ones. Would be somehow nice, 
+         * 2) Run the same code, but add different result lists.
+         *    So fixed elements get just nested in fixed ones. Would be somehow nice,
          *    of this would somehow be natural?
          * 3) Pin the fixed elements to the bottom
          * 4) Add all is elements
-         * 
+         *
          * For now it shall be ok, as we expect simple navbars and such...
-         * 
+         *
          */
 
 
@@ -1163,7 +1181,7 @@ export default class ModelTransformer {
         let parentWidgets = []
         let elementsById = {}
         widgets.forEach(widget => {
-            
+
             /**
              * FIXME: we should not clone here!
              */
@@ -1207,7 +1225,7 @@ export default class ModelTransformer {
                     element.bottom = Util.getDistanceFromScreenBottom(element, model)
                 }
 
-             
+
 
             } else {
                 /**
@@ -1266,8 +1284,8 @@ export default class ModelTransformer {
              */
             toDelete.forEach(id => {
                 delete model.groups[id]
-            })     
-            
+            })
+
             /**
              * remove subgroups
              */
