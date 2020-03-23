@@ -53,7 +53,7 @@ export default class ModelTransformer {
         /**
          * Flatten all groups
          */
-        this.model = this.flattenGroups(this.model)
+        // this.model = this.flattenGroups(this.model)
 
         /**
          * Set default data binding
@@ -126,13 +126,16 @@ export default class ModelTransformer {
              */
             screen = this.transformScreenToTree(screen, this.model)
 
+            screen = this.addGroupCntr(screen, this.model)
+
+            // console.debug(Util.print(screen, false, true))
+
+
             /**
              * If we do not do a responsive layout we have to add rows
              * and columns to make 'old school' layout.
              */
             if (!this.isGrid) {
-                screen = this.addGroupCntr(screen)
-
                 screen = this.addRows(screen)
                 screen = this.addRowContainer(screen)
 
@@ -140,17 +143,15 @@ export default class ModelTransformer {
                 screen = this.addColumnsContainer(screen)
 
                 screen = this.cleanUpContainer(screen)
-                screen = this.setOrderAndRelativePositons(screen, relative)
+                screen = this.setOrderAndRelativePositions(screen, relative)
 
                 this.fixParents(screen)
 
             } else {
-                screen = this.addGroupCntr(screen)
-
                 screen = this.addRows(screen)
                 screen = this.addRowContainer(screen)
 
-                screen = this.setOrderAndRelativePositons(screen, false)
+                screen = this.setOrderAndRelativePositions(screen, false)
                 this.fixParents(screen)
 
                 screen = this.addGrid(screen)
@@ -485,8 +486,9 @@ export default class ModelTransformer {
     }
 
 
-    setOrderAndRelativePositons (parent, relative) {
-        // Logger.log(1, 'ModelTransformer.setOrderAndRelativePositons() > enter', parent.name)
+    setOrderAndRelativePositions (parent, relative) {
+        Logger.log(5, 'ModelTransformer.setOrderAndRelativePositons() > enter', parent.name)
+
         /**
          * FIXME: If we do not force rows, the parent element
          * might no sort correcty
@@ -505,28 +507,56 @@ export default class ModelTransformer {
                 return a.y - b.y
             })
 
-            /**
-             * We take as the position, the offset of the first element
-             * Then we add half as padding and the rest a masgin for
-             * the children
-             */
-            let firstNode = nodes[0]
-            let offSetX = Math.round(firstNode.x / 2)
-            let offSetY = Math.round(firstNode.y / 2)
-            parent.style.paddingTop = offSetY
-            parent.style.paddingBottom = offSetY
-            parent.style.paddingLeft = offSetX
-            parent.style.paddingRight = offSetX
-            nodes.forEach((n) => {
-                n.wrapOffSetY = firstNode.y - offSetY
-                n.wrapOffSetX = firstNode.x - offSetX
-                // console.debug('absX', n.name, n.x, n.absX)
-            })
+            if (parent.isGroup) {
+                /*
+                * If the parent is group, the offet will be 0! So we calculate instead
+                * the didtance between the first and secnd row and first and second column.
+                * This is offcourse just guess.
+                */
 
-            /**
-             * FIXME: can I calculate if we have to use justify-content: space-between?
-             */
+                let offsetBottom = 10
+                let offSetRight = 10
+                let rows = Util.getElementsAsRows(nodes)
+                if (rows[0] && rows[0].length > 1&& rows[1]) {
+                    let firstRowChild1 = rows[0][0]
+                    let firstRowChild2 = rows[0][1]
+                    let secondRowChild2 = rows[1][0]
+                    offSetRight = firstRowChild2.x - (firstRowChild1.x + firstRowChild1.w)
+                    offsetBottom = secondRowChild2.y - (firstRowChild1.y + firstRowChild1.h)
+                } else {
+                    Logger.log(-1, 'ModelTransformer.setOrderAndRelativePositons() > cannot guess offsets for Wrapper Container', parent.name)
+                }
 
+                parent.style.paddingTop = 0
+                parent.style.paddingBottom = 0
+                parent.style.paddingLeft = 0
+                parent.style.paddingRight = 0
+
+                nodes.forEach((n) => {
+                    n.wrapOffSetBottom = offsetBottom
+                    n.wrapOffSetRight = offSetRight
+                    n.wrapOffSetY = 0
+                    n.wrapOffSetX = 0
+                })
+
+            } else {
+                /**
+                 * We take as the position, the offset of the first element
+                 * Then we add half as padding and the rest a masgin for
+                 * the children
+                 */
+                let firstNode = nodes[0]
+                let offSetX = Math.round(firstNode.x / 2)
+                let offSetY = Math.round(firstNode.y / 2)
+                parent.style.paddingTop = offSetY
+                parent.style.paddingBottom = offSetY
+                parent.style.paddingLeft = offSetX
+                parent.style.paddingRight = offSetX
+                nodes.forEach((n) => {
+                    n.wrapOffSetY = offSetY
+                    n.wrapOffSetX = offSetX
+                })
+            }
 
         } else if (parent.isRow){
             Logger.log(5, 'ModelTransformer.setOrderAndRelativePositons() > Row', parent.name)
@@ -605,7 +635,7 @@ export default class ModelTransformer {
 
         nodes.forEach(n => {
             if (n.children && n.children.length > 0 ){
-                this.setOrderAndRelativePositons(n, relative)
+                this.setOrderAndRelativePositions(n, relative)
             }
         })
 
@@ -788,88 +818,125 @@ export default class ModelTransformer {
         return parent
     }
 
-    addGroupCntr (parent) {
+    addGroupCntr (parent, model, groupByIds = {}) {
         let nodes = parent.children
 
-        let groups = {}
         let newChildren = []
         nodes.forEach(n => {
             if (n.group) {
+                // if we have a group, we add the element
                 let groupId = n.group.id
                 // Create group if needed
-                if (!groups[groupId]) {
-                    Logger.log(3, "ModelTransformer.addGroupCntr() > Create: " + n.group.name, n.group.id)
-                    let groupCntr = {
-                        id: n.group.id,
-                        name: n.group.name,
-                        isGroup: true,
-                        children: [],
-                        type: 'Box',
-                        parent: parent,
-                        style: {},
-                        props: {
-                            resize: {
-                                right: false,
-                                up: false,
-                                left: false,
-                                down: false,
-                                fixedHorizontal: false,
-                                fixedVertical: false
-                            }
-                        }
-                    }
-                    groups[groupId] = groupCntr
-                    newChildren.push(groupCntr)
+                if (!groupByIds[groupId]) {
+                    this.createGroupCntr(n.group, parent, model, groupByIds, newChildren)
                 }
-                groups[groupId].children.push(n)
+                // add as children and update also the parent pointer
+                let groupCntr = groupByIds[groupId]
+                groupCntr.children.push(n)
+                n.parent = groupCntr
             } else {
                 newChildren.push(n)
             }
         })
-
+        parent.children = newChildren
 
         /**
-         * Calculate Bounding boxes and place chilren
+         * Now we repositom the children in the groups. We start with the leafNodes
+         * (groups with a group as parent, but not child groups) and move up recursively
          */
-        Object.values(groups).forEach(group => {
-            let children = group.children
-            let boundingBox = Util.getBoundingBoxByBoxes(children)
-            group.x = boundingBox.x
-            group.y = boundingBox.y
-            group.w = boundingBox.w
-            group.h = boundingBox.h
-
-            // update poistion in group element
-            children.forEach(child => {
-                child.x = child.x - boundingBox.x
-                child.y = child.y - boundingBox.y
-            })
-
-            // check if the group is fixed
-            let oneChildIsFixedHorizontal = false
-            children.forEach(child => {
-                if (child.props && child.props.resize && child.props.resize.fixedHorizontal) {
-                    if (child.w === group.w) {
-                        oneChildIsFixedHorizontal = true
-                    }
-                }
-            })
-            if (oneChildIsFixedHorizontal) {
-                group.props.resize.fixedHorizontal = true
-            }
-
-        })
-        parent.children = newChildren
+        let leafGroups = Object.values(groupByIds).filter(groupCntr => !groupCntr.hasSubGroups)
+        this.repositionGroupChildren(leafGroups)
 
         /**
          * Go down recursive
          */
         nodes.forEach(a => {
             if (a.children && a.children.length > 0 ){
-                this.addGroupCntr(a)
+                this.addGroupCntr(a, model)
             }
         })
         return parent
+    }
+
+    repositionGroupChildren (groups) {
+        let parentGroupsById = {}
+        groups.forEach(groupCntr => {
+            // get all the children with a position
+            // This leads to zero spaces when calculating wrapOffSetY in setOrderAndRelativePositons().
+            // We fix that in the method setOrderAndRelativePositons()
+            let children = groupCntr.children
+            let boundingBox = Util.getBoundingBoxByBoxes(children)
+            groupCntr.x = boundingBox.x
+            groupCntr.y = boundingBox.y
+            groupCntr.w = boundingBox.w
+            groupCntr.h = boundingBox.h
+
+            children.forEach(child => {
+                child.x = child.x - boundingBox.x
+                child.y = child.y - boundingBox.y
+            })
+
+            if (groupCntr.parent && groupCntr.parent.isGroup) {
+                parentGroupsById[groupCntr.parent.id] = groupCntr.parent
+            }
+        })
+
+        // if we have parent groups resize them.
+        let parentGroups = Object.values(parentGroupsById)
+        if (parentGroups.length > 0) {
+            this.repositionGroupChildren(parentGroups)
+        }
+    }
+
+    createGroupCntr (group, parentElement, model, groupByIds, newChildren) {
+        Logger.log(4, "ModelTransformer.createGroupCntr() > Create: " + group.name + ' ' + group.id, ' >> under ' + parentElement.name + " " + parentElement.id)
+
+        let resize = group.props && group.props.resize ? group.props.resize : {
+            right: false,
+            up: false,
+            left: false,
+            down: false,
+            fixedHorizontal: false,
+            fixedVertical: false
+        }
+
+        let style = group.style ? group.style : {}
+        let groupCntr = {
+            id: group.id,
+            name: group.name,
+            isGroup: true,
+            children: [],
+            type: 'Box',
+            parent: parentElement,
+            style: style,
+            props: {
+                resize: resize
+            }
+        }
+
+        groupByIds[group.id] = groupCntr
+
+        // check of we have a parent group recursive up
+        let parentGroup = Util.getParentGroup(group.id, model)
+        if (parentGroup) {
+            // if we do not have the parent group, create it
+            if (!groupByIds[parentGroup.id]) {
+                this.createGroupCntr(parentGroup, parentElement, model, groupByIds, newChildren)
+            }
+
+            // add the new group container under the parent group container
+            if (groupByIds[parentGroup.id]) {
+                let parentGroupCntr = groupByIds[parentGroup.id]
+                parentGroupCntr.children.push(groupCntr)
+                parentGroupCntr.hasSubGroups = true
+                groupCntr.parent = parentGroupCntr
+            }
+        } else {
+            // add only to the new children, if we have no parent.
+            newChildren.push(groupCntr)
+        }
+        // newChildren.push(groupCntr)
+        return groupCntr
     }
 
     addColumnsContainer (parent) {
@@ -1189,13 +1256,12 @@ export default class ModelTransformer {
             element.children = []
             delete element.has
 
-            let group = Util.getTopParentGroup(widget.id, model)
+            let group = Util.getGroup(widget.id, model)
             if (group) {
                 element.group = group
             }
 
             if (widget.style.fixed) {
-
                 element.x = widget.x - screen.x
                 element.y = widget.y - screen.y
                 element.parent = screen

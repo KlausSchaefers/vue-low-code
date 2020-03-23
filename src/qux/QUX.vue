@@ -1,11 +1,11 @@
 <template>
   <div class="qux">
-      
-      <qContainer 
-            v-if="currentScreen" 
-            :class="'qux-screen'" 
-            :element="currentScreen" 
-            :model="model" 
+
+      <qContainer
+            v-if="currentScreen"
+            :class="'qux-screen'"
+            :element="currentScreen"
+            :model="model"
             :config="mergedConfig"
             @qCallback="onCallback"
             @qClick="onClick"
@@ -20,13 +20,15 @@
           {{msg}}
       </div>
 
-      <div v-if="hasOverlay" class="qux-overlay" @click="popOverlay">
-        <qContainer 
+      <div v-if="hasOverlay" :class="['qux-overlay-wrapper', {'qux-overlay-wrapper-fixed': isFixedOverlay}]" @click="popOverlay" ref="overlayWrapper">
+        <qContainer
+                ref="overlayCntr"
                 v-if="currentOverlay"
-                :element="currentOverlay" 
-                :class="'qux-screen'" 
-                :model="model" 
+                :element="currentOverlay"
+                :class="'qux-screen'"
+                :model="model"
                 :config="mergedConfig"
+                @click.stop=""
                 @qCallback="onCallback"
                 @qClick="onClick"
                 @qChange="onChange"
@@ -167,7 +169,7 @@ export default {
             if (screen) {
                 return screen
             }
-        }  
+        }
         let screen = this.treeModel.screens.find(screen => screen.props.start === true)
         if (!screen) {
             screen = this.treeModel.screens[0]
@@ -185,7 +187,16 @@ export default {
       },
       currentOverlay () {
           let overlayId = this.overlayScreenIds[this.overlayScreenIds.length -1]
-          return this.treeModel.screens.find(screen => screen.id === overlayId)
+          let overlay = this.treeModel.screens.find(screen => screen.id === overlayId)
+          return overlay
+      },
+      isFixedOverlay () {
+          let overlayId = this.overlayScreenIds[this.overlayScreenIds.length -1]
+          let overlay = this.treeModel.screens.find(screen => screen.id === overlayId)
+          if (overlay) {
+              return overlay.style.fixed
+          }
+          return false
       }
   },
   methods: {
@@ -221,7 +232,7 @@ export default {
                 } else {
                     this.tabletModel = app.tablet
                 }
-            } 
+            }
             if (app.desktop) {
                 if (app.desktop.substring) {
                     this.desktoModel = await this.loadAppByKey(app.desktop)
@@ -353,7 +364,6 @@ export default {
             this.model = this.desktoModel
             return
         }
-        Logger.warn('QUX.onResize > No model for ', w)
     }
   },
   watch: {
@@ -376,7 +386,7 @@ export default {
     }
   },
   async mounted () {
-      Logger.log(0, 'QUX.mounted() > 0.1.9', this.value) 
+      Logger.log(0, 'QUX.mounted() > 0.1.9', this.value)
       this.initComponents()
       if (this.config) {
           this.setConfig(this.config)

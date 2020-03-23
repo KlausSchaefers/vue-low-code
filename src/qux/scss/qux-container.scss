@@ -1,8 +1,14 @@
 .qux-container{
     border-style: solid;
     border-width: 0px;
-    
+
     .qux-container-debug{
         color: red;
+    }
+
+    .qux-container-wrapper-placeholder{
+        background: red;
+        height: 1px;
+        width: 100px;
     }
 }

@@ -102,10 +102,15 @@ export default {
         }
     },
 
-    popOverlay () {
-        Logger.log(1, 'Qux(Event).popOverlay()')
-        if (this.overlayScreenIds.length > 0) {
-            this.overlayScreenIds.pop()
+    popOverlay (e) {
+        /**
+         * Only pop of the screen background was hit.
+         */
+        if (e.target === this.$refs.overlayCntr.$el) {
+            Logger.log(1, 'Qux(Event).popOverlay()')
+            if (this.overlayScreenIds.length > 0) {
+                this.overlayScreenIds.pop()
+            }
         }
     },
 

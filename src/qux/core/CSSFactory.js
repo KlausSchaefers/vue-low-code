@@ -17,7 +17,7 @@ export default class CSSFactory {
 		}
 
 		this.mapping = {
-	
+
 			"color" : "color",
 			"textAlign" : "text-align",
 			"fontFamily" : "font-family",
@@ -115,22 +115,22 @@ export default class CSSFactory {
 		}
 
 		this.heightProperties = [
-			'paddingTop', 
-			'_paddingTop', 
-			'paddingBottom', 
-			'_paddingBottom', 
-			'borderTopWidth', 
+			'paddingTop',
+			'_paddingTop',
+			'paddingBottom',
+			'_paddingBottom',
+			'borderTopWidth',
 			'_borderTopWidth',
 			'borderBottomWidth',
 			'_borderBottomWidth'
 		]
 
 		this.widthProperties = [
-			'paddingLeft', 
-			'_paddingLeft', 
-			'paddingRight', 
-			'_paddingRight', 
-			'borderLeftWidth', 
+			'paddingLeft',
+			'_paddingLeft',
+			'paddingRight',
+			'_paddingRight',
+			'borderLeftWidth',
 			'_borderLeftWidth',
 			'borderRightWidth',
 			'_borderRightWidth'
@@ -175,7 +175,7 @@ export default class CSSFactory {
 			screen.children.forEach(child => {
 				this.generateElement(child, result, screen)
 			})
-			
+
 			screen.fixedChildren.forEach(child => {
 				this.generateElement(child, result, screen)
 			})
@@ -292,7 +292,7 @@ export default class CSSFactory {
 			result += this.getRawStyle(style, widget);
 			result += this.getPosition(widget, screen);
 			result += '}\n\n'
-		
+
 			if (widget.hover) {
 				result += selector + ':hover {\n'
 				result += this.getRawStyle(widget.hover, widget);
@@ -318,7 +318,7 @@ export default class CSSFactory {
 			}
 		}
 
-		
+
 		return result
 	}
 
@@ -333,7 +333,8 @@ export default class CSSFactory {
 	}
 
 	getPosition (widget) {
-		if (widget.style.fixed) {
+		// Overlays will no be rendered as fixed...
+		if (widget.style.fixed && widget.type !== 'Screen') {
 			return this.getFixedPosition(widget)
 		} else if (Util.hasWrappedParent(widget)) {
 			return this.getWrappedPosition(widget)
@@ -364,7 +365,13 @@ export default class CSSFactory {
 		 */
 		result += `  min-height: ${this.getWrappedHeight(widget)};\n`
 		result += `  width: ${this.getWrappedWidth(widget)};\n`
-		result += `  margin: ${widget.wrapOffSetY}px ${widget.wrapOffSetX}px;\n`
+		if (widget.wrapOffSetBottom && widget.wrapOffSetRight && !this.justifyContentInWrapper) {
+			result += `  margin-bottom: ${widget.wrapOffSetBottom}px ;\n`
+			result += `  margin-right: ${widget.wrapOffSetRight}px ;\n`
+		} else {
+			result += `  margin: ${widget.wrapOffSetY}px ${widget.wrapOffSetX}px;\n`
+		}
+
 
 		/**
 		 * If the wrapped element has a grid, add it as well
@@ -409,6 +416,7 @@ export default class CSSFactory {
 		result += '  flex-direction: row;\n'
 		result += '  flex-wrap: wrap;\n'
 		result += '  align-items: flex-start;\n'
+		result += '  align-content: flex-start;\n'
 		if (this.justifyContentInWrapper) {
 			result += '  justify-content: space-between;\n'
 		}
@@ -420,9 +428,9 @@ export default class CSSFactory {
 	 *********************************************************************/
 
 	getGridPosition (widget) {
-		Logger.log(4, 'CSSFactory.getGridPosition() > ' + widget.name, widget) 
+		Logger.log(4, 'CSSFactory.getGridPosition() > ' + widget.name, widget)
 		let result = ''
-	
+
 		/**
 		 * First determine how we align the children
 		 */
@@ -438,12 +446,12 @@ export default class CSSFactory {
 	}
 
 	getGridParentAlign (widget) {
-		Logger.log(5, 'CSSFactory.getGridParentAlign() > ' + widget.name, widget) 
+		Logger.log(5, 'CSSFactory.getGridParentAlign() > ' + widget.name, widget)
 		let result = ''
 
 		if (Util.hasParentRepeaterGrid(widget) || Util.hasParentRepeaterWrap(widget)) {
 			/**
-			 * in a repeater we have a parent element that was 
+			 * in a repeater we have a parent element that was
 			 * aligned by the Grid (qux-repeater-child). We just set the
 			 * width
 			 */
@@ -453,15 +461,15 @@ export default class CSSFactory {
 			} else {
 				result += `  min-height: ${this.getCorrectedHeight(widget, true)};\n`
 				result += `  height: 100%;\n`
-			}	
+			}
 		} else if (widget.parent) {
 			/**
 			 * Check if we have to do a normal flex layout because the grid
 			 * is row (=== 1 columns)
 			 */
 			if (widget.parent.grid && widget.parent.grid.isRow) {
-				Logger.log(5, 'CSSFactory.getGridParentAlign() > as row' + widget.name, widget) 
-		
+				Logger.log(5, 'CSSFactory.getGridParentAlign() > as row' + widget.name, widget)
+
 				if (Util.isPinnedLeft(widget) && Util.isPinnedRight(widget)) {
 
 					result += `  margin-left: ${this.getPinnedLeft(widget)};\n`
@@ -476,10 +484,10 @@ export default class CSSFactory {
 						result += `  margin-right: ${this.getResponsiveRight(widget)};\n`
 						result += `  margin-left: ${this.getPinnedLeft(widget)};\n`
 					}
-					
+
 				} else if (Util.isPinnedRight(widget)){
 					/**
-					 * This is a tricky one. 
+					 * This is a tricky one.
 					 */
 					if (this.isFixedHorizontal(widget)){
 						result += `  width: ${this.getFixedWidth(widget)};\n`
@@ -498,8 +506,14 @@ export default class CSSFactory {
 					 * we can set the margin left and right and not the width.
 					 */
 					if (this.isFixedHorizontal(widget)){
-						result += `  width: ${this.getFixedWidth(widget)};\n`
-						result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
+						if (Util.isCentered(widget)) {
+							result += `  width: ${this.getFixedWidth(widget)};\n`
+							result += `  margin-left: auto;\n`
+							result += `  margin-right: auto;\n`
+						} else {
+							result += `  width: ${this.getFixedWidth(widget)};\n`
+							result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
+						}
 					} else {
 						result += `  margin-right: ${this.getResponsiveRight(widget)};\n`
 						result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
@@ -510,10 +524,10 @@ export default class CSSFactory {
 					result += `  height: ${this.getCorrectedHeight(widget, true)};\n`
 				} else {
 					result += `  min-height: ${this.getCorrectedHeight(widget, true)};\n`
-				}				
+				}
 				result += `  margin-top: ${this.getPinnedTop(widget)};\n`
 
-	
+
 				if (Util.isLastChild(widget) && !Util.isRepeater(widget.parent)){
 					result += `  margin-bottom: ${this.getPinnedBottom(widget)};\n`
 				}
@@ -559,7 +573,7 @@ export default class CSSFactory {
 			return list.map(i => {
 				/**
 				 * We might want several autos. This is very sensitive
-				 * to small changes in the editor. Therefore we give a 
+				 * to small changes in the editor. Therefore we give a
 				 * small error marginf
 				 */
 				if (Math.abs(max - i.l) <= this.gridAutoErrorThreshold) { // max === i.l
@@ -569,7 +583,7 @@ export default class CSSFactory {
 					return i.l + 'px'
 				}
 				return Math.round(i.l * 100 / total) + '%'
-			}).join(' ') 
+			}).join(' ')
 		}
 	}
 
@@ -637,7 +651,7 @@ export default class CSSFactory {
 
 	getResponsiveRight (widget) {
 		if (widget.parent) {
-			let right = (widget.parent.w - (widget.x + widget.w)) 
+			let right = (widget.parent.w - (widget.x + widget.w))
 			return Math.round(right * 100 / widget.parent.w) + '%'
 		}
 		return widget.x + 'px'
@@ -655,7 +669,7 @@ export default class CSSFactory {
 				return (widget.parent.w - (widget.x + widget.w)) + 'px'
 			}
 		}
-		return '0px'; 
+		return '0px';
 	}
 
 	getResponsiveWidth( widget) {
@@ -677,7 +691,7 @@ export default class CSSFactory {
 			h = widget.h
 		}
 		/**
-		 * when we are positioning, we only sustract 
+		 * when we are positioning, we only sustract
 		 * for certain widgets
 		 */
 		if (isPosition && this.ignoreCorrectWidthAndHeigth.indexOf(widget.type) >= 0) {
@@ -742,7 +756,7 @@ export default class CSSFactory {
 		}
 		return result
 	}
-	
+
 	setFlexY (widget, result) {
 		Logger.log(5, 'CSSFactory.setFlexY() ' + widget.name, Util.isFixedVertical(widget))
 		result += `  margin-top: ${this.getFlexTop(widget)};\n`
@@ -750,8 +764,8 @@ export default class CSSFactory {
 		 * FixedHeigth if set, or if widget.parent.isWrap
 		 */
 		if (!Util.isWrappedContainer(widget)) {
-			if (Util.isFixedVertical(widget) && Util.hasNoChildren(widget) 
-				|| this.hasAllwaysFixedHeight(widget) 
+			if (Util.isFixedVertical(widget) && Util.hasNoChildren(widget)
+				|| this.hasAllwaysFixedHeight(widget)
 				|| Util.isWrappedContainer(widget.parent)){
 				result += `  height: ${this.getFlexHeight(widget)};\n`
 			} else {
@@ -764,7 +778,7 @@ export default class CSSFactory {
 
 	setFlexX (widget, result) {
 		Logger.log(5, 'CSSFactory.setFlexX() ' + widget.name, Util.isPinnedLeft(widget))
-		
+
 		if (Util.isPinnedLeft(widget) && Util.isPinnedRight(widget)) {
 			Logger.log(5, 'CSSFactory.setFlexX() > left & right: ' + widget.name)
 
@@ -775,7 +789,7 @@ export default class CSSFactory {
 			result += `  margin-left: ${this.getPinnedLeft(widget)};\n`
 			if (widget.parent.isRow ){
 				if (!widget.canGrow) {
-					result += `  width: ${this.getFixedWidth(widget)};\n`	
+					result += `  width: ${this.getFixedWidth(widget)};\n`
 				} else {
 					result += `  flex-grow: 1;\n`
 				}
@@ -788,7 +802,7 @@ export default class CSSFactory {
 			/**
 			 * If pinned right and we are in a row (space-between) we
 			 * just add relative left margin. If we are alone in a row,
-			 * add the calculated left margin. 
+			 * add the calculated left margin.
 			 */
 			if (Util.isPinnedRight(widget)) {
 				Logger.log(1, 'CSSFactory.setFlexX() > right: ' + widget.name)
@@ -809,7 +823,7 @@ export default class CSSFactory {
 		}
 		return result
 	}
-	
+
 	getFlexHeight (widget) {
 		return this.getCorrectedHeight(widget);
 	}
@@ -849,7 +863,7 @@ export default class CSSFactory {
 		} else {
 			result += `  top: ${widget.y}px;\n`
 		}
-	
+
 		result += `  height: ${this.getCorrectedHeight(widget)};\n`
 		return result
 	}
@@ -898,7 +912,7 @@ export default class CSSFactory {
 			}
 		}
 
-	
+
 		/**
 		 * To deal with margin collapsing we set things to inline-block. We could
 		 * still check for borders...
@@ -906,7 +920,7 @@ export default class CSSFactory {
 		if (this.getSiblings(widget).length > 1) {
 			result += '  display: inline-block;\n'
 		}
-		
+
 		result += `  width: ${w}px;\n`
 		result += `  height: ${h}${unitY};\n`
 		result += `  margin-top: ${top}${unitY};\n`
@@ -964,7 +978,7 @@ export default class CSSFactory {
 			} else {
 				result += `  background-size: 100%;\n`
 			}
-	
+
 			if (style.backgroundPosition) {
 				var pos = style.backgroundPosition;
 				let w = Math.round(pos.left * widget.w)
@@ -1017,7 +1031,7 @@ export default class CSSFactory {
         let _s = JSON.stringify(obj)
         return JSON.parse(_s)
 	}
-	
+
 	hasAllwaysFixedHeight (widget) {
 		return widget.type === 'Icon'
 	}

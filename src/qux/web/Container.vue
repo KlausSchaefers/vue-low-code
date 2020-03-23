@@ -1,9 +1,9 @@
 <template>
   <div :class="['qux-container', cssClass]">
-      <component v-for="child in element.children" 
-        :is="child.qtype" 
-        :key="child.id" 
-        :element="child" 
+      <component v-for="child in element.children"
+        :is="child.qtype"
+        :key="child.id"
+        :element="child"
         :model="model"
         :config="config"
         v-model="value"
@@ -17,11 +17,17 @@
         @qMouseOut="forwardMouseOut"
         />
 
+      <!-- some tricky thingy to get the justified contend right...
+      <template v-if="justifyContent">
+        <div class="qux-container-wrapper-placeholder" v-for="(p,i) in wrapperPlaceHolders" :key="i"/>
+      </template>
+      -->
+
       <template v-if="element.fixedChildren">
-        <component v-for="child in element.fixedChildren" 
-          :is="child.qtype" 
-          :key="child.id" 
-          :element="child" 
+        <component v-for="child in element.fixedChildren"
+          :is="child.qtype"
+          :key="child.id"
+          :element="child"
           :model="model"
           :config="config"
           v-model="value"
@@ -43,6 +49,7 @@
 <script>
 
 import _Base from './_Base.vue'
+import * as Util from '../core/ExportUtil'
 
 export default {
   name: 'qContainer',
@@ -51,6 +58,17 @@ export default {
       return {
         debug: false
       }
+  },
+  computed: {
+    justifyContent () {
+      if (Util.isWrappedContainer(this.element) && this.config.css.justifyContentInWrapper) {
+        return true
+      }
+      return false
+    },
+    wrapperPlaceHolders () {
+      return [1,2,3,4,5,6,7,8]
+    }
   },
   methods: {
     forwardClick (element, e, value) {

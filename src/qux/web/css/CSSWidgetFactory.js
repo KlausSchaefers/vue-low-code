@@ -3,15 +3,17 @@ import * as Util from '../../core/ExportUtil'
 
 import PagingCSS from './PagingCSS'
 import TableCSS from './TableCSS'
+import ImageCSS from './ImageCSS'
 
 export default class CSSWidgetFactory {
 
   constructor(cssFactory) {
-    Logger.log(1, 'CSSWidgetFactory.constructor()')
+    Logger.log(5, 'CSSWidgetFactory.constructor()')
     this.cssFactory = cssFactory
     this.factories = {
       'Paging':  new PagingCSS(cssFactory),
-      'Table': new TableCSS(cssFactory)
+      'Table': new TableCSS(cssFactory),
+      'Image': new ImageCSS(cssFactory)
     }
   }
 
@@ -640,6 +642,11 @@ export default class CSSWidgetFactory {
 
     return result
   }
+
+  getCSS_Image(selector, style, widget){
+    return this.factories.Image.run(selector, style, widget)
+  }
+
 
   getCSS_Paging(selector, style, widget){
     return this.factories.Paging.run(selector, style, widget)

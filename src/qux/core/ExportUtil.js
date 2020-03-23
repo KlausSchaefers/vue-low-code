@@ -76,8 +76,8 @@ export function isFixedHorizontal(e) {
 }
 
 export function isFixedVertical(e) {
-    if (e.type === 'Box' || e.type === 'Button' || 
-        e.type === 'Container' || e.type === 'Repeater' || 
+    if (e.type === 'Box' || e.type === 'Button' ||
+        e.type === 'Container' || e.type === 'Repeater' ||
         (e.children && e.children.length > 0)
     ) {
         return e.props && e.props.resize && e.props.resize.fixedVertical
@@ -188,6 +188,15 @@ export function hasParentRepeaterWrap (e) {
 export function isRepeaterGrid (e) {
     if (e.type === 'Repeater' && e.props.layout == 'grid' && e.props.auto === false) {
         return true
+    }
+    return false
+}
+
+export function isCentered (e) {
+    if (e.parent) {
+        let dif = e.parent.w - (2 * e.x + e.w)
+        // We have a minimum threshold of 3px
+        return Math.abs(dif) < Math.max(3, e.parent.w * 0.003)
     }
     return false
 }
@@ -674,7 +683,7 @@ export function inlineTemplateStyles (model) {
                 widget.active = active
             }
         }
-        
+
     }
     return model
 }
@@ -783,13 +792,13 @@ export function getLines (widget, model) {
     if(widget.inherited && model.widgets[widget.inherited]){
         widget = model.widgets[widget.inherited];
     }
-    
+
     var widgetID = widget.id;
     var lines = getFromLines(widget, model);
     if(lines && lines.length > 0){
         return lines;
     }
-    
+
     var group = getParentGroup(widgetID, model);
     if(group){
         var groupLine = getFromLines(group, model);
@@ -831,7 +840,7 @@ export function getTopParentGroup (id, model) {
     return null
 }
 
-function getParentGroup (widgetID, model) {
+export function getParentGroup (widgetID, model) {
     if (model.groups) {
         for (var id in model.groups) {
             var group = model.groups[id];
@@ -853,6 +862,33 @@ function getParentGroup (widgetID, model) {
     return null;
 }
 
+export function getGroup (widgetID, model) {
+    if (model.groups) {
+        for (var id in model.groups) {
+            var group = model.groups[id];
+            var i = group.children.indexOf(widgetID);
+            if (i > -1) {
+                return group;
+            }
+        }
+    }
+    return null;
+}
+
+export function getAllChildrenWithPosition (group, result = []) {
+
+    if (group.children) {
+        group.children.forEach(child => {
+            // groups might not have been defined with the width!
+            if (child.x != undefined) {
+                result.push(child)
+            }
+            getAllChildrenWithPosition(child, result)
+        })
+    }
+
+    return result
+}
 
 
 function getFromLines (box, model) {
@@ -873,4 +909,51 @@ export function getBoxById (id, model) {
     if (model.widgets[id]) {
         return model.widgets[id]
     }
+}
+
+
+export function print(screen, grid = false, hasXY=false) {
+    let res = []
+
+    printElement(res, screen, '', grid, hasXY)
+    screen.fixedChildren.forEach(e => {
+        let pos = grid ? ` > col: ${e.gridColumnStart} - ${e.gridColumnEnd} > row: ${e.gridRowStart} - ${e.gridRowEnd}` : ''
+        let row = e.row ? e.row : ''
+        let xw = hasXY ? `${e.x} - ${e.w}` : ''
+        let actions ='' // e.lines ? ' -> ' + e.lines.map(l => l.event + ':' + l.screen.name) : ''
+        res.push(`  ${e.name}*  ${pos} ${xw} ${row}  ${actions} `)
+    })
+    return res.join('\n')
+}
+
+function printElement(res, e, space='', grid, hasXY =true) {
+    let actions ='' // e.lines ? ' -> ' + e.lines.map(l => l.event + ':' + l.screen.name) : ''
+    let row = e.row ? e.row : ''
+    let parent = e.parent ? e.parent.name + ' '  + e.parent.id :  "null"
+    let pos = grid ? ` > col: ${e.gridColumnStart} - ${e.gridColumnEnd} > row: ${e.gridRowStart} - ${e.gridRowEnd}` : ''
+
+    let xw = hasXY ? `${e.x} - ${e.w}` : ''
+    res.push(`${space}${e.name} - (${parent})  ${pos} ${xw}  ${row}  ${actions} `)
+    if (e.children) {
+        e.children.forEach(c => {
+            printElement(res, c, space + '  ', grid)
+        });
+    }
+}
+
+
+export function getElementsAsRows (nodes) {
+    let rows = []
+    let row
+    let lastRowId = null
+    nodes.forEach(n => {
+        let rowId = n.row ? n.row : '-1'
+        if (rowId != lastRowId) {
+            row = []
+            rows.push(row)
+        }
+        row.push(n)
+        lastRowId = rowId
+    })
+    return rows
 }
