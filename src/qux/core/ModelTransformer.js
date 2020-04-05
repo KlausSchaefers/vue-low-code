@@ -32,7 +32,7 @@ export default class ModelTransformer {
             'TextBox', 'Password', 'TextArea', 'Repeater', 'RadioGroup', 'CheckBoxGroup', 'ToggleButton',
             'Switch', 'DropDown', 'MobileDropDown', 'Stepper', 'HSlider', 'Date', 'DateDropDown',
             'SegmentButton', 'Rating', 'IconToggle', 'LabeledIconToggle', 'TypeAheadTextBox', 'Table',
-            'Paging'
+            'Paging', 'BarChart', 'PieChart', 'MultiRingChart', 'RingChart'
         ]
     }
 
@@ -1211,12 +1211,8 @@ export default class ModelTransformer {
         let elementsById = {}
         widgets.forEach(widget => {
 
-            /**
-             * FIXME: we should not clone here!
-             */
             let element = this.clone(widget);
             element.children = []
-            delete element.has
 
             let group = Util.getGroup(widget.id, model)
             element.group = group

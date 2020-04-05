@@ -80,6 +80,7 @@ import IconToggle from './web/IconToggle.vue'
 import Combo from './web/Combo.vue'
 import Table from './web/Table.vue'
 import Paging from './web/Paging.vue'
+import Chart from './web/Chart.vue'
 
 import Event from './mixins/Event.vue'
 import JSONPath from './core/JSONPath'
@@ -371,6 +372,10 @@ export default {
         Vue.component('qTypeAheadTextBox', Combo)
         Vue.component('qTable', Table)
         Vue.component('qPaging', Paging)
+        Vue.component('qBarChart', Chart)
+        Vue.component('qPieChart', Chart)
+        Vue.component('qMultiRingChart', Chart)
+        Vue.component('qRingChart', Chart)
     },
     initViewModel () {
         Logger.log(0, 'QUX.initViewModel > enter')

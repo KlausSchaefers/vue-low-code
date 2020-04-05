@@ -6,6 +6,7 @@ import TableCSS from './TableCSS'
 import ImageCSS from './ImageCSS'
 import ScreenCSS from './ScreenCSS'
 import RepeaterCSS from './RepeaterCSS'
+import ChartCSS from './ChartCSS'
 
 export default class CSSWidgetFactory {
 
@@ -17,8 +18,29 @@ export default class CSSWidgetFactory {
       'Table': new TableCSS(cssFactory),
       'Image': new ImageCSS(cssFactory),
       'Screen': new ScreenCSS(cssFactory),
-      'Repeater': new RepeaterCSS(cssFactory)
+      'Repeater': new RepeaterCSS(cssFactory),
+      'BarChart': new ChartCSS(cssFactory)
     }
+  }
+
+  getCSS_BarChart (selector, style, widget) {
+    Logger.log(5, 'getCSS_BarChart', widget)
+    return this.factories.BarChart.run(selector, style, widget)
+  }
+
+  getCSS_RingChart (selector, style, widget) {
+    Logger.log(5, 'getCSS_RingChart', widget)
+    return this.factories.BarChart.run(selector, style, widget)
+  }
+
+  getCSS_PieChart (selector, style, widget) {
+    Logger.log(5, 'getCSS_PieChart', widget)
+    return this.factories.BarChart.run(selector, style, widget)
+  }
+
+  getCSS_MultiRingChart (selector, style, widget) {
+    Logger.log(5, 'getCSS_MultiRingChart', widget)
+    return this.factories.BarChart.run(selector, style, widget)
   }
 
   getCSS_Screen (selector, style, widget) {
