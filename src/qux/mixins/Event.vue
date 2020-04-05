@@ -44,9 +44,9 @@ export default {
 
         if (element.action) {
             if (element.action.type === 'back') {
-                Logger.log(2, 'QUX.onClick() > Go back')
+                Logger.log(0, 'QUX.onClick() > Go back')
                 if (this.overlayScreenIds.length > 0) {
-                    this.popOverlay()
+                    this.removeLastOverlay()
                 } else {
                     this.$router.go(-1)
                 }
@@ -72,6 +72,7 @@ export default {
                                 value: value,
                                 element: element,
                                 viewModel: this.value,
+                                qux: this,
                                 event: e
                             })
                             return;
@@ -93,12 +94,7 @@ export default {
         } else {
             Logger.log(1, 'Qux(Event).navigateToScreen() > Link', screen.name)
             this.overlayScreenIds = []
-            let prefix = ''
-            if (this.config && this.config.router && this.config.router.prefix) {
-                prefix = this.config.router.prefix + '/'
-            }
-            let url = `#/${prefix}${screen.name}.html`
-            location.hash = url
+            this.setScreen(screen.name)
         }
     },
 
@@ -106,21 +102,32 @@ export default {
         /**
          * Only pop of the screen background was hit.
          */
-        if (e.target === this.$refs.overlayCntr.$el) {
-            Logger.log(1, 'Qux(Event).popOverlay()')
-            if (this.overlayScreenIds.length > 0) {
-                this.overlayScreenIds.pop()
-            }
+        if (this.$refs.overlayCntr && e && e.target === this.$refs.overlayCntr.$el) {
+            Logger.log(4, 'Qux(Event).popOverlay()')
+            this.removeLastOverlay()
         }
     },
 
+    removeLastOverlay () {
+        Logger.log(4, 'Qux(Event).removeLastOverlay()')
+        if (this.overlayScreenIds.length > 0) {
+            this.overlayScreenIds.pop()
+        }
+    },
+
+    closeAllOverlays () {
+        Logger.log(4, 'Qux(Event).closeAllOverlays()')
+        this.overlayScreenIds = []
+    },
+
     onChange (element, e, value) {
-        Logger.log(4, 'Qux(Event).onChange() > ', element)
+        Logger.log(2, 'Qux(Event).onChange() > ', value)
         this.$emit('qChange', element, e)
         this.dispatchCallback(element, e, 'change', value)
     },
 
     onKeyPress (element, e, value) {
+        Logger.log(5, 'Qux(Event).onKeyPress() > ', value)
         this.$emit('qKeyPress', element, e)
         this.dispatchCallback(element, e, 'change', value)
     },

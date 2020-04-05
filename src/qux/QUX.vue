@@ -3,7 +3,7 @@
 
       <qContainer
             v-if="currentScreen"
-            :class="'qux-screen'"
+            :class="['qux-screen', {'qux-screen-blurred': isBluredOverlay}]"
             :element="currentScreen"
             :model="model"
             :config="mergedConfig"
@@ -46,7 +46,7 @@
     @import './scss/qux.scss';
 </style>
 <script>
-import '@mdi/font/css/materialdesignicons.css'
+
 import * as Util from './core/ExportUtil'
 import Logger from './core/Logger'
 import ModelTransformer from './core/ModelTransformer'
@@ -82,6 +82,7 @@ import Table from './web/Table.vue'
 import Paging from './web/Paging.vue'
 
 import Event from './mixins/Event.vue'
+import JSONPath from './core/JSONPath'
 
 export default {
   mixins:[Event],
@@ -132,6 +133,9 @@ export default {
             router: {
                 key: 'screenName',
                 prefix: ''
+            },
+            databinding: {
+                default: ''
             },
             imageFolder: '/public/img',
             responsive: {
@@ -197,6 +201,14 @@ export default {
               return overlay.style.fixed
           }
           return false
+      },
+      isBluredOverlay () {
+          let overlayId = this.overlayScreenIds[this.overlayScreenIds.length -1]
+          let overlay = this.treeModel.screens.find(screen => screen.id === overlayId)
+          if (overlay) {
+              return overlay.style.blur
+          }
+          return false
       }
   },
   methods: {
@@ -244,6 +256,7 @@ export default {
         } else {
             this.model = app
         }
+        this.initViewModel()
     },
     async loadAppByKey (key) {
         Logger.log(1, 'QUX.setApp() > loadAppByKey', key)
@@ -255,18 +268,31 @@ export default {
             this.msg = 'The debug id is wrong!'
         }
     },
-    setScreenByName (name) {
-        // console.debug('QUX.setScreenByName() > enter ', name)
+    setScreen (screenName) {
+        Logger.log(0, 'QUX.setScreen() > ', name)
+        // TODO: we could have here two mechnisms:
+        // a) use the router. Update url, which will rigger watcher which will call loadScreen
+        // b) just call laodScreen directly.
+        let prefix = ''
+        if (this.config && this.config.router && this.config.router.prefix) {
+            prefix = this.config.router.prefix + '/'
+        }
+        let url = `#/${prefix}${screenName}.html`
+        location.hash = url
+    },
+    loadScreen (name) {
+        this.closeAllOverlays()
         if (this.model) {
             let screen = Object.values(this.model.screens).find(s => s.name === name)
             if (screen) {
+                // make here somethink like: use router? and updat ethe url as well?
                 this.selectedScreenId = screen.id
             } else {
                 this.msg = `404 - No Screen with name ${this.msg}`
-                Logger.warn('QUX.setScreenByName() > No screen with name', name)
+                Logger.warn('QUX.loadScreen() > No screen with name', name)
             }
         } else {
-            Logger.warn('QUX.setScreenByName() > No Model')
+            Logger.warn('QUX.loadScreen() > No Model')
         }
     },
     setStartScreen () {
@@ -279,8 +305,8 @@ export default {
         }
         let screenName = this.$route.params[key]
         if (screenName) {
-            Logger.log(2, 'QUX.setScreenByRoute() > exit ', screenName, `(${key})`)
-            this.setScreenByName(screenName)
+            Logger.log(0, 'QUX.setScreenByRoute() > exit ', screenName, `(${key})`)
+            this.loadScreen(screenName)
         } else {
             this.setStartScreen()
         }
@@ -292,7 +318,10 @@ export default {
         if (c.router) {
             this.mergedConfig.router = Util.mixin(this.mergedConfig.router, c.router)
         }
-         if (c.components) {
+        if (c.databinding) {
+            this.mergedConfig.databinding = Util.mixin(this.mergedConfig.databinding, c.databinding)
+        }
+        if (c.components) {
             this.mergedConfig.components = c.components
             this.initCustomComponents(this.mergedConfig.components)
         }
@@ -343,6 +372,32 @@ export default {
         Vue.component('qTable', Table)
         Vue.component('qPaging', Paging)
     },
+    initViewModel () {
+        Logger.log(0, 'QUX.initViewModel > enter')
+        if (this.value && this.model) {
+            let dataBindings = Object.values(this.model.widgets).flatMap(widget => {
+                if (widget.props && widget.props.databinding) {
+                    return Object.values(widget.props.databinding)
+                }
+                return []
+            })
+            dataBindings.sort((a, b) => {
+                return a.localeCompare(b)
+            })
+            let value = this.mergedConfig.databinding.default
+            dataBindings.forEach(databinding => {
+                /**
+                 * At some point we should have default values in the model...
+                 *
+                 * FIXME: This should be more intelligent and add arrays and so if needed
+                 */
+                let has = JSONPath.has(this.value, databinding)
+                if (!has) {
+                    JSONPath.set(this.value, databinding, value)
+                }
+            })
+        }
+    },
     initReziseListener () {
         window.addEventListener("resize", this.onResize);
     },
@@ -364,6 +419,7 @@ export default {
             this.model = this.desktoModel
             return
         }
+        this.initViewModel()
     }
   },
   watch: {
@@ -372,12 +428,13 @@ export default {
         this.setScreenByRouter()
     },
     'screen' (v) {
-        Logger.log(3, 'QUX.watch(screen) > enter')
-        this.setScreenByName(v)
+        Logger.log(0, 'QUX.watch(screen) > enter')
+        this.setScreen(v)
     },
     'value' (v) {
-        Logger.log(3, 'QUX.watch(value) > enter', v)
+        Logger.log(0, 'QUX.watch(value) > enter', v)
         this.value = v
+        this.initViewModel()
     },
     'app' (v) {
         Logger.log(3, 'QUX.watch(app) > enter', v)
@@ -399,7 +456,7 @@ export default {
           await this.loadAppByKey(this.debug)
       }
       if (this.screen) {
-          this.setScreenByName(this.screen)
+          this.loadScreen(this.screen)
       } else {
         this.setScreenByRouter()
       }

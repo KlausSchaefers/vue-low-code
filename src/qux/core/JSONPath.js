@@ -67,6 +67,25 @@ class JSONPath {
         })
     }
 
+    has (data, path) {
+        if (data != null && data != undefined) {
+            if (data[path] != null && data[path] != null) {
+                return true
+            }
+            if (path.indexOf('.') >=0  || path.indexOf('[') >=0 ){
+                let elements = this.getJsonPath(path)
+                let current = elements.shift()
+                let value = data[current]
+                while (current != null && current != undefined && value !==null && value != undefined && elements.length > 0) {
+                    current = elements.shift()
+                    value = value[current]
+                }
+                return value !== undefined && value !== null
+            }
+            return false
+        }
+    }
+
 }
 
 export default new JSONPath()

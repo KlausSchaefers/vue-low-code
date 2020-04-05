@@ -1,9 +1,11 @@
 import Logger from '../../core/Logger'
-import * as Util from '../../core/ExportUtil'
+
 
 import PagingCSS from './PagingCSS'
 import TableCSS from './TableCSS'
 import ImageCSS from './ImageCSS'
+import ScreenCSS from './ScreenCSS'
+import RepeaterCSS from './RepeaterCSS'
 
 export default class CSSWidgetFactory {
 
@@ -13,42 +15,20 @@ export default class CSSWidgetFactory {
     this.factories = {
       'Paging':  new PagingCSS(cssFactory),
       'Table': new TableCSS(cssFactory),
-      'Image': new ImageCSS(cssFactory)
+      'Image': new ImageCSS(cssFactory),
+      'Screen': new ScreenCSS(cssFactory),
+      'Repeater': new RepeaterCSS(cssFactory)
     }
   }
 
+  getCSS_Screen (selector, style, widget) {
+    Logger.log(5, 'getCSS_Screen', widget)
+    return this.factories.Screen.run(selector, style, widget)
+  }
+
   getCSS_Repeater(selector, style, widget) {
-    Logger.log(0, 'getCSS_Repeater', widget)
-    let result = ''
-    result += selector + ' {\n'
-    result += this.cssFactory.getRawStyle(style, widget);
-    result += this.cssFactory.getPosition(widget, screen);
-    result += '}\n\n'
-
-    if (Util.isRepeaterGrid(widget)) {
-      Logger.log(5, 'getCSS_Repeater () > grid', widget)
-      result += selector + ' .qux-repeater-child {\n'
-      result += '  display: inline-block;\n';
-      let width = 100 / widget.props.columns
-      result += `  width: calc(${width}% - ${widget.props.distanceX}px);\n`;
-      result += `  margin-bottom:${widget.props.distanceY}px;\n`;
-      result += `  align-self: stretch;\n`;
-      result += '}\n\n'
-    } else if (Util.isRepeaterWrap(widget)) {
-      Logger.log(0, 'getCSS_Repeater () > wrap', widget)
-      result += selector + ' .qux-repeater-child {\n'
-      result += '  display: inline-block;\n';
-      let width = this.getChildWidth(widget)
-      result += `  width: ${width};\n`;
-      result += `  margin-bottom:${widget.props.distanceY}px;\n`;
-      result += '}\n\n'
-    } else {
-      result += selector + ' .qux-repeater-child {\n'
-      result += `  margin-bottom:${widget.props.distanceY}px;\n`;
-      result += '}\n\n'
-    }
-
-    return result
+    Logger.log(5, 'getCSS_Repeater', widget)
+    return this.factories.Repeater.run(selector, style, widget)
   }
 
   getCSS_Icon(selector, style, widget) {
@@ -56,7 +36,7 @@ export default class CSSWidgetFactory {
     result += selector + ' {\n'
     result += this.cssFactory.getRawStyle(style, widget);
     result += `  font-size:${widget.h}px;\n`
-    result += this.cssFactory.getPosition(widget, screen);
+    result += this.cssFactory.getPosition(widget);
     result += '}\n\n'
     return result
   }
@@ -68,7 +48,7 @@ export default class CSSWidgetFactory {
     let height = widget.style.boxHeight + 'px'
 
     result += selector + ' {\n'
-    result += this.cssFactory.getPosition(widget, screen);
+    result += this.cssFactory.getPosition(widget);
     result += '}\n\n'
 
     result += selector + '.qux-radiobox {\n'
@@ -114,7 +94,7 @@ export default class CSSWidgetFactory {
     let height = widget.style.boxHeight + 'px'
 
     result += selector + ' {\n'
-    result += this.cssFactory.getPosition(widget, screen);
+    result += this.cssFactory.getPosition(widget);
     result += '}\n\n'
 
     result += selector + '.qux-checkbox {\n'
@@ -157,7 +137,7 @@ export default class CSSWidgetFactory {
     let result = ''
 
     result += selector + ' {\n'
-    result += this.cssFactory.getPosition(widget, screen);
+    result += this.cssFactory.getPosition(widget);
     result += '}\n\n'
 
     result += selector + ' .qux-radiobox-cntr {\n'
@@ -184,7 +164,7 @@ export default class CSSWidgetFactory {
   getCSS_CheckBox(selector, style, widget) {
     let result = ''
     result += selector + ' {\n'
-    result += this.cssFactory.getPosition(widget, screen);
+    result += this.cssFactory.getPosition(widget);
 
     result += '}\n\n'
 
@@ -214,7 +194,7 @@ export default class CSSWidgetFactory {
     let result = ''
 
     result += selector + ' {\n'
-    result += this.cssFactory.getPosition(widget, screen);
+    result += this.cssFactory.getPosition(widget);
     result += '}\n\n'
 
     let cntrHeight = this.cssFactory.getCorrectedHeight(widget, false, widget.h)
@@ -258,7 +238,7 @@ export default class CSSWidgetFactory {
 
     result += selector + ' {\n'
     result += this.cssFactory.getRawStyle(style, widget);
-    result += this.cssFactory.getPosition(widget, screen);
+    result += this.cssFactory.getPosition(widget);
     result += '}\n\n'
 
     result += this._addCaret(selector, widget, style)
@@ -288,7 +268,7 @@ export default class CSSWidgetFactory {
 
     result += selector + ' {\n'
     result += this.cssFactory.getRawStyle(style, widget);
-    result += this.cssFactory.getPosition(widget, screen);
+    result += this.cssFactory.getPosition(widget);
     result += '}\n\n'
 
     result += this._addCaret(selector, widget, style)
@@ -349,7 +329,7 @@ export default class CSSWidgetFactory {
 
     result += selector + ' {\n'
     result += this.cssFactory.getRawStyle(style, widget);
-    result += this.cssFactory.getPosition(widget, screen);
+    result += this.cssFactory.getPosition(widget);
     result += '}\n\n'
 
     if (widget.hover) {
@@ -366,7 +346,7 @@ export default class CSSWidgetFactory {
     let result = ''
 
     result += selector + ' {\n'
-    result += this.cssFactory.getPosition(widget, screen);
+    result += this.cssFactory.getPosition(widget);
     result += '}\n\n'
 
     result += selector + ' .qux-slider-track {\n'
@@ -400,7 +380,7 @@ export default class CSSWidgetFactory {
     if (!isInPopup) {
       result += selector + ' {\n'
       result += this.cssFactory.getRawStyle(style, widget);
-      result += this.cssFactory.getPosition(widget, screen);
+      result += this.cssFactory.getPosition(widget);
       result += '}\n\n'
     }
 
@@ -480,7 +460,7 @@ export default class CSSWidgetFactory {
 
     result += selector + ' {\n'
     result += this.cssFactory.getRawStyle(style, widget);
-    result += this.cssFactory.getPosition(widget, screen);
+    result += this.cssFactory.getPosition(widget);
     result += '}\n\n'
 
     result += this._addCaret(selector, widget, style)
@@ -501,7 +481,7 @@ export default class CSSWidgetFactory {
     let result = ''
 
     result += selector + ' {\n'
-    result += this.cssFactory.getPosition(widget, screen);
+    result += this.cssFactory.getPosition(widget);
     result += '}\n\n'
 
     result += selector + ' .qux-segment-item {\n'
@@ -551,7 +531,7 @@ export default class CSSWidgetFactory {
     let result = ''
 
     result += selector + ' {\n'
-    result += this.cssFactory.getPosition(widget, screen);
+    result += this.cssFactory.getPosition(widget);
     result += `  color:${style.color};\n`
     result += `  font-size:${widget.h}px;\n`
     result += '}\n\n'
@@ -567,7 +547,7 @@ export default class CSSWidgetFactory {
     let result = ''
 
     result += selector + ' {\n'
-    result += this.cssFactory.getPosition(widget, screen);
+    result += this.cssFactory.getPosition(widget);
     result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.textProperties)
     result += `  color:${style.passiveColor};\n`
     result += `  font-size:${style.fontSize}px;\n`
@@ -590,7 +570,7 @@ export default class CSSWidgetFactory {
     let result = ''
 
     result += selector + ' {\n'
-    result += this.cssFactory.getPosition(widget, screen);
+    result += this.cssFactory.getPosition(widget);
     result += '}\n\n'
 
     result += selector + ' .qux-combo-input {\n'

@@ -5,7 +5,7 @@ import Logger from './Logger'
 export default class CSSFactory {
 
 	constructor (config = {}, imagePrefix='') {
-		Logger.log(1, 'CSSFactory.constructor() ', config)
+		Logger.log(4, 'CSSFactory.constructor() ', config)
 		this.marginWhiteSpaceCorrect = 0
 		this.gridAutoErrorThreshold = 5
 		this.imagePrefix = imagePrefix
@@ -285,12 +285,12 @@ export default class CSSFactory {
 			 * For custom components we just set the position!
 			 */
 			result += selector + ' {\n'
-			result += this.getPosition(widget, screen);
+			result += this.getPosition(widget);
 			result += '}\n\n'
 		} else {
 			result += selector + ' {\n'
 			result += this.getRawStyle(style, widget);
-			result += this.getPosition(widget, screen);
+			result += this.getPosition(widget);
 			result += '}\n\n'
 
 			if (widget.hover) {
@@ -345,14 +345,6 @@ export default class CSSFactory {
 		}
 	}
 
-	getWrappedReapterPosition (widget) {
-		Logger.log(3, 'CSSFactory.getWrappedPosition()' + widget.name)
-		let result = ''
-		result += `  min-height: ${this.getWrappedHeight(widget)};\n`
-		//result += `  width: ${this.getWrappedWidth(widget)};\n`
-		return result
-	}
-
 	/*********************************************************************
 	 * Wrapped Position
 	 *********************************************************************/
@@ -371,7 +363,6 @@ export default class CSSFactory {
 		} else {
 			result += `  margin: ${widget.wrapOffSetY}px ${widget.wrapOffSetX}px;\n`
 		}
-
 
 		/**
 		 * If the wrapped element has a grid, add it as well
@@ -409,8 +400,22 @@ export default class CSSFactory {
 		}
 	}
 
+	setRepeaterContainer (widget) {
+		Logger.log(0, 'CSSFactory.setRepeaterContainer() ' + widget.name)
+		let result = ''
+		result += '  display: flex;\n'
+		result += '  flex-direction: row;\n'
+		result += '  flex-wrap: wrap;\n'
+		result += '  align-items: flex-start;\n'
+		result += '  align-content: flex-start;\n'
+		if (Util.isRepeaterAuto(widget)) {
+			result += '  justify-content: space-between;\n'
+		}
+		return result
+	}
+
 	setWrappedContainer (widget) {
-		Logger.log(1, 'CSSFactory.setWrappedContainer() ' + widget.name)
+		Logger.log(4, 'CSSFactory.setWrappedContainer() ' + widget.name)
 		let result = ''
 		result += '  display: flex;\n'
 		result += '  flex-direction: row;\n'
@@ -446,11 +451,13 @@ export default class CSSFactory {
 	}
 
 	getGridParentAlign (widget) {
-		Logger.log(5, 'CSSFactory.getGridParentAlign() > ' + widget.name, widget)
+		Logger.log(3, 'CSSFactory.getGridParentAlign() > ' + widget.name, widget)
 		let result = ''
 
-		if (Util.hasParentRepeaterGrid(widget) || Util.hasParentRepeaterWrap(widget)) {
+		if (Util.hasParentRepeaterGrid(widget)) {
+			Logger.log(3, 'CSSFactory.getGridParentAlign() > ' + widget.name, widget)
 			/**
+			 * FIXME: Do we need this?
 			 * in a repeater we have a parent element that was
 			 * aligned by the Grid (qux-repeater-child). We just set the
 			 * width
@@ -548,8 +555,8 @@ export default class CSSFactory {
 		let result = ''
 		if (Util.isWrappedContainer(widget)) {
 			result += this.setWrappedContainer(widget)
-		} else if (Util.isRepeaterGrid(widget) || Util.isRepeaterWrap(widget)) {
-			result += this.setWrappedContainer(widget)
+		} else if (Util.isRepeaterGrid(widget)) {
+			result += this.setRepeaterContainer(widget)
 		} else if (Util.isRowGrid(widget)) {
 			widget.grid.isRow = true
 			result += `  display: flex;\n`
@@ -572,15 +579,18 @@ export default class CSSFactory {
 			let max = Math.max(...list.map(i => i.l))
 			return list.map(i => {
 				/**
+				 * Fixed has priority
+				 */
+				if (i.fixed) {
+					return i.l + 'px'
+				}
+				/**
 				 * We might want several autos. This is very sensitive
 				 * to small changes in the editor. Therefore we give a
 				 * small error marginf
 				 */
 				if (Math.abs(max - i.l) <= this.gridAutoErrorThreshold) { // max === i.l
 					return 'auto'
-				}
-				if (i.fixed) {
-					return i.l + 'px'
 				}
 				return Math.round(i.l * 100 / total) + '%'
 			}).join(' ')
@@ -590,22 +600,6 @@ export default class CSSFactory {
 	/*********************************************************************
 	 * Position Helpers
 	 *********************************************************************/
-
-	getChildWidth (widget) {
-		if (widget.children) {
-			let maxWidget = {w: 0}
-			widget.children.forEach(child => {
-				if (child.w > maxWidget.w) {
-					maxWidget = child
-				}
-			})
-			if (this.isFixedHorizontal(maxWidget)) {
-				return this.getFixedWidth(maxWidget)
-			}
-			return this.getResponsiveWidth(maxWidget)
-		}
-		return '20%'
-	}
 
 	getPinnedBottom (widget) {
 		if(widget.parent){
@@ -679,6 +673,7 @@ export default class CSSFactory {
 			 */
 			return Math.round(widget.w * 100 / widget.parent.w) + '%'
 		}
+		Logger.warn('CSSFactory.getResponsiveWidth() > No parent! ' + widget.name)
 		return  '100%'
 	}
 

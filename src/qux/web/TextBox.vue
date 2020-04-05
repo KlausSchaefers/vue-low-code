@@ -1,12 +1,12 @@
 <template>
-  <input 
-    :class="['qux-textbox', cssClass]" 
+  <input
+    :class="['qux-textbox', cssClass]"
     :placeholder="placeholder"
     :type="type"
     @click="onClick"
     @change="onChange"
     @keyup="onKeyPress"
-    :value="selectedValue" 
+    :value="selectedValue"
      />
 </template>
 <style lang="scss">
@@ -60,8 +60,8 @@ export default {
       onKeyPress (e) {
         let value = e.target.value
         this.onValueChange(value, 'default')
-        this.$emit('qKeyPress', this.element, e)
-        Logger.log(3, 'qTextBox.onKeyPress() > exit', value)
+        this.$emit('qKeyPress', this.element, e, value)
+        Logger.log(6, 'qTextBox.onKeyPress() > exit', value)
       }
   },
   mounted () {

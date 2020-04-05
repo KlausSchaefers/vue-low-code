@@ -3,7 +3,7 @@ import Logger from '../../core/Logger'
 export default class TableCSS {
 
     constructor(cssFactory) {
-        Logger.log(1, 'TableCSS.constructor()')
+        Logger.log(5, 'TableCSS.constructor()')
         this.cssFactory = cssFactory
     }
 
@@ -12,7 +12,7 @@ export default class TableCSS {
         let borderStyle = this.getTableBorderStyle(widget)
 
         result += selector + ' {\n'
-        result += this.cssFactory.getPosition(widget, screen);
+        result += this.cssFactory.getPosition(widget);
         result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.textProperties)
 
         if (borderStyle === 'Out') {

@@ -51,11 +51,6 @@ export default class ModelTransformer {
         this.model = Util.createInheritedModel(this.model)
 
         /**
-         * Flatten all groups
-         */
-        // this.model = this.flattenGroups(this.model)
-
-        /**
          * Set default data binding
          */
         this.model = this.addDefaultDataBinding(this.model)
@@ -122,11 +117,14 @@ export default class ModelTransformer {
             let screen = this.model.screens[screenID]
 
             /**
+             * Add here virtual elements for the groups
+             */
+            this.model = this.addGroupWrapper(screen,  this.model)
+
+            /**
              * First we build a hierachical parent child relation.
              */
             screen = this.transformScreenToTree(screen, this.model)
-
-            screen = this.addGroupCntr(screen, this.model)
 
             // console.debug(Util.print(screen, false, true))
 
@@ -799,6 +797,7 @@ export default class ModelTransformer {
                 //console.debug("cleanUpContainer", node.name, node.children.length)
                 let child = node.children[0]
                 if (this.isEqualBox(node, child)) {
+                    Logger.log(-1, 'ModelTranformer.cleanUpContainer()', child)
                     node.children = child.children
                     node.children.forEach(c => {
                         c.parent = node
@@ -818,125 +817,8 @@ export default class ModelTransformer {
         return parent
     }
 
-    addGroupCntr (parent, model, groupByIds = {}) {
-        let nodes = parent.children
-
-        let newChildren = []
-        nodes.forEach(n => {
-            if (n.group) {
-                // if we have a group, we add the element
-                let groupId = n.group.id
-                // Create group if needed
-                if (!groupByIds[groupId]) {
-                    this.createGroupCntr(n.group, parent, model, groupByIds, newChildren)
-                }
-                // add as children and update also the parent pointer
-                let groupCntr = groupByIds[groupId]
-                groupCntr.children.push(n)
-                n.parent = groupCntr
-            } else {
-                newChildren.push(n)
-            }
-        })
-        parent.children = newChildren
-
-        /**
-         * Now we repositom the children in the groups. We start with the leafNodes
-         * (groups with a group as parent, but not child groups) and move up recursively
-         */
-        let leafGroups = Object.values(groupByIds).filter(groupCntr => !groupCntr.hasSubGroups)
-        this.repositionGroupChildren(leafGroups)
-
-        /**
-         * Go down recursive
-         */
-        nodes.forEach(a => {
-            if (a.children && a.children.length > 0 ){
-                this.addGroupCntr(a, model)
-            }
-        })
-        return parent
-    }
-
-    repositionGroupChildren (groups) {
-        let parentGroupsById = {}
-        groups.forEach(groupCntr => {
-            // get all the children with a position
-            // This leads to zero spaces when calculating wrapOffSetY in setOrderAndRelativePositons().
-            // We fix that in the method setOrderAndRelativePositons()
-            let children = groupCntr.children
-            let boundingBox = Util.getBoundingBoxByBoxes(children)
-            groupCntr.x = boundingBox.x
-            groupCntr.y = boundingBox.y
-            groupCntr.w = boundingBox.w
-            groupCntr.h = boundingBox.h
-
-            children.forEach(child => {
-                child.x = child.x - boundingBox.x
-                child.y = child.y - boundingBox.y
-            })
-
-            if (groupCntr.parent && groupCntr.parent.isGroup) {
-                parentGroupsById[groupCntr.parent.id] = groupCntr.parent
-            }
-        })
-
-        // if we have parent groups resize them.
-        let parentGroups = Object.values(parentGroupsById)
-        if (parentGroups.length > 0) {
-            this.repositionGroupChildren(parentGroups)
-        }
-    }
-
-    createGroupCntr (group, parentElement, model, groupByIds, newChildren) {
-        Logger.log(4, "ModelTransformer.createGroupCntr() > Create: " + group.name + ' ' + group.id, ' >> under ' + parentElement.name + " " + parentElement.id)
-
-        let resize = group.props && group.props.resize ? group.props.resize : {
-            right: false,
-            up: false,
-            left: false,
-            down: false,
-            fixedHorizontal: false,
-            fixedVertical: false
-        }
-
-        let style = group.style ? group.style : {}
-        let groupCntr = {
-            id: group.id,
-            name: group.name,
-            isGroup: true,
-            children: [],
-            type: 'Box',
-            parent: parentElement,
-            style: style,
-            props: {
-                resize: resize
-            }
-        }
-
-        groupByIds[group.id] = groupCntr
-
-        // check of we have a parent group recursive up
-        let parentGroup = Util.getParentGroup(group.id, model)
-        if (parentGroup) {
-            // if we do not have the parent group, create it
-            if (!groupByIds[parentGroup.id]) {
-                this.createGroupCntr(parentGroup, parentElement, model, groupByIds, newChildren)
-            }
-
-            // add the new group container under the parent group container
-            if (groupByIds[parentGroup.id]) {
-                let parentGroupCntr = groupByIds[parentGroup.id]
-                parentGroupCntr.children.push(groupCntr)
-                parentGroupCntr.hasSubGroups = true
-                groupCntr.parent = parentGroupCntr
-            }
-        } else {
-            // add only to the new children, if we have no parent.
-            newChildren.push(groupCntr)
-        }
-        // newChildren.push(groupCntr)
-        return groupCntr
+    isEqualBox (parent, child) {
+        return child.x === 0 && child.y === 0 && child.w === parent.w && child.h === parent.h
     }
 
     addColumnsContainer (parent) {
@@ -1207,6 +1089,86 @@ export default class ModelTransformer {
         return parent
     }
 
+    addGroupWrapper (screen, model) {
+        let widgets = Util.getOrderedWidgets(this.getWidgets(screen, model));
+        let createdGroups = {}
+        let order = []
+        widgets.forEach(widget => {
+            let group = Util.getGroup(widget.id, model)
+            if (group) {
+                this.createGroupCntr(group, model, createdGroups, order, screen)
+            }
+            order.push(widget)
+        })
+
+        /**
+         * Set new z to ensure that the groups are before the
+         */
+        order.forEach((widget, i) => {
+            widget.z = i
+        })
+        return model
+    }
+
+    createGroupCntr (group, model, createdGroups, order, screen) {
+        /**
+         * Create new group container only if needed
+         */
+        if (!createdGroups[group.id]) {
+            Logger.log(5, "ModelTransformer.createGroupCntr() > create ", group.name)
+
+            /**
+             * 1) check if we need to create parent group. If so we go up hierachy
+             */
+            let parentGroup = Util.getParentGroup(group.id, model)
+            if (parentGroup) {
+                this.createGroupCntr(parentGroup, model, createdGroups, order, screen)
+            }
+
+            /**
+             * 2) Now create the group cntr
+             */
+            let allGroupChildren = Util.getAllGroupChildren(group, model)
+            let boundingBox = Util.getBoundingBoxByIds(allGroupChildren, model)
+
+            let groupCntr = {
+                id: `gc${group.id}`,
+                name: group.name,
+                isGroup: true,
+                type: 'Box',
+                x: boundingBox.x,
+                y: boundingBox.y,
+                w: boundingBox.w,
+                h: boundingBox.h,
+                style: group.style ? group.style : {},
+                props: {
+                    resize: group.props && group.props.resize ? group.props.resize : {
+                        right: false,
+                        up: false,
+                        left: false,
+                        down: false,
+                        fixedHorizontal: false,
+                        fixedVertical: false
+                    }
+                }
+            }
+
+            /**
+             * Add it to the model and link stuff properly
+             */
+            model.widgets[groupCntr.id] = groupCntr
+            screen.children.push(groupCntr.id)
+            createdGroups[group.id] = groupCntr
+
+            /**
+             * Attention, this is imporant! We add the groupCntr here.
+             * After this method, the widget will be added! By doing this,
+             * we ensure the right order.
+             */
+            order.push(groupCntr)
+        }
+    }
+
     /**
      * Transforms and screen into a hiearchical presentation. return the root node.
      */
@@ -1221,7 +1183,7 @@ export default class ModelTransformer {
          * Get widget in render order. This is important to derive the
          * parent child relations.
          */
-        let widgets = Util.getOrderedWidgets(this.getWidgets(screen));
+        let widgets = Util.getOrderedWidgets(this.getWidgets(screen, model));
 
         /**
          * FIXME: also build tree for fixed children. This is currently very
@@ -1257,9 +1219,7 @@ export default class ModelTransformer {
             delete element.has
 
             let group = Util.getGroup(widget.id, model)
-            if (group) {
-                element.group = group
-            }
+            element.group = group
 
             if (widget.style.fixed) {
                 element.x = widget.x - screen.x
@@ -1291,8 +1251,6 @@ export default class ModelTransformer {
                     element.bottom = Util.getDistanceFromScreenBottom(element, model)
                 }
 
-
-
             } else {
                 /**
                  * Check if the widget has a parent (= is contained) widget.
@@ -1322,48 +1280,6 @@ export default class ModelTransformer {
         return result;
     }
 
-    flattenGroups (model) {
-        let toDelete = []
-
-        if (model.groups) {
-            /**
-             * Check for each  group if it is a child group.
-             * If so, pull up children to top, and remove it
-             */
-            for (let id in model.groups) {
-                let group = model.groups[id];
-                let parentGroup = Util.getTopParentGroup(id, model)
-                if (parentGroup && parentGroup.id !== group.id) {
-                    toDelete.push(group.id)
-                    let children = group.children
-                    children.forEach(childId => {
-                        if (parentGroup.children.indexOf(childId) < 0) {
-                            parentGroup.children.push(childId)
-                        }
-                    })
-                    Logger.log(2, "ModelTransformer.flattenGroups() > merge " + group.name, parentGroup.name)
-                }
-            }
-
-            /**
-             * Remove child groups
-             */
-            toDelete.forEach(id => {
-                delete model.groups[id]
-            })
-
-            /**
-             * remove subgroups
-             */
-            for (let id in model.groups) {
-                let group = model.groups[id];
-                group.groups = []
-            }
-        }
-        return model
-    }
-
-
     getParentWidget (potentialParents, element){
         for (let p=0;p< potentialParents.length; p++){
             let parent = potentialParents[p];
@@ -1373,11 +1289,11 @@ export default class ModelTransformer {
         }
     }
 
-    getWidgets (screen) {
+    getWidgets (screen, model) {
         let widgets = [];
         for(let i=0; i < screen.children.length; i++){
             let id = screen.children[i];
-            let widget = this.model.widgets[id];
+            let widget = model.widgets[id];
             widgets.push(widget);
         }
         return widgets

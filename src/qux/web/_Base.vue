@@ -58,7 +58,7 @@ export default {
       },
       hasAction () {
         return this.element &&
-              (this.element.actions && Object.values(this.element.actions).length > 0) || 
+              (this.element.actions && Object.values(this.element.actions).length > 0) ||
               (this.element.lines && this.element.lines.length > 0) ||
               (this.element.props.callbacks && this.element.props.callbacks.click)
       },
@@ -95,7 +95,6 @@ export default {
           }
 
           if (this.element.sharedCssClasses){
-            console.debug(this.element.sharedCssClasses)
             result += this.element.sharedCssClasses.join(' ') + ' '
           }
           result += this.element.cssClass
@@ -173,7 +172,7 @@ export default {
   },
   watch: {
     value (v) {
-      Logger.log(3, '_Base.watch(value) > enter', v)
+      Logger.log(0, '_Base.watch(value) > enter', v)
       this.value = v
     }
   },
@@ -195,7 +194,7 @@ export default {
       this.$emit('qChange', this.element, e, this.getValue())
     },
     onKeyPress (e) {
-      this.$emit('qKeyPress', this.element, e)
+      this.$emit('qKeyPress', this.element, e, this.getValue())
     },
     onFocus (e) {
       this.$emit('qFocus', this.element, e)
@@ -210,7 +209,7 @@ export default {
       this.$emit('qMouseOut', this.element, e)
     },
     /**
-     * Template method which can be implemnted by children to 
+     * Template method which can be implemnted by children to
      * give the current value to the onChange
      */
     getValue () {

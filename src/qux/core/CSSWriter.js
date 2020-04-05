@@ -8,14 +8,14 @@ class CSSWriter {
     write (css) {
         let head = document.head || document.getElementsByTagName('head')[0];
         if (this.styleElement) {
-            Logger.log(1, 'CSSWriter.write() > Clean up old')
+            Logger.log(5, 'CSSWriter.write() > Clean up old')
             head.removeChild(this.styleElement)
         }
-  
+
         let style = document.createElement('style');
         style.type = 'text/css';
         style.qux = true
-        style.appendChild(document.createTextNode(css));   
+        style.appendChild(document.createTextNode(css));
         head.appendChild(style);
         this.styleElement = style
     }

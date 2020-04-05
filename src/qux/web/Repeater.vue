@@ -1,18 +1,20 @@
 <template>
   <div :class="['qux-repeater', cssClass]">
+
       <!--
           FIXME: the forwardClick ($event) contains only the element that was called, nit the value, nor
-          teh dom event. We would need something like $event1,...$event2
+          the dom event. We would need something like $event1,...$event2
       -->
+
       <div v-for="(row, i) in rows" :key="i" class="qux-repeater-child">
-        <component v-for="child in element.children" 
-            :is="child.qtype" 
-            :key="child.id" 
-            :element="getDeepCopy(child, row, i)" 
+        <component v-for="child in element.children"
+            :is="child.qtype"
+            :key="child.id"
+            :element="getDeepCopy(child, row, i)"
             :model="model"
             :config="config"
             v-model="value"
-            @qClick="forwardClick(i, $event)" 
+            @qClick="forwardClick(i, $event)"
             @qChange="forwardChange"
             @qKeyPress="forwardKeyPress"
             @qFocus="forwardFocus"
@@ -45,9 +47,11 @@ export default {
         if (this.element && this.element.props && this.element.props.databinding) {
             let path =  this.element.props.databinding.default
             let value = JSONPath.get(this.value, path)
-            Logger.log(3, 'Repeater.rows() > exit path: > ' + path, value)
+            Logger.log(0, 'Repeater.rows() > exit path: > ' + path, value)
             if (Array.isArray(value)) {
                 return value
+            } else {
+              Logger.warn('Repeater.rows() > Value is no array: > ' + path, value)
             }
         } else {
             return this.getRowsFromTable(this.element)
@@ -166,7 +170,6 @@ export default {
   },
   mounted () {
       Logger.log(3, 'Repeater.mounted() > enter', this.element)
-     //console.debug('Container.mounted()', this.element.name, this.element.isColumn, this.element.isRow)
   }
 }
 </script>

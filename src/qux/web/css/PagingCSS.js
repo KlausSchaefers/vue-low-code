@@ -3,14 +3,14 @@ import Logger from '../../core/Logger'
 export default class PaginCSS {
 
     constructor(cssFactory) {
-        Logger.log(1, 'PaginCSS.constructor()')
+        Logger.log(5, 'PaginCSS.constructor()')
         this.cssFactory = cssFactory
     }
 
     run (selector, style, widget) {
         let result = ''
         result += selector + ' {\n'
-        result += this.cssFactory.getPosition(widget, screen);
+        result += this.cssFactory.getPosition(widget);
         result += '}\n\n'
 
 
@@ -39,7 +39,7 @@ export default class PaginCSS {
             result += this.cssFactory.getStyleByKey(active, widget, this.cssFactory.borderProperties)
             result += '}\n\n'
         }
-     
+
 
         return result
     }

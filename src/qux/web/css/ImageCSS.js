@@ -10,7 +10,7 @@ export default class ImageCSS {
     run (selector, style, widget) {
         let result = ''
         result += selector + ' {\n'
-        result += this.cssFactory.getPosition(widget, screen);
+        result += this.cssFactory.getPosition(widget);
         if (widget.style.backgroundImage) {
           result += this.cssFactory.getRawStyle(widget.style, widget);
         } else {

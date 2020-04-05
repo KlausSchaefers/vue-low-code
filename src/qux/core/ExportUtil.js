@@ -171,22 +171,15 @@ export function hasParentRowGrid(e) {
     return false;
 }
 
-export function isRepeaterWrap (e) {
+export function isRepeaterAuto (e) {
     if (e.type === 'Repeater' && e.props.layout == 'grid' && e.props.auto === true) {
         return true
     }
     return false
 }
 
-export function hasParentRepeaterWrap (e) {
-    if (e.parent) {
-        return isRepeaterWrap(e.parent)
-    }
-    return false
-}
-
 export function isRepeaterGrid (e) {
-    if (e.type === 'Repeater' && e.props.layout == 'grid' && e.props.auto === false) {
+    if (e.type === 'Repeater' && e.props.layout === 'grid') {
         return true
     }
     return false
@@ -223,6 +216,13 @@ export function allChildrenAreFixedHorizontal(children) {
     return fixedChildren.length === children.length
 }
 
+export function isOverlay(screen) {
+    return screen.style && screen.style.overlay
+}
+
+export function hasOverlayBackground(screen) {
+    return screen.style && screen.style.hasBackground
+}
 
 
 export function getImages (app) {
@@ -415,7 +415,7 @@ export function sortWidgetList (result) {
              * 4) if the have the same z, sot by id
              */
             if (a.z == b.z && (a.id && b.id)) {
-            return a.id.localeCompare(b.id);
+                return a.id.localeCompare(b.id);
             }
 
             /**
@@ -472,7 +472,7 @@ export function getBoundingBoxByIds (ids, model) {
 }
 
 export function getBoundingBoxByBoxes (boxes) {
-    var result = { x: 100000000, y: 100000000, w: 0, h: 0 };
+    var result = { x: 100000000, y: 100000000, w: 0, h: 0, z: 100000000, props: {resize: {}}};
 
     for (var i = 0; i < boxes.length; i++) {
         var box = boxes[i];
@@ -480,6 +480,13 @@ export function getBoundingBoxByBoxes (boxes) {
         result.y = Math.min(result.y, box.y);
         result.w = Math.max(result.w, box.x + box.w);
         result.h = Math.max(result.h, box.y + box.h);
+        result.z = Math.max(result.z, box.z);
+        if (isFixedHorizontal(box)) {
+            result.props.resize.fixedHorizontal = true
+        }
+        if (isFixedVertical(box)) {
+            result.props.resize.fixedVertical = true
+        }
     }
 
     result.h -= result.y;
@@ -872,8 +879,30 @@ export function getGroup (widgetID, model) {
             }
         }
     }
-    return null;
 }
+
+export function getAllGroupChildren(group, model) {
+    if (!group.children) {
+        return []
+    }
+    let result = group.children.slice(0)
+    /**
+     * Check all sub groups
+     */
+    if (group.groups) {
+        group.groups.forEach(subId => {
+            let sub = model.groups[subId]
+            if (sub) {
+                let children = getAllGroupChildren(sub, model)
+                result = result.concat(children)
+            } else {
+                console.warn('getAllGroupChildren() No sub group', subId)
+            }
+        })
+    }
+    return result
+}
+
 
 export function getAllChildrenWithPosition (group, result = []) {
 
