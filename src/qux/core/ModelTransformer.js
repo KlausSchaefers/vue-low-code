@@ -13,9 +13,13 @@ export default class ModelTransformer {
         this.rowContainerID = 0
         this.columnContainerID = 0
         this.removeSingleLabels = true
+        this.hasRows = true
+
         if (config.css) {
             Logger.log(1, 'ModelTransformer.constructor() > ', config.css)
-            this.isGrid = config.css.grid === true
+            if (config.css.grid === true) {
+                this.hasRows = false
+            }
         }
 
         this._cloneId = 0
@@ -36,7 +40,7 @@ export default class ModelTransformer {
         ]
     }
 
-    transform (relative = true) {
+    transform () {
         let result = {
             id: this.model.id,
             name: this.model.name,
@@ -126,34 +130,12 @@ export default class ModelTransformer {
              */
             screen = this.transformScreenToTree(screen, this.model)
 
-            // console.debug(Util.print(screen, false, true))
-
-
             /**
-             * If we do not do a responsive layout we have to add rows
-             * and columns to make 'old school' layout.
+             * Add rows, columns and grid if needed
              */
-            if (!this.isGrid) {
-                screen = this.addRows(screen)
-                screen = this.addRowContainer(screen)
+            screen = this.layoutTree(screen, this.model)
 
-                screen = this.addColumns(screen)
-                screen = this.addColumnsContainer(screen)
-
-                screen = this.cleanUpContainer(screen)
-                screen = this.setOrderAndRelativePositions(screen, relative)
-
-                this.fixParents(screen)
-
-            } else {
-                screen = this.addRows(screen)
-                screen = this.addRowContainer(screen)
-
-                screen = this.setOrderAndRelativePositions(screen, false)
-                this.fixParents(screen)
-
-                screen = this.addGrid(screen)
-            }
+            // console.debug(Util.print(screen))
 
             /**
              * set screen pos to 0,0
@@ -175,6 +157,8 @@ export default class ModelTransformer {
             this.attachSingleLabels(result)
         }
 
+
+
         /**
          * If we have warnings, lets print them
          */
@@ -183,6 +167,18 @@ export default class ModelTransformer {
         })
 
         return result
+    }
+
+    layoutTree (screen) {
+
+        screen = this.addRows(screen)
+        screen = this.addRowContainer(screen)
+
+        screen = this.setOrderAndRelativePositions(screen, false)
+        this.fixParents(screen)
+
+        screen = this.addGrid(screen)
+        return screen
     }
 
     setWidgetTypes (parent, result) {
@@ -670,7 +666,6 @@ export default class ModelTransformer {
     }
 
     addDefaultDataBinding (model) {
-
         for (let screenId in model.screens) {
             let screen = model.screens[screenId]
             let children = screen.children
@@ -708,11 +703,9 @@ export default class ModelTransformer {
     }
 
     fixNames (model, result) {
-
         let screens = Object.values(model.screens)
-
-
         screens.forEach((screen, j) => {
+
             let otherScreensWithSameName = screens.filter(o => o.name === screen.name)
             if (otherScreensWithSameName.length > 1) {
                 result.warnings.push('Fix double screen name:' + screen.name)
@@ -751,7 +744,6 @@ export default class ModelTransformer {
         return s.replace(/\s+/g, '_')
     }
 
-
 	attachSingleLabels (model) {
 		model.screens.forEach(screen => {
 			screen.children.forEach(child => {
@@ -769,15 +761,20 @@ export default class ModelTransformer {
 		if (!node.props.label && node.children.length === 1) {
 			let child = node.children[0]
 			if (child.type === 'Label') {
+                Logger.log(0, 'ModelTransformer.attachSingleLabelsInNodes()', node)
 				node.props.label = child.props.label
-				node.children = []
+                node.children = []
+                node.type = 'Box'
+                node.qtype = 'qBox'
 				this.textProperties.forEach(key => {
 					if (child.style[key]) {
 						node.style[key] = child.style[key]
 					}
 				})
 				node.style.paddingTop = child.y
-				node.style.paddingLeft = child.x
+                node.style.paddingLeft = child.x
+                node.style.paddingBottom = node.h - child.h
+				node.style.paddingRight = node.w - child.w
 				node.style = Util.fixAutos(node.style, child)
 			}
 		} else {
@@ -786,8 +783,6 @@ export default class ModelTransformer {
 			})
 		}
 	}
-
-
 
     cleanUpContainer (parent) {
         let nodes = parent.children
@@ -821,133 +816,6 @@ export default class ModelTransformer {
         return child.x === 0 && child.y === 0 && child.w === parent.w && child.h === parent.h
     }
 
-    addColumnsContainer (parent) {
-        let nodes = parent.children
-
-        let newChildren = []
-        let columns = {}
-        nodes.forEach(a => {
-            if (a.column) {
-                if (!columns[a.column]) {
-                    columns[a.column] = []
-                }
-                columns[a.column].push(a)
-            } else {
-                newChildren.push(a)
-            }
-        })
-
-        /**
-         * For each column create a container and reposition the children
-         * when:
-         * There a columns and newChildren
-         */
-        if (Object.values(columns).length > 0 && newChildren.length > 0 && !Util.isWrappedContainer(parent)) {
-            for (let column in columns) {
-                let children = columns[column]
-                let hasParent = children.reduce((a,b) => b.parent != null & a, true)
-                if (hasParent) {
-                    let boundingBox = Util.getBoundingBoxByBoxes(children)
-                    let container = {
-                        id: 'c' + this.columnContainerID++,
-                        name: `Column ${this.columnContainerID}`,
-                        isColumn: true,
-                        children: children,
-                        x: boundingBox.x,
-                        y: boundingBox.y,
-                        h: boundingBox.h,
-                        w: boundingBox.w,
-                        type: 'column',
-                        parent: parent,
-                        style: {},
-                        props: {
-                            resize: {
-                                right: false,
-                                up: false,
-                                left: false,
-                                down: false,
-                                fixedHorizontal: false,
-                                fixedVertical: false
-                            }
-                        }
-                    }
-                    children.forEach((c) => {
-                        c.x = c.x - container.x,
-                        c.y = c.y - container.y,
-                        c.parent = container
-                    })
-                    newChildren.push(container)
-                } else {
-                    newChildren = children.concat(newChildren)
-                }
-            }
-            parent.children = newChildren
-        }
-
-        /**
-         * Go down recursive
-         */
-        nodes.forEach(a => {
-            if (a.children && a.children.length > 0 ){
-                this.addColumnsContainer(a)
-            }
-        })
-        return parent
-    }
-
-
-    /**
-     * Assigns to each child a column
-     */
-    addColumns (parent) {
-        let nodes = parent.children
-
-        // let rows = []
-        let columnIDs = 0
-        nodes.forEach(a => {
-            // console.debug(' addColumns()', a.name, ' @', parent.name)
-            nodes.forEach(b => {
-                if (a.id !== b.id) {
-                    if (Util.isOverLappingX(a,b) && a.parent) {
-                        //console.debug('  same row', a.name, b.name)
-                        /**
-                         * If we have now row, create a new id for a
-                         */
-                        if (!a.column) {
-                            a.column = columnIDs++
-                        }
-                        /**
-                         * If b has no row, we put it in the same row as
-                         * a
-                         */
-                        if (!b.column) {
-                            b.column  = a.column
-                        } else {
-                            let oldId = b.column
-                            let newId = a.column
-                            /**
-                             * if b has already a row, we merge row a & b
-                             */
-                            nodes.forEach(c => {
-                                if (c.column === oldId) {
-                                    c.column = newId
-                                }
-                            })
-                        }
-                    }
-                }
-
-                /**
-                 * no step down recursive
-                 */
-                if (a.children && a.children.length > 0 ){
-                   this.addColumns(a)
-                }
-            })
-        })
-        return parent
-    }
-
     addRowContainer (parent) {
         let nodes = parent.children
 
@@ -970,37 +838,13 @@ export default class ModelTransformer {
          * For wrappend and grid containers, we do not do this.
          *
          * FIXME: For groups we should not need to add a now row?
+         *
+         * FIMXE: This has still issues with right align...
          */
-        if (!Util.isWrappedContainer(parent) && !Util.isGridContainer(parent)) {
+        if (!Util.isWrappedContainer(parent) && !Util.isGridContainer(parent) && this.hasRows) {
             for (let row in rows) {
                 let children = rows[row]
-                let boundingBox = Util.getBoundingBoxByBoxes(children)
-                let container = {
-                    id: 'r' + this.rowContainerID++,
-                    name: `Row ${this.rowContainerID}`,
-                    children: children,
-                    isRow: true,
-                    x: boundingBox.x,
-                    y: boundingBox.y,
-                    h: boundingBox.h,
-                    w: boundingBox.w,
-                    type: 'row',
-                    parent: parent,
-                    style: {},
-                    props: {
-                        resize: {
-                            right: false,
-                            up: false,
-                            left: false,
-                            down: false,
-                            /**
-                             * check of all children are fixed width. Then we set this one too.
-                             */
-                            fixedHorizontal: Util.allChildrenAreFixedHorizontal(children),
-                            fixedVertical: false
-                        }
-                    }
-                }
+                let container = this.createRowCntr(parent, children)
                 /**
                  * Position the children in the container
                  */
@@ -1009,7 +853,6 @@ export default class ModelTransformer {
                     c.y = c.y - container.y,
                     c.parent = container
                 })
-
 
                 newChildren.push(container)
             }
@@ -1032,6 +875,37 @@ export default class ModelTransformer {
             }
         })
         return parent
+    }
+
+    createRowCntr (parent, children) {
+        let boundingBox = Util.getBoundingBoxByBoxes(children)
+        let rowCntr = {
+            id: 'r' + this.rowContainerID++,
+            name: `Row ${this.rowContainerID}`,
+            children: children,
+            isRow: true,
+            x: boundingBox.x,
+            y: boundingBox.y,
+            h: boundingBox.h,
+            w: boundingBox.w,
+            type: 'row',
+            parent: parent,
+            style: {},
+            props: {
+                resize: {
+                    right: false,
+                    up: false,
+                    left: false,
+                    down: false,
+                    /**
+                     * check of all children are fixed width. Then we set this one too.
+                     */
+                    fixedHorizontal: Util.allChildrenAreFixedHorizontal(children),
+                    fixedVertical: false
+                }
+            }
+        }
+        return rowCntr
     }
 
     /**

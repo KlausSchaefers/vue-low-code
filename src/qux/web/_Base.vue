@@ -63,8 +63,8 @@ export default {
               (this.element.props.callbacks && this.element.props.callbacks.click)
       },
       label () {
-          if (this.element && this.element.props) {
-              return this.element.props.label
+          if (this.element && this.element.props && this.element.props.label) {
+            return this.escapeLabel(this.element.props.label)
           }
           if (this.lbl) {
             return this.lbl
@@ -151,8 +151,8 @@ export default {
             return value
           }
         }
-        if (this.element && this.element.props) {
-            return this.element.props.label
+        if (this.element && this.element.props && this.element.props.label) {
+            return this.escapeLabel(this.element.props.label)
         }
         return ''
       },
@@ -177,6 +177,10 @@ export default {
     }
   },
   methods: {
+    escapeLabel (lbl) {
+      lbl = lbl.replace(/&nbsp;/ig, ' ')
+      return lbl
+    },
     isClick (line) {
       return line.event = 'click'
     },

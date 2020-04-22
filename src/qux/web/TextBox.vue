@@ -62,10 +62,19 @@ export default {
         this.onValueChange(value, 'default')
         this.$emit('qKeyPress', this.element, e, value)
         Logger.log(6, 'qTextBox.onKeyPress() > exit', value)
+      },
+      setFocus () {
+        Logger.log(0, 'qTextBox.setFocus() > enter')
+        if (this.$el) {
+          this.$el.focus()
+        }
       }
   },
   mounted () {
     Logger.log(5, 'qTextBox.mounted() enter')
+    if (this.element && this.element.props && this.element.props.focus) {
+      setTimeout(this.setFocus, 100)
+    }
   }
 }
 </script>

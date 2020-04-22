@@ -1,5 +1,6 @@
 <template>
-  <div :class="['qux-container', cssClass]">
+  <div :class="['qux-container', cssClass]" @click="onClick">
+
       <component v-for="child in element.children"
         :is="child.qtype"
         :key="child.id"

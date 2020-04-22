@@ -9,6 +9,11 @@ import * as Util from '../core/ExportUtil'
 export default {
   name: 'Event',
   methods: {
+
+    onScreenLoaded (screen) {
+        Logger.log(0, 'QUX.onScreenLoaded() > ', screen)
+        this.dispatchCallback(screen, null, 'load', null)
+    },
     /**
      * This event come from now from the table. The event 'e'
      * contains the callback and the data of the row as 'params'.

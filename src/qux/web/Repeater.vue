@@ -23,6 +23,11 @@
             @qMouseOut="forwardMouseOut"
             />
       </div>
+
+      <!-- add here some empty placeholder elements to get a nice wrapping... -->
+      <div v-for="(placeholder, i) in placeholders" :key="'p'+i" class="qux-repeater-child qux-repeater-placeholder" style="height:0px; margin:0px;">
+      </div>
+
   </div>
 </template>
 <style lang="scss">
@@ -43,6 +48,12 @@ export default {
       }
   },
   computed: {
+      placeholders () {
+        /**
+         * Make here some better math and calculate hwo many elements i really need?
+         */
+        return [1,2,3,4,5,6,7]
+      },
       rows () {
         if (this.element && this.element.props && this.element.props.databinding) {
             let path =  this.element.props.databinding.default
@@ -121,12 +132,16 @@ export default {
       if (element.lines && element.lines.length > 0) {
         if (this.dataBindingOutputPath && this.dataBindingInputPath) {
           if (row) {
-            Logger.log(0, 'qRepeater.forwardClick() > Upodate databidning' + this.dataBindingOutputPath, row)
+            Logger.log(3, 'qRepeater.forwardClick() > Upodate databidning' + this.dataBindingOutputPath, row)
             JSONPath.set(this.value, this.dataBindingOutputPath, row)
           }
         }
       }
-      Logger.log(3, 'qRepeater.forwardClick() ', row)
+      /**
+       * We could still check if there is a click method defined on the repeater and dispatch the click on this element
+       * if the clicked child does not have a link or call back
+       */
+      Logger.log(5, 'qRepeater.forwardClick() ', JSON.stringify(row))
       this.$emit('qClick', element, e, row);
     },
     forwardChange (element, e, value) {

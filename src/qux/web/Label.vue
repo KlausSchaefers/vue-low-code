@@ -18,7 +18,7 @@ export default {
       }
   },
   mounted () {
-     //console.debug('Label.mounted()', this.label)
+    // console.debug('Label.mounted()', this.element)
   }
 }
 </script>

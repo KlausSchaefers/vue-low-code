@@ -128,7 +128,7 @@ export default {
                 logLevel: 0
             },
             css: {
-                grid: true,
+                grid: false,
                 justifyContentInWrapper: false
             },
             router: {
@@ -271,9 +271,7 @@ export default {
     },
     setScreen (screenName) {
         Logger.log(0, 'QUX.setScreen() > ', name)
-        // TODO: we could have here two mechnisms:
-        // a) use the router. Update url, which will rigger watcher which will call loadScreen
-        // b) just call laodScreen directly.
+        // Update url, which will trigger watcher, which will call setScreenByRouter() which will call loadScreen()
         let prefix = ''
         if (this.config && this.config.router && this.config.router.prefix) {
             prefix = this.config.router.prefix + '/'
@@ -288,6 +286,7 @@ export default {
             if (screen) {
                 // make here somethink like: use router? and updat ethe url as well?
                 this.selectedScreenId = screen.id
+                this.onScreenLoaded(screen)
             } else {
                 this.msg = `404 - No Screen with name ${this.msg}`
                 Logger.warn('QUX.loadScreen() > No screen with name', name)
@@ -378,8 +377,19 @@ export default {
         Vue.component('qRingChart', Chart)
     },
     initViewModel () {
-        Logger.log(0, 'QUX.initViewModel > enter')
+        Logger.log(5, 'QUX.initViewModel > enter')
         if (this.value && this.model) {
+            /**
+             * Fix screen names
+             */
+            Object.values(this.model.screens).forEach(screen => {
+                screen.name = Util.getFileName(screen.name)
+            })
+
+            /**
+             * Add default databinding if needed. This might have consequences on
+             * reactiveness. In general it is not advided to do this.
+             */
             let dataBindings = Object.values(this.model.widgets).flatMap(widget => {
                 if (widget.props && widget.props.databinding) {
                     return Object.values(widget.props.databinding)
@@ -398,6 +408,7 @@ export default {
                  */
                 let has = JSONPath.has(this.value, databinding)
                 if (!has) {
+                    Logger.log(0, 'QUX.initViewModel > Missing data in view model', databinding)
                     JSONPath.set(this.value, databinding, value)
                 }
             })

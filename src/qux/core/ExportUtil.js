@@ -8,6 +8,10 @@ export function hasNoChildren(widget) {
     return widget.children && widget.children.length === 0
 }
 
+export function isScreen(e) {
+    return e.type === 'Screen'
+}
+
 export function isLastChild(widget) {
 
     if(widget.parent && widget.parent.children){
@@ -99,6 +103,10 @@ export function isPinnedUp(e) {
 
 export function isPinnedDown(e) {
     return e.props && e.props.resize && e.props.resize.down
+}
+
+export function isFullWidth (e) {
+    return e.props && e.props.resize && e.props.resize.fullWidth
 }
 
 export function isSingleChildInRow() {
