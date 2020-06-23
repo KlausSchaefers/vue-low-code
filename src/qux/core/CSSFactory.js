@@ -136,6 +136,17 @@ export default class CSSFactory {
 			'_borderRightWidth'
 		]
 
+		this.easingMapping = {
+			'easeInQuad': 'ease-in',
+			'easeOutQuad': 'ease-out',
+			'linear': 'linear',
+			'easeInOutQuad': 'ease-in-out',
+			'easeElasticIn': 'ease-in',
+			'easeElasticOut': 'ease-out',
+			'easeBounceIn': 'ease-in',
+			'easeBounceOut': 'ease-out',
+		}
+
 		this.fontProperties = ['color', 'fontSize', 'fontWeight', 'textAlign', 'fontStyle', 'letterSpacing', 'lineHeight']
 
 		this.ignoreCorrectWidthAndHeigth = ['CheckBox', 'RadioBox', 'RadioBox2', 'Switch', 'Stepper', 'TypeAheadTextBox', 'Paging']
@@ -288,6 +299,9 @@ export default class CSSFactory {
 			result += this.getPosition(widget);
 			result += '}\n\n'
 		} else {
+			/**
+			 * Add normal css
+			 */
 			result += selector + ' {\n'
 			result += this.getRawStyle(style, widget);
 			result += this.getPosition(widget);
@@ -319,8 +333,47 @@ export default class CSSFactory {
 			}
 		}
 
+		console.debug(screen)
+		if (screen && screen.animation && screen.animation.ScreenLoaded) {
+			let animation = screen.animation.ScreenLoaded
+			if (widget.id in animation.widgets) {
+				let widgetAnimation = animation.widgets[widget.id]
+				if (widgetAnimation) {
+					result += this.getAnimation(widgetAnimation, selector, widget, screen)
+				}
+			}
+		}
 
 		return result
+	}
+
+	getAnimation (animation, selector, widget) {
+		let result = ''
+
+		let delay = Math.round((animation.delay / (animation.delay + animation.duration)) * 100)
+		let animId = `${widget.id}-anim-load`
+		let easing = animation.easing ? this.getEasing(animation.easing) : 'linear'
+
+		if (animation.type === 'fadeIn') {
+
+			result +=  `@keyframes ${animId}{\n`
+			result += '  0% { opacity:0; }\n'
+			result += `  ${delay}% {opacity: 0;}\n`
+			result += `  100% {opacity: 1;}\n`
+			result += '}\n\n'
+
+			result += selector + ' {\n'
+			result += `  animation-name:${animId};\n`
+			result += `  animation-duration:${animation.duration}ms;\n`
+			result += `  animation-timing-function:${easing};\n`
+			result += '}\n\n'
+		}
+
+		return result
+	}
+
+	getEasing (easing) {
+		return this.easingMapping[easing]
 	}
 
 
@@ -400,7 +453,7 @@ export default class CSSFactory {
 	}
 
 	setRepeaterContainer (widget) {
-		Logger.log(0, 'CSSFactory.setRepeaterContainer() ' + widget.name)
+		Logger.log(5, 'CSSFactory.setRepeaterContainer() ' + widget.name)
 		let result = ''
 		result += '  display: flex;\n'
 		result += '  flex-direction: row;\n'

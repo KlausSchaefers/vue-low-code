@@ -11,7 +11,7 @@ export default {
   methods: {
 
     onScreenLoaded (screen) {
-        Logger.log(0, 'QUX.onScreenLoaded() > ', screen)
+        Logger.log(3, 'QUX.onScreenLoaded() > ', screen)
         this.dispatchCallback(screen, null, 'load', null)
     },
     /**
@@ -39,11 +39,7 @@ export default {
         if (element.lines) {
             let line = Util.getClickLine(element)
             if (line) {
-                let box = Util.getBoxById(line.to, this.model)
-                if (box.type === 'Screen') {
-                   this.naivateToScreen(box)
-                   return
-                }
+                this.executeLine(line)
             }
         }
 
@@ -59,6 +55,20 @@ export default {
             }
         }
         this.dispatchCallback(element, e, 'click', value)
+    },
+
+    executeLine(line) {
+        Logger.log(0, 'QUX.executeLine() > enter', line)
+        let box = Util.getBoxById(line.to, this.model)
+        if (box.type === 'Screen') {
+            this.navigateToScreen(box)
+            return
+        } else if (box.type === 'Rest') {
+            this.executeRest(box, line)
+            return
+        } else {
+            Logger.warn('QUX.executeLine() > Not supported line target', box)
+        }
     },
 
     dispatchCallback (element, e, type, value) {
@@ -92,7 +102,7 @@ export default {
         }
     },
 
-    naivateToScreen (screen) {
+    navigateToScreen (screen) {
         if (screen.style && screen.style.overlay === true) {
             Logger.log(1, 'Qux(Event).navigateToScreen() > Overlay', screen.name)
             this.overlayScreenIds.push(screen.id)

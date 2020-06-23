@@ -15,7 +15,9 @@ export default class ScreenCSS {
         if (!Util.isOverlay(widget) || Util.hasOverlayBackground(widget)) {
           result += `  background:${style.background};\n`
         }
+        result += '  height:100%;\n'
         result += '}\n\n'
+
         return result
     }
 

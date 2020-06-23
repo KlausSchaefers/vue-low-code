@@ -20,7 +20,7 @@
           {{msg}}
       </div>
 
-      <div v-if="hasOverlay" :class="['qux-overlay-wrapper', {'qux-overlay-wrapper-fixed': isFixedOverlay}]" @click="popOverlay" ref="overlayWrapper">
+      <div v-if="hasOverlay" :class="['qux-overlay-wrapper', {'qux-overlay-wrapper-fixed': isFixedOverlay}]" @mousedown="popOverlay" ref="overlayWrapper">
         <qContainer
                 ref="overlayCntr"
                 v-if="currentOverlay"
@@ -28,7 +28,6 @@
                 :class="'qux-screen'"
                 :model="model"
                 :config="mergedConfig"
-                @click.stop=""
                 @qCallback="onCallback"
                 @qClick="onClick"
                 @qChange="onChange"
@@ -82,11 +81,12 @@ import Table from './web/Table.vue'
 import Paging from './web/Paging.vue'
 import Chart from './web/Chart.vue'
 
+import Logic from './mixins/Logic.vue'
 import Event from './mixins/Event.vue'
 import JSONPath from './core/JSONPath'
 
 export default {
-  mixins:[Event],
+  mixins:[Event, Logic],
   name: 'QUX',
   props: {
       'app': {
@@ -128,7 +128,7 @@ export default {
                 logLevel: 0
             },
             css: {
-                grid: false,
+                grid: true,
                 justifyContentInWrapper: false
             },
             router: {
@@ -260,11 +260,14 @@ export default {
         this.initViewModel()
     },
     async loadAppByKey (key) {
-        Logger.log(1, 'QUX.setApp() > loadAppByKey', key)
+        Logger.log(1, 'QUX.loadAppByKey() > enter', key)
         let url = `${this.server}/rest/invitation/${key}/app.json`
+        let start = new Date().getTime()
         const response = await fetch(url);
         if (response.status === 200) {
-            return await response.json();
+            let app = await response.json();
+            Logger.log(-1, 'QUX.setApp() > exit', new Date().getTime() - start)
+            return app
         } else {
             this.msg = 'The debug id is wrong!'
         }
@@ -408,7 +411,7 @@ export default {
                  */
                 let has = JSONPath.has(this.value, databinding)
                 if (!has) {
-                    Logger.log(0, 'QUX.initViewModel > Missing data in view model', databinding)
+                    Logger.log(4, 'QUX.initViewModel > Missing data in view model', databinding)
                     JSONPath.set(this.value, databinding, value)
                 }
             })
@@ -444,11 +447,11 @@ export default {
         this.setScreenByRouter()
     },
     'screen' (v) {
-        Logger.log(0, 'QUX.watch(screen) > enter')
+        Logger.log(3, 'QUX.watch(screen) > enter')
         this.setScreen(v)
     },
     'value' (v) {
-        Logger.log(0, 'QUX.watch(value) > enter', v)
+        Logger.log(3, 'QUX.watch(value) > enter', v)
         this.value = v
         this.initViewModel()
     },
