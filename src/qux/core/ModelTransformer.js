@@ -14,11 +14,15 @@ export default class ModelTransformer {
         this.columnContainerID = 0
         this.removeSingleLabels = true
         this.hasRows = true
+        this.fixSmallColumns = false
 
         if (config.css) {
             Logger.log(1, 'ModelTransformer.constructor() > ', config.css)
             if (config.css.grid === true) {
                 this.hasRows = false
+            }
+            if (config.css.fixSmallColumns) {
+                this.fixSmallColumns = true
             }
         }
 
@@ -36,7 +40,7 @@ export default class ModelTransformer {
             'TextBox', 'Password', 'TextArea', 'Repeater', 'RadioGroup', 'CheckBoxGroup', 'ToggleButton',
             'Switch', 'DropDown', 'MobileDropDown', 'Stepper', 'HSlider', 'Date', 'DateDropDown',
             'SegmentButton', 'Rating', 'IconToggle', 'LabeledIconToggle', 'TypeAheadTextBox', 'Table',
-            'Paging', 'BarChart', 'PieChart', 'MultiRingChart', 'RingChart'
+            'Paging', 'BarChart', 'PieChart', 'MultiRingChart', 'RingChart', 'Vector'
         ]
     }
 
@@ -156,8 +160,6 @@ export default class ModelTransformer {
         if (this.removeSingleLabels) {
             this.attachSingleLabels(result)
         }
-
-
 
         /**
          * If we have warnings, lets print them
@@ -289,10 +291,13 @@ export default class ModelTransformer {
                     e.gridRowStart = 0
                     e.gridRowEnd = grid.rows.length
                     grid.columns.forEach((c, i) => {
+                        /**
+                         * FIXME: if we want to use grdiCleanUp we
+                         * have to use start and end
+                         */
                         if (c.v === e.x) {
                             e.gridColumnStart =  i
-                        }
-                        if (c.v === e.x + e.w) {
+                        } else if (c.v === e.x + e.w) {
                             e.gridColumnEnd =  i
                         }
                     })
@@ -346,6 +351,14 @@ export default class ModelTransformer {
             columns = this.setGridColumnWidth(columns, parent)
             rows = this.setGridRowHeight(rows, parent)
 
+            if (this.fixSmallColumns) {
+                /**
+                 * To make htis work, we need to fix the addGridToElements() to not match values,
+                 * but go over the start and end thingies.
+                 */
+                // columns = this.computeReducedColumns(columns)
+            }
+
             /**
              * determine fixed columns and rows
              */
@@ -357,6 +370,27 @@ export default class ModelTransformer {
             }
         }
         return null
+    }
+
+    computeReducedColumns (columns) {
+        let temp = []
+        let last = null
+        for (let c = 0; c < columns.length; c++) {
+            let col = columns[c]
+            if (last && col.v - last.v < 2) {
+                 /**
+                 * This does not work
+                 */
+                let start = last.start.concat(col.start)
+                let end = last.end.concat(col.end)
+                last.start = start
+                last.end = end
+            } else {
+                temp.push(col)
+                last = col
+            }
+        }
+        return temp
     }
 
     setFixedGirdRowsAndColumns (parent, columns, rows) {
@@ -761,7 +795,7 @@ export default class ModelTransformer {
 		if (!node.props.label && node.children.length === 1) {
 			let child = node.children[0]
 			if (child.type === 'Label') {
-                Logger.log(0, 'ModelTransformer.attachSingleLabelsInNodes()', node)
+                Logger.log(4, 'ModelTransformer.attachSingleLabelsInNodes()', node)
 				node.props.label = child.props.label
                 node.children = []
                 node.type = 'Box'
@@ -773,8 +807,10 @@ export default class ModelTransformer {
 				})
 				node.style.paddingTop = child.y
                 node.style.paddingLeft = child.x
+                // this can cause issues in the grid because the element minWidth gets
+                // to large
                 node.style.paddingBottom = node.h - child.h
-				node.style.paddingRight = node.w - child.w
+				//node.style.paddingRight = node.w - child.w
 				node.style = Util.fixAutos(node.style, child)
 			}
 		} else {

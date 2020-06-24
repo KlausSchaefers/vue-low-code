@@ -13,11 +13,15 @@ export default class ScreenCSS {
         result += selector + ' {\n'
         result += this.cssFactory.getPosition(widget);
         if (!Util.isOverlay(widget) || Util.hasOverlayBackground(widget)) {
-          result += `  background:${style.background};\n`
+            if (style.background) {
+                result += `  background:${style.background};\n`
+            }
+            if (style.backgroundColor) {
+                result += `  background-color: ${style.backgroundColor};\n`
+            }
         }
         result += '  height:100%;\n'
         result += '}\n\n'
-
         return result
     }
 

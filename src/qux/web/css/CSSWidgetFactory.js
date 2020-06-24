@@ -7,6 +7,7 @@ import ImageCSS from './ImageCSS'
 import ScreenCSS from './ScreenCSS'
 import RepeaterCSS from './RepeaterCSS'
 import ChartCSS from './ChartCSS'
+import VectorCSS from './VectorCSS'
 
 export default class CSSWidgetFactory {
 
@@ -19,7 +20,8 @@ export default class CSSWidgetFactory {
       'Image': new ImageCSS(cssFactory),
       'Screen': new ScreenCSS(cssFactory),
       'Repeater': new RepeaterCSS(cssFactory),
-      'BarChart': new ChartCSS(cssFactory)
+      'BarChart': new ChartCSS(cssFactory),
+      'Vector': new VectorCSS(cssFactory)
     }
   }
 
@@ -31,6 +33,11 @@ export default class CSSWidgetFactory {
   getCSS_RingChart (selector, style, widget) {
     Logger.log(5, 'getCSS_RingChart', widget)
     return this.factories.BarChart.run(selector, style, widget)
+  }
+
+  getCSS_Vector (selector, style, widget) {
+    Logger.log(5, 'getCSS_Vector', widget)
+    return this.factories.Vector.run(selector, style, widget)
   }
 
   getCSS_PieChart (selector, style, widget) {

@@ -333,7 +333,6 @@ export default class CSSFactory {
 			}
 		}
 
-		console.debug(screen)
 		if (screen && screen.animation && screen.animation.ScreenLoaded) {
 			let animation = screen.animation.ScreenLoaded
 			if (widget.id in animation.widgets) {
@@ -913,6 +912,7 @@ export default class CSSFactory {
 	}
 
 	getRawStyle (style, widget) {
+
 		var result = this.getStyleByKey(style, widget, Object.keys(this.mapping))
 		result += this.getBackGround(style, widget)
 		return result;
@@ -920,6 +920,7 @@ export default class CSSFactory {
 
 	getBackGround(style, widget) {
 		let result = ''
+
 		if (style.background && style.overlay !== true) {
 			if (style.background.colors) {
 				let background = style.background
@@ -930,14 +931,22 @@ export default class CSSFactory {
 				}
 				gradient += ")";
 				result += `  background: linear-gradient${gradient};\n`
-				//result += `  background: -webkit-linear-gradient${gradient};\n`
 			} else {
 				result += `  background-color: ${style.background};\n`
 			}
 		}
+		if (style.backgroundColor) {
+			result += `  background-color: ${style.backgroundColor};\n`
+		}
 
-		if (style.backgroundImage) {
-			result += `  background-image: url(${this.imagePrefix}/${style.backgroundImage.url});\n`
+		if (style.backgroundImage && style.backgroundImage.url) {
+
+			if (style.backgroundImage.url.indexOf('http') === 0) {
+				result += `  background-image: url(${style.backgroundImage.url});\n`
+			} else {
+				result += `  background-image: url(${this.imagePrefix}/${style.backgroundImage.url});\n`
+			}
+
 			if (style.backgroundSize) {
 				result += `  background-size: ${style.backgroundSize }%;\n`
 			} else {
