@@ -5,6 +5,7 @@ export default class VectorCSS {
     constructor(cssFactory) {
         Logger.log(5, 'VectorCSS()')
         this.cssFactory = cssFactory
+        this.imagePrefix = cssFactory.imagePrefix
     }
 
     run (selector, style, widget) {
@@ -15,6 +16,8 @@ export default class VectorCSS {
         // FIXME: make this smarter?
         result += `  height:${this.cssFactory.getCorrectedHeight(widget)};\n`
         result += `  width:${this.cssFactory.getCorrectedWidth(widget)};\n`
+
+        console.debug('run', this.imagePrefix)
 
         if (style.backgroundImage && style.backgroundImage.url) {
           if (style.backgroundImage.url.indexOf('http') === 0) {

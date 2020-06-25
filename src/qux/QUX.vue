@@ -139,7 +139,7 @@ export default {
             databinding: {
                 default: ''
             },
-            imageFolder: '/public/img',
+            imageFolder: '/img',
             responsive: {
                 mobile: {
                     min: 0,
@@ -333,7 +333,7 @@ export default {
             this.mergedConfig.debug = Util.mixin(this.mergedConfig.debug, c.debug)
         }
         Logger.setLogLevel(this.mergedConfig.debug.logLevel)
-        Logger.log(5, 'QUX.setConfig()', JSON.stringify(this.mergedConfig))
+        Logger.log(-1, 'QUX.setConfig()', JSON.stringify(this.mergedConfig))
     },
     initCustomComponents (components) {
         Logger.log(1, 'QUX.initCustomComponents()')

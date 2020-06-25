@@ -1,16 +1,19 @@
 import QUX from "./qux/QUX.vue";
 import Figma from "./qux/figma/Figma.vue";
-
+import FigmaService from "./qux/figma/FigmaService";
+import Logger from "./qux/core/Logger";
 
 export default {
- install(Vue, options) {
-  // Let's register our component globally
-  // https://vuejs.org/v2/guide/components-registration.html
+ install(Vue) {
   Vue.component("QUX", QUX);
   Vue.component("Figma", Figma)
  }
 };
 
-export function download () {
-    console.debug('DownLoad')
+export function createFigmaService (key) {
+    return new FigmaService(key)
+}
+
+export function setLogLevel (level) {
+    Logger.setLogLevel(level)
 }

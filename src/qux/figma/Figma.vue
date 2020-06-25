@@ -60,6 +60,8 @@ export default {
           Object.values(app.screens).forEach(screen => this.setBackgroundImage(screen))
           Object.values(app.widgets).forEach(widget => this.setBackgroundImage(widget))
           this.app = app
+       } else if (figma.screens && figma.widgets){
+          this.app = figma
        }
     },
     setBackgroundImage (element) {
