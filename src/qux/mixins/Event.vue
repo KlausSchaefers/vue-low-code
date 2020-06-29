@@ -71,7 +71,7 @@ export default {
         }
     },
 
-    dispatchCallback (element, e, type, value) {
+    async dispatchCallback (element, e, type, value) {
          if (element.props && element.props.callbacks) {
             let callback = element.props.callbacks[type]
             if (callback) {
@@ -83,19 +83,32 @@ export default {
                             /**
                              * This is crucial. we need to keep this signature the same.
                              */
-                            func({
+                            let result = await func({
                                 value: value,
                                 element: element,
                                 viewModel: this.value,
                                 qux: this,
                                 event: e
                             })
+
+                            /**
+                             * Since 0.4 we check if we can dispatch the result to a screen.
+                             */
+                            if (result) {
+                                Logger.log(-1, 'QUX.dispatchCallback() > callback > ' + callback, result)
+                                let nextScreen = Object.values(this.model.screens).find(s => s.name === result)
+                                if (nextScreen) {
+                                    this.setScreen(result)
+                                } else {
+                                    Logger.wanr('QUX.dispatchCallback() > no screen with name > ' + result)
+                                }
+                            }
                             return;
                         } else {
-                            console.warn('QUX.onClick() > Callback is not method ', callback)
+                            console.warn('QUX.dispatchCallback() > Callback is not method ', callback)
                         }
                     } else {
-                        console.warn('QUX.onClick() > no method in $parent with name ', callback)
+                        console.warn('QUX.dispatchCallback() > no method in $parent with name ', callback)
                     }
                 }
             }

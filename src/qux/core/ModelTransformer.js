@@ -231,24 +231,9 @@ export default class ModelTransformer {
         /**
          * We check here different component overrides
          */
-        if (this.config.components) {
-            let matches = this.config.components.filter(o => {
-                if (o.qType) {
-                    return o.type === element.type
-                }
-                if (o.cssSelector) {
-                    return element.cssSelector === o.cssSelector
-                }
-            })
-            if (matches.length > 0) {
-                if (matches.length === 1) {
-                    element.isCustomComponent = true
-                    let match = matches[0]
-                    return match.type
-                } else {
-                    Logger.warn('ModelTRansformer.getWidgetType() > Too many matches for', element)
-                }
-            }
+        if (element.props.customComponent) {
+            Logger.log(-1, 'ModelTRansformer.getWidgetType() > Use customComponent', element)
+            return element.props.customComponent
         }
 
         if (element.children && element.children.length > 0) {

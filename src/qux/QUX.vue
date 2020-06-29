@@ -274,7 +274,7 @@ export default {
         }
     },
     setScreen (screenName) {
-        Logger.log(0, 'QUX.setScreen() > ', name)
+        Logger.log(0, 'QUX.setScreen() > ', screenName)
         // Update url, which will trigger watcher, which will call setScreenByRouter() which will call loadScreen()
         let prefix = ''
         if (this.config && this.config.router && this.config.router.prefix) {
@@ -337,12 +337,10 @@ export default {
     },
     initCustomComponents (components) {
         Logger.log(1, 'QUX.initCustomComponents()')
-        components.forEach(c => {
-            if (c.component && c.type) {
-                Logger.log(2, 'QUX.initCustomComponents() > register ', c.type)
-                Vue.component(c.type, c.component);
-            }
-        })
+        for (let key in components) {
+            let c = components[key]
+            Vue.component(key, c);
+        }
     },
     initComponents () {
         Vue.component('qButton', Button);

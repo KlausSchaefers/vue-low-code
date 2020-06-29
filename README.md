@@ -15,9 +15,9 @@ which renders the visual design and allows the developers to focus on business l
 10. Rich library of stylable components.
 
 ## The handoff problem
-Designers and developers use different tools to build user interfaces. Once a designer has completed the interface design, he hands-off the design to the developer, usually in the form of an image and some specs. 
-The developer has now to rebuild the entire design using the programming language of his choice. 
-Although this process is proven, it is rather slow and not very efficient. In particular later changes in 
+Designers and developers use different tools to build user interfaces. Once a designer has completed the interface design, he hands-off the design to the developer, usually in the form of an image and some specs.
+The developer has now to rebuild the entire design using the programming language of his choice.
+Although this process is proven, it is rather slow and not very efficient. In particular later changes in
 the design makes it hard to automize this work through code generation tools.
 
 ## Envisioned workflow
@@ -60,7 +60,7 @@ to the component, so it knows what to render. You can either pass a **javascrit 
 ```
 
 
-You can optain the share key from the http://quant-ux.com website by clicking share in the canvas menu. In general the 
+You can optain the share key from the http://quant-ux.com website by clicking share in the canvas menu. In general the
 share key is best for development. Updates in Quant-UX will be immediatly visible after a page reload. However, for production you should pass an app object. You can download the app json with the quant-ux command line interface:
 
 ```
@@ -86,7 +86,7 @@ Please note that home component should be wrapped by a router-view, otherwise na
 
 ## Update Router
 
-Last, you have to update your router to delegate all routes to home. 
+Last, you have to update your router to delegate all routes to home.
 
 ```
 const routes = [
@@ -103,11 +103,11 @@ const routes = [
 ]
 ```
 
-The default paramter QUX will look for is 'screenName'. 
+The default paramter QUX will look for is 'screenName'.
 
 ## Configure qux-lowcode
 
-You can configure certain parameters, e.g. the routing rules. To do so, pass a config object to the 
+You can configure certain parameters, e.g. the routing rules. To do so, pass a config object to the
 qux component.
 
 ```
@@ -141,7 +141,9 @@ widgets must be defined in the Quant-UX canvas.
 
 ## Method Binding
 
-In the Quant-UX canvas you can define javascript callbacks for the widgets. Place the methods in the parent compoent of QUX. The method will have the following signature:
+In the Quant-UX canvas you can define javascript callbacks for the widgets.
+Place the methods in the parent compoent of QUX.
+The method will have the following signature:
 
 ```
 myMethod (value, element, e) {
@@ -149,11 +151,22 @@ myMethod (value, element, e) {
 }
 ```
 
+If a method returns a string, matching a screen name, the QUX will navigate to this screen.
+
+```
+myMethod (value, element, e) {
+ ...
+ // navigate to screen 2
+ return 'Screen2'
+}
+```
+
+
 
 ## Custom components and rendering
 
-Sometimes you want to render a certain part of the UI by your self, or replace existing widgets with custom implementations. 
-You can do this by passing a **components** array to the configuration. These components will be used at the specified screen 
+Sometimes you want to render a certain part of the UI by your self, or replace existing widgets with custom implementations.
+These components will be used at the specified screen
 location instead of the default QUX component. This approach allows you to fully manage certain parts of the UI. Data is passed
 as a **value** property and follows default VUE practices.
 
@@ -166,19 +179,13 @@ import MyWidget from 'src/myWidget'
 ...
 
 config = {
-  components: [
-    {
-      cssSelector: ".StartScreen .Custom",
-      type: "MyWidget",
-      component: MyWidget
+    components: {
+      'myCustomComponent': MyWidget
     }
-  ]
 }
 ```
 
-You specify the widget to be replaced by the custom widget by a css selector. For instance if you want to replace the 
-widget with the name "Custom" on the "StartScreen" screen, use the ".StartScreen .Custom" selector. The examples project
-contains a example for a custom widget. 
+You can set the name of the custom component in the data view in Quant-UX.
 
 
 ## MDI Icons
@@ -212,9 +219,9 @@ To set the code properties perform the following steps:
 
 1. Click on "Data & Code" in the upper right corner
 2. The canvas will turn gray now.
-3. Select a widget. 
+3. Select a widget.
 4. In the properties panel you can now define method name to be called.
-5. If the widet supports data binding, you can also configure the data binding variable 
+5. If the widet supports data binding, you can also configure the data binding variable
 here. Please note, that Quant-UX supports JSON Path, so a variable name can be "person.name"
 
 ![Open the settings and tick the beta feature checkbox](assets/Code.png "Enable Beta features")
