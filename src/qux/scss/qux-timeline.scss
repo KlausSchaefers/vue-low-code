@@ -1,0 +1,36 @@
+.qux-timeline{
+  position: relative;
+}
+
+.qux-timeline-line {
+  position: absolute;
+  height: 100%;
+  background: #333;
+  width: 8px;
+  top:0px;
+  left: 8px;
+  border-radius:4px;
+}
+
+.qux-timeline-element {
+	display: flex;
+	align-items: center;
+	position: relative;
+}
+
+.qux-timeline-circle{
+	display: inline-block;
+	border-radius: 50%;
+  border-style: solid;
+  width: 32px;
+  height: 32px;
+  background: #fff;
+  border: 2px solid #333;
+}
+
+.qux-timeline-label{
+	display: inline-block;
+  flex-grow: 1;
+  color: #333;
+  padding-left: 8px;
+}

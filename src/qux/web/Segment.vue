@@ -1,7 +1,9 @@
 <template>
   <div :class="['qux-segment', cssClass]">
     <div :class="['qux-segment-item', {'qux-segment-item-selected': isChecked(option)}]" v-for="option in segmentOptions" :key="option.value" @click="select(option)">
-        {{option.label}}
+        <span class="qux-segment-item-label">
+            {{option.label}}
+        </span>
     </div>
   </div>
 </template>
@@ -73,7 +75,7 @@ export default {
                 } else {
                     Vue.delete(input, pos)
                 }
-                
+
             } else {
                 input = [value]
             }

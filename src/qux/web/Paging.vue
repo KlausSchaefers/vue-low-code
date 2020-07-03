@@ -1,6 +1,6 @@
 <template>
   <div :class="['qux-paging qux-common-no-select', cssClass]">
-   
+
       <span :class="'qux-paging-item ' + valign" v-if="hasBack" @click="onBack">
           <span :class="'qux-common-label'">
               <span :class="backIcon" />
@@ -117,7 +117,7 @@ export default {
         }
       },
       onSelect (page) {
-        Logger.log(0, 'QPaging', 'onSelect', page.value)
+        Logger.log(1, 'QPaging', 'onSelect', page.value)
         this.onValueChange(page.value, 'output')
         this.selected = page.value
       },
@@ -139,7 +139,7 @@ export default {
     }
   },
   mounted () {
-    Logger.log(0, 'QPaging', 'mounterd')
+    Logger.log(3, 'QPaging', 'mounted')
   }
 }
 </script>

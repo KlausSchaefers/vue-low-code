@@ -81,6 +81,7 @@ import Table from './web/Table.vue'
 import Paging from './web/Paging.vue'
 import Chart from './web/Chart.vue'
 import Vector from './web/Vector.vue'
+import Timeline from './web/Timeline'
 
 import Logic from './mixins/Logic.vue'
 import Event from './mixins/Event.vue'
@@ -378,6 +379,7 @@ export default {
         Vue.component('qMultiRingChart', Chart)
         Vue.component('qRingChart', Chart)
         Vue.component('qVector', Vector)
+        Vue.component('qTimeline', Timeline)
     },
     initViewModel () {
         Logger.log(5, 'QUX.initViewModel > enter')

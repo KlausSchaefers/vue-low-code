@@ -40,7 +40,7 @@ export default class ModelTransformer {
             'TextBox', 'Password', 'TextArea', 'Repeater', 'RadioGroup', 'CheckBoxGroup', 'ToggleButton',
             'Switch', 'DropDown', 'MobileDropDown', 'Stepper', 'HSlider', 'Date', 'DateDropDown',
             'SegmentButton', 'Rating', 'IconToggle', 'LabeledIconToggle', 'TypeAheadTextBox', 'Table',
-            'Paging', 'BarChart', 'PieChart', 'MultiRingChart', 'RingChart', 'Vector'
+            'Paging', 'BarChart', 'PieChart', 'MultiRingChart', 'RingChart', 'Vector', 'Timeline'
         ]
     }
 

@@ -8,6 +8,8 @@ import ScreenCSS from './ScreenCSS'
 import RepeaterCSS from './RepeaterCSS'
 import ChartCSS from './ChartCSS'
 import VectorCSS from './VectorCSS'
+import TimelineCSS from './TimelineCSS'
+import SegmentCSS from './SegmentCSS'
 
 export default class CSSWidgetFactory {
 
@@ -21,7 +23,9 @@ export default class CSSWidgetFactory {
       'Screen': new ScreenCSS(cssFactory),
       'Repeater': new RepeaterCSS(cssFactory),
       'BarChart': new ChartCSS(cssFactory),
-      'Vector': new VectorCSS(cssFactory)
+      'Vector': new VectorCSS(cssFactory),
+      'Timeline': new TimelineCSS(cssFactory),
+      'Segment': new SegmentCSS(cssFactory)
     }
   }
 
@@ -33,6 +37,16 @@ export default class CSSWidgetFactory {
   getCSS_RingChart (selector, style, widget) {
     Logger.log(5, 'getCSS_RingChart', widget)
     return this.factories.BarChart.run(selector, style, widget)
+  }
+
+  getCSS_SegmentButton (selector, style, widget) {
+    Logger.log(5, 'getCSS_SegmentButton', widget)
+    return this.factories.Segment.run(selector, style, widget)
+  }
+
+  getCSS_Timeline (selector, style, widget) {
+    Logger.log(5, 'getCSS_Timeline', widget)
+    return this.factories.Timeline.run(selector, style, widget)
   }
 
   getCSS_Vector (selector, style, widget) {
@@ -501,57 +515,6 @@ export default class CSSWidgetFactory {
     result += '}\n\n'
 
     result += this.getCSS_Date(selector + " .qux-date-picker-popup", style, widget, true)
-
-    return result
-  }
-
-
-  getCSS_SegmentButton(selector, style, widget) {
-    let result = ''
-
-    result += selector + ' {\n'
-    result += this.cssFactory.getPosition(widget);
-    result += '}\n\n'
-
-    result += selector + ' .qux-segment-item {\n'
-    result += this.cssFactory.getRawStyle(style, widget);
-    result += `  border-left: none;\n`
-    result += `  border-radius: 0px;\n`
-    result += '}\n\n'
-
-
-    result += selector + ' .qux-segment-item:first-child {\n'
-    result += `  border-left-color: ${style._borderLeftColor};\n`
-    let borderLeftStyle = style._borderLeftStyle ? style._borderLeftStyle : 'solid'
-    result += `  border-left-style: ${borderLeftStyle};\n`
-    result += `  border-left-width: ${style._borderLeftWidth}px;\n`
-    if (style._borderTopLeftRadius) {
-      result += `  border-top-left-radius: ${style._borderTopLeftRadius}px;\n`
-    }
-    if (style._borderBottomLeftRadius) {
-      result += `  border-bottom-left-radius: ${style._borderBottomLeftRadius}px;\n`
-    }
-    result += '}\n\n'
-
-
-    result += selector + ' .qux-segment-item:last-child {\n'
-    if (style._borderTopRightRadius) {
-      result += `  border-top-right-radius: ${style._borderTopRightRadius}px;\n`
-    }
-    if (style._borderBottomRightRadius) {
-      result += `  border-bottom-right-radius: ${style._borderBottomRightRadius}px;\n`
-    }
-    result += '}\n\n'
-
-
-    if (widget.active) {
-      let active = widget.active
-      result += selector + ' .qux-segment-item.qux-segment-item-selected{\n'
-      result += `  background:${active.background};\n`
-      result += `  color:${active.color};\n`
-      result += this.cssFactory.getStyleByKey(active, widget, this.cssFactory.borderColorProperties)
-      result += '}\n\n'
-    }
 
     return result
   }

@@ -6,5 +6,12 @@
         flex-grow: 1;
         height: 100%;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+
+        .qux-segment-item-label{
+            display: inline-block;
+            width: 100%;
+        }
     }
 }
