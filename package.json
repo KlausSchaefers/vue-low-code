@@ -1,6 +1,6 @@
 {
   "name": "vue-low-code",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Vue Low Code - Smart Renderer for visual designs",
   "main": "./dist/index.js",
   "scripts": {

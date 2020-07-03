@@ -81,7 +81,7 @@ import Table from './web/Table.vue'
 import Paging from './web/Paging.vue'
 import Chart from './web/Chart.vue'
 import Vector from './web/Vector.vue'
-import Timeline from './web/Timeline'
+import Timeline from './web/Timeline.vue'
 
 import Logic from './mixins/Logic.vue'
 import Event from './mixins/Event.vue'
