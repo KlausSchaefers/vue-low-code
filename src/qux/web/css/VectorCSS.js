@@ -17,8 +17,6 @@ export default class VectorCSS {
         result += `  height:${this.cssFactory.getCorrectedHeight(widget)};\n`
         result += `  width:${this.cssFactory.getCorrectedWidth(widget)};\n`
 
-        console.debug('run', this.imagePrefix)
-
         if (style.backgroundImage && style.backgroundImage.url) {
           if (style.backgroundImage.url.indexOf('http') === 0) {
             result += `  background-image: url(${style.backgroundImage.url});\n`

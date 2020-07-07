@@ -14,28 +14,43 @@ export default {
         Logger.log(3, 'QUX.onScreenLoaded() > ', screen)
         this.dispatchCallback(screen, null, 'load', null)
     },
+
     /**
      * This event come from now from the table. The event 'e'
      * contains the callback and the data of the row as 'params'.
      */
-    onCallback (element, e) {
-        Logger.log(5, 'QUX.onCallback() > ' + element.name, e)
-        if (this.$parent) {
-            if (this.$parent[e.callback]) {
-                let func = this.$parent[e.callback]
+    async onCallback (element, e) {
+        Logger.log(5, 'QUX.onCallback() > ' + element.name, e.callback)
+        let executor = this.getMethodExcutor()
+        if (executor) {
+            if (executor[e.callback]) {
+                let func = executor[e.callback]
                 if (func instanceof Function) {
-                    func(this.value, element, e.params)
+                    let result = await func({
+                        value: this.value,
+                        element: element,
+                        viewModel: this.value,
+                        qux: this,
+                        params: e.params,
+                        event: e
+                    })
+
+                    /**
+                     * Since 0.4 we check if we can dispatch the result to a screen.
+                     */
+                   this.handleCallbackResult(result, e.callback)
                     return;
                 } else {
                     console.warn('QUX.onCallback() > Callback is not method ', e.callback)
                 }
             } else {
-                console.warn('QUX.onCallback() > no method in $parent with name ', e.callback)
+                console.warn('QUX.onCallback() > no method in executor with name ', e.callback)
             }
         }
     },
 
     onClick (element, e, value) {
+        Logger.log(2, 'QUX.onClick() > enter', element)
         if (element.lines) {
             let line = Util.getClickLine(element)
             if (line) {
@@ -66,6 +81,9 @@ export default {
         } else if (box.type === 'Rest') {
             this.executeRest(box, line)
             return
+        } else if (box.type === 'LogicOr') {
+            this.executeLogic(box, line)
+            return
         } else {
             Logger.warn('QUX.executeLine() > Not supported line target', box)
         }
@@ -76,9 +94,10 @@ export default {
             let callback = element.props.callbacks[type]
             if (callback) {
                 Logger.log(2, 'QUX.dispatchCallback() > callback > ' + type, callback)
-                if (this.$parent) {
-                    if (this.$parent[callback]) {
-                        let func = this.$parent[callback]
+                let executor = this.getMethodExcutor()
+                if (executor) {
+                    if (executor[callback]) {
+                        let func = executor[callback]
                         if (func instanceof Function) {
                             /**
                              * This is crucial. we need to keep this signature the same.
@@ -91,18 +110,7 @@ export default {
                                 event: e
                             })
 
-                            /**
-                             * Since 0.4 we check if we can dispatch the result to a screen.
-                             */
-                            if (result) {
-                                Logger.log(-1, 'QUX.dispatchCallback() > callback > ' + callback, result)
-                                let nextScreen = Object.values(this.model.screens).find(s => s.name === result)
-                                if (nextScreen) {
-                                    this.setScreen(result)
-                                } else {
-                                    Logger.wanr('QUX.dispatchCallback() > no screen with name > ' + result)
-                                }
-                            }
+                            this.handleCallbackResult(result, callback)
                             return;
                         } else {
                             console.warn('QUX.dispatchCallback() > Callback is not method ', callback)
@@ -111,6 +119,21 @@ export default {
                         console.warn('QUX.dispatchCallback() > no method in $parent with name ', callback)
                     }
                 }
+            }
+        }
+    },
+
+    handleCallbackResult (result, callback) {
+         /**
+         * Since 0.4 we check if we can dispatch the result to a screen.
+         */
+        if (result) {
+            Logger.log(-1, 'QUX.handleCallbackResult() > callback > ' + callback, result)
+            let nextScreen = Object.values(this.model.screens).find(s => s.name === result)
+            if (nextScreen) {
+                this.setScreen(result)
+            } else {
+                Logger.warn('QUX.handleCallbackResult() > no screen with name > ' + result)
             }
         }
     },

@@ -78,8 +78,9 @@ export default class CSSWidgetFactory {
     let result = ''
     result += selector + ' {\n'
     result += this.cssFactory.getRawStyle(style, widget);
-    result += `  font-size:${widget.h}px;\n`
     result += this.cssFactory.getPosition(widget);
+    result += `  font-size:${widget.h}px;\n`
+    result += `  line-height:1;\n`
     result += '}\n\n'
     return result
   }
@@ -255,11 +256,12 @@ export default class CSSWidgetFactory {
     result += selector + ' .qux-switch-handle {\n'
     result += `  background:${style.colorButton};\n`
     result += `  border-radius:${style.borderRadius};\n`
+    result += `  border-width:${style.borderWidthButton}px;\n`
+    result += `  border-color:${style.borderColorButton};\n`
     result += this.cssFactory.getStyleByKey(style, widget, ['boxShadow'])
     result += `  height: ${widget.h}px;\n`
     result += `  width: ${widget.h}px;\n`
     result += '}\n\n'
-
 
     result += selector + '.qux-active .qux-switch-handle {\n'
     result += `  left:calc(100% - ${widget.h}px);\n`

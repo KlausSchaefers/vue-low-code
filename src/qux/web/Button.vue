@@ -1,11 +1,11 @@
 <template>
   <a :class="['qux-button', cssClass]" v-if="hasLink" :href="link" @click="onClick">
-    <span class="qux-common-label">
+    <span class="qux-common-label" v-if="label">
       {{label}}
     </span>
   </a>
   <div :class="['qux-button', cssClass]" v-else @click="onClick">
-    <span class="qux-common-label">
+    <span class="qux-common-label" v-if="label">
       {{label}}
     </span>
   </div>
@@ -25,7 +25,7 @@ export default {
       }
   },
   mounted () {
-     //console.debug('Button.mounted()')
+    // console.debug('Button.mounted()')
   }
 }
 </script>

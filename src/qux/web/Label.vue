@@ -1,6 +1,8 @@
 <template>
   <div :class="['qux-label', cssClass]" @click="onClick">
+     <span class="qux-common-label">
       {{dataBindingLabel}}
+    </span>
   </div>
 </template>
 <style lang="scss">

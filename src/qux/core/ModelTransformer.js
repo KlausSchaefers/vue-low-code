@@ -204,6 +204,7 @@ export default class ModelTransformer {
 
     setCSSClassNames (parent, screenName) {
         let name = parent.name
+        name = name.replace(/\./g, '_')
         let cssSelector = `.${name.replace(/\s+/g, '_')}`
         parent.cssClass = `${name.replace(/\s+/g, '_')}`
         if (parent.parent) {
@@ -681,6 +682,18 @@ export default class ModelTransformer {
                 })
             }
         })
+        Object.values(model.screens).forEach(s => {
+            let lines = Util.getLines(s, model, true)
+            if (lines.length > 0) {
+                s.lines = lines
+                lines.forEach(l => {
+                    let screen = model.screens[l.to]
+                    if (screen) {
+                        l.screen = screen
+                    }
+                })
+            }
+        })
         return model
     }
 
@@ -1024,6 +1037,7 @@ export default class ModelTransformer {
              * 2) Now create the group cntr
              */
             let allGroupChildren = Util.getAllGroupChildren(group, model)
+
             let boundingBox = Util.getBoundingBoxByIds(allGroupChildren, model)
 
             let groupCntr = {
@@ -1046,6 +1060,15 @@ export default class ModelTransformer {
                         fixedVertical: false
                     }
                 }
+            }
+
+            /**
+             * For inhereted groups make sure that the inherited flag
+             * is set, other wise the sortWidgets methods will put
+             * it behind it's children and nesting does not work!
+             */
+            if (group.inherited) {
+                groupCntr.inherited = group.inherited
             }
 
             /**
@@ -1149,7 +1172,7 @@ export default class ModelTransformer {
                  * otherwise but the element under the screen.
                  */
                 let parentWidget = this.getParentWidget(parentWidgets, element)
-                if (parentWidget) {
+                if (parentWidget && Util.canHaveChildren(parentWidget)) {
                     element.x = widget.x - parentWidget.x
                     element.y = widget.y - parentWidget.y
                     element.parent = parentWidget
@@ -1159,7 +1182,18 @@ export default class ModelTransformer {
                     element.y = widget.y - screen.y
                     element.parent = null;
                     result.children.push(element)
+
+                    /**
+                     * If we have a widget directly under the screen, and we have a negative margin, crop
+                     * This might happen with figma
+                     */
+                    if (element.y < 0) {
+                        Logger.log(2, 'ModelTransformer.transformScreenToTree() > fix negative margin', element.name)
+                        element.h += element.y
+                        element.y = 0
+                    }
                 }
+
                 /**
                  * Save the widget, so we can check in the next
                  * iteation if this is a parent or not!
@@ -1168,7 +1202,69 @@ export default class ModelTransformer {
                 elementsById[element.id] = element
             }
         })
+
+        /**
+         * Padding messes with the grid :(
+         */
+        this.resetPadding(result)
         return result;
+    }
+
+    resetPadding (element) {
+        if (element.children) {
+
+            element.children.forEach(child => {
+                /**
+                 * If we have more than one child, we have to set the padding to 0.
+                 * Also, we have to create an label element
+                 */
+                let labelToAdd = null
+                if (child.children &&  child.children.length > 0) {
+                    let style = child.style
+                    if (child.props.label) {
+                        // Logger.warn('ModelTransformer.resetPadding() > inline label!', child)
+                        labelToAdd = {
+                            id: child.id + '-label',
+                            name: child.name + '-label',
+                            type: 'Label',
+                            x: style.paddingRight,
+                            y: style.paddingTop,
+                            w: child.w - child.paddingLeft - child.paddingRight,
+                            h: child.h - child.paddingBottom - child.paddingTop,
+                            props: Util.clone(child.props),
+                            style: {
+                                color: style.color,
+                                textAlign: style.textAlign,
+                                fontFamily: style.fontFamily,
+                                fontSize: style.fontSize,
+                                fontStyle: style.fontStyle,
+                                fontWeight: style.fontWeight,
+                                letterSpacing: style.letterSpacing,
+                                lineHeight: style.lineHeight,
+                                verticalAlign: style.verticalAlign
+                            },
+                            children: []
+                        }
+                    }
+
+                    style.paddingBottom = 0
+                    style.paddingLeft = 0
+                    style.paddingRight = 0
+                    style.paddingTop = 0
+
+                    this.resetPadding(child)
+
+                    if (labelToAdd) {
+                        /**
+                         * Or add to fron?
+                         */
+                        child.children.push(labelToAdd)
+                    }
+
+                }
+            })
+
+        }
     }
 
     getParentWidget (potentialParents, element){

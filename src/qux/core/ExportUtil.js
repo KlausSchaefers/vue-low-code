@@ -23,6 +23,16 @@ export function isLastChild(widget) {
 }
 
 /**
+ * Advanced widgets cannot have children, e.g. stacked rings
+ */
+export function canHaveChildren (element) {
+    if (element.type === 'Box' || element.type === 'Button' || element.type === 'Image') {
+        return true
+    }
+    return false
+}
+
+/**
  * Determine if the grid is collection
  * of stacked rows
  */
@@ -641,6 +651,8 @@ export function createInheritedModel(model) {
                                 console.warn("createInheritedModel() > no parent screen child with id > " + parentID + ">" + parentWidget);
                             }
                         }
+
+                        createInheritedGroups(inModel.screens[screenID], parentScreen, model, inModel)
                     } else {
                         console.warn("createInheritedModel() > Deteced Self inheritance...", screen);
                     }
@@ -651,6 +663,42 @@ export function createInheritedModel(model) {
         }
     }
     return inModel;
+}
+
+function createInheritedGroups (inScreen, parentScreen, model, inModel) {
+    Logger.log(4, 'ExportUtil.createInheritedGroups()')
+    let parentGroups = getAllGroupsForScreen(parentScreen, model)
+    let widgetParentMapping = {}
+    inScreen.children.forEach(widgetID => {
+        let inheritedWidget = inModel.widgets[widgetID]
+        if (inheritedWidget) {
+            widgetParentMapping[inheritedWidget.inherited] = widgetID
+        } else {
+            console.warn('createInheritedGroups() Could not find widget', widgetID)
+        }
+    })
+    parentGroups.forEach(group => {
+        let newGroup = {
+            name: group.name + "_" + inScreen.name,
+            id: group.id + "@" + inScreen.id,
+            inherited: group.id,
+            inheritedScreen: parentScreen.id,
+            props: clone(group.props),
+            style: clone(group.style),
+            children: []
+        }
+        group.children.forEach(widgetID => {
+            let inheritedID = widgetParentMapping[widgetID]
+            if (inheritedID) {
+                newGroup.children.push(inheritedID)
+            } else {
+                console.warn('createInheritedGroups() Could not find parent widhet', widgetID)
+            }
+        })
+        if (inModel.groups) {
+            inModel.groups[newGroup.id] = newGroup
+        }
+    })
 }
 
 export function createContaineredModel(inModel) {
@@ -927,6 +975,18 @@ export function getAllChildrenWithPosition (group, result = []) {
     return result
 }
 
+export function getAllGroupsForScreen(screen, model) {
+    let result = {}
+
+    screen.children.forEach(widgetID => {
+        let group = getGroup(widgetID, model)
+        if (group) {
+            result[group.id] = group
+        }
+    })
+
+    return Object.values(result)
+}
 
 function getFromLines (box, model) {
     var result = [];

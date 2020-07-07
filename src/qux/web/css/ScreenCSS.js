@@ -6,6 +6,7 @@ export default class ScreenCSS {
     constructor(cssFactory) {
         Logger.log(5, 'ScreenCSS.constructor()')
         this.cssFactory = cssFactory
+        this.imagePrefix = cssFactory.imagePrefix
     }
 
     run (selector, style, widget) {
@@ -14,10 +15,28 @@ export default class ScreenCSS {
         result += this.cssFactory.getPosition(widget);
         if (!Util.isOverlay(widget) || Util.hasOverlayBackground(widget)) {
             if (style.background) {
-                result += `  background:${style.background};\n`
+                if (style.background.colors) {
+                    let background = style.background
+                    let gradient = "(" + background.direction + "deg";
+                    for (var i = 0; i < background.colors.length; i++) {
+                        var color = background.colors[i];
+                        gradient += "," + color.c + " " + color.p + "% ";
+                    }
+                    gradient += ")";
+                    result += `  background: linear-gradient${gradient};\n`
+                } else {
+                    result += `  background-color: ${style.background};\n`
+                }
             }
             if (style.backgroundColor) {
                 result += `  background-color: ${style.backgroundColor};\n`
+            }
+            if (style.backgroundImage && style.backgroundImage.url) {
+                if (style.backgroundImage.url.indexOf('http') === 0) {
+                  result += `  background-image: url(${style.backgroundImage.url});\n`
+                } else {
+                  result += `  background-image: url(${this.imagePrefix}/${style.backgroundImage.url});\n`
+                }
             }
         }
         result += '  height:100%;\n'

@@ -1,6 +1,6 @@
 <template>
   <div class="qux-figma">
-    <QUX :app="app" :config="config" :showDebug="true" v-model="value" ref="qux" v-if="app"/>
+    <QUX :app="app" :config="config" :showDebug="true" :executor="getMethodExcutor()" v-model="value" ref="qux" v-if="app"/>
   </div>
 </template>
 <style lang="scss">
@@ -22,6 +22,9 @@ export default {
       },
       'debug': {
           type: String
+      },
+      'executor': {
+          type: Object
       },
       'value': {
           type: Object,
@@ -52,10 +55,11 @@ export default {
     async setFigma (figma) {
        Logger.log(-1, 'Figma.setFigma()')
        if (figma.figmaFile && figma.figmaAccessKey) {
+          let figmaService = new FigmaService(figma.figmaAccessKey)
           /**
            * FIXME: Somehow allow frames and groups here...
           */
-          let figmaService = new FigmaService(figma.figmaAccessKey)
+          // figmaService.ignoredTypes = ['GROUP']
           let app = await figmaService.get(figma.figmaFile, true)
           Object.values(app.screens).forEach(screen => this.setBackgroundImage(screen))
           Object.values(app.widgets).forEach(widget => this.setBackgroundImage(widget))
@@ -70,7 +74,14 @@ export default {
           url: element.props.figmaImage
         }
       }
-    }
+    },
+    getMethodExcutor () {
+        Logger.log(3, 'Figma.getMethodExcutor() > ')
+        if (this.executor) {
+            return this.executor
+        }
+        return this.$parent
+    },
   },
   mounted () {
     if (this.figma) {

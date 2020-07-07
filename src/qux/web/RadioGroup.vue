@@ -1,9 +1,9 @@
 <template>
   <div :class="['qux-radiogroup', cssClass]">
-		<RadioBox v-for="option in options" 
-      :key="option" 
-      :lbl="option" 
-      :value="isChecked(option)" 
+		<RadioBox v-for="option in options"
+      :key="option"
+      :lbl="option"
+      :value="isChecked(option)"
       @change="select(option)"/>
   </div>
 </template>
@@ -37,8 +37,9 @@ export default {
           return false
       },
 
-      select (option) {
+      select (option, e) {
         this.onValueChange(option, 'default')
+        this.onClick(e)
         Logger.log(5, 'qRadioGroup.select() >' + this.dataBindingInputPath, option)
       }
   },

@@ -421,8 +421,8 @@ export default class CSSFactory {
 		if (Util.hasGrid(widget)) {
 			Logger.log(3, 'CSSFactory.getWrappedPosition() > add grid' + widget.name)
 			result += '  display: grid;\n'
-			result += '  grid-template-columns: ' + this.getGridTracks(widget.w, widget.grid.columns, widget) + ';\n'
-			result += '  grid-template-rows: ' + this.getGridTracks(widget.h, widget.grid.rows, widget) + ';\n'
+			result += '  grid-template-columns: ' + this.getGridColumnTracks(widget.w, widget.grid.columns, widget) + ';\n'
+			result += '  grid-template-rows: ' + this.getGridRowTracks(widget.h, widget.grid.rows, widget) + ';\n'
 		}
 		return result
 	}
@@ -672,9 +672,9 @@ export default class CSSFactory {
 				 * rows have a fixed size. Everything else is minmax
 				 */
 				if (i.fixed || i.start.length === 0) {
-					return i.l + 'px'
+					return Math.round(i.l) + 'px'
 				}
-				return `minmax(${i.l}px, auto)`
+				return `minmax(${Math.round(i.l)}px, auto)`
 			}).join(' ')
 		}
 	}

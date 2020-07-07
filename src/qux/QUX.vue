@@ -106,6 +106,9 @@ export default {
             }
           }
       },
+      'executor': {
+        type: Object
+      },
       'config' : {
         type: Object,
         default: function () {
@@ -275,7 +278,7 @@ export default {
         }
     },
     setScreen (screenName) {
-        Logger.log(0, 'QUX.setScreen() > ', screenName)
+        Logger.log(-1, 'QUX.setScreen() > ', screenName)
         // Update url, which will trigger watcher, which will call setScreenByRouter() which will call loadScreen()
         let prefix = ''
         if (this.config && this.config.router && this.config.router.prefix) {
@@ -285,6 +288,7 @@ export default {
         location.hash = url
     },
     loadScreen (name) {
+        Logger.log(1, 'QUX.loadScreen() >', name)
         this.closeAllOverlays()
         if (this.model) {
             let screen = Object.values(this.model.screens).find(s => s.name === name)
@@ -304,13 +308,14 @@ export default {
         this.selectedScreenId = null
     },
     setScreenByRouter () {
+        Logger.log(5, 'QUX.setScreenByRoute() > entre ', this.$route)
         let key = 'screenName'
         if (this.config && this.config.router && this.config.router.key) {
             key = this.config.router.key
         }
         let screenName = this.$route.params[key]
         if (screenName) {
-            Logger.log(0, 'QUX.setScreenByRoute() > exit ', screenName, `(${key})`)
+            Logger.log(-1, 'QUX.setScreenByRoute() > exit ', screenName, `(${key})`)
             this.loadScreen(screenName)
         } else {
             this.setStartScreen()
@@ -441,7 +446,14 @@ export default {
             return
         }
         this.initViewModel()
-    }
+    },
+    getMethodExcutor () {
+        Logger.log(3, 'QUX.getMethodExcutor() > ')
+        if (this.executor) {
+            return this.executor
+        }
+        return this.$parent
+    },
   },
   watch: {
     '$route' () {

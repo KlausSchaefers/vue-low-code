@@ -12,6 +12,24 @@ export default {
   name: 'Logic',
   methods: {
 
+    executeLogic (widget, line) {
+        Logger.log(0, 'QUX.executeLogic() > enter', widget.props, line)
+
+        let lines = ExportUtil.getLines(widget, this.model)
+				var nextLine = null;
+
+				if (widget.props && widget.props.isRandom){
+						var random = Math.random()
+						var pos = Math.floor(random * lines.length);
+						Logger.log(0,"QUX.executeLogic","enter >  do AB:" + widget.id + " >> " + random + " >> " + pos);
+						nextLine = lines[pos]
+				} else {
+						nextLine = this.getRuleMatchingLine(lines)
+        }
+         this.executeLine(nextLine)
+
+    },
+
     async executeRest (widget) {
         Logger.log(0, 'QUX.executeRest() > enter', widget.props.rest)
 
@@ -63,9 +81,10 @@ export default {
         let matchedLine;
         for(var i=0; i< lines.length; i++){
             var line = lines[i];
-            if(line.rule){
+            if (line.rule){
+                Logger.log(4, 'QUX.getRuleMatchingLine() > check', i, line.rule)
                 if (line.rule.type === 'widget') {
-                    Logger.error('QUX.getRuleMatchingLine() > widget ruels not supported in low code')
+                    Logger.error('QUX.getRuleMatchingLine() > widget rules not supported in low code')
                 }
                 if (line.rule.type === 'databinding') {
                     matchedLine = this.checkDataBindingRule(line)
@@ -94,18 +113,20 @@ export default {
     },
 
     checkDataBindingRule (line) {
+        Logger.log(4, 'QUX.checkDataBindingRule() > enter', line.rule.databinding);
         let rule = line.rule
-        let value = JSONPath.get(rule.databinding, this.value)
+        let value = JSONPath.get(this.value, rule.databinding)
         var result = this.isValueMatchingRule(value, true, rule);
         if (result) {
+          Logger.log(-1, 'QUX.checkDataBindingRule() > match!', line);
           return line
         }
     },
 
 		isValueMatchingRule (value, valid, rule) {
-			Logger.log(2,"QUX.isValueMatchingRule","enter > " + rule.value + " " + rule.operator + " " + value + " / " + valid);
+			Logger.log(3, 'QUX.isValueMatchingRule() > enter > ' + rule.value + ' ' + rule.operator + ' >' + value + '< / ' + valid);
 
-			var operator = rule.operator;
+      var operator = rule.operator;
       /**
        * Special handling for checkbox group.
        * We should have an "in" operation
@@ -124,55 +145,54 @@ export default {
           } else {
             result = false;
           }
-            break;
+          break;
+
         case "isValid":
           result = valid;
-            break;
-        case "checked":
-          result = (value === true);
-            break;
-        case "notchecked":
-          result = (value === false);
-              break;
+          break;
 
-          case "active":
-            result = (value === true);
-              break;
-          case "notactive":
-            result = (value === false);
-              break;
-          case "==":
-            result = (value === rule.value);
-              break;
-          case "!=":
+        case "==":
+          result = (value == rule.value);
+          break;
+
+        case "!=":
+          if (rule.value === null || rule.value === undefined) {
+            result = value !== null && value !== undefined && value !== ''
+          } else {
             result = (value != rule.value);
-              break;
-          case ">":
-            if(!value){
-              value = 0;
-            }
-            result = (value*1 > rule.value *1);
-              break;
-          case "<":
-            if(!value){
-              value = 0;
-            }
-            result = (value*1 < rule.value *1);
-              break;
-          case ">=":
-            if(!value){
-              value = 0;
-            }
-            result = (value*1 >= rule.value *1);
-              break;
-          case "<=":
-            if(!value){
-              value = 0;
-            }
-            result = (value*1 <= rule.value *1);
-              break;
-          default:
-            Logger.warn('QUX.isValueMatchingRule() Not supported operator')
+          }
+          break;
+
+        case ">":
+          if(!value){
+            value = 0;
+          }
+          result = (value*1 > rule.value *1);
+          break;
+
+        case "<":
+          if(!value){
+            value = 0;
+          }
+          result = (value*1 < rule.value *1);
+          break;
+
+        case ">=":
+          if(!value){
+            value = 0;
+          }
+          result = (value*1 >= rule.value *1);
+          break;
+
+        case "<=":
+          if(!value){
+            value = 0;
+          }
+          result = (value*1 <= rule.value *1);
+          break;
+
+        default:
+          Logger.warn('QUX.isValueMatchingRule() Not supported operator')
       }
       return result;
 		}
