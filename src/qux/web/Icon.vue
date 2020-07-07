@@ -3,7 +3,7 @@
   </span>
 </template>
 <style lang="scss">
-    @import '../scss/qux-label.scss';
+    @import '../scss/qux-icon.scss';
 </style>
 <script>
 

@@ -82,6 +82,11 @@ export default class CSSWidgetFactory {
     result += `  font-size:${widget.h}px;\n`
     result += `  line-height:1;\n`
     result += '}\n\n'
+
+    result += selector + ' .mdi:before {\n'
+    result += `  font-size:${widget.h}px;\n`
+    result += '}\n\n'
+
     return result
   }
 

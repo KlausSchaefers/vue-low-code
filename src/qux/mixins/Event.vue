@@ -51,16 +51,21 @@ export default {
 
     onClick (element, e, value) {
         Logger.log(2, 'QUX.onClick() > enter', element)
+        if (Logger.logLevel > 10) {
+            Logger.log(10, 'QUX.onClick()', e.target)
+        }
         if (element.lines) {
             let line = Util.getClickLine(element)
             if (line) {
                 this.executeLine(line)
+                this.stopEvent(e)
             }
         }
 
         if (element.action) {
             if (element.action.type === 'back') {
                 Logger.log(0, 'QUX.onClick() > Go back')
+                this.stopEvent(e)
                 if (this.overlayScreenIds.length > 0) {
                     this.removeLastOverlay()
                 } else {
@@ -70,6 +75,12 @@ export default {
             }
         }
         this.dispatchCallback(element, e, 'click', value)
+    },
+
+    stopEvent (e) {
+        if (e) {
+            e.stopPropagation()
+        }
     },
 
     executeLine(line) {
@@ -99,6 +110,7 @@ export default {
                     if (executor[callback]) {
                         let func = executor[callback]
                         if (func instanceof Function) {
+                            this.stopEvent(e)
                             /**
                              * This is crucial. we need to keep this signature the same.
                              */
