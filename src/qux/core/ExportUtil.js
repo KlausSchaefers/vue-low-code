@@ -26,6 +26,9 @@ export function isLastChild(widget) {
  * Advanced widgets cannot have children, e.g. stacked rings
  */
 export function canHaveChildren (element) {
+    if (element.props && element.props.customComponent) {
+        return false
+    }
     if (element.type === 'Box' || element.type === 'Button' || element.type === 'Image') {
         return true
     }

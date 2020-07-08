@@ -288,7 +288,8 @@ export default {
         location.hash = url
     },
     loadScreen (name) {
-        Logger.log(1, 'QUX.loadScreen() >', name)
+        Logger.log(1
+        , 'QUX.loadScreen() >', name)
         this.closeAllOverlays()
         if (this.model) {
             let screen = Object.values(this.model.screens).find(s => s.name === name)
@@ -334,6 +335,9 @@ export default {
         if (c.components) {
             this.mergedConfig.components = c.components
             this.initCustomComponents(this.mergedConfig.components)
+        }
+        if (c.imageFolder) {
+            this.mergedConfig.imageFolder = c.imageFolder
         }
         if (c.debug) {
             this.mergedConfig.debug = Util.mixin(this.mergedConfig.debug, c.debug)
