@@ -206,8 +206,6 @@ export default class CSSFactory {
 		return result
 	}
 
-
-
 	getGlobalStyles () {
 		let result = ''
 		result += `body {\n  margin:0px;\n  font-family:'Source Sans Pro', 'Helvetica Neue', 'Helvetica', sans-serif;\n}\n\n`
@@ -373,16 +371,6 @@ export default class CSSFactory {
 
 	getEasing (easing) {
 		return this.easingMapping[easing]
-	}
-
-
-	XgetCSS_Image(widget) {
-		let result = ''
-		if (Util.hasParentGrid(widget) && !Util.hasParentRowGrid(widget)) {
-			result += `  height:100%;\n`
-			result += `  width:100%;\n`
-		}
-		return result
 	}
 
 	getPosition (widget) {
@@ -554,7 +542,9 @@ export default class CSSFactory {
 				result += `  grid-column-end: ${widget.gridColumnEnd + 1};\n`
 				result += `  grid-row-start: ${widget.gridRowStart + 1};\n`
 				result += `  grid-row-end: ${widget.gridRowEnd + 1};\n`
-				result += `  z-index: ${widget.z};\n`
+				if (widget.z) {
+					result += `  z-index: ${widget.z};\n`
+				}
 			}
 		} else {
 			if (this.isForceGrid && Util.isScreen(widget)){
@@ -566,16 +556,19 @@ export default class CSSFactory {
 		return result;
 	}
 
+	/**
+	 * Normal alignment
+	 */
 	getGridParentRowAlignment (widget) {
 		Logger.log(5, 'CSSFactory.getGridParentRowAlignment() > as row: ', widget.name, widget)
 
 		let result = ''
-		if (Util.isPinnedLeft(widget) && Util.isPinnedRight(widget)) {
+		if (this.isPinnedLeft(widget) && this.isPinnedRight(widget)) {
 
 			result += `  margin-left: ${this.getPinnedLeft(widget)};\n`
 			result += `  margin-right: ${this.getPinnedRight(widget)};\n`
 
-		} else if (Util.isPinnedLeft(widget)){
+		} else if (this.isPinnedLeft(widget)){
 
 			if (this.isFixedHorizontal(widget)){
 				result += `  width: ${this.getFixedWidth(widget)};\n`
@@ -585,7 +578,7 @@ export default class CSSFactory {
 				result += `  margin-left: ${this.getPinnedLeft(widget)};\n`
 			}
 
-		} else if (Util.isPinnedRight(widget)){
+		} else if (this.isPinnedRight(widget)){
 			/**
 			 * This is a tricky one.
 			 */
@@ -602,6 +595,7 @@ export default class CSSFactory {
 
 		} else {
 			/**
+			 * Nothing is pinned.
 			 * We are in a rowGrid, this means the widget is alone. Therefore
 			 * we can set the margin left and right and not the width.
 			 */
@@ -682,6 +676,14 @@ export default class CSSFactory {
 	/*********************************************************************
 	 * Position Helpers
 	 *********************************************************************/
+
+	isPinnedLeft (widget) {
+		return Util.isPinnedLeft(widget)
+	}
+
+	isPinnedRight (widget) {
+		return Util.isPinnedRight(widget)
+	}
 
 	getPinnedBottom (widget) {
 		if(widget.parent){
@@ -886,7 +888,7 @@ export default class CSSFactory {
 		}
 
 		result += `  width: ${w}px;\n`
-		result += `  height: ${h}${unitY};\n`
+		result += `  min-height: ${h}${unitY};\n`
 		result += `  margin-top: ${top}${unitY};\n`
 		result += `  margin-left: ${left}${unitX};\n`
 

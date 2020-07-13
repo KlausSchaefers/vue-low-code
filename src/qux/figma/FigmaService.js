@@ -231,7 +231,7 @@ export default class FigmaService {
       widget = {
         id: 'w' + this.getUUID(model),
         figmaId: element.id,
-        name: element.name,
+        name: this.getFigmaName(element),
         type: this.getType(element),
         figmaType: element.type,
         x: pos.x,
@@ -270,6 +270,13 @@ export default class FigmaService {
 
     this.addTempLine(element, model)
     return widget
+  }
+
+  getFigmaName (element) {
+    /**
+     * FIXME: Check if teh name is tool long or has spaces or shit...
+     */
+    return element.name
   }
 
   addTempLine (element,  model) {

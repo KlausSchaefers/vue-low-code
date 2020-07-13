@@ -134,7 +134,11 @@ export default {
             },
             css: {
                 grid: true,
-                justifyContentInWrapper: false
+                justifyContentInWrapper: false,
+                pinnedLeft: false,
+                pinnedRight: false,
+                fixedHorizontal: false,
+                attachLabels: true
             },
             router: {
                 key: 'screenName',

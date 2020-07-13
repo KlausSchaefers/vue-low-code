@@ -24,6 +24,10 @@ export default class ModelTransformer {
             if (config.css.fixSmallColumns) {
                 this.fixSmallColumns = true
             }
+            this.isForcePinnedLeft = config.css.pinnedLeft === true
+            this.isForcePinnedRight = config.css.pinnedRight === true
+            this.isForceFixedHorizontal = config.css.fixedHorizontal === true
+            this.removeSingleLabels = config.css.attachLabels === true
         }
 
         this._cloneId = 0
@@ -57,6 +61,11 @@ export default class ModelTransformer {
          * Before we start, we create an inherited model!
          */
         this.model = Util.createInheritedModel(this.model)
+
+        /**
+         * Set forced left and right pinned
+         */
+        this.model = this.addForcedResize(this.model, this.isForcePinnedLeft, this.isForcePinnedRight, this.isForceFixedHorizontal)
 
         /**
          * Set default data binding
@@ -259,6 +268,35 @@ export default class ModelTransformer {
                 this.fixParents(c)
             })
         }
+    }
+
+    addForcedResize (model, isForcePinnedLeft, isForcePinnedRight, isForceFixedHorizontal) {
+        if (isForcePinnedLeft || isForcePinnedRight || isForceFixedHorizontal) {
+            Logger.log(2, 'ModelTransformer.addForcedResize()', isForcePinnedLeft, isForcePinnedRight)
+            Object.values(model.widgets).forEach(w => {
+                if (!w.props.resize) {
+                    w.props.resize = {
+                        right: false,
+                        up: false,
+                        left: false,
+                        down: false,
+                        fixedHorizontal: false,
+                        fixedVertical: false
+                    }
+                }
+                if (isForcePinnedLeft) {
+                    w.props.resize.left = true
+                }
+                if (isForceFixedHorizontal && !w.props.right) {
+                    w.props.resize.fixedHorizontal = true
+                }
+                if (isForcePinnedRight && !w.props.fixedHorizontal) {
+                    w.props.resize.right = true
+                }
+            })
+        }
+
+        return model
     }
 
     addGrid (screen) {

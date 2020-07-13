@@ -93,7 +93,7 @@ export function isFixedHorizontal(e) {
 }
 
 export function isFixedVertical(e) {
-    if (e.type === 'Box' || e.type === 'Button' ||
+    if (e.type === 'Box' || e.type === 'Button' || e.type === 'Label' ||
         e.type === 'Container' || e.type === 'Repeater' ||
         (e.children && e.children.length > 0)
     ) {
