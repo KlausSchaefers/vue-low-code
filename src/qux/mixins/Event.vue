@@ -12,6 +12,12 @@ export default {
 
     onScreenLoaded (screen) {
         Logger.log(3, 'QUX.onScreenLoaded() > ', screen)
+        this.$emit('qScreenLoad', {
+            value: this.value,
+            element: screen,
+            viewModel: this.value,
+            qux: this
+        })
         this.dispatchCallback(screen, null, 'load', null)
     },
 
@@ -50,7 +56,7 @@ export default {
     },
 
     onClick (element, e, value) {
-        Logger.log(2, 'QUX.onClick() > enter', element)
+        Logger.log(-1, 'QUX.onClick() > enter', element)
         if (Logger.logLevel > 10) {
             Logger.log(10, 'QUX.onClick()', e.target)
         }
@@ -184,13 +190,13 @@ export default {
     },
 
     onChange (element, e, value) {
-        Logger.log(2, 'Qux(Event).onChange() > ', value)
+        Logger.log(-1, 'Qux(Event).onChange() > ', value)
         this.$emit('qChange', element, e)
         this.dispatchCallback(element, e, 'change', value)
     },
 
     onKeyPress (element, e, value) {
-        Logger.log(5, 'Qux(Event).onKeyPress() > ', value)
+        Logger.log(2, 'Qux(Event).onKeyPress() > ', value)
         this.$emit('qKeyPress', element, e)
         this.dispatchCallback(element, e, 'change', value)
     },

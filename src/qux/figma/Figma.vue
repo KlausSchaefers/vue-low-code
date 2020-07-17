@@ -94,7 +94,6 @@ export default {
         }
         if (c.components) {
             this.mergedConfig.components = c.components
-            this.initCustomComponents(this.mergedConfig.components)
         }
         if (c.imageFolder) {
             this.mergedConfig.imageFolder = c.imageFolder
@@ -102,8 +101,7 @@ export default {
         if (c.debug) {
             this.mergedConfig.debug = Util.mixin(this.mergedConfig.debug, c.debug)
         }
-        Logger.setLogLevel(this.mergedConfig.debug.logLevel)
-        Logger.log(-1, 'Figma.setConfig()', JSON.stringify(this.mergedConfig))
+        Logger.log(3, 'Figma.setConfig()', JSON.stringify(this.mergedConfig))
     },
     setBackgroundImage (element) {
       if (element.props.figmaImage) {

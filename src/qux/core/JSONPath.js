@@ -3,7 +3,7 @@ class JSONPath {
 
     get (data, path) {
         if (data != null && data != undefined) {
-            if (data[path] != null && data[path] != null) {
+            if (data[path] !== null && data[path] !== undefined) {
                 return data[path]
             }
             if (path.indexOf('.') >=0  || path.indexOf('[') >=0 ){

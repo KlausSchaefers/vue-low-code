@@ -204,6 +204,8 @@ export default class FigmaService {
       style: this.getStyle(fScreen)
     }
 
+    this.getPluginData(fScreen, qScreen, fModel)
+
     if (fScreen.children) {
       fScreen.children.forEach(child => {
         child._parent = fScreen
@@ -243,7 +245,7 @@ export default class FigmaService {
       widget.style = this.getStyle(element, widget)
       widget.props = this.getProps(element, widget)
       widget.has = this.getHas(element, widget)
-      widget.pluginData = this.getPluginData(element, widget)
+      this.getPluginData(element, widget, fModel)
       model.widgets[widget.id] = widget
 
       qScreen.children.push(widget.id)
@@ -284,7 +286,7 @@ export default class FigmaService {
 
     if (element.transitionNodeID) {
       let clickChild = this.getFirstNoIgnoredChild(element)
-      Logger.log(-1, 'addLine() >  : ', element.name, clickChild)
+      Logger.log(6, 'addLine() >  : ', element.name, clickChild)
       let line = {
         id: 'l' + this.getUUID(model),
         from : null,
@@ -311,7 +313,7 @@ export default class FigmaService {
     return element
   }
 
-  getPluginData (element, widget) {
+  getPluginData (element, widget, fModel) {
     if (element.pluginData && element.pluginData[this.pluginId]) {
       let pluginData = element.pluginData[this.pluginId]
       if (pluginData.quxType) {
@@ -326,11 +328,66 @@ export default class FigmaService {
       }
       if (pluginData.quxOnClickCallback) {
         Logger.log(3, 'getPluginData() > quxOnClickCallback: ', pluginData.quxOnClickCallback, element.name)
-        widget.props.callbacks = {
-          'click': pluginData.quxOnClickCallback
+        if (!widget.props.callbacks) {
+          widget.props.callbacks = {}
         }
+        widget.props.callbacks.click = pluginData.quxOnClickCallback
       }
+      if (pluginData.quxOnLoadCallback) {
+        Logger.log(3, 'getPluginData() > quxOnLoadCallback: ', pluginData.quxOnLoadCallback, element.name)
+        if (!widget.props.callbacks) {
+          widget.props.callbacks = {}
+        }
+        widget.props.callbacks.load = pluginData.quxOnLoadCallback
+      }
+      if (pluginData.quxOnChangeCallback) {
+        Logger.log(-1, 'getPluginData() > quxOnChangeCallback: ', pluginData.quxOnChangeCallback, element.name)
+        if (!widget.props.callbacks) {
+          widget.props.callbacks = {}
+        }
+        widget.props.callbacks.change = pluginData.quxOnChangeCallback
+      }
+
+
+      if (pluginData.quxStyleHoverBackground) {
+        this.addDynamicStyle(element, widget, 'hover', 'background', pluginData.quxStyleHoverBackground, fModel)
+      }
+
+      if (pluginData.quxStyleHoverBorder) {
+        this.addDynamicStyle(element, widget, 'hover', 'borderColor', pluginData.quxStyleHoverBorder, fModel)
+      }
+
+      if (pluginData.quxStyleHoverFont) {
+        this.addDynamicStyle(element, widget, 'hover', 'color', pluginData.quxStyleHoverFont, fModel)
+      }
+
+      if (pluginData.quxStyleHoverFont) {
+        this.addDynamicStyle(element, widget, 'hover', 'color', pluginData.quxStyleHoverFont, fModel)
+      }
+
+      if (pluginData.quxTypeCustom) {
+        Logger.log(-1, 'getPluginData() > quxTypeCustom: ', pluginData.quxOnChangeCallback, element.name)
+        widget.props.customComponent = pluginData.quxTypeCustom
+      }
+
     }
+  }
+
+  addDynamicStyle (/*element, widget, type, key, fStyleId, fModel */) {
+    /*
+    if (!widget[type]) {
+      widget[type] = {}
+    }
+   // console.debug('addDynamicStyle', widget.name, key, fStyleId, element)
+    // cut off s:
+    fStyleId = fStyleId.substring(2, fStyleId.length-1)
+    let fStyle = Object.values(fModel.styles).find(s => s.key == fStyleId)
+    if (fStyle) {
+      console.debug(fStyle)
+    } else {
+      Logger.warn('FigmaService.addDynamicStyle() > No Style ', fStyleId)
+    }
+    */
   }
 
   getProps (element, widget) {

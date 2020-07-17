@@ -5,7 +5,7 @@
             </div>
         </div>
         <div class="qux-slider-handle-cntr">
-          <div class="qux-slider-handle" :style="{'left': left}" @mousedown="onHandleDown"> 
+          <div class="qux-slider-handle" :style="{'left': left}" @mousedown="onHandleDown">
           </div>
         </div>
     </div>
@@ -41,7 +41,7 @@ export default {
         if (this.element && this.element.props) {
           return this.element.props.min
         }
-        return 100
+        return 0
       },
       maxValue () {
         if (this.element && this.element.props) {
@@ -72,6 +72,7 @@ export default {
   methods: {
       onSliderClick (e) {
         this.setByMouse(e)
+        this.onClick(e)
       },
       onHandleDown (e) {
          this.startDND(e, (move, e) => this.setByMouse(e))
@@ -87,8 +88,9 @@ export default {
       },
       onChange(value) {
         this.count = Math.round(value)
-        if (this.element) { 
+        if (this.element) {
           this.onValueChange(this.count, 'default')
+          this.$emit('qChange', this.element, null, this.count)
         } else {
           this.$emit('change', this.count)
           this.$emit('input', this.count)

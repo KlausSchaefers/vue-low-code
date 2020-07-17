@@ -841,12 +841,17 @@ export default class ModelTransformer {
 						node.style[key] = child.style[key]
 					}
 				})
-				node.style.paddingTop = child.y
-                node.style.paddingLeft = child.x
-                // this can cause issues in the grid because the element minWidth gets
-                // to large
-                node.style.paddingBottom = node.h - child.h
-				//node.style.paddingRight = node.w - child.w
+                node.style.paddingTop = child.y
+                node.style.paddingBottom = node.h - child.h - child.y
+
+                if (node.style.textAlign !== 'center') {
+                    /**
+                     * this can cause issues in the grid because
+                     * the element minWidth getsto large
+                     */
+                    node.style.paddingLeft = child.x
+                    node.style.paddingRight = node.w - child.w - child.x
+                }
 				node.style = Util.fixAutos(node.style, child)
 			}
 		} else {
@@ -856,6 +861,9 @@ export default class ModelTransformer {
 		}
 	}
 
+    /**
+     * Remove single childs, if they have the same size as the parent.
+     */
     cleanUpContainer (parent) {
         let nodes = parent.children
 
@@ -1260,15 +1268,20 @@ export default class ModelTransformer {
                 if (child.children &&  child.children.length > 0) {
                     let style = child.style
                     if (child.props.label) {
-                        // Logger.warn('ModelTransformer.resetPadding() > inline label!', child)
+                        let style = child.style
+                        let paddingLeft = style.paddingLeft ? style.paddingLeft : 0
+                        let paddingRight = style.paddingRight ? style.paddingRight : 0
+                        let paddingBottom = style.paddingBottom ? style.paddingBottom : 0
+                        let paddingTop = style.paddingTop ? style.paddingTop : 0
+                         // Logger.warn('ModelTransformer.resetPadding() > inline label!', child)
                         labelToAdd = {
                             id: child.id + '-label',
                             name: child.name + '-label',
                             type: 'Label',
                             x: style.paddingRight,
                             y: style.paddingTop,
-                            w: child.w - child.paddingLeft - child.paddingRight,
-                            h: child.h - child.paddingBottom - child.paddingTop,
+                            w: child.w - paddingLeft - paddingRight,
+                            h: child.h - paddingBottom - paddingTop,
                             props: Util.clone(child.props),
                             style: {
                                 color: style.color,
