@@ -57,98 +57,84 @@ export default class ModelTransformer {
             screens: []
         }
 
+        this.model = this.prepareFlatModel(this.model, result)
+
+        result = this.transformToNested(this.model, result)
+
+        return result
+    }
+
+    prepareFlatModel (model, result) {
+        Logger.log(-1, 'ModelTranformer.prepareFlatModel () > enter')
         /**
          * Before we start, we create an inherited model!
          */
-        this.model = Util.createInheritedModel(this.model)
+        model = Util.createInheritedModel(model)
 
         /**
          * Set forced left and right pinned
          */
-        this.model = this.addForcedResize(this.model, this.isForcePinnedLeft, this.isForcePinnedRight, this.isForceFixedHorizontal)
+        model = this.addForcedResize(model, this.isForcePinnedLeft, this.isForcePinnedRight, this.isForceFixedHorizontal)
 
         /**
          * Set default data binding
          */
-        this.model = this.addDefaultDataBinding(this.model)
+        model = this.addDefaultDataBinding(model)
 
         /**
          * Set certain widgets horizontal fixed
          */
-        this.model = this.fixHorizontal(this.model)
+        model = this.fixHorizontal(model)
 
         /**
          * Make sure names are unique
          */
-        this.model = this.fixNames(this.model, result)
-
+        model = this.fixNames(model)
 
         /**
          * Embedd links
          */
-        this.model = this.addActions(this.model)
+        model = this.addActions(model)
 
         /**
-         * Set tenplates in widgets
+         * Make sure templates are inlined
          */
-        result.templates.forEach(t => {
-            t.cssSelector = `.qux-template-${t.name.replace(/\s+/g, '_')}`
-            t.cssClass = `qux-template-${t.name.replace(/\s+/g, '_')}`
-            Object.values(this.model.widgets).forEach(widget => {
-                if (widget.template === t.id) {
-                    if (!widget.sharedCssClasses) {
-                        widget.sharedCssClasses = []
-                    }
-                    widget.sharedCssClasses.push(t.cssClass)
-                    /**
-                     * The vertical align is copied directly... This should be some how handled
-                     * by the css factory...
-                     */
-                    if (t.style && t.style.verticalAlign && !widget.style.verticalAlign) {
-                        widget.style.verticalAlign = t.style.verticalAlign
-                    }
-                }
-            })
-        })
+        this.setTemplateStyles(model, result)
 
         /**
-         * FIXME: We should fix doubles names. With mastre screens
-         * we could have overwites! We could rename them, but this
-         * would have to be consistant in all screens!
+         * Add here virtual elements for the groups
          */
         for (let screenID in this.model.screens){
             let screen = this.model.screens[screenID]
-            let children = screen.children
-            let names = children.map(c => this.model.widgets[c].name)
-            let count = {}
-            names.forEach(n => {
-                if (count[n]) {
-                    result.warnings.push(`Dubplicate name of element '${n}' in screen '${screen.name}'`)
-                }
-                count[n] = true
-            })
+            model = this.addGroupWrapper(screen,  model)
         }
 
+        return model
+    }
 
-        for (let screenID in this.model.screens){
-            let screen = this.model.screens[screenID]
+    /**
+     * Turn the flat model info nexted model
+     */
+    transformToNested (model, result) {
+        Logger.log(-1, 'ModelTranformer.transformToNested () > enter')
+        for (let screenID in model.screens){
+            let screen = model.screens[screenID]
+
 
             /**
-             * Add here virtual elements for the groups
+             * FIXME: For figma we could have here already children and we could skip this step
              */
-            this.model = this.addGroupWrapper(screen,  this.model)
+
 
             /**
              * First we build a hierachical parent child relation.
              */
-            screen = this.transformScreenToTree(screen, this.model)
+            screen = this.transformScreenToTree(screen, model)
 
             /**
              * Add rows, columns and grid if needed
              */
-            screen = this.layoutTree(screen, this.model)
-
-            // console.debug(Util.print(screen))
+            screen = this.layoutTree(screen, model)
 
             /**
              * set screen pos to 0,0
@@ -170,14 +156,33 @@ export default class ModelTransformer {
             this.attachSingleLabels(result)
         }
 
-        /**
-         * If we have warnings, lets print them
-         */
-        result.warnings.forEach(w => {
-            console.warn(w)
-        })
-
         return result
+    }
+
+
+    /**
+     * Set tenplates in widgets
+     */
+    setTemplateStyles (model, result) {
+        result.templates.forEach(t => {
+            t.cssSelector = `.qux-template-${t.name.replace(/\s+/g, '_')}`
+            t.cssClass = `qux-template-${t.name.replace(/\s+/g, '_')}`
+            Object.values(model.widgets).forEach(widget => {
+                if (widget.template === t.id) {
+                    if (!widget.sharedCssClasses) {
+                        widget.sharedCssClasses = []
+                    }
+                    widget.sharedCssClasses.push(t.cssClass)
+                    /**
+                     * The vertical align is copied directly... This should be some how handled
+                     * by the css factory...
+                     */
+                    if (t.style && t.style.verticalAlign && !widget.style.verticalAlign) {
+                        widget.style.verticalAlign = t.style.verticalAlign
+                    }
+                }
+            })
+        })
     }
 
     layoutTree (screen) {
@@ -772,13 +777,13 @@ export default class ModelTransformer {
         return model
     }
 
-    fixNames (model, result) {
+    fixNames (model) {
         let screens = Object.values(model.screens)
         screens.forEach((screen, j) => {
 
             let otherScreensWithSameName = screens.filter(o => o.name === screen.name)
             if (otherScreensWithSameName.length > 1) {
-                result.warnings.push('Fix double screen name:' + screen.name)
+                Logger.log(3, 'ModelTRansformer.fixNames() > Fix double screen name:' + screen.name)
                 screen.name += '_' + j
             }
 
@@ -791,12 +796,31 @@ export default class ModelTransformer {
                 widgets.forEach((w, i) => {
                     let others = widgets.filter(o => o.name === w.name)
                     if (others.length > 1) {
-                        result.warnings.push('Fix double widget name: ' + w.name + " in screen " + screen.name)
+                        Logger.log(3, 'ModelTRansformer.fixNames() > Fix double widget name: ' + w.name + " in screen " + screen.name)
                         w.name += '_' + i
                     }
                 })
             }
         })
+
+
+        /**
+         * DEPREACTED SHOULD NEVER BE CALLED: We should fix doubles names. With mastre screens
+         * we could have overwites! We could rename them, but this
+         * would have to be consistant in all screens!
+         */
+        for (let screenID in model.screens){
+            let screen = model.screens[screenID]
+            let children = screen.children
+            let names = children.map(c => model.widgets[c].name)
+            let count = {}
+            names.forEach(n => {
+                if (count[n]) {
+                    Logger.error(`ModelTRansformer.fixNames() > Dubplicate name of element '${n}' in screen '${screen.name}'`)
+                }
+                count[n] = true
+            })
+        }
         return model
     }
 
@@ -829,8 +853,13 @@ export default class ModelTransformer {
 		 * only one child of type label, we merge this in.
 		 */
 		if (!node.props.label && node.children.length === 1) {
-			let child = node.children[0]
-			if (child.type === 'Label') {
+            let child = node.children[0]
+            /**
+             * TODO: We should check here if teh re is a link. What to do with the link?
+             * Copy to aprent if it is different?
+             */
+            let lines = Util.getLines(child, this.model)
+			if (child.type === 'Label' && lines.length === 0) {
                 Logger.log(4, 'ModelTransformer.attachSingleLabelsInNodes()', node)
 				node.props.label = child.props.label
                 node.children = []
@@ -1175,6 +1204,8 @@ export default class ModelTransformer {
         let elementsById = {}
         widgets.forEach(widget => {
 
+            // console.debug('buildTree', widget.name, '    in ', parentWidgets.map(p => p.name).join(', '))
+
             let element = this.clone(widget);
             element.children = []
 
@@ -1202,7 +1233,7 @@ export default class ModelTransformer {
                         }
                     }
                     element.props.resize.down = true
-                    Logger.log(0, 'ModelTransformer.transformScreenToTree() > pinn fixed to bottom', element.name)
+                    Logger.log(2, 'ModelTransformer.transformScreenToTree() > pinn fixed to bottom', element.name)
                 }
                 /**
                  * IF we have an pinned bottom

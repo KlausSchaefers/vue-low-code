@@ -6,15 +6,20 @@ export default class FigmaService {
     this.setAccessKey(key)
     this.baseURL = 'https://api.figma.com/v1/'
     this.vectorTypes = ['LINE', 'ELLIPSE', 'VECTOR']
-    this.buttonTypes = ['RECTANGLE', 'TEXT', 'FRAME']
-    this.ignoredTypes = ['GROUP', 'INSTANCE']
+    this.buttonTypes = ['RECTANGLE', 'TEXT', 'FRAME', 'GROUP', 'INSTANCE']
+    this.ignoredTypes = [] // ['GROUP', 'INSTANCE']
     this.allAsVecor = false
     this.max_ids = 50
     this.pluginId = '858477504263032980'
+    this.downloadVectors = true
   }
 
   setAccessKey (key) {
     this.key = key
+  }
+
+  setDownloadVectors (value) {
+    this.downloadVectors = value
   }
 
   _createDefaultHeader() {
@@ -103,9 +108,8 @@ export default class FigmaService {
     await this.addBackgroundImages(id, model, importChildren)
 
     /**
-     * TODO Add groups
+     * TODO Add groups?
      */
-
 
     return model
   }
@@ -118,7 +122,6 @@ export default class FigmaService {
 
     let screenMapping = {}
     Object.values(model.screens).forEach(s => {
-      console.debug(s.name, s.id)
       screenMapping[s.figmaId] = s.id
     })
 
@@ -130,16 +133,19 @@ export default class FigmaService {
 
   async addBackgroundImages(id, model, importChildren) {
 
-    let vectorWidgets = this.getElementsWithBackgroundIMage(model, importChildren)
-    if (vectorWidgets.length > 0) {
+    if (this.downloadVectors) {
+      let vectorWidgets = this.getElementsWithBackgroundIMage(model, importChildren)
+      if (vectorWidgets.length > 0) {
+        Logger.log(-1, 'addBackgroundImages() > vectors', vectorWidgets.length)
+        let batches = this.getChunks(vectorWidgets, this.max_ids)
 
-      Logger.log(-1, 'addBackgroundImages() > vectors', vectorWidgets.length)
-      let batches = this.getChunks(vectorWidgets, this.max_ids)
-
-      let promisses = batches.map((batch,i) => {
-        return this.addBackgroundImagesBatch(id, batch, i)
-      })
-      await Promise.all(promisses)
+        let promisses = batches.map((batch,i) => {
+          return this.addBackgroundImagesBatch(id, batch, i)
+        })
+        await Promise.all(promisses)
+      }
+    } else {
+      Logger.log(-1, 'addBackgroundImages() > Skip')
     }
     Logger.log(-1, 'addBackgroundImages() > exit')
   }
@@ -188,7 +194,7 @@ export default class FigmaService {
   }
 
   parseScreen (fScreen, model, fModel) {
-    Logger.log(1, 'parseScreen()', fScreen.name)
+    Logger.log(3, 'parseScreen()', fScreen.name)
     let pos = this.getPosition(fScreen)
     let qScreen = {
       id: 's' + this.getUUID(model),
@@ -261,13 +267,20 @@ export default class FigmaService {
      * Go down recursive...
      */
     if (element.children) {
-      element.children.forEach(child => {
-        if (child.visible !== false) {
-          child._parent = element
-          Logger.log(3, 'parseElement() > go recursive', element)
-          this.parseElement(child, qScreen, fScreen, model, fModel)
-        }
-      })
+      /**
+       * We do nit go down on vector elemenets
+       */
+      if (!this.isVector(element)) {
+        element.children.forEach(child => {
+          if (child.visible !== false) {
+            child._parent = element
+            Logger.log(3, 'parseElement() > go recursive', element)
+            this.parseElement(child, qScreen, fScreen, model, fModel)
+          }
+        })
+      } else {
+        Logger.log(- 1, 'parseElement() > No recursive: ' + element.name, element.type)
+      }
     }
 
     this.addTempLine(element, model)
@@ -278,13 +291,15 @@ export default class FigmaService {
     /**
      * FIXME: Check if teh name is tool long or has spaces or shit...
      */
-    return element.name
+    let name = element.name
+    return name.replace('#', '').replace('/', '-')
   }
 
   addTempLine (element,  model) {
     Logger.log(4, 'addLine() > enter', element.name, 'transition :' + element.transitionNodeID, element)
 
     if (element.transitionNodeID) {
+      console.debug(element)
       let clickChild = this.getFirstNoIgnoredChild(element)
       Logger.log(6, 'addLine() >  : ', element.name, clickChild)
       let line = {

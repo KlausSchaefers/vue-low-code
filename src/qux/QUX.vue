@@ -484,7 +484,7 @@ export default {
     }
   },
   async mounted () {
-      Logger.log(0, 'QUX.mounted() > 0.1.9', this.value)
+      Logger.log(0, 'QUX.mounted()', this.value)
       this.initComponents()
       if (this.config) {
           this.setConfig(this.config)

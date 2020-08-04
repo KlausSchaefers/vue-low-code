@@ -46,6 +46,8 @@ export default {
     return {
       app: null,
       mergedConfig: {
+        figma: {
+        },
         css: {
           grid: true,
           justifyContentInWrapper: false,
@@ -67,11 +69,8 @@ export default {
        Logger.log(-1, 'Figma.setFigma()')
        if (figma.figmaFile && figma.figmaAccessKey) {
           let figmaService = new FigmaService(figma.figmaAccessKey)
-          /**
-           * FIXME: Somehow allow frames and groups here...
-          */
-          // figmaService.ignoredTypes = ['GROUP']
           let app = await figmaService.get(figma.figmaFile, true)
+
           Object.values(app.screens).forEach(screen => this.setBackgroundImage(screen))
           Object.values(app.widgets).forEach(widget => this.setBackgroundImage(widget))
           this.app = app
@@ -100,6 +99,9 @@ export default {
         }
         if (c.debug) {
             this.mergedConfig.debug = Util.mixin(this.mergedConfig.debug, c.debug)
+        }
+        if (c.figma) {
+          this.mergedConfig.figma = Util.mixin(this.mergedConfig.figma, c.figma)
         }
         Logger.log(3, 'Figma.setConfig()', JSON.stringify(this.mergedConfig))
     },
