@@ -33,7 +33,6 @@ export default {
     isChecked (value) {
       if (this.element) {
         let input = this.dataBindingInput
-        console.debug(input)
         if (input !== undefined && input != null) {
             if (isNaN(input)) {
               return input === value

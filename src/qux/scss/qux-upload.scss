@@ -1,0 +1,12 @@
+.qux-upload{
+  cursor: pointer;
+  transition: all 0.2s;
+  border:1px solid red;
+
+  input {
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+}

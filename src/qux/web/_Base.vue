@@ -172,7 +172,7 @@ export default {
   },
   watch: {
     value (v) {
-      Logger.log(0, '_Base.watch(value) > enter', v)
+      Logger.log(3, '_Base.watch(value) > enter', v)
       this.value = v
     }
   },
@@ -222,7 +222,7 @@ export default {
     /**
      * Method wich sets the value accoridng to the dataBing path.
      */
-    onValueChange (value, key = 'default') {
+    onValueChange (value, key = 'default', e) {
       if (this.element && this.element.props && this.element.props.databinding) {
         let path =  this.element.props.databinding[key]
         if (path) {
@@ -230,6 +230,10 @@ export default {
           JSONPath.set(this.value, path, value)
         }
       }
+      /**
+       * We also trigger the change event
+       */
+      this.$emit('qChange', this.element, e, value)
     }
   }
 }

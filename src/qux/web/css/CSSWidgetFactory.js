@@ -10,6 +10,7 @@ import ChartCSS from './ChartCSS'
 import VectorCSS from './VectorCSS'
 import TimelineCSS from './TimelineCSS'
 import SegmentCSS from './SegmentCSS'
+import UploadCSS from './UploadCSS'
 
 export default class CSSWidgetFactory {
 
@@ -25,8 +26,14 @@ export default class CSSWidgetFactory {
       'BarChart': new ChartCSS(cssFactory),
       'Vector': new VectorCSS(cssFactory),
       'Timeline': new TimelineCSS(cssFactory),
-      'Segment': new SegmentCSS(cssFactory)
+      'Segment': new SegmentCSS(cssFactory),
+      'Upload': new UploadCSS(cssFactory)
     }
+  }
+
+  getCSS_Upload (selector, style, widget) {
+    Logger.log(5, 'getCSS_Upload', widget)
+    return this.factories.Upload.run(selector, style, widget)
   }
 
   getCSS_BarChart (selector, style, widget) {
@@ -291,6 +298,9 @@ export default class CSSWidgetFactory {
     result += this.cssFactory.getPosition(widget);
     result += '}\n\n'
 
+    // make sure we have always some focus
+    result += this.addOpenZIndex(selector)
+
     result += this._addCaret(selector, widget, style)
 
     result += selector + ' .qux-dropdown-popup {\n'
@@ -324,9 +334,7 @@ export default class CSSWidgetFactory {
     result += this._addCaret(selector, widget, style)
 
     // make sure we have always some focus
-    result += selector + '.qux-open {\n'
-    result += `  z-index: 1000;\n`
-    result += '}\n\n'
+    result += this.addOpenZIndex(selector)
 
     result += selector + ':not(.qux-dropdown-mobile) .qux-dropdown-popup {\n'
     result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.borderProperties)
@@ -513,6 +521,9 @@ export default class CSSWidgetFactory {
     result += this.cssFactory.getPosition(widget);
     result += '}\n\n'
 
+    // make sure we have always some focus
+    result += this.addOpenZIndex(selector)
+
     result += this._addCaret(selector, widget, style)
 
     result += selector + ' .qux-date-picker-popup {\n'
@@ -582,9 +593,7 @@ export default class CSSWidgetFactory {
 
 
     // make sure we have always some focus
-    result += selector + '.qux-open {\n'
-    result += `  z-index: 1000;\n`
-    result += '}\n\n'
+    result += this.addOpenZIndex(selector)
 
     result += selector + ' .qux-combo-popup {\n'
     result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.borderProperties)
@@ -633,6 +642,14 @@ export default class CSSWidgetFactory {
 
   getCSS_Table(selector, style, widget) {
     return this.factories.Table.run(selector, style, widget)
+  }
+
+  addOpenZIndex (selector) {
+      let result = ''
+      result += selector + '.qux-open {\n'
+      result += `  z-index: 1000;\n`
+      result += '}\n\n'
+      return result
   }
 
 }

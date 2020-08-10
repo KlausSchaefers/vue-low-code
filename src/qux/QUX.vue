@@ -82,6 +82,7 @@ import Paging from './web/Paging.vue'
 import Chart from './web/Chart.vue'
 import Vector from './web/Vector.vue'
 import Timeline from './web/Timeline.vue'
+import Upload from './web/Upload.vue'
 
 import Logic from './mixins/Logic.vue'
 import Event from './mixins/Event.vue'
@@ -393,6 +394,7 @@ export default {
         Vue.component('qRingChart', Chart)
         Vue.component('qVector', Vector)
         Vue.component('qTimeline', Timeline)
+        Vue.component('qUpload', Upload)
     },
     initViewModel () {
         Logger.log(5, 'QUX.initViewModel > enter')
