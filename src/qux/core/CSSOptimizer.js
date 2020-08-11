@@ -5,9 +5,9 @@ export default class CSSOptimizer {
 
 	constructor () {
         /**
-         *  Keep the order to collapsed Order: top-left corner, top-right,  bottom-left corners, bottom-right
+         *  Keep the order to collapsed Order: top-left | top-right | bottom-right | bottom-left
          */
-        this.borderRadius = ["borderTopLeftRadius", "borderTopRightRadius", "borderBottomLeftRadius", "borderBottomRightRadius"]
+        this.borderRadius = ["borderTopLeftRadius", "borderTopRightRadius", "borderBottomRightRadius", "borderBottomLeftRadius"]
 
          /**
          * Order: top, right, bottom, left
@@ -55,7 +55,7 @@ export default class CSSOptimizer {
                 })
             }
         })
-        
+
         return model
     }
 
@@ -77,7 +77,7 @@ export default class CSSOptimizer {
     compress (style) {
 
         this.compressAttribes(style, this.padding, 'padding', 'px', 0)
-        
+
         /**
          * Compress and collapse border
          */
@@ -165,7 +165,7 @@ export default class CSSOptimizer {
             }
             if (unit) {
                 firstValue += unit
-            } 
+            }
             keys.forEach(key => {
                 /**
                  * Remove but store a backup for CSSFactory to fix box height
@@ -185,7 +185,7 @@ export default class CSSOptimizer {
                 }
                 if (unit) {
                     value += unit
-                } 
+                }
                 values.push(value)
                 style['_' + key] = style[key]
                 delete style[key]
