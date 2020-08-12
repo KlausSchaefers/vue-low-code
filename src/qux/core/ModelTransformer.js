@@ -12,9 +12,13 @@ export default class ModelTransformer {
         this.model = app
         this.rowContainerID = 0
         this.columnContainerID = 0
-        this.removeSingleLabels = true
         this.hasRows = true
         this.fixSmallColumns = false
+
+        /**
+         * By default we will only attach labels in input fields
+         */
+        this.nodesWithLabelAttachment = ['TextBox', 'Password', 'TextArea']
 
         if (config.css) {
             Logger.log(1, 'ModelTransformer.constructor() > ', config.css)
@@ -27,7 +31,13 @@ export default class ModelTransformer {
             this.isForcePinnedLeft = config.css.pinnedLeft === true
             this.isForcePinnedRight = config.css.pinnedRight === true
             this.isForceFixedHorizontal = config.css.fixedHorizontal === true
-            this.removeSingleLabels = config.css.attachLabels === true
+
+            /**
+             * We can also attach labels for Boxes and Buttons
+             */
+            if (config.css.attachLabels === true) {
+                this.nodesWithLabelAttachment = ['TextBox', 'Password', 'TextArea', 'Box', 'Button']
+            }
         }
 
         this._cloneId = 0
@@ -65,7 +75,7 @@ export default class ModelTransformer {
     }
 
     prepareFlatModel (model, result) {
-        Logger.log(-1, 'ModelTranformer.prepareFlatModel () > enter')
+        Logger.log(3, 'ModelTranformer.prepareFlatModel () > enter')
         /**
          * Before we start, we create an inherited model!
          */
@@ -116,7 +126,7 @@ export default class ModelTransformer {
      * Turn the flat model info nexted model
      */
     transformToNested (model, result) {
-        Logger.log(-1, 'ModelTranformer.transformToNested () > enter')
+        Logger.log(3, 'ModelTranformer.transformToNested () > enter')
         for (let screenID in model.screens){
             let screen = model.screens[screenID]
 
@@ -137,6 +147,11 @@ export default class ModelTransformer {
             screen = this.layoutTree(screen, model)
 
             /**
+             * Now we put the fixed stuff in the fixedChildren list
+             */
+            screen = this.setFixedChildren(screen, model)
+
+            /**
              * set screen pos to 0,0
              */
             screen.children.forEach(c => {
@@ -147,14 +162,14 @@ export default class ModelTransformer {
 
             this.setCSSClassNames(screen, screen.name)
 
-            this.setWidgetTypes(screen, result)
+            this.attachSingleLabelsInScreen(screen)
+
+            this.setWidgetTypes(screen)
 
             result.screens.push(screen)
         }
 
-        if (this.removeSingleLabels) {
-            this.attachSingleLabels(result)
-        }
+        //this.attachSingleLabels(result, this.nodesWithLabelAttachment)
 
         return result
     }
@@ -197,21 +212,21 @@ export default class ModelTransformer {
         return screen
     }
 
-    setWidgetTypes (parent, result) {
-        parent.qtype = this.getWidgetType(parent, result)
+    setWidgetTypes (parent) {
+        parent.qtype = this.getWidgetType(parent)
         if (parent.children) {
             parent.children.forEach(c => {
-                this.setWidgetTypes(c, result)
+                this.setWidgetTypes(c)
             })
         }
         if (parent.fixedChildren) {
             parent.fixedChildren.forEach(c => {
-                this.setWidgetTypes(c, result)
+                this.setWidgetTypes(c)
             })
         }
         if (parent.templates) {
             parent.templates.forEach(c => {
-                this.setWidgetTypes(c, result)
+                this.setWidgetTypes(c)
             })
         }
     }
@@ -242,7 +257,7 @@ export default class ModelTransformer {
         }
     }
 
-    getWidgetType (element, result) {
+    getWidgetType (element) {
         /**
          * We check here different component overrides
          */
@@ -260,7 +275,7 @@ export default class ModelTransformer {
             if (this.supportedWidgetTypes.indexOf(element.type) >= 0) {
                 return `q${element.type}`
             }
-            result.warnings.push('Not supported widget type: ' + element.type)
+            Logger.warn('ModelTRansformer.getWidgetType() > Not supported widget type: ' + element.type)
             return 'qBox'
 
         }
@@ -834,42 +849,57 @@ export default class ModelTransformer {
         return this.escapeSpaces(`${screen.name}.${widget.name}`)
     }
 
-    escapeSpaces (s) {
-        return s.replace(/\s+/g, '_')
-    }
 
-	attachSingleLabels (model) {
+	attachSingleLabels (model, allowedTypes = null) {
+        Logger.log(-1, 'ModelTransformer.attachSingleLabels()', allowedTypes)
 		model.screens.forEach(screen => {
 			screen.children.forEach(child => {
-				this.attachSingleLabelsInNodes(child)
+				this.attachSingleLabelsInNodes(child, allowedTypes)
 			})
 		})
 		return model
 	}
 
-	attachSingleLabelsInNodes (node) {
+    attachSingleLabelsInScreen (screen, allowedTypes = null) {
+        Logger.log(-1, 'ModelTransformer.attachSingleLabelsInScreen()', allowedTypes)
+        screen.children.forEach(child => {
+            this.attachSingleLabelsInNodes(child, allowedTypes)
+        })
+		return screen
+    }
+
+	attachSingleLabelsInNodes (node, allowedTypes) {
+
 		/**
 		 * If we have a box that has NO label props and contains
 		 * only one child of type label, we merge this in.
 		 */
-		if (!node.props.label && node.children.length === 1) {
+        let type = node.type
+
+        if (!node.props.label && node.children.length === 1 && (allowedTypes === null || allowedTypes.indexOf(type) >= 0)) {
+
             let child = node.children[0]
             /**
              * TODO: We should check here if teh re is a link. What to do with the link?
              * Copy to aprent if it is different?
              */
             let lines = Util.getLines(child, this.model)
-			if (child.type === 'Label' && lines.length === 0) {
+            if (child.type === 'Label' && lines.length === 0) {
                 Logger.log(4, 'ModelTransformer.attachSingleLabelsInNodes()', node)
-				node.props.label = child.props.label
+                node.props.label = child.props.label
                 node.children = []
-                node.type = 'Box'
-                node.qtype = 'qBox'
-				this.textProperties.forEach(key => {
-					if (child.style[key]) {
-						node.style[key] = child.style[key]
-					}
-				})
+                /**
+                 * For none input types set to Box
+                 */
+                if (!Util.isInputElement(node)) {
+                    node.type = 'Box'
+                    node.qtype = 'qBox'
+                }
+                this.textProperties.forEach(key => {
+                    if (child.style[key]) {
+                        node.style[key] = child.style[key]
+                    }
+                })
                 node.style.paddingTop = child.y
                 node.style.paddingBottom = node.h - child.h - child.y
 
@@ -881,13 +911,13 @@ export default class ModelTransformer {
                     node.style.paddingLeft = child.x
                     node.style.paddingRight = node.w - child.w - child.x
                 }
-				node.style = Util.fixAutos(node.style, child)
-			}
-		} else {
-			node.children.forEach(child => {
-				this.attachSingleLabelsInNodes(child)
-			})
-		}
+                node.style = Util.fixAutos(node.style, child)
+            }
+        } else {
+            node.children.forEach(child => {
+                this.attachSingleLabelsInNodes(child, allowedTypes)
+            })
+        }
 	}
 
     /**
@@ -948,7 +978,6 @@ export default class ModelTransformer {
          *
          * FIXME: For groups we should not need to add a now row?
          *
-         * FIMXE: This has still issues with right align...
          */
         if (!Util.isWrappedContainer(parent) && !Util.isGridContainer(parent) && this.hasRows) {
             for (let row in rows) {
@@ -1207,77 +1236,52 @@ export default class ModelTransformer {
             // console.debug('buildTree', widget.name, '    in ', parentWidgets.map(p => p.name).join(', '))
 
             let element = this.clone(widget);
+            element._x = widget.x
+            element._y = widget.y
             element.children = []
 
             let group = Util.getGroup(widget.id, model)
             element.group = group
 
-            if (widget.style.fixed) {
+            /**
+             * Check if the widget has a parent (= is contained) widget.
+             * If so, calculate the relative position to the parent,
+             * otherwise but the element under the screen.
+             */
+            let parentWidget = this.getParentWidget(parentWidgets, element)
+
+            if (parentWidget && Util.canBeChild(element, parentWidget)) { //  was Util.canHaveChildren(parentWidget)
+                element.x = widget.x - parentWidget.x
+                element.y = widget.y - parentWidget.y
+                element.parent = parentWidget
+                elementsById[parentWidget.id].children.push(element)
+            } else {
                 element.x = widget.x - screen.x
                 element.y = widget.y - screen.y
-                element.parent = screen
-                result.fixedChildren.push(element)
+                element.parent = null;
+                result.children.push(element)
 
                 /**
-                 * We pinn fixed elements at the bottom if they are fixed.
+                 * If we have a widget directly under the screen, and we have a negative margin, crop
+                 * This might happen with figma
                  */
-                if (Util.isAtBottom(element, model)) {
-                    if (!element.props.resize) {
-                        element.props.resize = {
-                            right: false,
-                            up: false,
-                            left: false,
-                            down: false,
-                            fixedHorizontal: false,
-                            fixedVertical: false
-                        }
-                    }
-                    element.props.resize.down = true
-                    Logger.log(2, 'ModelTransformer.transformScreenToTree() > pinn fixed to bottom', element.name)
+                if (element.y < 0) {
+                    Logger.log(2, 'ModelTransformer.transformScreenToTree() > fix negative margin', element.name)
+                    element.h += element.y
+                    element.y = 0
                 }
-                /**
-                 * IF we have an pinned bottom
-                 */
-                if (Util.isPinnedDown(element)) {
-                    element.bottom = Util.getDistanceFromScreenBottom(element, model)
-                }
-
-            } else {
-                /**
-                 * Check if the widget has a parent (= is contained) widget.
-                 * If so, calculate the relative position to the parent,
-                 * otherwise but the element under the screen.
-                 */
-                let parentWidget = this.getParentWidget(parentWidgets, element)
-                if (parentWidget && Util.canHaveChildren(parentWidget)) {
-                    element.x = widget.x - parentWidget.x
-                    element.y = widget.y - parentWidget.y
-                    element.parent = parentWidget
-                    elementsById[parentWidget.id].children.push(element)
-                } else {
-                    element.x = widget.x - screen.x
-                    element.y = widget.y - screen.y
-                    element.parent = null;
-                    result.children.push(element)
-
-                    /**
-                     * If we have a widget directly under the screen, and we have a negative margin, crop
-                     * This might happen with figma
-                     */
-                    if (element.y < 0) {
-                        Logger.log(2, 'ModelTransformer.transformScreenToTree() > fix negative margin', element.name)
-                        element.h += element.y
-                        element.y = 0
-                    }
-                }
-
-                /**
-                 * Save the widget, so we can check in the next
-                 * iteation if this is a parent or not!
-                 */
-                parentWidgets.unshift(widget)
-                elementsById[element.id] = element
             }
+
+            /**
+             * Save the widget, so we can check in the next
+             * iteation if this is a parent or not! Only use
+             * widgets that can have children
+             */
+            if (Util.canHaveChildren(widget)) {
+                parentWidgets.unshift(widget)
+            }
+            elementsById[element.id] = element
+
         })
 
         /**
@@ -1285,6 +1289,75 @@ export default class ModelTransformer {
          */
         this.resetPadding(result)
         return result;
+    }
+
+    setFixedChildren (screen, model) {
+        if (screen.children) {
+            this.setFixedChildrenInElement(screen, screen, model)
+        }
+        return screen
+    }
+
+    setFixedChildrenInElement (element, screen, model) {
+
+        /**
+         * Attention. Fixed elements must be set in the model as fixed. Otherwise
+         * the oder in the tree method is not correct and the will be wrongly nested!
+         */
+        if (element.children) {
+            let children = []
+            element.children.forEach(child => {
+                if (child.style.fixed === true) {
+                    child.x = child._x - screen.x
+                    child.y = child._y - screen.y
+                    element.parent = screen
+                    this.setAllChildrenAsNotFixed(child)
+                    // this.setFixedBottom(child, model)
+                    screen.fixedChildren.push(child)
+                } else {
+                    this.setFixedChildrenInElement(child, screen, model)
+                    children.push(child)
+                }
+            })
+            element.children = children
+        }
+
+    }
+
+
+    setFixedBottom(element, model) {
+         /**
+         * If an element (e.g. tabbar) is fixed at the bottom.
+         */
+        if (Util.isAtBottom(element, model)) {
+            if (!element.props.resize) {
+                element.props.resize = {
+                    right: false,
+                    up: false,
+                    left: false,
+                    down: false,
+                    fixedHorizontal: false,
+                    fixedVertical: false
+                }
+            }
+            element.props.resize.down = true
+            Logger.log(2, 'ModelTransformer.setFixedChildrenInElement() > pinn fixed to bottom', element.name)
+        }
+        /**
+         * IF we have an pinned bottom
+         */
+        if (Util.isPinnedDown(element)) {
+            element.bottom = Util.getDistanceFromScreenBottom(element, model)
+        }
+    }
+
+    setAllChildrenAsNotFixed (element) {
+        if (element.children) {
+            element.children.forEach(child => {
+                child.style.fixed = false
+                this.setAllChildrenAsNotFixed(child)
+            })
+        }
     }
 
     resetPadding (element) {
@@ -1366,6 +1439,10 @@ export default class ModelTransformer {
             widgets.push(widget);
         }
         return widgets
+    }
+
+    escapeSpaces (s) {
+        return s.replace(/\s+/g, '_')
     }
 
     clone (obj) {

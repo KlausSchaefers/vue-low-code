@@ -29,12 +29,43 @@ export function canHaveChildren (element) {
     if (element.props && element.props.customComponent) {
         return false
     }
-    if (element.type === 'Box' || element.type === 'Button' || element.type === 'Image') {
+    if (element.type === 'Box' || element.type === 'Button' || element.type === 'Image' || isInputElement(element)) {
         return true
     }
     return false
 }
 
+export function isInputElement (element) {
+    return element.type === 'TextBox' || element.type === 'TextArea' || element.type === 'Password'
+}
+
+/**
+ * Check if the child can be nested in a parent
+ * @param {} child The child to be nested
+ * @param {*} parent The parent to receiveo
+ */
+export function canBeChild (child, parent) {
+    /**
+     * Costum widgets cannot have children
+     */
+    if (parent.props && parent.props.customComponent) {
+        return false
+    }
+    /**
+     * Box likes element can always have children
+     */
+    if (parent.type === 'Box' || parent.type === 'Button' || parent.type === 'Image') {
+        return true
+    }
+    /**
+     * Input elements can have labels embedded. This is needed to attach the label later
+     */
+    if (isInputElement(parent) && child.type === 'Label') {
+        return true
+    }
+
+    return false
+}
 /**
  * Determine if the grid is collection
  * of stacked rows

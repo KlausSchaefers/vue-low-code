@@ -1,5 +1,6 @@
 
 import * as Util from './ExportUtil'
+import * as Color from './ColorUtil'
 import CSSWidgetFactory from '../web/css/CSSWidgetFactory'
 import Logger from './Logger'
 export default class CSSFactory {
@@ -329,6 +330,13 @@ export default class CSSFactory {
 				result += this.getRawStyle(widget.active, widget);
 				result += '}\n\n'
 			}
+
+			if (Util.isInputElement(widget)) {
+				console.debug('XXXX', widget)
+				result += selector + '::placeholder {\n'
+				result += `  color: ${this.getPlaceHolderColor(style.color)};\n`
+				result += '}\n\n'
+			}
 		}
 
 		if (screen && screen.animation && screen.animation.ScreenLoaded) {
@@ -373,8 +381,18 @@ export default class CSSFactory {
 		return this.easingMapping[easing]
 	}
 
+
+	/*********************************************************************
+	 * Position
+	 *********************************************************************/
+
 	getPosition (widget) {
 		// Overlays will no be rendered as fixed...
+
+		/**
+		 * FIXME we should have here better support for the
+		 * for auto layouts like wrap, row and column
+		 */
 		if (widget.style.fixed && widget.type !== 'Screen') {
 			return this.getFixedPosition(widget)
 		} else if (Util.hasWrappedParent(widget)) {
@@ -500,6 +518,9 @@ export default class CSSFactory {
 			 * FIXME: Move this code to the model transformer. The isRow value
 			 * will be later used in the getGridParentAlign() method
 			 */
+			if (!widget.grid) {
+				widget.grid = {}
+			}
 			widget.grid.isRow = true
 			result += `  display: flex;\n`
 			result += `  flex-direction: column;\n`
@@ -636,22 +657,29 @@ export default class CSSFactory {
 	getGridColumnTracks (total, list, widget) {
 		Logger.log(6, 'CSSFactory.getGridColumnTracks() > ' + widget.name, list)
 		if (list) {
+			/**
+			 * FIXME: we could get the max not fixed. Still we would
+			 * need to make sure we get the fixed stuff
+			 */
 			let max = Math.max(...list.map(i => i.l))
 			return list.map(i => {
+
+				/**
+				 * We might want several autos. This is very sensitive
+				 * to small changes in the editor. Therefore we give a
+				 * small error margin.
+				 */
+				if (Math.abs(max - i.l) <= this.gridAutoErrorThreshold) { // max === i.l
+					return 'auto'
+				}
+
 				/**
 				 * Fixed has priority. For rows we have always fixed...
 				 */
 				if (i.fixed) {
 					return i.l + 'px'
 				}
-				/**
-				 * We might want several autos. This is very sensitive
-				 * to small changes in the editor. Therefore we give a
-				 * small error marginf
-				 */
-				if (Math.abs(max - i.l) <= this.gridAutoErrorThreshold) { // max === i.l
-					return 'auto'
-				}
+
 				return Math.round(i.l * 100 / total) + '%'
 			}).join(' ')
 		}
@@ -831,6 +859,12 @@ export default class CSSFactory {
 		}
 
 		result += `  height: ${this.getCorrectedHeight(widget)};\n`
+
+		/**
+		 * Align children in grid
+		 */
+		result += this.getGridChildAlignment(widget)
+
 		return result
 	}
 
@@ -918,6 +952,15 @@ export default class CSSFactory {
 		var result = this.getStyleByKey(style, widget, Object.keys(this.mapping))
 		result += this.getBackGround(style, widget)
 		return result;
+	}
+
+	getPlaceHolderColor (color) {
+		if (c) {
+			var c = Color.fromString(color);
+			c.a = 0.5;
+			return color.toString(c);
+		}
+		return 'rgba(255, 255, 255, 0.5)'
 	}
 
 	getBackGround(style, widget) {

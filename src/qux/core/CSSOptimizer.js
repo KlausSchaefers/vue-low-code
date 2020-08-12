@@ -107,9 +107,9 @@ export default class CSSOptimizer {
             delete style.borderStyle
         }
 
-        if (style.border && style.border.indexOf('0px') === 0) {
-            delete style.border
-        }
+        // if (style.border && style.border.indexOf('0px') === 0) {
+        //    delete style.border
+        //}
 
         if (style.padding === '0px') {
             delete style.padding

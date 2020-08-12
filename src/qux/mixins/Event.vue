@@ -93,7 +93,7 @@ export default {
         Logger.log(0, 'QUX.executeLine() > enter', line)
         let box = Util.getBoxById(line.to, this.model)
         if (box.type === 'Screen') {
-            this.navigateToScreen(box)
+            this.navigateToScreen(box, line)
             return
         } else if (box.type === 'Rest') {
             this.executeRest(box, line)
@@ -150,13 +150,14 @@ export default {
             let nextScreen = Object.values(this.model.screens).find(s => s.name === result)
             if (nextScreen) {
                 this.setScreen(result)
+                this.scrollToTop()
             } else {
                 Logger.warn('QUX.handleCallbackResult() > no screen with name > ' + result)
             }
         }
     },
 
-    navigateToScreen (screen) {
+    navigateToScreen (screen, line) {
         if (screen.style && screen.style.overlay === true) {
             Logger.log(1, 'Qux(Event).navigateToScreen() > Overlay', screen.name)
             this.overlayScreenIds.push(screen.id)
@@ -164,7 +165,15 @@ export default {
             Logger.log(1, 'Qux(Event).navigateToScreen() > Link', screen.name)
             this.overlayScreenIds = []
             this.setScreen(screen.name)
+            if (!line || line.scroll !== true) {
+                this.scrollToTop()
+            }
         }
+    },
+
+    scrollToTop () {
+        Logger.log(4, 'Qux(Event).scrollToTop()')
+        this.$emit('qScrollTop', {})
     },
 
     popOverlay (e) {

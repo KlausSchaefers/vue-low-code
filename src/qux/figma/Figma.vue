@@ -70,7 +70,6 @@ export default {
        if (figma.figmaFile && figma.figmaAccessKey) {
           let figmaService = new FigmaService(figma.figmaAccessKey)
           let app = await figmaService.get(figma.figmaFile, true)
-
           Object.values(app.screens).forEach(screen => this.setBackgroundImage(screen))
           Object.values(app.widgets).forEach(widget => this.setBackgroundImage(widget))
           this.app = app

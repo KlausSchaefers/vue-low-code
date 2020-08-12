@@ -184,7 +184,6 @@ export default class CSSWidgetFactory {
       result += '}\n\n'
     }
 
-
     return result
   }
 

@@ -293,10 +293,12 @@ export default {
         location.hash = url
     },
     loadScreen (name) {
-        Logger.log(1
-        , 'QUX.loadScreen() >', name)
+        Logger.log(1 , 'QUX.loadScreen() >', name)
         this.closeAllOverlays()
         if (this.model) {
+            /**
+             * FIXME: Use here tree model
+             */
             let screen = Object.values(this.model.screens).find(s => s.name === name)
             if (screen) {
                 // make here somethink like: use router? and updat ethe url as well?
