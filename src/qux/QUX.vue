@@ -360,6 +360,7 @@ export default {
         }
     },
     initComponents () {
+        Vue.component('qHotSpot', Button);
         Vue.component('qButton', Button);
         Vue.component('qBox', Button)
         Vue.component('qLabel', Label);

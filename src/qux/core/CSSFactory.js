@@ -670,7 +670,7 @@ export default class CSSFactory {
 				 * small error margin.
 				 */
 				if (Math.abs(max - i.l) <= this.gridAutoErrorThreshold) { // max === i.l
-					return 'auto'
+					return '1fr'
 				}
 
 				/**
