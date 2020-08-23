@@ -25,9 +25,7 @@ export default {
       isActive () {
           if (this.element) {
             let input = this.dataBindingInput
-            if (input) {
-                return input === true
-            }
+            return input === true
           }
           return this.active
       }

@@ -1,12 +1,12 @@
 <template>
-  <textarea 
-    :class="['qux-textarea', cssClass]" 
+  <textarea
+    :class="['qux-textarea qux-text-input', cssClass]"
     :placeholder="placeholder"
     :type="type"
     @click="onClick"
     @change="onChange"
     @keyup="onKeyPress"
-    :value="dataBindingInput" 
+    :value="dataBindingInput"
     />
 </template>
 <style lang="scss">

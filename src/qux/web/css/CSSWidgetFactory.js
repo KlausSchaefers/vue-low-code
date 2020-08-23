@@ -97,6 +97,34 @@ export default class CSSWidgetFactory {
     return result
   }
 
+  getCSS_ChildrenToggle(selector, style, widget) {
+
+    /**
+     * For now we assume this thingy has a fixed width...
+     */
+
+    let result = ''
+    result += selector + ' {\n'
+    result += this.cssFactory.getRawStyle(style, widget);
+    result += this.cssFactory.getPosition(widget);
+    result += `  width:${widget.w}px;\n`
+    result += '}\n\n'
+
+
+    if (widget.active) {
+      result += selector + '.qux-active {\n'
+      result += this.getRawStyle(widget.active, widget);
+      result += '}\n\n'
+    }
+
+    /**
+     * We should add here still some other stuff for children...
+     */
+
+    return result
+  }
+
+
   getCSS_RadioGroup(selector, style, widget) {
     let result = ''
 
@@ -172,6 +200,8 @@ export default class CSSWidgetFactory {
 
     result += selector + ' .qux-checkbox-hook {\n'
     result += `  border-color: ${style.colorButton};\n`
+    result += `  border-bottom-width: ${Math.round(height/ 10)}px;\n`
+    result += `  border-right-width:  ${Math.round(height / 10)}px;\n`
     result += '}\n\n'
 
     result += selector + ' .qux-checkbox-label {\n'
@@ -233,6 +263,8 @@ export default class CSSWidgetFactory {
 
     result += selector + ' .qux-checkbox-hook {\n'
     result += `  border-color: ${style.colorButton};\n`
+    result += `  border-bottom-width: ${Math.round(widget.h / 10)}px;\n`
+    result += `  border-right-width:  ${Math.round(widget.h / 10)}px;\n`
     result += '}\n\n'
 
     if (widget.checked) {
@@ -264,11 +296,13 @@ export default class CSSWidgetFactory {
     result += `  width:${cntrWidth};\n`
     result += '}\n\n'
 
+    const borderWidthButton = style.borderWidthButton ? style.borderWidthButton : 0
+    const borderColorButton = style.borderWidthborderColorButtonutton ? style.borderColorButton : 'rbga(0,0,0,0)'
     result += selector + ' .qux-switch-handle {\n'
     result += `  background:${style.colorButton};\n`
     result += `  border-radius:${style.borderRadius};\n`
-    result += `  border-width:${style.borderWidthButton}px;\n`
-    result += `  border-color:${style.borderColorButton};\n`
+    result += `  border-width:${borderWidthButton}px;\n`
+    result += `  border-color:${borderColorButton};\n`
     result += this.cssFactory.getStyleByKey(style, widget, ['boxShadow'])
     result += `  height: ${widget.h}px;\n`
     result += `  width: ${widget.h}px;\n`

@@ -1,6 +1,6 @@
 <template>
   <input
-    :class="['qux-textbox', cssClass]"
+    :class="['qux-textbox qux-text-input', cssClass]"
     :placeholder="placeholder"
     :type="type"
     @click="onClick"

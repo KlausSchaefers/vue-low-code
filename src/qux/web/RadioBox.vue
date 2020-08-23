@@ -1,7 +1,7 @@
 <template>
   <div :class="['qux-radiobox', cssClass, {'qux-radiobox-checked': isChecked}]" @click="toggle">
 		<div class="qux-radiobox-cntr">
-			<span class="qux-radiobox-hook">	
+			<span class="qux-radiobox-hook">
 			</span>
 		</div>
 		<span class="qux-radiobox-label" v-if="label">{{label}}</span>
@@ -25,14 +25,12 @@ export default {
   },
   computed: {
       isChecked () {
-          if (this.element) {
-            let input = this.dataBindingInput
-            if (input) {
-                return input === this.element.name
-            }
-          }
-          Logger.log(5, 'qRadioBox.isChecked() >' + this.lbl, this.checked)
-          return this.checked
+        if (this.element) {
+          let input = this.dataBindingInput
+          return input === this.element.name
+        }
+        Logger.log(5, 'qRadioBox.isChecked() >' + this.lbl, this.checked)
+        return this.checked
       }
   },
   methods: {

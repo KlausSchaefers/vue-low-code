@@ -12,14 +12,22 @@ export default class FigmaService {
     this.max_ids = 50
     this.pluginId = '858477504263032980'
     this.downloadVectors = true
+    this.imageScaleFactor = 1
+  }
+
+  setImageScaleFactor(factor) {
+    this.imageScaleFactor = factor
+    return this
   }
 
   setAccessKey (key) {
     this.key = key
+    return this
   }
 
   setDownloadVectors (value) {
     this.downloadVectors = value
+    return this
   }
 
   _createDefaultHeader() {
@@ -62,7 +70,7 @@ export default class FigmaService {
       /**
        * Get in double resolution
        */
-      let url = this.baseURL + 'images/' + key + '?format=png&scale=2&ids=' + ids
+      let url = this.baseURL + 'images/' + key + `?format=png&scale=${this.imageScaleFactor}&ids=` + ids
       fetch(url, {
         method: 'get',
         credentials: "same-origin",
@@ -293,7 +301,7 @@ export default class FigmaService {
      * FIXME: Check if teh name is tool long or has spaces or shit...
      */
     let name = element.name
-    return name.replace('#', '').replace('/', '-')
+    return name.replace('#', '').replace('/', '-').replace('&', '')
   }
 
   addTempLine (element,  model) {
@@ -328,19 +336,43 @@ export default class FigmaService {
     return element
   }
 
-  getPluginData (element, widget, fModel) {
+  getPluginData (element, widget) {
+
     if (element.pluginData && element.pluginData[this.pluginId]) {
       let pluginData = element.pluginData[this.pluginId]
       if (pluginData.quxType) {
         Logger.log(3, 'FigmaService.getPluginData() > quxType : ', pluginData.quxType, element.name)
         widget.type = pluginData.quxType
         widget.props.placeholder = true
+
+        /**
+         * SmartContainer has a subType
+         */
+        if (pluginData.quxType === 'SmartContainer' && pluginData.quxSmartContainerType) {
+          Logger.log(-1, 'FigmaService.getPluginData() > quxSmartContainerType : ', pluginData.quxSmartContainerType, element.name)
+          widget.type = pluginData.quxSmartContainerType
+        }
+
       }
+
+      if (pluginData.quxTypeCustom) {
+        Logger.log(-1, 'FigmaService.getPluginData() > quxTypeCustom: ', pluginData.quxOnChangeCallback, element.name)
+        widget.props.customComponent = pluginData.quxTypeCustom
+      }
+
       if (pluginData.quxDataBindingDefault) {
         Logger.log(3, 'FigmaService.getPluginData() > quxDataBindingDefault : ', pluginData.quxDataBindingDefault, element.name)
-        widget.props.databinding = {
-          'default': pluginData.quxDataBindingDefault
+        if (!widget.props.databinding) {
+          widget.props.databinding = {}
         }
+        widget.props.databinding['default'] = pluginData.quxDataBindingDefault
+      }
+      if (pluginData.quxDataBindingOutput) {
+        Logger.log(3, 'FigmaService.getPluginData() > quxDataBindingOutput : ', pluginData.quxDataBindingOutput, element.name)
+        if (!widget.props.databinding) {
+          widget.props.databinding = {}
+        }
+        widget.props.databinding['output'] = pluginData.quxDataBindingOutput
       }
       if (pluginData.quxOnClickCallback) {
         Logger.log(3, 'FigmaService.getPluginData() > quxOnClickCallback: ', pluginData.quxOnClickCallback, element.name)
@@ -364,26 +396,99 @@ export default class FigmaService {
         widget.props.callbacks.change = pluginData.quxOnChangeCallback
       }
 
-
+      /**
+       * Hover
+       */
       if (pluginData.quxStyleHoverBackground) {
-        this.addDynamicStyle(element, widget, 'hover', 'background', pluginData.quxStyleHoverBackground, fModel)
+        this.addDynamicStyle(widget, 'hover', 'background', pluginData.quxStyleHoverBackground)
       }
 
       if (pluginData.quxStyleHoverBorder) {
-        this.addDynamicStyle(element, widget, 'hover', 'borderColor', pluginData.quxStyleHoverBorder, fModel)
+        this.addDynamicStyle(widget, 'hover', 'borderColor', pluginData.quxStyleHoverBorder)
       }
 
-      if (pluginData.quxStyleHoverFont) {
-        this.addDynamicStyle(element, widget, 'hover', 'color', pluginData.quxStyleHoverFont, fModel)
+      if (pluginData.quxStyleHoverColor) {
+        this.addDynamicStyle(widget, 'hover', 'color', pluginData.quxStyleHoverColor)
       }
 
-      if (pluginData.quxStyleHoverFont) {
-        this.addDynamicStyle(element, widget, 'hover', 'color', pluginData.quxStyleHoverFont, fModel)
+      /**
+       * Focus
+       */
+      if (pluginData.quxStyleFocusBackground) {
+        this.addDynamicStyle(widget, 'focus', 'background', pluginData.quxStyleFocusBackground)
       }
 
-      if (pluginData.quxTypeCustom) {
-        Logger.log(-1, 'FigmaService.getPluginData() > quxTypeCustom: ', pluginData.quxOnChangeCallback, element.name)
-        widget.props.customComponent = pluginData.quxTypeCustom
+      if (pluginData.quxStyleFocusBorder) {
+        this.addDynamicStyle(widget, 'focus', 'borderColor', pluginData.quxStyleFocusBorder)
+      }
+
+      if (pluginData.quxStyleFocusColor) {
+        this.addDynamicStyle(widget, 'focus', 'color', pluginData.quxStyleFocusColor)
+      }
+
+      /**
+       * Style stuff
+       */
+
+      if (pluginData.quxFixedHorizontal === 'true') {
+        Logger.log(1, 'FigmaService.getPluginData() > quxFixedHorizontal: ', pluginData.quxFixedHorizontal, element.name)
+        if (!widget.props.resize) {
+          widget.props.resize = {}
+        }
+        widget.props.resize.fixedHorizontal = true
+      }
+
+      if (pluginData.quxFixedVertical === 'true') {
+        Logger.log(1, 'FigmaService.getPluginData() > quxFixedVertical: ', pluginData.quxFixedVertical, element.name)
+        if (!widget.props.resize) {
+          widget.props.resize = {}
+        }
+        widget.props.resize.fixedVertical = true
+      }
+
+      /**
+       * Screen stuff
+       */
+      if (pluginData.quxStartScreen === 'true') {
+        Logger.log(1, 'FigmaService.getPluginData() > quxStartScreen: ', pluginData.quxStartScreen, element.name)
+        widget.props.start = true
+      }
+
+      if (pluginData.quxOverlayScreen === 'true') {
+        Logger.log(4, 'FigmaService.getPluginData() > quxOverlayScreen: ', pluginData.quxOverlayScreen, element.name)
+        widget.style.overlay = true
+      }
+
+      if (pluginData.quxHasOverlayBackground === 'true') {
+        Logger.log(4, 'FigmaService.getPluginData() > quxHasOverlayBackground: ', pluginData.quxHasOverlayBackground, element.name)
+        widget.style.hasBackground = true
+      }
+
+      /**
+       * Breakpoints
+       */
+      if (pluginData.quxBreakpointMobile === 'true') {
+        if (!widget.props.breakpoints) {
+          widget.props.breakpoints = {}
+        }
+        Logger.log(4, 'FigmaService.getPluginData() > quxBreakpointMobile: ', pluginData.quxBreakpointMobile, element.name)
+        widget.props.breakpoints.mobile = true
+      }
+
+      if (pluginData.quxBreakpointTablet === 'true') {
+        if (!widget.props.breakpoints) {
+          widget.props.breakpoints = {}
+        }
+        Logger.log(4, 'FigmaService.getPluginData() > quxBreakpointTablet: ', pluginData.quxBreakpointTablet, element.name)
+        widget.props.breakpoints.tablet = true
+      }
+
+      if (pluginData.quxBreakpointDesktop === 'true') {
+        if (!widget.props.breakpoints) {
+          widget.props.breakpoints = {}
+        }
+        Logger.log(4, 'FigmaService.getPluginData() > quxBreakpointDesktop: ', pluginData.quxBreakpointDesktop, element.name)
+        widget.props.breakpoints.desktop = true
       }
 
     }
@@ -392,21 +497,12 @@ export default class FigmaService {
   }
 
 
-  addDynamicStyle (/*element, widget, type, key, fStyleId, fModel */) {
-    /*
+  addDynamicStyle (widget, type, key, value) {
     if (!widget[type]) {
       widget[type] = {}
     }
-   // console.debug('addDynamicStyle', widget.name, key, fStyleId, element)
-    // cut off s:
-    fStyleId = fStyleId.substring(2, fStyleId.length-1)
-    let fStyle = Object.values(fModel.styles).find(s => s.key == fStyleId)
-    if (fStyle) {
-      console.debug(fStyle)
-    } else {
-      Logger.warn('FigmaService.addDynamicStyle() > No Style ', fStyleId)
-    }
-    */
+    widget[type][key] = value
+
   }
 
   getProps (element, widget) {
@@ -424,7 +520,48 @@ export default class FigmaService {
         props.label = element.name
       }
     }
+
+    /**
+     * Add here constraints
+     */
+    props.resize = {
+      right: true,
+      left: true,
+      up: false,
+      down: false,
+      fixedHorizontal: false,
+      fixedVertical: false
+    }
+
+    /**
+     * FIXME: Should come only after plugin data...
+     */
+    this.setContraints(element, props)
+
     return props
+  }
+
+  setContraints (element, props) {
+
+    if (element.constraints) {
+      let horizontal = element.constraints.horizontal
+      switch (horizontal) {
+
+        case 'RIGHT':
+          props.resize.left = false
+          props.resize.right = true
+          break;
+
+        //case 'LEFT_RIGHT':
+        //  Logger.log(-1, 'FigmaService.setContraints() > LEFT_RIGHT', element.name)
+        //  props.resize.left = true
+        //  props.resize.right = true
+        //  break;
+
+        default:
+          break;
+      }
+    }
   }
 
   isIgnored (element) {
@@ -520,6 +657,7 @@ export default class FigmaService {
     if (element.fills) {
       if (element.fills.length === 1) {
         let fill = element.fills[0]
+
         if (fill.type === 'SOLID') {
           if (this.isLabel(widget)) {
             style.color = this.getColor(fill.color, fill)
@@ -629,13 +767,26 @@ export default class FigmaService {
         style.fontSize = fStyle.fontSize
         style.fontSize = fStyle.fontSize
         style.fontWeight = fStyle.fontWeight
-        style.lineHeight = fStyle.lineHeightPercent / 100
+        style.lineHeight = fStyle.lineHeightPercent / 100 // this has a different weird formular! https://help.figma.com/text/line-height
         style.letterSpacing = fStyle.letterSpacing
         if (fStyle.textAlignHorizontal) {
           style.textAlign = fStyle.textAlignHorizontal.toLowerCase()
         }
         if (fStyle.textAlignVertical) {
-          style.verticalAlign = fStyle.textAlignVertical.toLowerCase()
+          const textAlignVertical = fStyle.textAlignVertical
+          switch (textAlignVertical) {
+            case 'CENTER':
+              style.verticalAlign = 'middle'
+              break;
+            case 'TOP':
+                style.verticalAlign = 'top'
+                break;
+            case 'BOTTOM':
+                style.verticalAlign = 'bottom'
+                break;
+              default:
+                break;
+          }
         }
       }
     }
@@ -675,6 +826,9 @@ export default class FigmaService {
   }
 
   getColor (c, element) {
+    if (element.visible === false) {
+      return ''
+    }
     let a = c.a
     if (element && element.opacity < 1) {
       a = element.opacity
@@ -685,10 +839,10 @@ export default class FigmaService {
   getPosition (element) {
     if (element.absoluteBoundingBox) {
       let pos = {
-        x: element.absoluteBoundingBox.x,
-        y: element.absoluteBoundingBox.y,
-        w: element.absoluteBoundingBox.width,
-        h: element.absoluteBoundingBox.height
+        x: Math.round(element.absoluteBoundingBox.x),
+        y: Math.round(element.absoluteBoundingBox.y),
+        w: Math.round(element.absoluteBoundingBox.width),
+        h: Math.round(element.absoluteBoundingBox.height)
       }
       /**
        * We can ignore transformMatrix because absolutePositon gives the right values

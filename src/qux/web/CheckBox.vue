@@ -1,7 +1,7 @@
 <template>
   <div :class="['qux-checkbox', cssClass, {'qux-checkbox-checked': isChecked}]" @click="toggle">
 		<div class="qux-checkbox-cntr">
-			<span class="qux-checkbox-hook">	
+			<span class="qux-checkbox-hook">
 			</span>
 		</div>
 		<span class="qux-checkbox-label" v-if="label">{{label}}</span>
@@ -25,13 +25,11 @@ export default {
   },
   computed: {
       isChecked () {
-          if (this.element) {
-            let input = this.dataBindingInput
-            if (input) {
-                return input === true
-            }
-          }
-          return this.checked
+        if (this.element) {
+          let input = this.dataBindingInput
+          return input === true
+        }
+        return this.checked
       }
   },
   methods: {
@@ -39,7 +37,7 @@ export default {
         if (this.element) {
           let value = !this.isChecked
           this.onValueChange(value, 'default')
-          Logger.log(5, 'qCheckBox.toggle() >' + this.dataBindingInputPath, value)
+          Logger.log(-1, 'qCheckBox.toggle() >' + this.dataBindingInputPath, value)
         } else {
           this.checked = !this.checked
           this.$emit('change', this.checked)

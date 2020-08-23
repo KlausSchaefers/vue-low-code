@@ -1,0 +1,183 @@
+{
+  "_id" : "5f03a730e2fb5351b80ccc92",
+  "version" : 2.1,
+  "name" : "LowCode - Master Groups",
+  "description" : "",
+  "screenSize" : {
+    "w" : 375,
+    "h" : 667
+  },
+  "type" : "smartphone",
+  "screens" : {
+    "s10000" : {
+      "x" : 3290,
+      "y" : 2272,
+      "h" : 667,
+      "w" : 375,
+      "name" : "Screen",
+      "type" : "Screen",
+      "style" : {
+        "background" : "#ffffff"
+      },
+      "min" : {
+        "w" : 375,
+        "h" : 667
+      },
+      "has" : {
+        "image" : true
+      },
+      "props" : {
+        "start" : true
+      },
+      "children" : [ ],
+      "id" : "s10000",
+      "parents" : [ "s10001" ]
+    },
+    "s10001" : {
+      "x" : 3876,
+      "y" : 2272,
+      "h" : 668,
+      "w" : 376,
+      "name" : "Master",
+      "type" : "Screen",
+      "style" : {
+        "background" : "#ffffff"
+      },
+      "min" : {
+        "w" : 375,
+        "h" : 667
+      },
+      "has" : {
+        "image" : true
+      },
+      "props" : {
+        "start" : false
+      },
+      "children" : [ "w10002", "w10003" ],
+      "id" : "s10001",
+      "modified" : 1594074790679
+    }
+  },
+  "widgets" : {
+    "w10002" : {
+      "type" : "Button",
+      "name" : "Box",
+      "x" : 3916,
+      "y" : 2300,
+      "w" : 104,
+      "h" : 68,
+      "z" : 1,
+      "props" : {
+        "label" : ""
+      },
+      "has" : {
+        "backgroundColor" : true,
+        "border" : true,
+        "label" : true,
+        "padding" : true,
+        "onclick" : true
+      },
+      "actions" : { },
+      "style" : {
+        "fontSize" : 14,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#ffffff",
+        "borderTopRightRadius" : 0,
+        "borderTopLeftRadius" : 0,
+        "borderBottomRightRadius" : 0,
+        "borderBottomLeftRadius" : 0,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "background" : "#333333",
+        "paddingTop" : 0,
+        "paddingBottom" : 0,
+        "paddingLeft" : 0,
+        "paddingRight" : 0
+      },
+      "id" : "w10002",
+      "created" : 1594074784656,
+      "modified" : 1594074790679
+    },
+    "w10003" : {
+      "type" : "Button",
+      "name" : "Box 1",
+      "x" : 4084,
+      "y" : 2308,
+      "w" : 124,
+      "h" : 80,
+      "z" : 2,
+      "props" : {
+        "label" : ""
+      },
+      "has" : {
+        "backgroundColor" : true,
+        "border" : true,
+        "label" : true,
+        "padding" : true,
+        "onclick" : true
+      },
+      "actions" : { },
+      "style" : {
+        "fontSize" : 14,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#ffffff",
+        "borderTopRightRadius" : 0,
+        "borderTopLeftRadius" : 0,
+        "borderBottomRightRadius" : 0,
+        "borderBottomLeftRadius" : 0,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "background" : "#333333",
+        "paddingTop" : 0,
+        "paddingBottom" : 0,
+        "paddingLeft" : 0,
+        "paddingRight" : 0
+      },
+      "id" : "w10003",
+      "created" : 1594074793160
+    }
+  },
+  "lines" : { },
+  "groups" : {
+    "g10004" : {
+      "id" : "g10004",
+      "children" : [ "w10002", "w10003" ],
+      "groups" : [ ],
+      "name" : "Master group"
+    }
+  },
+  "lastUUID" : 10005,
+  "lastUpdate" : 1594074815988,
+  "created" : 1594074928582,
+  "startScreen" : "",
+  "grid" : {
+    "w" : 8,
+    "h" : 8,
+    "style" : "line",
+    "color" : "#cecece",
+    "visible" : false,
+    "enabled" : false
+  },
+  "domain" : "Quant-UX.com",
+  "size" : 2589,
+  "isDirty" : true,
+  "id" : "5f03a730e2fb5351b80ccc92"
+}

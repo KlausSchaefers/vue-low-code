@@ -29,14 +29,20 @@ export function canHaveChildren (element) {
     if (element.props && element.props.customComponent) {
         return false
     }
-    if (element.type === 'Box' || element.type === 'Button' || element.type === 'Image' || isInputElement(element)) {
+    if (isContainerElement(element) || isInputElement(element)) {
         return true
     }
     return false
 }
 
 export function isInputElement (element) {
-    return element.type === 'TextBox' || element.type === 'TextArea' || element.type === 'Password'
+    const type = element.type
+    return type === 'TextBox' || type === 'TextArea' || type === 'Password'
+}
+
+export function isContainerElement (element) {
+    const type = element.type
+    return type === 'Box' || type === 'Button' || type === 'Image' || type === 'ChildrenToggle' || type === 'Repeater'
 }
 
 /**
@@ -54,7 +60,7 @@ export function canBeChild (child, parent) {
     /**
      * Box likes element can always have children
      */
-    if (parent.type === 'Box' || parent.type === 'Button' || parent.type === 'Image') {
+    if (this.isContainerElement(parent)) {
         return true
     }
     /**

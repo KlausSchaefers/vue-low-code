@@ -58,7 +58,7 @@ export default {
         if (this.element && this.element.props && this.element.props.databinding) {
             let path =  this.element.props.databinding.default
             let value = JSONPath.get(this.value, path)
-            Logger.log(0, 'Repeater.rows() > exit path: > ' + path, value)
+            Logger.log(5, 'Repeater.rows() > exit path: > ' + path, value)
             if (Array.isArray(value)) {
                 return value
             } else {
@@ -132,7 +132,7 @@ export default {
       if (element.lines && element.lines.length > 0) {
         if (this.dataBindingOutputPath && this.dataBindingInputPath) {
           if (row) {
-            Logger.log(3, 'qRepeater.forwardClick() > Upodate databidning' + this.dataBindingOutputPath, row)
+            Logger.log(3, 'qRepeater.forwardClick() > Update databidning' + this.dataBindingOutputPath, row)
             JSONPath.set(this.value, this.dataBindingOutputPath, row)
           }
         }

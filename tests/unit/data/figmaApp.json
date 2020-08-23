@@ -1,0 +1,743 @@
+{
+  "version": 2.1,
+  "figmaId": "eRXU9ZlV1m2zLJdEUJIOvF",
+  "name": "Login Form",
+  "description": "",
+  "screenSize": {
+    "w": 375,
+    "h": 667
+  },
+  "type": "smartphone",
+  "screens": {
+    "s10000": {
+      "id": "s10000",
+      "figmaId": "1:2",
+      "name": "iPhone 8 - 1",
+      "type": "Screen",
+      "x": -188,
+      "y": -334,
+      "w": 375,
+      "h": 667,
+      "props": {},
+      "children": [
+        "w10001",
+        "w10002",
+        "w10003",
+        "w10004",
+        "w10005",
+        "w10006",
+        "w10007",
+        "w10008",
+        "w10009",
+        "w10010",
+        "w10011",
+        "w10012",
+        "w10013",
+        "w10014",
+        "w10015",
+        "w10016"
+      ],
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "backgroundColor": "rgba(239, 239, 239, 1)"
+      }
+    },
+    "s10017": {
+      "id": "s10017",
+      "figmaId": "10:23",
+      "name": "iPhone 8 - 2",
+      "type": "Screen",
+      "x": 227,
+      "y": -334,
+      "w": 375,
+      "h": 667,
+      "props": {},
+      "children": [
+        "w10018",
+        "w10019",
+        "w10020",
+        "w10021"
+      ],
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "backgroundColor": "rgba(239, 239, 239, 1)"
+      }
+    }
+  },
+  "widgets": {
+    "w10001": {
+      "id": "w10001",
+      "figmaId": "1:3",
+      "name": "InputEmail",
+      "type": "Button",
+      "figmaType": "RECTANGLE",
+      "x": -144,
+      "y": -216,
+      "w": 288,
+      "h": 32,
+      "z": 2,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "backgroundColor": "rgba(249, 249, 249, 1)",
+        "borderBottomLeftRadius": 5,
+        "borderTopLeftRadius": 5,
+        "borderBottomRightRadius": 5,
+        "borderTopRightRadius": 5,
+        "borderBottomColor": "rgba(0, 0, 0, 1)",
+        "borderTopColor": "rgba(0, 0, 0, 1)",
+        "borderLeftColor": "rgba(0, 0, 0, 1)",
+        "borderRightColor": "rgba(0, 0, 0, 1)",
+        "borderBottomWidth": 1,
+        "borderTopWidth": 1,
+        "borderLeftWidth": 1,
+        "borderRightWidth": 1
+      },
+      "props": {},
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10002": {
+      "id": "w10002",
+      "figmaId": "1:4",
+      "name": "Email",
+      "type": "Label",
+      "figmaType": "TEXT",
+      "x": -144,
+      "y": -257,
+      "w": 60,
+      "h": 28,
+      "z": 3,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "color": "rgba(0, 0, 0, 1)",
+        "fontSize": 24,
+        "fontWeight": 400,
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Email"
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10003": {
+      "id": "w10003",
+      "figmaId": "3:2",
+      "name": "InputName",
+      "type": "Button",
+      "figmaType": "RECTANGLE",
+      "x": -144,
+      "y": -110,
+      "w": 288,
+      "h": 32,
+      "z": 4,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "backgroundColor": "rgba(249, 249, 249, 1)",
+        "borderBottomLeftRadius": 5,
+        "borderTopLeftRadius": 5,
+        "borderBottomRightRadius": 5,
+        "borderTopRightRadius": 5,
+        "borderBottomColor": "rgba(0, 0, 0, 1)",
+        "borderTopColor": "rgba(0, 0, 0, 1)",
+        "borderLeftColor": "rgba(0, 0, 0, 1)",
+        "borderRightColor": "rgba(0, 0, 0, 1)",
+        "borderBottomWidth": 1,
+        "borderTopWidth": 1,
+        "borderLeftWidth": 1,
+        "borderRightWidth": 1
+      },
+      "props": {},
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10004": {
+      "id": "w10004",
+      "figmaId": "3:3",
+      "name": "Password",
+      "type": "Label",
+      "figmaType": "TEXT",
+      "x": -144,
+      "y": -151,
+      "w": 106,
+      "h": 28,
+      "z": 5,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "color": "rgba(0, 0, 0, 1)",
+        "fontSize": 24,
+        "fontWeight": 400,
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Password"
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10005": {
+      "id": "w10005",
+      "figmaId": "3:4",
+      "name": "LoginBtn",
+      "type": "Button",
+      "figmaType": "RECTANGLE",
+      "x": -144,
+      "y": -57,
+      "w": 288,
+      "h": 41,
+      "z": 6,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "backgroundColor": "rgba(79, 120, 225, 1)",
+        "borderBottomLeftRadius": 6,
+        "borderTopLeftRadius": 6,
+        "borderBottomRightRadius": 6,
+        "borderTopRightRadius": 6
+      },
+      "props": {},
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10006": {
+      "id": "w10006",
+      "figmaId": "3:5",
+      "name": "LoginLabel",
+      "type": "Label",
+      "figmaType": "TEXT",
+      "x": -36,
+      "y": -50,
+      "w": 71,
+      "h": 28,
+      "z": 7,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 24,
+        "fontWeight": 400,
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Login"
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10007": {
+      "id": "w10007",
+      "figmaId": "3:6",
+      "name": "Vector 1",
+      "type": "Vector",
+      "figmaType": "VECTOR",
+      "x": -144,
+      "y": 30,
+      "w": 242,
+      "h": 55,
+      "z": 8,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "backgroundImage": {
+          "url": "w10007.png"
+        }
+      },
+      "props": {
+        "paths": [
+          {
+            "path": "M58 0L58.368 -0.338528L58.0243 -0.712092L57.656 -0.362812L58 0ZM104 50L103.632 50.3385L104.252 51.0129L104.484 50.1262L104 50ZM159 55L158.505 55.0676L158.609 55.8323L159.264 55.4245L159 55ZM204 27L204.264 27.4245L204.387 27.3478L204.451 27.2169L204 27ZM217 0L217.135 -0.481482L216.731 -0.59447L216.549 -0.216908L217 0ZM0.344046 55.3628L58.344 0.362812L57.656 -0.362812L-0.344046 54.6372L0.344046 55.3628ZM57.632 0.338528L103.632 50.3385L104.368 49.6615L58.368 -0.338528L57.632 0.338528ZM104.484 50.1262C107.48 38.6404 112.816 22.7457 119.078 12.3327C120.642 9.73271 122.256 7.48788 123.896 5.74277C125.538 3.99456 127.185 2.772 128.809 2.17906C130.416 1.59228 132.017 1.61536 133.622 2.38343C135.244 3.15977 136.91 4.71678 138.582 7.27362L139.418 6.72638C137.69 4.08322 135.9 2.36523 134.053 1.48142C132.189 0.58933 130.309 0.567101 128.466 1.23969C126.64 1.90612 124.868 3.24763 123.167 5.05801C121.463 6.8715 119.808 9.17979 118.222 11.8173C111.884 22.3543 106.52 38.3596 103.516 49.8738L104.484 50.1262ZM138.582 7.27362C152.141 28.012 157.515 47.8083 158.505 55.0676L159.495 54.9324C158.485 47.525 153.059 27.588 139.418 6.72638L138.582 7.27362ZM159.264 55.4245L204.264 27.4245L203.736 26.5755L158.736 54.5755L159.264 55.4245ZM204.451 27.2169L217.451 0.216908L216.549 -0.216908L203.549 26.7831L204.451 27.2169ZM216.865 0.481482L241.865 7.48148L242.135 6.51852L217.135 -0.481482L216.865 0.481482Z",
+            "windingRule": "NONZERO"
+          }
+        ],
+        "relativeTransform": [
+          [
+            1,
+            0,
+            44
+          ],
+          [
+            0,
+            1,
+            364
+          ]
+        ],
+        "isVector": true,
+        "resize": {
+          "fixedHorizontal": false,
+          "fixedVertical": false,
+          "left": false,
+          "right": false,
+          "up": false,
+          "down": false
+        },
+        "figmaImage": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/c310/70c9/c39ce971b8cb5324a64dcf205feda1fd"
+      },
+      "has": {}
+    },
+    "w10008": {
+      "id": "w10008",
+      "figmaId": "6:2",
+      "name": "FaceCreamMan 1",
+      "type": "Vector",
+      "figmaType": "RECTANGLE",
+      "x": -143,
+      "y": 129,
+      "w": 75,
+      "h": 70,
+      "z": 9,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "backgroundImage": {
+          "url": "w10008.png"
+        }
+      },
+      "props": {
+        "paths": [],
+        "relativeTransform": [
+          [
+            1,
+            0,
+            45
+          ],
+          [
+            0,
+            1,
+            463
+          ]
+        ],
+        "isVector": true,
+        "resize": {
+          "fixedHorizontal": false,
+          "fixedVertical": false,
+          "left": false,
+          "right": false,
+          "up": false,
+          "down": false
+        },
+        "figmaImage": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/46f0/b8a8/8461def87d0e15b3151aa22999457bf7"
+      },
+      "has": {}
+    },
+    "w10009": {
+      "id": "w10009",
+      "figmaId": "I9:12;9:9;9:6",
+      "name": "🎨 Background",
+      "type": "Button",
+      "figmaType": "RECTANGLE",
+      "x": -143,
+      "y": 251,
+      "w": 288,
+      "h": 36,
+      "z": 10,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "backgroundColor": "rgba(0, 214, 143, 1)",
+        "borderBottomLeftRadius": 4,
+        "borderTopLeftRadius": 4,
+        "borderBottomRightRadius": 4,
+        "borderTopRightRadius": 4
+      },
+      "props": {},
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10010": {
+      "id": "w10010",
+      "figmaId": "I9:12;9:5",
+      "name": "↪︎🖋Content",
+      "type": "Label",
+      "figmaType": "TEXT",
+      "x": -131,
+      "y": 263,
+      "w": 264,
+      "h": 12,
+      "z": 11,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 10,
+        "fontWeight": 700,
+        "lineHeight": 1.0240000152587891,
+        "letterSpacing": 0,
+        "textAlign": "center",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "BUTTON"
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10011": {
+      "id": "w10011",
+      "figmaId": "I9:25;9:22",
+      "name": "🎨 Color",
+      "type": "Button",
+      "figmaType": "RECTANGLE",
+      "x": -37,
+      "y": 181,
+      "w": 18,
+      "h": 18,
+      "z": 12,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "backgroundColor": "rgba(51, 102, 255, 1)",
+        "borderBottomLeftRadius": 3,
+        "borderTopLeftRadius": 3,
+        "borderBottomRightRadius": 3,
+        "borderTopRightRadius": 3
+      },
+      "props": {},
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10012": {
+      "id": "w10012",
+      "figmaId": "I9:25;9:20;9:18",
+      "name": "🎨 Icon Color",
+      "type": "Vector",
+      "figmaType": "VECTOR",
+      "x": -32,
+      "y": 187,
+      "w": 8,
+      "h": 7,
+      "z": 13,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "backgroundImage": {
+          "url": "w10012.png"
+        }
+      },
+      "props": {
+        "paths": [],
+        "relativeTransform": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            1
+          ]
+        ],
+        "isVector": true,
+        "resize": {
+          "fixedHorizontal": false,
+          "fixedVertical": false,
+          "left": false,
+          "right": false,
+          "up": false,
+          "down": false
+        },
+        "figmaImage": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/3498/f5ed/b119c77833dd13399304d6aa5f676532"
+      },
+      "has": {}
+    },
+    "w10013": {
+      "id": "w10013",
+      "figmaId": "I9:54;9:43;9:36",
+      "name": "🎨 Background",
+      "type": "Button",
+      "figmaType": "RECTANGLE",
+      "x": -188,
+      "y": -335,
+      "w": 375,
+      "h": 57,
+      "z": 14,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "backgroundColor": "rgba(255, 255, 255, 1)"
+      },
+      "props": {},
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10014": {
+      "id": "w10014",
+      "figmaId": "I9:54;9:45;9:38",
+      "name": "🎨 Divider Color",
+      "type": "Button",
+      "figmaType": "RECTANGLE",
+      "x": -188,
+      "y": -279,
+      "w": 375,
+      "h": 1,
+      "z": 15,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "backgroundColor": "rgba(237, 241, 247, 1)"
+      },
+      "props": {},
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10015": {
+      "id": "w10015",
+      "figmaId": "I9:54;9:34;9:37;9:42",
+      "name": "Icon",
+      "type": "Vector",
+      "figmaType": "VECTOR",
+      "x": 153,
+      "y": -310.954345703125,
+      "w": 16,
+      "h": 13.999909400939941,
+      "z": 16,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "backgroundColor": "rgba(197, 206, 224, 1)",
+        "backgroundImage": {
+          "url": "w10015.png"
+        }
+      },
+      "props": {
+        "paths": [],
+        "relativeTransform": [
+          [
+            1,
+            0,
+            4
+          ],
+          [
+            0,
+            1,
+            5
+          ]
+        ],
+        "isVector": true,
+        "resize": {
+          "fixedHorizontal": false,
+          "fixedVertical": false,
+          "left": false,
+          "right": false,
+          "up": false,
+          "down": false
+        },
+        "figmaImage": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/45c2/c0ba/94a8f00c6ea87d212f580cf5f9b3117f"
+      },
+      "has": {}
+    },
+    "w10016": {
+      "id": "w10016",
+      "figmaId": "I9:54;9:47",
+      "name": "↪︎Content",
+      "type": "Label",
+      "figmaType": "TEXT",
+      "x": -172,
+      "y": -318,
+      "w": 259,
+      "h": 24,
+      "z": 17,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "color": "rgba(34, 43, 69, 1)",
+        "fontSize": 15,
+        "fontWeight": 400,
+        "lineHeight": 1.365333251953125,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Place your text here"
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10018": {
+      "id": "w10018",
+      "figmaId": "I10:34;9:43;9:36",
+      "name": "🎨 Background",
+      "type": "Button",
+      "figmaType": "RECTANGLE",
+      "x": 227,
+      "y": -335,
+      "w": 375,
+      "h": 57,
+      "z": 18,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "backgroundColor": "rgba(255, 255, 255, 1)"
+      },
+      "props": {},
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10019": {
+      "id": "w10019",
+      "figmaId": "I10:34;9:45;9:38",
+      "name": "🎨 Divider Color",
+      "type": "Button",
+      "figmaType": "RECTANGLE",
+      "x": 227,
+      "y": -279,
+      "w": 375,
+      "h": 1,
+      "z": 19,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "backgroundColor": "rgba(237, 241, 247, 1)"
+      },
+      "props": {},
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10020": {
+      "id": "w10020",
+      "figmaId": "I10:34;9:34;9:37;9:42",
+      "name": "Icon",
+      "type": "Vector",
+      "figmaType": "VECTOR",
+      "x": 568,
+      "y": -310.954345703125,
+      "w": 16,
+      "h": 13.999909400939941,
+      "z": 20,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "backgroundColor": "rgba(197, 206, 224, 1)",
+        "backgroundImage": {
+          "url": "w10020.png"
+        }
+      },
+      "props": {
+        "paths": [],
+        "relativeTransform": [
+          [
+            1,
+            0,
+            4
+          ],
+          [
+            0,
+            1,
+            5
+          ]
+        ],
+        "isVector": true,
+        "resize": {
+          "fixedHorizontal": false,
+          "fixedVertical": false,
+          "left": false,
+          "right": false,
+          "up": false,
+          "down": false
+        },
+        "figmaImage": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/45c2/c0ba/94a8f00c6ea87d212f580cf5f9b3117f"
+      },
+      "has": {}
+    },
+    "w10021": {
+      "id": "w10021",
+      "figmaId": "I10:34;9:47",
+      "name": "↪︎🖋Content",
+      "type": "Label",
+      "figmaType": "TEXT",
+      "x": 243,
+      "y": -318,
+      "w": 259,
+      "h": 24,
+      "z": 21,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "color": "rgba(34, 43, 69, 1)",
+        "fontSize": 15,
+        "fontWeight": 400,
+        "lineHeight": 1.365333251953125,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Place your text here"
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    }
+  },
+  "lines": {},
+  "lastUUID": 10022,
+  "lastZ": 21,
+  "lastUpdate": 0,
+  "created": 0,
+  "startScreen": "",
+  "grid": {
+    "w": 8,
+    "h": 8,
+    "style": "line",
+    "color": "#cecece",
+    "visible": false,
+    "enabled": false
+  }
+}

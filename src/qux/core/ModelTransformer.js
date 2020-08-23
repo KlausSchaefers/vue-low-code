@@ -55,7 +55,8 @@ export default class ModelTransformer {
             'TextBox', 'Password', 'TextArea', 'Repeater', 'RadioGroup', 'CheckBoxGroup', 'ToggleButton',
             'Switch', 'DropDown', 'MobileDropDown', 'Stepper', 'HSlider', 'Date', 'DateDropDown',
             'SegmentButton', 'Rating', 'IconToggle', 'LabeledIconToggle', 'TypeAheadTextBox', 'Table',
-            'Paging', 'BarChart', 'PieChart', 'MultiRingChart', 'RingChart', 'Vector', 'Timeline', 'Upload'
+            'Paging', 'BarChart', 'PieChart', 'MultiRingChart', 'RingChart', 'Vector', 'Timeline', 'Upload',
+            'ChildrenToggle'
         ]
     }
 
@@ -152,6 +153,17 @@ export default class ModelTransformer {
              */
             screen = this.setFixedChildren(screen, model)
 
+
+            /**
+             * Now we need to layout the shit again, because we have removed the fixed elements.
+             * FIXME: Make the layoutTree method faster taht it also works with the fixedChildren
+             */
+            if (screen.fixedChildren&& screen.fixedChildren.length > 0) {
+                Logger.log(1, 'ModelTransformer.transformToNested() > fixed elements require double layout')
+                screen = this.layoutTree(screen, model)
+            }
+
+
             /**
              * set screen pos to 0,0
              */
@@ -163,7 +175,7 @@ export default class ModelTransformer {
 
             this.setCSSClassNames(screen, screen.name)
 
-            this.attachSingleLabelsInScreen(screen)
+            this.attachSingleLabelsInScreen(screen, this.nodesWithLabelAttachment)
 
             this.setWidgetTypes(screen)
 
@@ -271,6 +283,9 @@ export default class ModelTransformer {
             if (element.type === 'Repeater') {
                 return 'qRepeater'
             }
+            if (element.type === 'ChildrenToggle') {
+                return 'qChildrenToggle'
+            }
             return 'qContainer'
         } else {
             if (this.supportedWidgetTypes.indexOf(element.type) >= 0) {
@@ -350,14 +365,14 @@ export default class ModelTransformer {
             if (parent.isGroup) {
                 /*
                 * If the parent is group, the offet will be 0! So we calculate instead
-                * the didtance between the first and secnd row and first and second column.
+                * the didtance between the first and second row and first and second column.
                 * This is offcourse just guess.
                 */
 
                 let offsetBottom = 10
                 let offSetRight = 10
                 let rows = Util.getElementsAsRows(nodes)
-                if (rows[0] && rows[0].length > 1&& rows[1]) {
+                if (rows[0] && rows[0].length > 1 && rows[1]) {
                     let firstRowChild1 = rows[0][0]
                     let firstRowChild2 = rows[0][1]
                     let secondRowChild2 = rows[1][0]
@@ -629,7 +644,7 @@ export default class ModelTransformer {
 	}
 
     attachSingleLabelsInScreen (screen, allowedTypes = null) {
-        Logger.log(-1, 'ModelTransformer.attachSingleLabelsInScreen()', allowedTypes)
+        Logger.log(3, 'ModelTransformer.attachSingleLabelsInScreen()', allowedTypes)
         screen.children.forEach(child => {
             this.attachSingleLabelsInNodes(child, allowedTypes)
         })
@@ -872,7 +887,6 @@ export default class ModelTransformer {
     addGroupWrapper (screen, model) {
         Logger.log(4, "ModelTransformer.addGroupWrapper() > create ", screen.name)
         let widgets = Util.getOrderedWidgets(this.getWidgets(screen, model));
-        console.debug(screen.name, screen.children)
 
         let createdGroups = {}
         let order = []

@@ -1,9 +1,9 @@
 <template>
   <div :class="['qux-checkgroup', cssClass]">
-		<CheckBox v-for="option in checkBoxOptions" 
-            :key="option.value" 
-            :lbl="option.label" 
-            :value="isChecked(option.value)" 
+		<CheckBox v-for="option in checkBoxOptions"
+            :key="option.value"
+            :lbl="option.label"
+            :value="isChecked(option.value)"
             @change="select(option.value)"/>
   </div>
 </template>
@@ -31,7 +31,6 @@ export default {
   computed: {
        checkBoxOptions () {
           if (this.element) {
-            console.debug('checkBoxOptions', this.options)
             return this.options.map(o => {
                 if (o.toLowerCase) {
                     return {
@@ -56,7 +55,7 @@ export default {
       },
 
       select (option) {
-        
+
         let input = this.dataBindingInput
         if (input) {
             if (Array.isArray(input)) {

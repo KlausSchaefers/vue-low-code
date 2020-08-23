@@ -10,11 +10,31 @@ export default class CSSFactory {
 		this.marginWhiteSpaceCorrect = 0
 		this.gridAutoErrorThreshold = 5
 		this.imagePrefix = imagePrefix
+
+		this.responsive = {
+			mobile: {
+				min: 0,
+				max: 400
+			},
+			tablet: {
+					min: 401,
+					max: 1000
+			},
+			desktop: {
+					min: 1201,
+					max: 1000000
+			}
+		}
+
 		if (config.css) {
 			this.isForceGrid = config.css.grid
 			this.justifyContentInWrapper = config.css.justifyContentInWrapper
 			this.prefix = config.css.prefix ? config.css.prefix : ''
 			this.gridAutoErrorThreshold = config.css.gridAutoErrorThreshold ? config.css.gridAutoErrorThreshold : 5
+		}
+
+		if (config.responsive) {
+			this.responsive = config.responsive
 		}
 
 		this.mapping = {
@@ -154,6 +174,8 @@ export default class CSSFactory {
 		//this.isAlwaysFixedHorizontal = ['Switch', 'Stepper']
 
 		this.widgetFactory = new CSSWidgetFactory(this)
+
+
 	}
 
 	generate(model) {
@@ -332,12 +354,16 @@ export default class CSSFactory {
 			}
 
 			if (Util.isInputElement(widget)) {
-				console.debug('XXXX', widget)
 				result += selector + '::placeholder {\n'
 				result += `  color: ${this.getPlaceHolderColor(style.color)};\n`
 				result += '}\n\n'
 			}
 		}
+
+		/**
+		 * Break points
+		 */
+		result += this.getBreakpoints(selector, widget)
 
 		if (screen && screen.animation && screen.animation.ScreenLoaded) {
 			let animation = screen.animation.ScreenLoaded
@@ -347,6 +373,43 @@ export default class CSSFactory {
 					result += this.getAnimation(widgetAnimation, selector, widget, screen)
 				}
 			}
+		}
+
+		return result
+	}
+
+	getBreakpoints (selector, widget) {
+		let result = ''
+		if (widget.props.breakpoints) {
+			Logger.log(-1, 'CSSFactory.getBreakpoints()', widget.name)
+			const breakpoints = widget.props.breakpoints
+			/**
+			 * Assume at leats one is true
+			 */
+			if (!breakpoints.mobile) {
+				result += `@media only screen and (min-width: ${this.responsive.mobile.min}px) and (max-width: ${this.responsive.mobile.max}px) {\n`
+				result += `  ${selector} {\n`
+				result += '    display: none;\n'
+				result += '  }\n'
+				result += '}\n\n'
+			}
+
+			if (!breakpoints.tablet) {
+				result += `@media only screen and (min-width: ${this.responsive.tablet.min}px) and (max-width: ${this.responsive.tablet.max}px) {\n`
+				result += `  ${selector} {\n`
+				result += '    display: none;\n'
+				result += '  }\n'
+				result += '}\n\n'
+			}
+
+			if (!breakpoints.desktop) {
+				result += `@media only screen and (min-width: ${this.responsive.desktop.min}px) and (max-width: ${this.responsive.desktop.max}px) {\n`
+				result += `  ${selector} {\n`
+				result += '    display: none;\n'
+				result += '  }\n'
+				result += '}\n\n'
+			}
+
 		}
 
 		return result
@@ -643,9 +706,7 @@ export default class CSSFactory {
 		result += `  margin-top: ${this.getPinnedTop(widget)};\n`
 
 
-		if (Util.isLastChild(widget) && !Util.isRepeater(widget.parent)){
-			result += `  margin-bottom: ${this.getPinnedBottom(widget)};\n`
-		}
+
 
 		return result
 	}
@@ -654,8 +715,8 @@ export default class CSSFactory {
 	 * Returns the tracks for the grid. It makes sure the biggest element
 	 * is auto, so the grid is responsive... we could also use minmax()
 	 */
-	getGridColumnTracks (total, list, widget) {
-		Logger.log(6, 'CSSFactory.getGridColumnTracks() > ' + widget.name, list)
+	getGridColumnTracks (total, list) {
+		Logger.log(6, 'CSSFactory.getGridColumnTracks() > ', list)
 		if (list) {
 			/**
 			 * FIXME: we could get the max not fixed. Still we would
@@ -667,10 +728,11 @@ export default class CSSFactory {
 				/**
 				 * We might want several autos. This is very sensitive
 				 * to small changes in the editor. Therefore we give a
-				 * small error margin.
+				 * small error margin. Use minmax to prevent blowout
+				 * https://css-tricks.com/preventing-a-grid-blowout/
 				 */
 				if (Math.abs(max - i.l) <= this.gridAutoErrorThreshold) { // max === i.l
-					return '1fr'
+					return 'minmax(0,1fr)' //'1fr'
 				}
 
 				/**

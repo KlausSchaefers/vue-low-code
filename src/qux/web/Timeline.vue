@@ -39,7 +39,6 @@ export default {
             }
             let option = this.options[input]
             return option === value
-
         }
         if (this.element.props) {
           return this.element.props.selected === value

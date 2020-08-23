@@ -56,7 +56,7 @@ export default {
     },
 
     onClick (element, e, value) {
-        Logger.log(-1, 'QUX.onClick() > enter', element)
+        Logger.log(4, 'QUX.onClick() > enter', element)
         if (Logger.logLevel > 10) {
             Logger.log(10, 'QUX.onClick()', e.target)
         }
@@ -199,7 +199,7 @@ export default {
     },
 
     onChange (element, e, value) {
-        Logger.log(-1, 'Qux(Event).onChange() > ', value)
+        Logger.log(1, 'Qux(Event).onChange() > ', value)
         this.$emit('qChange', element, e)
         this.dispatchCallback(element, e, 'change', value)
     },

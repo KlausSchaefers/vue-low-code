@@ -177,6 +177,12 @@ export default {
     }
   },
   methods: {
+    stopEvent (e) {
+      if (e) {
+          e.stopPropagation()
+      }
+    },
+
     escapeLabel (lbl) {
       lbl = lbl.replace(/&nbsp;/ig, ' ')
       return lbl
@@ -226,8 +232,9 @@ export default {
       if (this.element && this.element.props && this.element.props.databinding) {
         let path =  this.element.props.databinding[key]
         if (path) {
-          Logger.log(3, '_Base.onValueChange() > change : ' + path, value)
+          Logger.log(4, '_Base.onValueChange() > change : ' + path, value)
           JSONPath.set(this.value, path, value)
+          //Logger.log(-1, '_Base.onValueChange() > exit : ', JSON.stringify(this.value, null, 2))
         }
       }
       /**
@@ -235,6 +242,8 @@ export default {
        */
       this.$emit('qChange', this.element, e, value)
     }
+
+
   }
 }
 </script>

@@ -33,9 +33,8 @@ export default {
       isActive () {
           if (this.element) {
             let input = this.dataBindingInput
-            if (input) {
-                return input === true
-            }
+            Logger.log(1, 'qSwitch.isActive() >' + this.dataBindingInputPath, input)
+            return input === true
           }
           return this.active
       }

@@ -1,6 +1,7 @@
 .qux-textbox{
     border: 1px solid #333;
     transition: all 0.2s;
+    padding: 0px;
 
     &:focus {
         outline: none;
