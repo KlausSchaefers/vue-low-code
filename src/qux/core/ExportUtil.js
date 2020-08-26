@@ -60,7 +60,7 @@ export function canBeChild (child, parent) {
     /**
      * Box likes element can always have children
      */
-    if (this.isContainerElement(parent)) {
+    if (isContainerElement(parent)) {
         return true
     }
     /**
