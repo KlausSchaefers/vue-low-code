@@ -157,7 +157,7 @@ export default {
                 },
                 tablet: {
                     min: 401,
-                    max: 1000
+                    max: 1200
                 },
                 desktop: {
                     min: 1201,
@@ -186,11 +186,7 @@ export default {
                 return screen
             }
         }
-        let screen = this.treeModel.screens.find(screen => screen.props.start === true)
-        if (!screen) {
-            screen = this.treeModel.screens[0]
-        }
-        return screen
+        return this.getDefaultScreen()
       },
       imagePrefix () {
           if (this.hash) {
@@ -306,18 +302,32 @@ export default {
                 this.selectedScreenId = screen.id
                 this.onScreenLoaded(screen)
             } else {
-                this.msg = `404 - No Screen with name ${this.msg}`
                 Logger.warn('QUX.loadScreen() > No screen with name', name)
+                let startScreen = this.getDefaultScreen()
+                if (startScreen) {
+                    this.selectedScreenId = startScreen.id
+                    this.onScreenLoaded(startScreen)
+                } else {
+                    this.msg = `404 - No Screen with name ${this.msg}`
+                }
             }
         } else {
             Logger.warn('QUX.loadScreen() > No Model')
         }
     },
+    getDefaultScreen () {
+        Logger.log(1, 'QUX.getDefaultScreen() > enter')
+        let screen = this.treeModel.screens.find(screen => screen.props.start === true)
+        if (!screen) {
+            screen = this.treeModel.screens[0]
+        }
+        return screen
+    },
     setStartScreen () {
         this.selectedScreenId = null
     },
     setScreenByRouter () {
-        Logger.log(5, 'QUX.setScreenByRoute() > entre ', this.$route)
+        Logger.log(5, 'QUX.setScreenByRoute() > enter ', this.$route)
         let key = 'screenName'
         if (this.config && this.config.router && this.config.router.key) {
             key = this.config.router.key
@@ -327,6 +337,7 @@ export default {
             Logger.log(-1, 'QUX.setScreenByRoute() > exit ', screenName, `(${key})`)
             this.loadScreen(screenName)
         } else {
+            Logger.log(-1, 'QUX.setScreenByRoute() > exit > set start')
             this.setStartScreen()
         }
     },
