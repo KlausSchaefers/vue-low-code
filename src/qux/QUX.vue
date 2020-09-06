@@ -324,7 +324,14 @@ export default {
         return screen
     },
     setStartScreen () {
-        this.selectedScreenId = null
+        Logger.log(5, 'QUX.setStartScreen() > enter ')
+        let startScreen = this.getDefaultScreen()
+        if (startScreen) {
+            this.selectedScreenId = startScreen.id
+            this.onScreenLoaded(startScreen)
+        } else {
+            this.selectedScreenId = null
+        }
     },
     setScreenByRouter () {
         Logger.log(5, 'QUX.setScreenByRoute() > enter ', this.$route)
