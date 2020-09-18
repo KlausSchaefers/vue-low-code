@@ -1,5 +1,5 @@
-# QUX-LowCode
-Quant-UX (http://www.quant-ux.com) is an OpenSource UX tool for the design and test of user interfaces. The QUX-LowCode package
+# Vue-Low-Code
+Quant-UX (http://www.quant-ux.com) is an OpenSource UX tool for the design and test of user interfaces. The Vue-Low-Code package
 provides a new approach to the hand-off problem (See details below). The core of the solution is the QUX component,
 which renders the visual design and allows the developers to focus on business logic, without restricting the developers' freedom. The component enables:
 
