@@ -83,6 +83,8 @@ import Chart from './web/Chart.vue'
 import Vector from './web/Vector.vue'
 import Timeline from './web/Timeline.vue'
 import Upload from './web/Upload.vue'
+import Camera from './web/Camera.vue'
+import UploadPreview from './web/UploadPreview.vue'
 import ChildrenToggle from './web/ChildrenToggle.vue'
 
 import Logic from './mixins/Logic.vue'
@@ -417,7 +419,9 @@ export default {
         Vue.component('qVector', Vector)
         Vue.component('qTimeline', Timeline)
         Vue.component('qUpload', Upload)
+        Vue.component('qCamera', Camera)
         Vue.component('qChildrenToggle', ChildrenToggle)
+        Vue.component('qUploadPreview', UploadPreview)
     },
     initViewModel () {
         Logger.log(5, 'QUX.initViewModel > enter')

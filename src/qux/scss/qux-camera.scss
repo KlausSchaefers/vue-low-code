@@ -1,0 +1,21 @@
+.qux-camera{
+  cursor: pointer;
+  transition: all 0.2s;
+  border:1px solid red;
+  position: relative;
+
+  .qux-camera-icon {
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+  }
+
+  input {
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+}

@@ -11,6 +11,8 @@ import VectorCSS from './VectorCSS'
 import TimelineCSS from './TimelineCSS'
 import SegmentCSS from './SegmentCSS'
 import UploadCSS from './UploadCSS'
+import CameraCSS from './CameraCSS'
+import UploadPreviewCSS from './UploadPreviewCSS'
 
 export default class CSSWidgetFactory {
 
@@ -27,8 +29,20 @@ export default class CSSWidgetFactory {
       'Vector': new VectorCSS(cssFactory),
       'Timeline': new TimelineCSS(cssFactory),
       'Segment': new SegmentCSS(cssFactory),
-      'Upload': new UploadCSS(cssFactory)
+      'Upload': new UploadCSS(cssFactory),
+      'Camera': new CameraCSS(cssFactory),
+      'UploadPreview': new UploadPreviewCSS(cssFactory)
     }
+  }
+
+  getCSS_UploadPreview(selector, style, widget) {
+    Logger.log(5, 'getCSS_UploadPreview', widget)
+    return this.factories.UploadPreview.run(selector, style, widget)
+  }
+
+  getCSS_Camera (selector, style, widget) {
+    Logger.log(5, 'getCSS_Camera', widget)
+    return this.factories.Camera.run(selector, style, widget)
   }
 
   getCSS_Upload (selector, style, widget) {

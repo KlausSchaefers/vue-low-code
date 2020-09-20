@@ -223,7 +223,7 @@ export default class FigmaService {
     if (fScreen.children) {
       fScreen.children.forEach(child => {
         child._parent = fScreen
-        this.parseElement(child, qScreen, fScreen, model, fModel)
+        this.parseElement(child, qScreen, fScreen, model, fModel, qScreen.id)
       })
     }
 
@@ -238,7 +238,7 @@ export default class FigmaService {
     return qScreen
   }
 
-  parseElement (element, qScreen, fScreen, model, fModel) {
+  parseElement (element, qScreen, fScreen, model, fModel, qParentId) {
     Logger.log(5, 'FigmaService.parseElement() > enter: ' + element.name, element.type)
 
     let widget = null
@@ -246,6 +246,7 @@ export default class FigmaService {
       let pos = this.getPosition(element)
       widget = {
         id: 'w' + this.getUUID(model),
+        parentId: qParentId,
         figmaId: element.id,
         name: this.getFigmaName(element),
         type: this.getType(element),
@@ -265,6 +266,10 @@ export default class FigmaService {
       model.widgets[widget.id] = widget
       qScreen.children.push(widget.id)
 
+      /**
+       * Update the parent id, so we can have the correct hierachy
+       */
+      qParentId = widget.id
     } else {
       Logger.log(4, 'FigmaService.parseElement() >Ignore: ' + element.name, element.type)
       /**
@@ -284,7 +289,7 @@ export default class FigmaService {
           if (child.visible !== false) {
             child._parent = element
             Logger.log(3, 'FigmaService.parseElement() > go recursive', element)
-            this.parseElement(child, qScreen, fScreen, model, fModel)
+            this.parseElement(child, qScreen, fScreen, model, fModel, qParentId)
           }
         })
       } else {

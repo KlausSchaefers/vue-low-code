@@ -56,7 +56,7 @@ export default class ModelTransformer {
             'Switch', 'DropDown', 'MobileDropDown', 'Stepper', 'HSlider', 'Date', 'DateDropDown',
             'SegmentButton', 'Rating', 'IconToggle', 'LabeledIconToggle', 'TypeAheadTextBox', 'Table',
             'Paging', 'BarChart', 'PieChart', 'MultiRingChart', 'RingChart', 'Vector', 'Timeline', 'Upload',
-            'ChildrenToggle'
+            'ChildrenToggle', 'Camera', 'UploadPreview'
         ]
     }
 
@@ -131,12 +131,6 @@ export default class ModelTransformer {
         Logger.log(3, 'ModelTranformer.transformToNested () > enter')
         for (let screenID in model.screens){
             let screen = model.screens[screenID]
-
-
-            /**
-             * FIXME: For figma we could have here already children and we could skip this step
-             */
-
 
             /**
              * First we build a hierachical parent child relation.
@@ -993,25 +987,6 @@ export default class ModelTransformer {
         let widgets = Util.getOrderedWidgets(this.getWidgets(screen, model));
 
         /**
-         * FIXME: also build tree for fixed children. This is currently very
-         * ugly because we just produce and fixed layout.
-         *
-         * It would be bette to build one fixed container, and use the normal aligment
-         * in it, to have responsove ness and so.
-         *
-         * 1) Make tow lists for fixed and not fixed
-         * 2) Run the same code, but add different result lists.
-         *    So fixed elements get just nested in fixed ones. Would be somehow nice,
-         *    of this would somehow be natural?
-         * 3) Pin the fixed elements to the bottom
-         * 4) Add all is elements
-         *
-         * For now it shall be ok, as we expect simple navbars and such...
-         *
-         */
-
-
-        /**
          *  now build child parent relations
          */
         let parentWidgets = []
@@ -1033,7 +1008,7 @@ export default class ModelTransformer {
              * If so, calculate the relative position to the parent,
              * otherwise but the element under the screen.
              */
-            let parentWidget = this.getParentWidget(parentWidgets, element)
+            let parentWidget = this.getParentWidget(parentWidgets, element, model)
 
             if (parentWidget && Util.canBeChild(element, parentWidget)) { //  was Util.canHaveChildren(parentWidget)
                 element.x = widget.x - parentWidget.x
@@ -1207,10 +1182,30 @@ export default class ModelTransformer {
         }
     }
 
-    getParentWidget (potentialParents, element){
-        for (let p=0;p< potentialParents.length; p++){
+    /**
+     * This method will try to find the parent widget. By default,
+     * the parent child relation ship is defined as the visual hierachy. This must be done, to
+     * get nice nested HTML also from drawing style.
+     *
+     * Figma, however, might have overflows. Thus we check, if there is no visual parent,
+     * also the parentID.
+     */
+    getParentWidget (potentialParents, element, model) {
+        /**
+         * First see if the widget is nested in a widget that was rendered before
+         */
+        for (let p = 0; p < potentialParents.length; p++){
             let parent = potentialParents[p];
             if (Util.isContainedInBox(element, parent)){
+                return parent
+            }
+        }
+        /**
+         * If not, check of the parent was defined otherwise, e.g. figma.
+         */
+        if (element.parentId) {
+            let parent = model.widgets[element.parentId]
+            if (parent) {
                 return parent
             }
         }
