@@ -311,7 +311,7 @@ export default class CSSWidgetFactory {
     result += '}\n\n'
 
     const borderWidthButton = style.borderWidthButton ? style.borderWidthButton : 0
-    const borderColorButton = style.borderWidthborderColorButtonutton ? style.borderColorButton : 'rbga(0,0,0,0)'
+    const borderColorButton = style.borderColorButton ? style.borderColorButton : 'rgba(0,0,0,0)'
     result += selector + ' .qux-switch-handle {\n'
     result += `  background:${style.colorButton};\n`
     result += `  border-radius:${style.borderRadius};\n`
