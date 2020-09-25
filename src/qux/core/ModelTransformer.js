@@ -906,7 +906,7 @@ export default class ModelTransformer {
          * Create new group container only if needed
          */
         if (!createdGroups[group.id]) {
-            Logger.log(-1, "ModelTransformer.createGroupCntr() > create ", group.name)
+            Logger.log(2, "ModelTransformer.createGroupCntr() > create ", group.name)
 
             /**
              * 1) check if we need to create parent group. If so we go up hierachy
@@ -926,6 +926,7 @@ export default class ModelTransformer {
             let groupCntr = {
                 id: `gc${group.id}`,
                 name: group.name,
+                groupId: group.id,
                 isGroup: true,
                 type: 'Box',
                 x: boundingBox.x,

@@ -107,6 +107,7 @@ export default {
     },
 
     async dispatchCallback (element, e, type, value) {
+        Logger.log(4, 'QUX.dispatchCallback() > enter > ' + type, element,)
          if (element.props && element.props.callbacks) {
             let callback = element.props.callbacks[type]
             if (callback) {

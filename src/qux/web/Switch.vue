@@ -40,10 +40,11 @@ export default {
       }
   },
   methods: {
-      toggle () {
+      toggle (e) {
         if (this.element) {
           let value = !this.isActive
           this.onValueChange(value, 'default')
+          this.onClick(e)
           Logger.log(5, 'qSwitch.toggle() >' + this.dataBindingInputPath, value)
         } else {
           this.active = !this.active
@@ -51,7 +52,6 @@ export default {
           this.$emit('input', this.active)
           Logger.log(5, 'qSwitch.toggle() >' + this.active)
         }
-
       }
   },
   watch: {

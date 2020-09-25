@@ -365,12 +365,23 @@ export default class CSSFactory {
 		 */
 		result += this.getBreakpoints(selector, widget)
 
+		/**
+		 * Animation
+		 */
 		if (screen && screen.animation && screen.animation.ScreenLoaded) {
 			let animation = screen.animation.ScreenLoaded
+
 			if (widget.id in animation.widgets) {
 				let widgetAnimation = animation.widgets[widget.id]
 				if (widgetAnimation) {
 					result += this.getAnimation(widgetAnimation, selector, widget, screen)
+				}
+			}
+
+			if (widget.isGroup && widget.groupId in animation.groups) {
+				let groupAnimation = animation.groups[widget.groupId]
+				if (groupAnimation) {
+					result += this.getAnimation(groupAnimation, selector, widget, screen)
 				}
 			}
 		}
@@ -418,7 +429,8 @@ export default class CSSFactory {
 	getAnimation (animation, selector, widget) {
 		let result = ''
 
-		let delay = Math.round((animation.delay / (animation.delay + animation.duration)) * 100)
+		let total = animation.delay + animation.duration
+		let delay = Math.round((animation.delay / (total)) * 100)
 		let animId = `${widget.id}-anim-load`
 		let easing = animation.easing ? this.getEasing(animation.easing) : 'linear'
 
@@ -432,10 +444,12 @@ export default class CSSFactory {
 
 			result += selector + ' {\n'
 			result += `  animation-name:${animId};\n`
-			result += `  animation-duration:${animation.duration}ms;\n`
+			result += `  animation-duration:${total}ms;\n`
 			result += `  animation-timing-function:${easing};\n`
 			result += '}\n\n'
 		}
+
+		console.debug('Anim', result)
 
 		return result
 	}
