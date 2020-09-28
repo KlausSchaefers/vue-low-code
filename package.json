@@ -1,6 +1,6 @@
 {
   "name": "vue-low-code",
-  "version": "0.4.27",
+  "version": "0.4.30",
   "description": "Vue Low Code - VUE Renderer for visual designs. Turn your Figma or Quant-UX design into VUE.",
   "main": "./dist/index.js",
   "scripts": {
@@ -21,9 +21,9 @@
   "author": "Klaus Schaefers",
   "license": "BSD-2-Clause",
   "bugs": {
-    "url": "https://github.com/KlausSchaefers/qux-low-code/issues"
+    "url": "https://github.com/KlausSchaefers/vue-low-code/issues"
   },
-  "homepage": "https://github.com/KlausSchaefers/qux-low-code#readme",
+  "homepage": "https://github.com/KlausSchaefers/vue-low-code#readme",
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.6",
     "@vue/cli-plugin-eslint": "^4.5.6",

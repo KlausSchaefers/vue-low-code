@@ -435,21 +435,113 @@ export default class CSSFactory {
 		let easing = animation.easing ? this.getEasing(animation.easing) : 'linear'
 
 		if (animation.type === 'fadeIn') {
-
 			result +=  `@keyframes ${animId}{\n`
 			result += '  0% { opacity:0; }\n'
-			result += `  ${delay}% {opacity: 0;}\n`
-			result += `  100% {opacity: 1;}\n`
-			result += '}\n\n'
-
-			result += selector + ' {\n'
-			result += `  animation-name:${animId};\n`
-			result += `  animation-duration:${total}ms;\n`
-			result += `  animation-timing-function:${easing};\n`
+			result += `  ${delay}% { opacity: 0;}\n`
+			result += `  100% { opacity: 1;}\n`
 			result += '}\n\n'
 		}
 
-		console.debug('Anim', result)
+		if (animation.type === 'fadeOut') {
+			result +=  `@keyframes ${animId}{\n`
+			result += '  0% { opacity:1; }\n'
+			result += `  ${delay}% { opacity: 1;}\n`
+			result += `  100% { opacity: 0;}\n`
+			result += '}\n\n'
+		}
+
+		if (animation.type === 'zoomIn') {
+			result +=  `@keyframes ${animId}{\n`
+			result += '  0% { transform:scale(0, 0); transform-origin: 50% 50%;}\n'
+			result += `  ${delay}% { transform:scale(0, 0); transform-origin: 50% 50%;}\n`
+			result += `  100% { transform:scale(1, 1); transform-origin: 50% 50%;}\n`
+			result += '}\n\n'
+		}
+
+		if (animation.type === 'fadeOut') {
+			result +=  `@keyframes ${animId}{\n`
+			result += '  0% { opacity:1; }\n'
+			result += `  ${delay}% {opacity: 1;}\n`
+			result += `  100% {opacity: 0;}\n`
+			result += '}\n\n'
+		}
+
+		if (animation.type === 'growRight') {
+			result +=  `@keyframes ${animId}{\n`
+			result += '  0% { transform:scale(0, 1); transform-origin: top left;}\n'
+			result += `  ${delay}% { transform:scale(0, 1); transform-origin: top left;}\n`
+			result += `  100% { transform:scale(1, 1); transform-origin: top left;}\n`
+			result += '}\n\n'
+		}
+
+		if (animation.type === 'growLeft') {
+			result +=  `@keyframes ${animId}{\n`
+			result += '  0% { transform:scale(0, 1); transform-origin: top right;}\n'
+			result += `  ${delay}% {transform:scale(0, 1); transform-origin: top right;}\n`
+			result += `  100% { transform:scale(1, 1); transform-origin: top right;}\n`
+			result += '}\n\n'
+		}
+
+		if (animation.type === 'growUp') {
+			result +=  `@keyframes ${animId}{\n`
+			result += '  0% { transform:scale(1, 0); transform-origin: bottom right;}\n'
+			result += `  ${delay}% {transform:scale(1, 0); transform-origin: bottom right;}\n`
+			result += `  100% { transform:scale(1, 1); transform-origin: bottom right;}\n`
+			result += '}\n\n'
+		}
+
+		if (animation.type === 'growDown') {
+			result +=  `@keyframes ${animId}{\n`
+			result += '  0% { transform:scale(1, 0); transform-origin: top right;}\n'
+			result += `  ${delay}% {transform:scale(1, 0); transform-origin: top right;}\n`
+			result += `  100% { transform:scale(1, 1); transform-origin: top right;}\n`
+			result += '}\n\n'
+		}
+
+
+		/**
+		 * Use calc(100vh) and so?
+		 */
+		if (animation.type === 'slideRight') {
+			result +=  `@keyframes ${animId}{\n`
+			result += '  0% { transform: translateX(-1000px) }\n'
+			result += `  ${delay}% { transform: translateX(-1000px); }\n`
+			result += `  100% { transform:translateX(0); }\n`
+			result += '}\n\n'
+		}
+
+		if (animation.type === 'slideLeft') {
+			result +=  `@keyframes ${animId}{\n`
+			result += '  0% { transform: translateX(1000px) }\n'
+			result += `  ${delay}% { transform: translateX(1000px); }\n`
+			result += `  100% {transform:translateX(0); }\n`
+			result += '}\n\n'
+		}
+
+		if (animation.type === 'slideDown') {
+			result +=  `@keyframes ${animId}{\n`
+			result += '  0% { transform: translateY(-1000px) }\n'
+			result += `  ${delay}% { transform: translateY(-1000px); }\n`
+			result += `  100% {transform:translateY(0); }\n`
+			result += '}\n\n'
+		}
+
+
+		if (animation.type === 'slideUp') {
+			result +=  `@keyframes ${animId}{\n`
+			result += '  0% { transform: translateY(1000px) }\n'
+			result += `  ${delay}% { transform: translateY(1000px); }\n`
+			result += `  100% {transform:translateY(0); }\n`
+			result += '}\n\n'
+		}
+
+
+		result += selector + ' {\n'
+		result += `  animation-fill-mode: forwards;\n`
+		result += `  animation-name:${animId};\n`
+		result += `  animation-duration:${total}ms;\n`
+		result += `  animation-timing-function:${easing};\n`
+		result += '}\n\n'
 
 		return result
 	}
