@@ -1,0 +1,524 @@
+{
+  "document": {
+    "id": "0:0",
+    "name": "Document",
+    "type": "DOCUMENT",
+    "children": [
+      {
+        "id": "0:1",
+        "name": "Page 1",
+        "type": "CANVAS",
+        "children": [
+          {
+            "id": "1:3",
+            "name": "iPhone 8 - 1",
+            "type": "FRAME",
+            "blendMode": "PASS_THROUGH",
+            "children": [
+              {
+                "id": "2:12",
+                "name": "TopDown",
+                "type": "RECTANGLE",
+                "blendMode": "PASS_THROUGH",
+                "absoluteBoundingBox": {
+                  "x": -122.0,
+                  "y": -249.0,
+                  "width": 100.0,
+                  "height": 100.0
+                },
+                "constraints": {
+                  "vertical": "TOP",
+                  "horizontal": "LEFT"
+                },
+                "relativeTransform": [
+                  [
+                    1.0,
+                    0.0,
+                    66.0
+                  ],
+                  [
+                    0.0,
+                    1.0,
+                    85.0
+                  ]
+                ],
+                "size": {
+                  "x": 100.0,
+                  "y": 100.0
+                },
+                "fills": [
+                  {
+                    "blendMode": "NORMAL",
+                    "type": "GRADIENT_LINEAR",
+                    "gradientHandlePositions": [
+                      {
+                        "x": 0.50,
+                        "y": -3.0616171314629196e-17
+                      },
+                      {
+                        "x": 0.50,
+                        "y": 0.99999999999999989
+                      },
+                      {
+                        "x": 0.0,
+                        "y": 0.0
+                      }
+                    ],
+                    "gradientStops": [
+                      {
+                        "color": {
+                          "r": 0.80783343315124512,
+                          "g": 0.33916670083999634,
+                          "b": 0.92500001192092896,
+                          "a": 1.0
+                        },
+                        "position": 0.0
+                      },
+                      {
+                        "color": {
+                          "r": 0.0,
+                          "g": 0.81250,
+                          "b": 0.76375007629394531,
+                          "a": 1.0
+                        },
+                        "position": 1.0
+                      }
+                    ]
+                  }
+                ],
+                "fillGeometry": [
+                  {
+                    "path": "M0 0L100 0L100 100L0 100L0 0Z",
+                    "windingRule": "NONZERO"
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 1.0,
+                "strokeAlign": "INSIDE",
+                "strokeGeometry": [],
+                "effects": []
+              },
+              {
+                "id": "2:15",
+                "name": "DownUp",
+                "type": "RECTANGLE",
+                "blendMode": "PASS_THROUGH",
+                "absoluteBoundingBox": {
+                  "x": 21.0,
+                  "y": -249.0,
+                  "width": 100.0,
+                  "height": 100.0
+                },
+                "constraints": {
+                  "vertical": "TOP",
+                  "horizontal": "LEFT"
+                },
+                "relativeTransform": [
+                  [
+                    1.0,
+                    0.0,
+                    209.0
+                  ],
+                  [
+                    0.0,
+                    1.0,
+                    85.0
+                  ]
+                ],
+                "size": {
+                  "x": 100.0,
+                  "y": 100.0
+                },
+                "fills": [
+                  {
+                    "blendMode": "NORMAL",
+                    "type": "GRADIENT_LINEAR",
+                    "gradientHandlePositions": [
+                      {
+                        "x": 0.49999999987892862,
+                        "y": 0.99999999823979990
+                      },
+                      {
+                        "x": 0.49999999635852843,
+                        "y": -6.1364848313871789e-08
+                      },
+                      {
+                        "x": 1.0000000296812528,
+                        "y": 0.99999999647959981
+                      }
+                    ],
+                    "gradientStops": [
+                      {
+                        "color": {
+                          "r": 0.80783343315124512,
+                          "g": 0.33916670083999634,
+                          "b": 0.92500001192092896,
+                          "a": 1.0
+                        },
+                        "position": 0.0
+                      },
+                      {
+                        "color": {
+                          "r": 0.0,
+                          "g": 0.81250,
+                          "b": 0.76375007629394531,
+                          "a": 1.0
+                        },
+                        "position": 1.0
+                      }
+                    ]
+                  }
+                ],
+                "fillGeometry": [
+                  {
+                    "path": "M0 0L100 0L100 100L0 100L0 0Z",
+                    "windingRule": "NONZERO"
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 1.0,
+                "strokeAlign": "INSIDE",
+                "strokeGeometry": [],
+                "effects": []
+              },
+              {
+                "id": "2:14",
+                "name": "LeftRight",
+                "type": "RECTANGLE",
+                "blendMode": "PASS_THROUGH",
+                "absoluteBoundingBox": {
+                  "x": -122.0,
+                  "y": -114.0,
+                  "width": 100.0,
+                  "height": 100.0
+                },
+                "constraints": {
+                  "vertical": "TOP",
+                  "horizontal": "LEFT"
+                },
+                "relativeTransform": [
+                  [
+                    1.0,
+                    0.0,
+                    66.0
+                  ],
+                  [
+                    0.0,
+                    1.0,
+                    220.0
+                  ]
+                ],
+                "size": {
+                  "x": 100.0,
+                  "y": 100.0
+                },
+                "fills": [
+                  {
+                    "blendMode": "NORMAL",
+                    "type": "GRADIENT_LINEAR",
+                    "gradientHandlePositions": [
+                      {
+                        "x": 0.0,
+                        "y": 0.50
+                      },
+                      {
+                        "x": 1.0,
+                        "y": 0.50
+                      },
+                      {
+                        "x": 0.0,
+                        "y": 1.0
+                      }
+                    ],
+                    "gradientStops": [
+                      {
+                        "color": {
+                          "r": 0.80783343315124512,
+                          "g": 0.33916670083999634,
+                          "b": 0.92500001192092896,
+                          "a": 1.0
+                        },
+                        "position": 0.0
+                      },
+                      {
+                        "color": {
+                          "r": 0.0,
+                          "g": 0.81250,
+                          "b": 0.76375007629394531,
+                          "a": 1.0
+                        },
+                        "position": 1.0
+                      }
+                    ]
+                  }
+                ],
+                "fillGeometry": [
+                  {
+                    "path": "M0 0L100 0L100 100L0 100L0 0Z",
+                    "windingRule": "NONZERO"
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 1.0,
+                "strokeAlign": "INSIDE",
+                "strokeGeometry": [],
+                "effects": []
+              },
+              {
+                "id": "3:0",
+                "name": "Radial",
+                "type": "RECTANGLE",
+                "blendMode": "PASS_THROUGH",
+                "absoluteBoundingBox": {
+                  "x": -122.0,
+                  "y": 21.0,
+                  "width": 243.0,
+                  "height": 218.0
+                },
+                "constraints": {
+                  "vertical": "TOP",
+                  "horizontal": "LEFT"
+                },
+                "relativeTransform": [
+                  [
+                    1.0,
+                    0.0,
+                    66.0
+                  ],
+                  [
+                    0.0,
+                    1.0,
+                    355.0
+                  ]
+                ],
+                "size": {
+                  "x": 243.0,
+                  "y": 218.0
+                },
+                "fills": [
+                  {
+                    "blendMode": "NORMAL",
+                    "type": "GRADIENT_RADIAL",
+                    "gradientHandlePositions": [
+                      {
+                        "x": 0.50,
+                        "y": 0.50
+                      },
+                      {
+                        "x": 1.0,
+                        "y": 0.50
+                      },
+                      {
+                        "x": 0.50,
+                        "y": 1.0
+                      }
+                    ],
+                    "gradientStops": [
+                      {
+                        "color": {
+                          "r": 0.0,
+                          "g": 0.81250,
+                          "b": 0.76375007629394531,
+                          "a": 1.0
+                        },
+                        "position": 0.0
+                      },
+                      {
+                        "color": {
+                          "r": 0.80783343315124512,
+                          "g": 0.33916670083999634,
+                          "b": 0.92500001192092896,
+                          "a": 1.0
+                        },
+                        "position": 1.0
+                      }
+                    ]
+                  }
+                ],
+                "fillGeometry": [
+                  {
+                    "path": "M0 0L243 0L243 218L0 218L0 0Z",
+                    "windingRule": "NONZERO"
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 1.0,
+                "strokeAlign": "INSIDE",
+                "strokeGeometry": [],
+                "effects": []
+              },
+              {
+                "id": "2:16",
+                "name": "RightLeft",
+                "type": "RECTANGLE",
+                "blendMode": "PASS_THROUGH",
+                "absoluteBoundingBox": {
+                  "x": 21.0,
+                  "y": -114.0,
+                  "width": 100.0,
+                  "height": 100.0
+                },
+                "constraints": {
+                  "vertical": "TOP",
+                  "horizontal": "LEFT"
+                },
+                "relativeTransform": [
+                  [
+                    1.0,
+                    0.0,
+                    209.0
+                  ],
+                  [
+                    0.0,
+                    1.0,
+                    220.0
+                  ]
+                ],
+                "size": {
+                  "x": 100.0,
+                  "y": 100.0
+                },
+                "fills": [
+                  {
+                    "blendMode": "NORMAL",
+                    "type": "GRADIENT_LINEAR",
+                    "gradientHandlePositions": [
+                      {
+                        "x": 1.0000000018998985,
+                        "y": 0.49999999620020308
+                      },
+                      {
+                        "x": 1.8998984607776492e-09,
+                        "y": 0.50
+                      },
+                      {
+                        "x": 1.0,
+                        "y": -3.7997969215552985e-09
+                      }
+                    ],
+                    "gradientStops": [
+                      {
+                        "color": {
+                          "r": 0.80783343315124512,
+                          "g": 0.33916670083999634,
+                          "b": 0.92500001192092896,
+                          "a": 1.0
+                        },
+                        "position": 0.0
+                      },
+                      {
+                        "color": {
+                          "r": 0.0,
+                          "g": 0.81250,
+                          "b": 0.76375007629394531,
+                          "a": 1.0
+                        },
+                        "position": 1.0
+                      }
+                    ]
+                  }
+                ],
+                "fillGeometry": [
+                  {
+                    "path": "M0 0L100 0L100 100L0 100L0 0Z",
+                    "windingRule": "NONZERO"
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 1.0,
+                "strokeAlign": "INSIDE",
+                "strokeGeometry": [],
+                "effects": []
+              }
+            ],
+            "absoluteBoundingBox": {
+              "x": -188.0,
+              "y": -334.0,
+              "width": 375.0,
+              "height": 667.0
+            },
+            "constraints": {
+              "vertical": "TOP",
+              "horizontal": "LEFT"
+            },
+            "relativeTransform": [
+              [
+                1.0,
+                0.0,
+                -188.0
+              ],
+              [
+                0.0,
+                1.0,
+                -334.0
+              ]
+            ],
+            "size": {
+              "x": 375.0,
+              "y": 667.0
+            },
+            "clipsContent": true,
+            "background": [
+              {
+                "blendMode": "NORMAL",
+                "type": "SOLID",
+                "color": {
+                  "r": 1.0,
+                  "g": 1.0,
+                  "b": 1.0,
+                  "a": 1.0
+                }
+              }
+            ],
+            "fills": [
+              {
+                "blendMode": "NORMAL",
+                "type": "SOLID",
+                "color": {
+                  "r": 1.0,
+                  "g": 1.0,
+                  "b": 1.0,
+                  "a": 1.0
+                }
+              }
+            ],
+            "strokes": [],
+            "strokeWeight": 1.0,
+            "strokeAlign": "INSIDE",
+            "backgroundColor": {
+              "r": 1.0,
+              "g": 1.0,
+              "b": 1.0,
+              "a": 1.0
+            },
+            "effects": []
+          }
+        ],
+        "backgroundColor": {
+          "r": 0.89803922176361084,
+          "g": 0.89803922176361084,
+          "b": 0.89803922176361084,
+          "a": 1.0
+        },
+        "prototypeStartNodeID": null,
+        "prototypeDevice": {
+          "type": "PRESET",
+          "size": {
+            "width": 375.0,
+            "height": 667.0
+          },
+          "presetIdentifier": "APPLE_IPHONE_8_GOLD",
+          "rotation": "NONE"
+        }
+      }
+    ]
+  },
+  "components": {},
+  "schemaVersion": 0,
+  "styles": {},
+  "name": "Untitled",
+  "lastModified": "2020-10-06T17:52:17.738208Z",
+  "thumbnailUrl": "https://s3-alpha-sig.figma.com/thumbnails/f0dec327-c2c5-40f1-97f7-de0a55770c98?Expires=1603065600&Signature=W-YsGy-q40HOogYHmtM-DBnL9zVQGM6DFQuDxxqbfHSilk8zJOgYzvjTKMc4SFnQZL6i0--MMhxWrNaP2AcKvrCp02~MyR2eKYtYogRC~4alM2eUG2dsH0604MhFwr7PEugiZa1O8TdfAUQCDUl5KJsAKtEFBMXk6p8bGUxRf3GRsuR~ps4QpC8KdxudwnjaHS0W9WTAtP5T~YqmHYh2QLf0r0R5rcr-bhC3sNvjw28HvujZEd4LAaTgfqkSiGXJsTaYjL2LbvMOXumlww14Zp79Jb45T4Qnayr~~27oH7Ht6AvJAjIYR1nqUt8g8sXwf6wUWY09joE-RCdsd8fWjg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
+  "version": "484753796",
+  "role": "owner"
+}

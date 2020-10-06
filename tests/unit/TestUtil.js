@@ -46,3 +46,15 @@ export function findOneElementsByName (e, name, result = []) {
     }
     return result[0]
 }
+
+export function findOneElementsByProp(e, value, prop, result = []) {
+    if (e.children) {
+        e.children.forEach(c => {
+            if (c[prop] === value) {
+                result.push(c)
+            }
+            findOneElementsByProp(c, value, prop, result)
+        })
+    }
+    return result[0]
+}

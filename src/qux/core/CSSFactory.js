@@ -1136,14 +1136,23 @@ export default class CSSFactory {
 
 		if (style.background && style.overlay !== true) {
 			if (style.background.colors) {
-				let background = style.background
-				let gradient = "(" + background.direction + "deg";
-				for (var i = 0; i < background.colors.length; i++) {
-					var color = background.colors[i];
-					gradient += "," + color.c + " " + color.p + "% ";
+				if (style.background.radial) {
+					let background = style.background
+					let gradient = background.colors.map(color => {
+						return color.c + ' ' + color.p + '%'
+					}).join(', ')
+					result += `  background: radial-gradient(circle, ${gradient});\n`
+				} else {
+					let background = style.background
+					let gradient = "(" + background.direction + "deg";
+					for (let i = 0; i < background.colors.length; i++) {
+						let color = background.colors[i];
+						gradient += "," + color.c + " " + color.p + "% ";
+					}
+					gradient += ")";
+					result += `  background: linear-gradient${gradient};\n`
 				}
-				gradient += ")";
-				result += `  background: linear-gradient${gradient};\n`
+
 			} else {
 				result += `  background-color: ${style.background};\n`
 			}

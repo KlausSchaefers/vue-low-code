@@ -1,0 +1,1443 @@
+{
+  "document": {
+    "id": "0:0",
+    "name": "Document",
+    "type": "DOCUMENT",
+    "children": [
+      {
+        "id": "0:1",
+        "name": "Settlement Overview",
+        "type": "CANVAS",
+        "children": [
+          {
+            "id": "2:1",
+            "name": "Desktop - 1",
+            "type": "FRAME",
+            "blendMode": "PASS_THROUGH",
+            "children": [
+              {
+                "id": "45:8",
+                "name": "scroll 1",
+                "type": "RECTANGLE",
+                "blendMode": "PASS_THROUGH",
+                "absoluteBoundingBox": {
+                  "x": -792.0,
+                  "y": -573.0,
+                  "width": 463.0,
+                  "height": 602.0
+                },
+                "preserveRatio": true,
+                "constraints": {
+                  "vertical": "TOP",
+                  "horizontal": "LEFT"
+                },
+                "relativeTransform": [
+                  [
+                    1.0,
+                    0.0,
+                    148.0
+                  ],
+                  [
+                    0.0,
+                    1.0,
+                    18.0
+                  ]
+                ],
+                "size": {
+                  "x": 463.0,
+                  "y": 602.0
+                },
+                "fills": [
+                  {
+                    "blendMode": "NORMAL",
+                    "type": "IMAGE",
+                    "scaleMode": "FILL",
+                    "imageRef": "9158220793958fa7d3e78476f6a2a4be5112351b"
+                  }
+                ],
+                "fillGeometry": [
+                  {
+                    "path": "M0 0L463 0L463 602L0 602L0 0Z",
+                    "windingRule": "NONZERO"
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 1.0,
+                "strokeAlign": "INSIDE",
+                "strokeGeometry": [],
+                "effects": []
+              },
+              {
+                "id": "45:9",
+                "name": "scroll 2",
+                "type": "RECTANGLE",
+                "locked": true,
+                "blendMode": "PASS_THROUGH",
+                "absoluteBoundingBox": {
+                  "x": 71.0,
+                  "y": -573.0,
+                  "width": 581.0,
+                  "height": 756.0
+                },
+                "preserveRatio": true,
+                "constraints": {
+                  "vertical": "TOP",
+                  "horizontal": "LEFT"
+                },
+                "relativeTransform": [
+                  [
+                    1.0,
+                    0.0,
+                    1011.0
+                  ],
+                  [
+                    0.0,
+                    1.0,
+                    18.0
+                  ]
+                ],
+                "size": {
+                  "x": 581.0,
+                  "y": 756.0
+                },
+                "fills": [
+                  {
+                    "blendMode": "NORMAL",
+                    "type": "IMAGE",
+                    "scaleMode": "FILL",
+                    "imageRef": "9158220793958fa7d3e78476f6a2a4be5112351b"
+                  }
+                ],
+                "fillGeometry": [
+                  {
+                    "path": "M0 0L581 0L581 756L0 756L0 0Z",
+                    "windingRule": "NONZERO"
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 1.0,
+                "strokeAlign": "INSIDE",
+                "strokeGeometry": [],
+                "effects": []
+              },
+              {
+                "id": "30:2",
+                "name": "FAVPNG_wood-icon_XZ7fGUvx 1",
+                "type": "RECTANGLE",
+                "blendMode": "PASS_THROUGH",
+                "absoluteBoundingBox": {
+                  "x": -747.0,
+                  "y": -417.0,
+                  "width": 109.0,
+                  "height": 109.0
+                },
+                "preserveRatio": true,
+                "constraints": {
+                  "vertical": "TOP",
+                  "horizontal": "LEFT"
+                },
+                "relativeTransform": [
+                  [
+                    1.0,
+                    0.0,
+                    193.0
+                  ],
+                  [
+                    0.0,
+                    1.0,
+                    174.0
+                  ]
+                ],
+                "size": {
+                  "x": 109.0,
+                  "y": 109.0
+                },
+                "fills": [
+                  {
+                    "blendMode": "NORMAL",
+                    "type": "IMAGE",
+                    "scaleMode": "FILL",
+                    "imageRef": "3d434f5f437ac73906cc046cec134458b37d7fe5"
+                  }
+                ],
+                "fillGeometry": [
+                  {
+                    "path": "M0 0L109 0L109 109L0 109L0 0Z",
+                    "windingRule": "NONZERO"
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 1.0,
+                "strokeAlign": "INSIDE",
+                "strokeGeometry": [],
+                "effects": []
+              },
+              {
+                "id": "35:3",
+                "name": "xtone 1",
+                "type": "RECTANGLE",
+                "blendMode": "PASS_THROUGH",
+                "absoluteBoundingBox": {
+                  "x": -734.0,
+                  "y": -297.0,
+                  "width": 80.555557250976562,
+                  "height": 50.0
+                },
+                "preserveRatio": true,
+                "constraints": {
+                  "vertical": "TOP",
+                  "horizontal": "LEFT"
+                },
+                "relativeTransform": [
+                  [
+                    1.0,
+                    0.0,
+                    206.0
+                  ],
+                  [
+                    0.0,
+                    1.0,
+                    294.0
+                  ]
+                ],
+                "size": {
+                  "x": 80.555557250976562,
+                  "y": 50.0
+                },
+                "fills": [
+                  {
+                    "blendMode": "NORMAL",
+                    "type": "IMAGE",
+                    "scaleMode": "FILL",
+                    "imageRef": "c88b6058fa59927759ac4ace1b2dffe1ccac56f7"
+                  }
+                ],
+                "fillGeometry": [
+                  {
+                    "path": "M0 0L80.5556 0L80.5556 50L0 50L0 0Z",
+                    "windingRule": "NONZERO"
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 1.0,
+                "strokeAlign": "INSIDE",
+                "strokeGeometry": [],
+                "effects": []
+              },
+              {
+                "id": "30:3",
+                "name": "Stone",
+                "type": "TEXT",
+                "blendMode": "PASS_THROUGH",
+                "absoluteBoundingBox": {
+                  "x": -717.0,
+                  "y": -293.0,
+                  "width": 255.0,
+                  "height": 59.0
+                },
+                "constraints": {
+                  "vertical": "TOP",
+                  "horizontal": "LEFT"
+                },
+                "relativeTransform": [
+                  [
+                    1.0,
+                    0.0,
+                    223.0
+                  ],
+                  [
+                    0.0,
+                    1.0,
+                    298.0
+                  ]
+                ],
+                "size": {
+                  "x": 255.0,
+                  "y": 59.0
+                },
+                "fills": [
+                  {
+                    "blendMode": "NORMAL",
+                    "type": "SOLID",
+                    "color": {
+                      "r": 0.0,
+                      "g": 0.0,
+                      "b": 0.0,
+                      "a": 1.0
+                    }
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 1.0,
+                "strokeAlign": "OUTSIDE",
+                "strokeGeometry": [],
+                "effects": [],
+                "characters": "Stone",
+                "style": {
+                  "fontFamily": "Andika",
+                  "fontPostScriptName": "Andika-Regular",
+                  "fontWeight": 400,
+                  "fontSize": 24.0,
+                  "textAlignHorizontal": "CENTER",
+                  "textAlignVertical": "TOP",
+                  "letterSpacing": 0.0,
+                  "lineHeightPx": 28.1250,
+                  "lineHeightPercent": 100.0,
+                  "lineHeightUnit": "INTRINSIC_%"
+                },
+                "characterStyleOverrides": [],
+                "styleOverrideTable": {}
+              },
+              {
+                "id": "39:1",
+                "name": "Food",
+                "type": "TEXT",
+                "blendMode": "PASS_THROUGH",
+                "absoluteBoundingBox": {
+                  "x": -717.0,
+                  "y": -198.0,
+                  "width": 255.0,
+                  "height": 59.0
+                },
+                "constraints": {
+                  "vertical": "TOP",
+                  "horizontal": "LEFT"
+                },
+                "relativeTransform": [
+                  [
+                    1.0,
+                    0.0,
+                    223.0
+                  ],
+                  [
+                    0.0,
+                    1.0,
+                    393.0
+                  ]
+                ],
+                "size": {
+                  "x": 255.0,
+                  "y": 59.0
+                },
+                "fills": [
+                  {
+                    "blendMode": "NORMAL",
+                    "type": "SOLID",
+                    "color": {
+                      "r": 0.0,
+                      "g": 0.0,
+                      "b": 0.0,
+                      "a": 1.0
+                    }
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 1.0,
+                "strokeAlign": "OUTSIDE",
+                "strokeGeometry": [],
+                "effects": [],
+                "characters": "Food",
+                "style": {
+                  "fontFamily": "Andika",
+                  "fontPostScriptName": "Andika-Regular",
+                  "fontWeight": 400,
+                  "fontSize": 24.0,
+                  "textAlignHorizontal": "CENTER",
+                  "textAlignVertical": "TOP",
+                  "letterSpacing": 0.0,
+                  "lineHeightPx": 28.1250,
+                  "lineHeightPercent": 100.0,
+                  "lineHeightUnit": "INTRINSIC_%"
+                },
+                "characterStyleOverrides": [],
+                "styleOverrideTable": {}
+              },
+              {
+                "id": "36:0",
+                "name": "Wood",
+                "type": "TEXT",
+                "blendMode": "PASS_THROUGH",
+                "absoluteBoundingBox": {
+                  "x": -717.0,
+                  "y": -388.0,
+                  "width": 255.0,
+                  "height": 59.0
+                },
+                "constraints": {
+                  "vertical": "TOP",
+                  "horizontal": "LEFT"
+                },
+                "relativeTransform": [
+                  [
+                    1.0,
+                    0.0,
+                    223.0
+                  ],
+                  [
+                    0.0,
+                    1.0,
+                    203.0
+                  ]
+                ],
+                "size": {
+                  "x": 255.0,
+                  "y": 59.0
+                },
+                "fills": [
+                  {
+                    "blendMode": "NORMAL",
+                    "type": "SOLID",
+                    "color": {
+                      "r": 0.0,
+                      "g": 0.0,
+                      "b": 0.0,
+                      "a": 1.0
+                    }
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 1.0,
+                "strokeAlign": "OUTSIDE",
+                "strokeGeometry": [],
+                "effects": [],
+                "characters": "Wood",
+                "style": {
+                  "fontFamily": "Andika",
+                  "fontPostScriptName": "Andika-Regular",
+                  "fontWeight": 400,
+                  "fontSize": 24.0,
+                  "textAlignHorizontal": "CENTER",
+                  "textAlignVertical": "TOP",
+                  "letterSpacing": 0.0,
+                  "lineHeightPx": 28.1250,
+                  "lineHeightPercent": 100.0,
+                  "lineHeightUnit": "INTRINSIC_%"
+                },
+                "characterStyleOverrides": [],
+                "styleOverrideTable": {}
+              },
+              {
+                "id": "37:0",
+                "name": "Storage",
+                "type": "TEXT",
+                "blendMode": "PASS_THROUGH",
+                "absoluteBoundingBox": {
+                  "x": -611.0,
+                  "y": -487.0,
+                  "width": 127.0,
+                  "height": 56.0
+                },
+                "constraints": {
+                  "vertical": "TOP",
+                  "horizontal": "LEFT"
+                },
+                "relativeTransform": [
+                  [
+                    1.0,
+                    0.0,
+                    329.0
+                  ],
+                  [
+                    0.0,
+                    1.0,
+                    104.0
+                  ]
+                ],
+                "size": {
+                  "x": 127.0,
+                  "y": 56.0
+                },
+                "fills": [
+                  {
+                    "blendMode": "NORMAL",
+                    "type": "SOLID",
+                    "color": {
+                      "r": 0.0,
+                      "g": 0.0,
+                      "b": 0.0,
+                      "a": 1.0
+                    }
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 1.0,
+                "strokeAlign": "OUTSIDE",
+                "strokeGeometry": [],
+                "effects": [],
+                "characters": "Storage",
+                "style": {
+                  "fontFamily": "Andika",
+                  "fontPostScriptName": "Andika-Regular",
+                  "fontWeight": 400,
+                  "textAutoResize": "WIDTH_AND_HEIGHT",
+                  "fontSize": 35.0,
+                  "textAlignHorizontal": "CENTER",
+                  "textAlignVertical": "TOP",
+                  "letterSpacing": 0.0,
+                  "lineHeightPx": 41.0156250,
+                  "lineHeightPercent": 100.0,
+                  "lineHeightUnit": "INTRINSIC_%"
+                },
+                "characterStyleOverrides": [],
+                "styleOverrideTable": {}
+              },
+              {
+                "id": "40:0",
+                "name": "Villagers",
+                "type": "TEXT",
+                "blendMode": "PASS_THROUGH",
+                "absoluteBoundingBox": {
+                  "x": 282.0,
+                  "y": -478.0,
+                  "width": 158.0,
+                  "height": 52.0
+                },
+                "constraints": {
+                  "vertical": "TOP",
+                  "horizontal": "LEFT"
+                },
+                "relativeTransform": [
+                  [
+                    1.0,
+                    0.0,
+                    1222.0
+                  ],
+                  [
+                    0.0,
+                    1.0,
+                    113.0
+                  ]
+                ],
+                "size": {
+                  "x": 158.0,
+                  "y": 52.0
+                },
+                "fills": [
+                  {
+                    "blendMode": "NORMAL",
+                    "type": "SOLID",
+                    "color": {
+                      "r": 0.0,
+                      "g": 0.0,
+                      "b": 0.0,
+                      "a": 1.0
+                    }
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 1.0,
+                "strokeAlign": "OUTSIDE",
+                "strokeGeometry": [],
+                "effects": [],
+                "characters": "Villagers",
+                "style": {
+                  "fontFamily": "Andika",
+                  "fontPostScriptName": "Andika-Regular",
+                  "fontWeight": 400,
+                  "fontSize": 35.0,
+                  "textAlignHorizontal": "CENTER",
+                  "textAlignVertical": "TOP",
+                  "letterSpacing": 0.0,
+                  "lineHeightPx": 41.0156250,
+                  "lineHeightPercent": 100.0,
+                  "lineHeightUnit": "INTRINSIC_%"
+                },
+                "characterStyleOverrides": [],
+                "styleOverrideTable": {}
+              },
+              {
+                "id": "39:0",
+                "name": "meat 1",
+                "type": "RECTANGLE",
+                "blendMode": "PASS_THROUGH",
+                "absoluteBoundingBox": {
+                  "x": -734.0,
+                  "y": -201.0,
+                  "width": 96.0,
+                  "height": 49.0
+                },
+                "preserveRatio": true,
+                "constraints": {
+                  "vertical": "TOP",
+                  "horizontal": "LEFT"
+                },
+                "relativeTransform": [
+                  [
+                    1.0,
+                    0.0,
+                    206.0
+                  ],
+                  [
+                    0.0,
+                    1.0,
+                    390.0
+                  ]
+                ],
+                "size": {
+                  "x": 96.0,
+                  "y": 49.0
+                },
+                "fills": [
+                  {
+                    "blendMode": "NORMAL",
+                    "type": "IMAGE",
+                    "scaleMode": "FILL",
+                    "imageRef": "001708b0a4d13801deaf47cb70b3dbfab8c30028"
+                  }
+                ],
+                "fillGeometry": [
+                  {
+                    "path": "M0 0L96 0L96 49L0 49L0 0Z",
+                    "windingRule": "NONZERO"
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 1.0,
+                "strokeAlign": "INSIDE",
+                "strokeGeometry": [],
+                "effects": []
+              },
+              {
+                "id": "44:4",
+                "name": "settler-component",
+                "type": "INSTANCE",
+                "blendMode": "PASS_THROUGH",
+                "children": [
+                  {
+                    "id": "I44:4;40:2",
+                    "name": "image 1",
+                    "type": "RECTANGLE",
+                    "blendMode": "PASS_THROUGH",
+                    "absoluteBoundingBox": {
+                      "x": 123.0,
+                      "y": -272.0,
+                      "width": 52.091384887695312,
+                      "height": 52.0
+                    },
+                    "preserveRatio": true,
+                    "constraints": {
+                      "vertical": "SCALE",
+                      "horizontal": "SCALE"
+                    },
+                    "relativeTransform": [
+                      [
+                        1.0,
+                        0.0,
+                        52.0
+                      ],
+                      [
+                        0.0,
+                        1.0,
+                        0.0
+                      ]
+                    ],
+                    "size": {
+                      "x": 52.091384887695312,
+                      "y": 52.0
+                    },
+                    "fills": [
+                      {
+                        "blendMode": "NORMAL",
+                        "type": "IMAGE",
+                        "scaleMode": "FILL",
+                        "imageRef": "42cd5c7a6e88b8498ce72124b6100a1c6b71c0a9"
+                      }
+                    ],
+                    "fillGeometry": [
+                      {
+                        "path": "M0 0L52.0914 0L52.0914 52L0 52L0 0Z",
+                        "windingRule": "NONZERO"
+                      }
+                    ],
+                    "strokes": [],
+                    "strokeWeight": 1.0,
+                    "strokeAlign": "INSIDE",
+                    "strokeGeometry": [],
+                    "effects": []
+                  },
+                  {
+                    "id": "I44:4;44:2",
+                    "name": "Ingumon son of Albin of the Boar Warriors",
+                    "type": "TEXT",
+                    "blendMode": "PASS_THROUGH",
+                    "absoluteBoundingBox": {
+                      "x": 131.09138488769531,
+                      "y": -253.75437927246094,
+                      "width": 459.68362426757812,
+                      "height": 27.368417739868164
+                    },
+                    "constraints": {
+                      "vertical": "SCALE",
+                      "horizontal": "SCALE"
+                    },
+                    "relativeTransform": [
+                      [
+                        1.0,
+                        0.0,
+                        60.091388702392578
+                      ],
+                      [
+                        0.0,
+                        1.0,
+                        18.245618820190430
+                      ]
+                    ],
+                    "size": {
+                      "x": 459.68362426757812,
+                      "y": 27.368417739868164
+                    },
+                    "fills": [
+                      {
+                        "blendMode": "NORMAL",
+                        "type": "SOLID",
+                        "color": {
+                          "r": 0.0,
+                          "g": 0.0,
+                          "b": 0.0,
+                          "a": 1.0
+                        }
+                      }
+                    ],
+                    "strokes": [],
+                    "strokeWeight": 1.0,
+                    "strokeAlign": "OUTSIDE",
+                    "strokeGeometry": [],
+                    "effects": [],
+                    "characters": "Ingumon son of Albin of the Boar Warriors ",
+                    "style": {
+                      "fontFamily": "Montserrat",
+                      "fontPostScriptName": "Montserrat-Regular",
+                      "fontWeight": 400,
+                      "fontSize": 18.0,
+                      "textAlignHorizontal": "RIGHT",
+                      "textAlignVertical": "TOP",
+                      "letterSpacing": -0.27000000000000002,
+                      "lineHeightPx": 21.093750,
+                      "lineHeightPercent": 100.0,
+                      "lineHeightUnit": "INTRINSIC_%"
+                    },
+                    "characterStyleOverrides": [],
+                    "styleOverrideTable": {}
+                  }
+                ],
+                "absoluteBoundingBox": {
+                  "x": 71.0,
+                  "y": -272.0,
+                  "width": 520.0,
+                  "height": 52.0
+                },
+                "constraints": {
+                  "vertical": "TOP",
+                  "horizontal": "LEFT"
+                },
+                "relativeTransform": [
+                  [
+                    1.0,
+                    0.0,
+                    1011.0
+                  ],
+                  [
+                    0.0,
+                    1.0,
+                    319.0
+                  ]
+                ],
+                "size": {
+                  "x": 520.0,
+                  "y": 52.0
+                },
+                "clipsContent": false,
+                "background": [
+                  {
+                    "blendMode": "NORMAL",
+                    "visible": false,
+                    "type": "SOLID",
+                    "color": {
+                      "r": 1.0,
+                      "g": 1.0,
+                      "b": 1.0,
+                      "a": 1.0
+                    }
+                  }
+                ],
+                "fills": [
+                  {
+                    "blendMode": "NORMAL",
+                    "visible": false,
+                    "type": "SOLID",
+                    "color": {
+                      "r": 1.0,
+                      "g": 1.0,
+                      "b": 1.0,
+                      "a": 1.0
+                    }
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 1.0,
+                "strokeAlign": "INSIDE",
+                "backgroundColor": {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 0.0
+                },
+                "effects": [],
+                "componentId": "44:3"
+              },
+              {
+                "id": "44:7",
+                "name": "settler-component",
+                "type": "INSTANCE",
+                "blendMode": "PASS_THROUGH",
+                "children": [
+                  {
+                    "id": "I44:7;40:2",
+                    "name": "image 1",
+                    "type": "RECTANGLE",
+                    "blendMode": "PASS_THROUGH",
+                    "absoluteBoundingBox": {
+                      "x": 123.0,
+                      "y": -192.0,
+                      "width": 52.091388702392578,
+                      "height": 53.0
+                    },
+                    "preserveRatio": true,
+                    "constraints": {
+                      "vertical": "SCALE",
+                      "horizontal": "SCALE"
+                    },
+                    "relativeTransform": [
+                      [
+                        1.0,
+                        0.0,
+                        52.0
+                      ],
+                      [
+                        0.0,
+                        1.0,
+                        0.0
+                      ]
+                    ],
+                    "size": {
+                      "x": 52.091388702392578,
+                      "y": 53.0
+                    },
+                    "fills": [
+                      {
+                        "blendMode": "NORMAL",
+                        "type": "IMAGE",
+                        "scaleMode": "FILL",
+                        "imageRef": "42cd5c7a6e88b8498ce72124b6100a1c6b71c0a9"
+                      }
+                    ],
+                    "fillGeometry": [
+                      {
+                        "path": "M0 0L52.0914 0L52.0914 53L0 53L0 0Z",
+                        "windingRule": "NONZERO"
+                      }
+                    ],
+                    "strokes": [],
+                    "strokeWeight": 1.0,
+                    "strokeAlign": "INSIDE",
+                    "strokeGeometry": [],
+                    "effects": []
+                  },
+                  {
+                    "id": "I44:7;44:2",
+                    "name": "Brutak son of Semmer of the Boar Warriors",
+                    "type": "TEXT",
+                    "blendMode": "PASS_THROUGH",
+                    "absoluteBoundingBox": {
+                      "x": 131.09138488769531,
+                      "y": -173.40350341796875,
+                      "width": 459.68365478515625,
+                      "height": 27.894735336303711
+                    },
+                    "constraints": {
+                      "vertical": "SCALE",
+                      "horizontal": "SCALE"
+                    },
+                    "relativeTransform": [
+                      [
+                        1.0,
+                        0.0,
+                        60.091388702392578
+                      ],
+                      [
+                        0.0,
+                        1.0,
+                        18.596496582031250
+                      ]
+                    ],
+                    "size": {
+                      "x": 459.68365478515625,
+                      "y": 27.894735336303711
+                    },
+                    "fills": [
+                      {
+                        "blendMode": "NORMAL",
+                        "type": "SOLID",
+                        "color": {
+                          "r": 0.0,
+                          "g": 0.0,
+                          "b": 0.0,
+                          "a": 1.0
+                        }
+                      }
+                    ],
+                    "strokes": [],
+                    "strokeWeight": 1.0,
+                    "strokeAlign": "OUTSIDE",
+                    "strokeGeometry": [],
+                    "effects": [],
+                    "characters": "Brutak son of Semmer of the Boar Warriors ",
+                    "style": {
+                      "fontFamily": "Montserrat",
+                      "fontPostScriptName": "Montserrat-Regular",
+                      "fontWeight": 400,
+                      "fontSize": 18.0,
+                      "textAlignHorizontal": "RIGHT",
+                      "textAlignVertical": "TOP",
+                      "letterSpacing": -0.27000000000000002,
+                      "lineHeightPx": 21.093750,
+                      "lineHeightPercent": 100.0,
+                      "lineHeightUnit": "INTRINSIC_%"
+                    },
+                    "characterStyleOverrides": [],
+                    "styleOverrideTable": {}
+                  }
+                ],
+                "absoluteBoundingBox": {
+                  "x": 71.0,
+                  "y": -192.0,
+                  "width": 520.0,
+                  "height": 53.0
+                },
+                "constraints": {
+                  "vertical": "TOP",
+                  "horizontal": "LEFT"
+                },
+                "relativeTransform": [
+                  [
+                    1.0,
+                    0.0,
+                    1011.0
+                  ],
+                  [
+                    0.0,
+                    1.0,
+                    399.0
+                  ]
+                ],
+                "size": {
+                  "x": 520.0,
+                  "y": 53.0
+                },
+                "clipsContent": false,
+                "background": [
+                  {
+                    "blendMode": "NORMAL",
+                    "visible": false,
+                    "type": "SOLID",
+                    "color": {
+                      "r": 1.0,
+                      "g": 1.0,
+                      "b": 1.0,
+                      "a": 1.0
+                    }
+                  }
+                ],
+                "fills": [
+                  {
+                    "blendMode": "NORMAL",
+                    "visible": false,
+                    "type": "SOLID",
+                    "color": {
+                      "r": 1.0,
+                      "g": 1.0,
+                      "b": 1.0,
+                      "a": 1.0
+                    }
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 1.0,
+                "strokeAlign": "INSIDE",
+                "backgroundColor": {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 0.0
+                },
+                "effects": [],
+                "componentId": "44:3"
+              },
+              {
+                "id": "44:10",
+                "name": "settler-component",
+                "type": "INSTANCE",
+                "blendMode": "PASS_THROUGH",
+                "children": [
+                  {
+                    "id": "I44:10;40:2",
+                    "name": "image 1",
+                    "type": "RECTANGLE",
+                    "blendMode": "PASS_THROUGH",
+                    "absoluteBoundingBox": {
+                      "x": 123.0,
+                      "y": -111.0,
+                      "width": 52.091388702392578,
+                      "height": 53.0
+                    },
+                    "preserveRatio": true,
+                    "constraints": {
+                      "vertical": "SCALE",
+                      "horizontal": "SCALE"
+                    },
+                    "relativeTransform": [
+                      [
+                        1.0,
+                        0.0,
+                        52.0
+                      ],
+                      [
+                        0.0,
+                        1.0,
+                        0.0
+                      ]
+                    ],
+                    "size": {
+                      "x": 52.091388702392578,
+                      "y": 53.0
+                    },
+                    "fills": [
+                      {
+                        "blendMode": "NORMAL",
+                        "type": "IMAGE",
+                        "scaleMode": "FILL",
+                        "imageRef": "42cd5c7a6e88b8498ce72124b6100a1c6b71c0a9"
+                      }
+                    ],
+                    "fillGeometry": [
+                      {
+                        "path": "M0 0L52.0914 0L52.0914 53L0 53L0 0Z",
+                        "windingRule": "NONZERO"
+                      }
+                    ],
+                    "strokes": [],
+                    "strokeWeight": 1.0,
+                    "strokeAlign": "INSIDE",
+                    "strokeGeometry": [],
+                    "effects": []
+                  },
+                  {
+                    "id": "I44:10;44:2",
+                    "name": "Aldin son of Wulfram of the Boar Warriors",
+                    "type": "TEXT",
+                    "blendMode": "PASS_THROUGH",
+                    "absoluteBoundingBox": {
+                      "x": 131.09138488769531,
+                      "y": -92.403503417968750,
+                      "width": 459.68365478515625,
+                      "height": 27.894735336303711
+                    },
+                    "constraints": {
+                      "vertical": "SCALE",
+                      "horizontal": "SCALE"
+                    },
+                    "relativeTransform": [
+                      [
+                        1.0,
+                        0.0,
+                        60.091388702392578
+                      ],
+                      [
+                        0.0,
+                        1.0,
+                        18.596496582031250
+                      ]
+                    ],
+                    "size": {
+                      "x": 459.68365478515625,
+                      "y": 27.894735336303711
+                    },
+                    "fills": [
+                      {
+                        "blendMode": "NORMAL",
+                        "type": "SOLID",
+                        "color": {
+                          "r": 0.0,
+                          "g": 0.0,
+                          "b": 0.0,
+                          "a": 1.0
+                        }
+                      }
+                    ],
+                    "strokes": [],
+                    "strokeWeight": 1.0,
+                    "strokeAlign": "OUTSIDE",
+                    "strokeGeometry": [],
+                    "effects": [],
+                    "characters": "Aldin son of Wulfram of the Boar Warriors ",
+                    "style": {
+                      "fontFamily": "Montserrat",
+                      "fontPostScriptName": "Montserrat-Regular",
+                      "fontWeight": 400,
+                      "fontSize": 18.0,
+                      "textAlignHorizontal": "RIGHT",
+                      "textAlignVertical": "TOP",
+                      "letterSpacing": -0.27000000000000002,
+                      "lineHeightPx": 21.093750,
+                      "lineHeightPercent": 100.0,
+                      "lineHeightUnit": "INTRINSIC_%"
+                    },
+                    "characterStyleOverrides": [],
+                    "styleOverrideTable": {}
+                  }
+                ],
+                "absoluteBoundingBox": {
+                  "x": 71.0,
+                  "y": -111.0,
+                  "width": 520.0,
+                  "height": 53.0
+                },
+                "constraints": {
+                  "vertical": "TOP",
+                  "horizontal": "LEFT"
+                },
+                "relativeTransform": [
+                  [
+                    1.0,
+                    0.0,
+                    1011.0
+                  ],
+                  [
+                    0.0,
+                    1.0,
+                    480.0
+                  ]
+                ],
+                "size": {
+                  "x": 520.0,
+                  "y": 53.0
+                },
+                "clipsContent": false,
+                "background": [
+                  {
+                    "blendMode": "NORMAL",
+                    "visible": false,
+                    "type": "SOLID",
+                    "color": {
+                      "r": 1.0,
+                      "g": 1.0,
+                      "b": 1.0,
+                      "a": 1.0
+                    }
+                  }
+                ],
+                "fills": [
+                  {
+                    "blendMode": "NORMAL",
+                    "visible": false,
+                    "type": "SOLID",
+                    "color": {
+                      "r": 1.0,
+                      "g": 1.0,
+                      "b": 1.0,
+                      "a": 1.0
+                    }
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 1.0,
+                "strokeAlign": "INSIDE",
+                "backgroundColor": {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 0.0
+                },
+                "effects": [],
+                "componentId": "44:3"
+              },
+              {
+                "id": "44:3",
+                "name": "settler-component",
+                "type": "COMPONENT",
+                "blendMode": "PASS_THROUGH",
+                "children": [
+                  {
+                    "id": "40:2",
+                    "name": "image 1",
+                    "type": "RECTANGLE",
+                    "blendMode": "PASS_THROUGH",
+                    "absoluteBoundingBox": {
+                      "x": 123.0,
+                      "y": -353.0,
+                      "width": 52.091388702392578,
+                      "height": 53.0
+                    },
+                    "preserveRatio": true,
+                    "constraints": {
+                      "vertical": "SCALE",
+                      "horizontal": "SCALE"
+                    },
+                    "relativeTransform": [
+                      [
+                        1.0,
+                        0.0,
+                        52.0
+                      ],
+                      [
+                        0.0,
+                        1.0,
+                        0.0
+                      ]
+                    ],
+                    "size": {
+                      "x": 52.091388702392578,
+                      "y": 53.0
+                    },
+                    "fills": [
+                      {
+                        "blendMode": "NORMAL",
+                        "type": "IMAGE",
+                        "scaleMode": "FILL",
+                        "imageRef": "42cd5c7a6e88b8498ce72124b6100a1c6b71c0a9"
+                      }
+                    ],
+                    "fillGeometry": [
+                      {
+                        "path": "M0 0L52.0914 0L52.0914 53L0 53L0 0Z",
+                        "windingRule": "NONZERO"
+                      }
+                    ],
+                    "strokes": [],
+                    "strokeWeight": 1.0,
+                    "strokeAlign": "INSIDE",
+                    "strokeGeometry": [],
+                    "effects": []
+                  },
+                  {
+                    "id": "44:2",
+                    "name": "Boran son of Degestes of the Boar Warriors",
+                    "type": "TEXT",
+                    "blendMode": "PASS_THROUGH",
+                    "absoluteBoundingBox": {
+                      "x": 131.09138488769531,
+                      "y": -334.40350341796875,
+                      "width": 459.68365478515625,
+                      "height": 27.894735336303711
+                    },
+                    "constraints": {
+                      "vertical": "SCALE",
+                      "horizontal": "SCALE"
+                    },
+                    "relativeTransform": [
+                      [
+                        1.0,
+                        0.0,
+                        60.091388702392578
+                      ],
+                      [
+                        0.0,
+                        1.0,
+                        18.596496582031250
+                      ]
+                    ],
+                    "size": {
+                      "x": 459.68365478515625,
+                      "y": 27.894735336303711
+                    },
+                    "fills": [
+                      {
+                        "blendMode": "NORMAL",
+                        "type": "SOLID",
+                        "color": {
+                          "r": 0.0,
+                          "g": 0.0,
+                          "b": 0.0,
+                          "a": 1.0
+                        }
+                      }
+                    ],
+                    "strokes": [],
+                    "strokeWeight": 1.0,
+                    "strokeAlign": "OUTSIDE",
+                    "strokeGeometry": [],
+                    "effects": [],
+                    "characters": "Boran son of Degestes of the Boar Warriors ",
+                    "style": {
+                      "fontFamily": "Montserrat",
+                      "fontPostScriptName": "Montserrat-Regular",
+                      "fontWeight": 400,
+                      "fontSize": 18.0,
+                      "textAlignHorizontal": "RIGHT",
+                      "textAlignVertical": "TOP",
+                      "letterSpacing": -0.27000000000000002,
+                      "lineHeightPx": 21.093750,
+                      "lineHeightPercent": 100.0,
+                      "lineHeightUnit": "INTRINSIC_%"
+                    },
+                    "characterStyleOverrides": [],
+                    "styleOverrideTable": {}
+                  }
+                ],
+                "absoluteBoundingBox": {
+                  "x": 71.0,
+                  "y": -353.0,
+                  "width": 520.0,
+                  "height": 53.0
+                },
+                "constraints": {
+                  "vertical": "TOP",
+                  "horizontal": "LEFT"
+                },
+                "relativeTransform": [
+                  [
+                    1.0,
+                    0.0,
+                    1011.0
+                  ],
+                  [
+                    0.0,
+                    1.0,
+                    238.0
+                  ]
+                ],
+                "size": {
+                  "x": 520.0,
+                  "y": 53.0
+                },
+                "clipsContent": false,
+                "background": [
+                  {
+                    "blendMode": "NORMAL",
+                    "visible": false,
+                    "type": "SOLID",
+                    "color": {
+                      "r": 1.0,
+                      "g": 1.0,
+                      "b": 1.0,
+                      "a": 1.0
+                    }
+                  }
+                ],
+                "fills": [
+                  {
+                    "blendMode": "NORMAL",
+                    "visible": false,
+                    "type": "SOLID",
+                    "color": {
+                      "r": 1.0,
+                      "g": 1.0,
+                      "b": 1.0,
+                      "a": 1.0
+                    }
+                  }
+                ],
+                "strokes": [],
+                "strokeWeight": 1.0,
+                "strokeAlign": "INSIDE",
+                "backgroundColor": {
+                  "r": 0.0,
+                  "g": 0.0,
+                  "b": 0.0,
+                  "a": 0.0
+                },
+                "effects": []
+              }
+            ],
+            "absoluteBoundingBox": {
+              "x": -940.0,
+              "y": -591.0,
+              "width": 1920.0,
+              "height": 1080.0
+            },
+            "constraints": {
+              "vertical": "TOP",
+              "horizontal": "LEFT"
+            },
+            "relativeTransform": [
+              [
+                1.0,
+                0.0,
+                -940.0
+              ],
+              [
+                0.0,
+                1.0,
+                -591.0
+              ]
+            ],
+            "size": {
+              "x": 1920.0,
+              "y": 1080.0
+            },
+            "clipsContent": true,
+            "background": [
+              {
+                "blendMode": "NORMAL",
+                "type": "SOLID",
+                "color": {
+                  "r": 0.79583334922790527,
+                  "g": 0.72593265771865845,
+                  "b": 0.59024310111999512,
+                  "a": 1.0
+                }
+              }
+            ],
+            "fills": [
+              {
+                "blendMode": "NORMAL",
+                "type": "SOLID",
+                "color": {
+                  "r": 0.79583334922790527,
+                  "g": 0.72593265771865845,
+                  "b": 0.59024310111999512,
+                  "a": 1.0
+                }
+              }
+            ],
+            "strokes": [],
+            "strokeWeight": 1.0,
+            "strokeAlign": "INSIDE",
+            "backgroundColor": {
+              "r": 0.79583334922790527,
+              "g": 0.72593265771865845,
+              "b": 0.59024310111999512,
+              "a": 1.0
+            },
+            "effects": []
+          }
+        ],
+        "backgroundColor": {
+          "r": 0.0,
+          "g": 0.0,
+          "b": 0.0,
+          "a": 0.0
+        },
+        "prototypeStartNodeID": null,
+        "prototypeDevice": {
+          "type": "NONE",
+          "rotation": "NONE"
+        }
+      }
+    ]
+  },
+  "components": {
+    "44:3": {
+      "key": "cb9f865be96aa621d09bb64f5f06dcb951dafbf7",
+      "name": "settler-component",
+      "description": ""
+    }
+  },
+  "schemaVersion": 0,
+  "styles": {},
+  "name": "Settlement",
+  "lastModified": "2020-10-05T22:30:46.757403Z",
+  "thumbnailUrl": "https://s3-alpha-sig.figma.com/thumbnails/686bce87-dbac-4fbe-b459-58968db0ddbe?Expires=1603065600&Signature=KDXJfOwiOTc3O0JOupTSQ5I6nmXxI~b6Jict8D4GfaJ9Sd5IodXdcS768A2u57jGtVrZgRmnQjWOFAf2Uhoo8lo8Xzg4cNi4DlhZY-U9vSBEi2bgyCBKduToH-kygYUNT04RxYdrhhmbhlqMQTNMYL2y1xFEBA1YEc-NEgRKjhDuQ~qO1iug6mf~xpzCkIahSwnjNqbC5~HQqYgYlQw9jtk9tFjIyupW6rr7jAmR1NmrXo7syjHMoxfgB756~3Re9dDeM7Am8WaQPdNLkQ-dF2qlZ8e2ohGQHuhvT~sjUvCR-342fosFgAMTCw8lDJmQkbaIVJT1Wx7nOYjIn6q3Ag__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
+  "version": "483357714",
+  "role": "editor"
+}

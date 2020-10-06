@@ -6,7 +6,7 @@ export default class FigmaService {
     this.setAccessKey(key)
     this.baseURL = 'https://api.figma.com/v1/'
     this.vectorTypes = ['LINE', 'ELLIPSE', 'VECTOR']
-    this.buttonTypes = ['RECTANGLE', 'TEXT', 'FRAME', 'GROUP', 'INSTANCE']
+    this.buttonTypes = ['RECTANGLE', 'TEXT', 'FRAME', 'GROUP', 'INSTANCE', 'COMPONENT']
     this.ignoredTypes = [] // ['GROUP', 'INSTANCE']
     this.allAsVecor = false
     this.max_ids = 50
@@ -160,7 +160,7 @@ export default class FigmaService {
 
   getElementsWithBackgroundIMage (model, importChildren) {
     if (importChildren) {
-      return Object.values(model.widgets).filter(widget => widget.props.isVector)
+      return Object.values(model.widgets).filter(widget => widget.props.isVector || widget.hasBackgroundImage)
     } else {
       return Object.values(model.screens)
     }
@@ -594,6 +594,11 @@ export default class FigmaService {
     return widget && widget.type === 'Label'
   }
 
+  /**
+   * We map to a button / box iff it is not rectangle kind of
+   * element (as defined in buttonTypes) and the style is not too
+   * complex
+   */
   isButton (element) {
     if (this.buttonTypes.indexOf(element.type) >=0 ){
       return  !this.isTooComplexStyle(element)
@@ -606,8 +611,12 @@ export default class FigmaService {
       return true
     }
     if (element.fills && element.fills.length === 1) {
+      /**
+       * FIXME: Some times elements have iamge fills. They should be containers,
+       * but for now there is a weird layout bug
+       */
       let fill = element.fills[0]
-      return fill.type !== 'SOLID'
+      return fill.type !== 'SOLID' && fill.type !== 'GRADIENT_LINEAR' && fill.type !== 'GRADIENT_RADIAL' //  && fill.type !== 'IMAGE'
     }
     if (element.effects && element.effects.length > 1) {
       return true
@@ -671,33 +680,25 @@ export default class FigmaService {
           }
         }
         if (fill.type === 'GRADIENT_LINEAR') {
-          /*
-          * https://github.com/KarlRombauts/Figma-SCSS-Generator
-          */
-          // console.debug('gradient', element.name, element.id, element.fills)
           if (!this.isLabel(widget)) {
-            let start = fill.gradientHandlePositions[0]
-            let end = fill.gradientHandlePositions[1]
-
-            let xDiff = start.x - end.x;
-            let yDiff = start.y - end.y;
-            let dir = Math.atan2(yDiff, xDiff) * 180 / Math.PI;
-
-
-            let gradientStops = fill.gradientStops
-            let colors = gradientStops.map(stop => {
-                return {
-                  c: this.getColor(stop.color),
-                  p: stop.position * 100
-                }
-            })
-            style.background = {
-              direction: dir,
-              colors: colors
-            }
+            style.background = this.getLinearGradient(fill)
           } else {
-            Logger.log(1, 'getStyle() > gradients not supported...')
+            Logger.log(1, 'getStyle() > gradients not supported fotr labels...')
           }
+        }
+        if (fill.type === 'GRADIENT_RADIAL') {
+          if (!this.isLabel(widget)) {
+            style.background = this.getRadialGradient(fill)
+          } else {
+            Logger.log(1, 'getStyle() > gradients not supported for labels...')
+          }
+        }
+
+        if (fill.type === 'IMAGE') {
+          Logger.warn('getStyle() > elements with background images cannot have children. all will be rendered as PNG')
+          // for now this stuff will be handled as a vector, which cannot have children.
+          // maybe we have to change this at some point
+          widget.hasBackgroundImage = true
         }
       }
     }
@@ -830,8 +831,59 @@ export default class FigmaService {
     return 'Button'
   }
 
+  getLinearGradient (fill) {
+    Logger.log(3, 'getLinearGradient() > enter', fill)
+    let start = fill.gradientHandlePositions[0]
+    let end = fill.gradientHandlePositions[1]
+
+    let xDiff = start.x - end.x;
+    let yDiff = start.y - end.y;
+    let dir = Math.round((Math.atan2(yDiff, xDiff) * 180 / Math.PI) + 270) % 360;
+
+    let gradientStops = fill.gradientStops
+    let colors = gradientStops.map(stop => {
+        return {
+          c: this.getColor(stop.color),
+          p: stop.position * 100
+        }
+    })
+    return {
+      direction: dir,
+      colors: colors
+    }
+  }
+
+  getRadialGradient (fill) {
+    Logger.log(3, 'getLinearGradient() > enter', fill)
+
+    let gradientStops = fill.gradientStops
+    let colors = gradientStops.map(stop => {
+        return {
+          c: this.getColor(stop.color),
+          p: stop.position * 100
+        }
+    })
+    return {
+      radial: true,
+      colors: colors
+    }
+  }
+
+  calculateAngle(startHandle, endHandle) {
+      const radians = Math.atan(this.calculateGradient(startHandle, endHandle))
+      return parseInt(this.radToDeg(radians).toFixed(1))
+  }
+
+  calculateGradient(startHandle, endHandle){
+      return (endHandle.y - startHandle.y) / (endHandle.x - startHandle.x) * -1
+  }
+
+  radToDeg(radian){
+      return (180 * radian) / Math.PI;
+  }
+
   getColor (c, element) {
-    if (element.visible === false) {
+    if (element && element.visible === false) {
       return ''
     }
     let a = c.a

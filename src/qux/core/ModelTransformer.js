@@ -241,7 +241,12 @@ export default class ModelTransformer {
     setCSSClassNames (parent, screenName) {
         let name = parent.name
         name = name.replace(/\./g, '_')
+        if (name.match(/^\d/)) {
+            name = "q" + name
+        }
         let cssSelector = `.${name.replace(/\s+/g, '_')}`
+
+
         parent.cssClass = `${name.replace(/\s+/g, '_')}`
         if (parent.parent) {
             cssSelector = `.${screenName.replace(/\s+/g, '_')} ${cssSelector}`
