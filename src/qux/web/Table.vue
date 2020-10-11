@@ -1,16 +1,16 @@
 <template>
     <div :class="['qux-table', cssClass]" >
-  
+
         <table>
             <thead>
                 <tr>
                     <th v-for="col in columns" :key="col.id" :class="'qux-table-cell qux-table-column-' + col.id" @click="sortBy(col)">
                         {{col.label}}
                         <span v-if="sortColumn.id == col.id && sortOrder === 'asc'" class="mdi mdi-chevron-down">
-                            
+
                         </span>
                          <span v-if="sortColumn.id == col.id && sortOrder !== 'asc'" class="mdi mdi-chevron-up">
-                            
+
                         </span>
                     </th>
                 </tr>
@@ -27,7 +27,7 @@
                     <td v-if="hasActions" class="qux-table-action-cntr">
                         <a v-for="(action,i) in actions"
                             @click="onActionClick(action, row)"
-                            :key="action.label" 
+                            :key="action.label"
                             :class="['qux-table-action','qux-table-action-' + i, {'qux-table-action-hover': action.isHover }]">
                             {{action.label}}
                         </a>
@@ -63,6 +63,7 @@ export default {
   computed: {
     columns () {
         if (this.element) {
+            console.debug(this.element.name, this.element.props.columns)
             let columns = []
             if (this.element.props.columns && this.element.props.columns.length > 0) {
                 columns = this.element.props.columns.map((col) => col.label)
@@ -120,7 +121,7 @@ export default {
                     } else {
                         return valueB.localeCompare(valueA)
                     }
-                    
+
                 }
                 if (this.sortOrder === 'asc') {
                     return valueA - valueB
@@ -144,7 +145,7 @@ export default {
                         return ''
                     })
                     return {
-                        id: i, 
+                        id: i,
                         values: values,
                         obj: row
                     }

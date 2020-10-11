@@ -33,12 +33,20 @@ export default {
       return ''
     },
     chartData () {
+      let input = this.dataBindingInput
+      if (input) {
+         return input
+      }
       if (this.element && this.element.props) {
         return this.element.props.data
       }
       return []
     },
     chartValue () {
+      let input = this.dataBindingInput
+      if (input !== null && input !== undefined) {
+        return input
+      }
       if (this.element && this.element.props) {
         return this.element.props.value
       }
@@ -47,7 +55,6 @@ export default {
   },
   methods: {
     render (model, style, data, value) {
-
       if (model.type == "BarChart") {
 
 					if (model.props.isHorizontal){
@@ -79,7 +86,6 @@ export default {
     },
 
 		renderRing (model, style, data, p){
-
       if (p > 1) {
         p = p / 100
       }

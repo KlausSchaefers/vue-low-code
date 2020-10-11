@@ -5,7 +5,7 @@ import figmaMasterComponentBug from './data/figmaMasterComponentBug.json'
 
 import * as TestUtil from './TestUtil'
 
-test('Test Master Components rendered', async () => {
+test('Test Image Fills', async () => {
 
   /**
    * first call figma service to check taht all the boolean stuff and so is ignored
@@ -31,15 +31,10 @@ test('Test Master Components rendered', async () => {
   // here should be only two children, but the scrolls are created as vectors,
   // that's why the things are not embedded
 
-  //console.debug(TestUtil.print(screen))
+  console.debug(TestUtil.print(screen))
 
-  // instance is correct, component not...
-  let instanceComponent = TestUtil.findOneElementsByProp(screen, '44:10', 'figmaId')
-  expect(instanceComponent.qtype).not.toBe('qVector')
+  // now test that the elements are correctly embedded.
+  expect(screen.children.length).toBe(2)
 
-  let masterComponent = TestUtil.findOneElementsByProp(screen, '44:3', 'figmaId')
-  expect(masterComponent.qtype).not.toBe('qVector')
-
-  let scroll = TestUtil.findOneElementsByProp(screen, '45:8', 'figmaId')
-  expect(scroll).not.toBeNull()
+  console.debug(screen.grid)
 });

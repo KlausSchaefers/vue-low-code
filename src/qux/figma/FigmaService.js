@@ -616,7 +616,7 @@ export default class FigmaService {
        * but for now there is a weird layout bug
        */
       let fill = element.fills[0]
-      return fill.type !== 'SOLID' && fill.type !== 'GRADIENT_LINEAR' && fill.type !== 'GRADIENT_RADIAL' //  && fill.type !== 'IMAGE'
+      return fill.type !== 'SOLID' && fill.type !== 'GRADIENT_LINEAR' && fill.type !== 'GRADIENT_RADIAL' // && fill.type !== 'IMAGE'
     }
     if (element.effects && element.effects.length > 1) {
       return true
@@ -695,10 +695,10 @@ export default class FigmaService {
         }
 
         if (fill.type === 'IMAGE') {
-          Logger.warn('getStyle() > elements with background images cannot have children. all will be rendered as PNG')
+          // Logger.warn('getStyle() > elements with background images cannot have children. all will be rendered as PNG')
           // for now this stuff will be handled as a vector, which cannot have children.
           // maybe we have to change this at some point
-          widget.hasBackgroundImage = true
+          // widget.hasBackgroundImage = true
         }
       }
     }
