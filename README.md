@@ -170,7 +170,7 @@ These components will be used at the specified screen
 location instead of the default QUX component. This approach allows you to fully manage certain parts of the UI. Data is passed
 as a **value** property and follows default VUE practices.
 
-```
+```vue
 <QUX :app="app" :config="config"/>
 ...
 
@@ -186,6 +186,31 @@ config = {
 ```
 
 You can set the name of the custom component in the data view in Quant-UX.
+
+## Selecting sub areas of the prototype
+
+Sometimes you might not want to render the entire prototype, but just a small subsection, e.g. a dialog. You can do this by using
+the 'selected' property. Enter the name of the component to show. Please make sure, that the **name is unique**. You can also
+use several instances if the QUX component in your template.
+
+```vue
+    <QUX
+      :app="app"
+      :config="config"
+      v-model="viewModel"
+      selected="LoginBox"
+      />
+
+
+    <QUX
+      :app="app"
+      :config="config"
+      v-model="viewModel"
+      selected="SignupBox"
+      />
+```
+
+
 
 
 ## MDI Icons
