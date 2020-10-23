@@ -1,5 +1,5 @@
 
-import * as Grid from '../../src/qux/core/GridLayouter'
+import * as Grid from '../../src/qux/transformer/GridLayouter'
 
 
 test('Test computeGrid', () => {
@@ -191,5 +191,3 @@ test('Test addGridToElements', () => {
     expect(child2.gridRowEnd).toBe(3)
 
 });
-
-

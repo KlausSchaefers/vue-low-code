@@ -188,6 +188,9 @@ export function isWrappedContainer(e) {
     return e.style.wrap
 }
 
+export function isRowContainer(e) {
+    return e.isRow
+}
 
 export function isGridContainer(e) {
     return e.style.grid

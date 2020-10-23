@@ -91,18 +91,22 @@ export default {
 
     executeLine(line) {
         Logger.log(0, 'QUX.executeLine() > enter', line)
-        let box = Util.getBoxById(line.to, this.model)
-        if (box.type === 'Screen') {
-            this.navigateToScreen(box, line)
-            return
-        } else if (box.type === 'Rest') {
-            this.executeRest(box, line)
-            return
-        } else if (box.type === 'LogicOr') {
-            this.executeLogic(box, line)
-            return
+        if (line) {
+            let box = Util.getBoxById(line.to, this.model)
+            if (box.type === 'Screen') {
+                this.navigateToScreen(box, line)
+                return
+            } else if (box.type === 'Rest') {
+                this.executeRest(box, line)
+                return
+            } else if (box.type === 'LogicOr') {
+                this.executeLogic(box, line)
+                return
+            } else {
+                Logger.warn('QUX.executeLine() > Not supported line target', box)
+            }
         } else {
-            Logger.warn('QUX.executeLine() > Not supported line target', box)
+            Logger.error('QUX.executeLine() > ERROR. Null passed', line)
         }
     },
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="qux">
+  <div :class="['qux', {'qux-component-screen': isComponentScreen}]">
 
       <qContainer
             v-if="currentScreen"
@@ -100,6 +100,9 @@ export default {
       'screen': {
           type: String
       },
+      'selected': {
+          type: String
+      },
       'debug': {
           type: String
       },
@@ -172,9 +175,9 @@ export default {
   computed: {
       treeModel () {
           if (this.model) {
-              let transformer = new ModelTransformer(this.model, this.mergedConfig)
+              let transformer = new ModelTransformer(this.model, this.mergedConfig, this.selected)
               let tree = transformer.transform()
-              this.setGlobalCSS(tree)
+              this.setGlobalCSS(tree, this.selected)
               return tree
           }
           return {
@@ -189,6 +192,10 @@ export default {
             }
         }
         return this.getDefaultScreen()
+      },
+      isComponentScreen () {
+          let s = this.currentScreen
+          return s ? s.isComponentScreen : false
       },
       imagePrefix () {
           if (this.hash) {
@@ -232,7 +239,7 @@ export default {
             })
         });
         css = css.join('\n')
-        CSSWriter.write(css)
+        CSSWriter.write(css, tree.id)
     },
     async setApp (app) {
         if (app.substring) {
@@ -269,7 +276,7 @@ export default {
         this.initViewModel()
     },
     async loadAppByKey (key) {
-        Logger.log(1, 'QUX.loadAppByKey() > enter', key)
+        Logger.log(3, 'QUX.loadAppByKey() > enter', key)
         let url = `${this.server}/rest/invitation/${key}/app.json`
         let start = new Date().getTime()
         const response = await fetch(url);
@@ -282,7 +289,7 @@ export default {
         }
     },
     setScreen (screenName) {
-        Logger.log(-1, 'QUX.setScreen() > ', screenName)
+        Logger.log(2, 'QUX.setScreen() > ', screenName)
         // Update url, which will trigger watcher, which will call setScreenByRouter() which will call loadScreen()
         let prefix = ''
         if (this.config && this.config.router && this.config.router.prefix) {
@@ -292,7 +299,7 @@ export default {
         location.hash = url
     },
     loadScreen (name) {
-        Logger.log(1 , 'QUX.loadScreen() >', name)
+        Logger.log(2 , 'QUX.loadScreen() >', name)
         this.closeAllOverlays()
         if (this.model) {
             /**
@@ -318,7 +325,7 @@ export default {
         }
     },
     getDefaultScreen () {
-        Logger.log(1, 'QUX.getDefaultScreen() > enter')
+        Logger.log(2, 'QUX.getDefaultScreen() > enter')
         let screen = this.treeModel.screens.find(screen => screen.props.start === true)
         if (!screen) {
             screen = this.treeModel.screens[0]

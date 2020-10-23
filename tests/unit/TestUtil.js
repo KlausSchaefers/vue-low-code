@@ -11,7 +11,7 @@ export function print(screen, grid = false) {
 }
 
 function printElement(res, e, space='', grid) {
-    let actions ='' // e.lines ? ' -> ' + e.lines.map(l => l.event + ':' + l.screen.name) : ''
+    let actions =''
     let row = e.row ? e.row : ''
     let parent = e.parent ? e.parent.name + ' '  + e.parent._id :  "null"
     let pos = grid ? ` > col: ${e.gridColumnStart} - ${e.gridColumnEnd} > row: ${e.gridRowStart} - ${e.gridRowEnd}` : ''

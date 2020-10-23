@@ -26,8 +26,15 @@ export default {
 				} else {
 						nextLine = this.getRuleMatchingLine(lines)
         }
-         this.executeLine(nextLine)
 
+        if (nextLine) {
+          this.executeLine(nextLine)
+        } else {
+          /**
+           * THis can happs as a modelling error!
+           */
+          Logger.warn('QUX.executeLogic() > NO RULE matching',lines)
+        }
     },
 
     async executeRest (widget) {
@@ -57,6 +64,8 @@ export default {
         let nextLine = this.getRuleMatchingLine(lines, success)
         if (nextLine) {
           this.executeLine(nextLine)
+        }  else {
+          Logger.warn('QUX.executeRest() > NO RULE matching',lines)
         }
     },
 

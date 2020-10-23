@@ -39,7 +39,20 @@ export default class ScreenCSS {
                 }
             }
         }
-        result += '  height:100%;\n'
+        result += this.cssFactory.getPosition(widget);
+
+        /**
+         * Check if we have full screen (height = 100%) or fixed size, component
+         */
+        if (widget.isComponentScreen) {
+            result += `  height:${widget.h}px;\n`
+            result += `  width:${widget.w}px;\n`
+            result += this.cssFactory.getStyleByKey(style, widget, ['boxShadow'])
+            result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.borderProperties)
+        } else {
+            result += '  height:100%;\n'
+        }
+
         result += '}\n\n'
         return result
     }

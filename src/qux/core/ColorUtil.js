@@ -1,10 +1,10 @@
 export function fromRgb (/*String*/ color){
   var m = color.toLowerCase().match(/^rgba?\(([\s\\.,0-9]+)\)/);
-  return m && this.fromArray(m[1].split(/\s*,\s*/));	// Color
+  return m && fromArray(m[1].split(/\s*,\s*/));	// Color
 }
 
 export function fromHex (/*String*/ color ) {
-  let t = this;
+  let result = {};
   let bits = (color.length == 4) ? 4 : 8;
   let mask = (1 << bits) - 1;
   color = Number("0x" + color.substr(1));
@@ -15,17 +15,30 @@ export function fromHex (/*String*/ color ) {
   rgb.forEach(x => {
       var c = color & mask;
       color >>= bits;
-      t[x] = bits == 4 ? 17 * c : c;
+      result[x] = bits == 4 ? 17 * c : c;
   })
-  t.a = 1;
-  return t;	// Color
+  result.a = 1;
+  return result
 }
+
+export function fromArray (/** array */ a) {
+  var result = {}
+  let rgb = ["b", "g", "r"]
+  rgb.forEach((x, i) => {
+    result[x] = a[i] * 1
+  })
+  if(isNaN(result.a)){
+      result.a = 1;
+  }
+  return result
+}
+
 
 export function fromString (str) {
     if (str === 'transparent') {
-        this._set(0, 0, 0, 0);
+        return {r: 0, g:0, b:0, a:0}
     } else {
-        return this.fromRgb(str) || this.fromHex(str);
+        return fromRgb(str) || fromHex(str);
     }
 }
 

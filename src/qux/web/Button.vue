@@ -25,7 +25,6 @@ export default {
       }
   },
   mounted () {
-    // console.debug('Button.mounted()')
   }
 }
 </script>

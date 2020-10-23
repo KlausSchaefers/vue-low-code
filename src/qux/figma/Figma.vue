@@ -1,6 +1,15 @@
 <template>
   <div class="qux-figma">
-    <QUX :app="app" :config="mergedConfig" :showDebug="true" :executor="getMethodExcutor()" v-model="value" ref="qux" v-if="app" :screen="screen"/>
+    <QUX
+      :app="app"
+      :config="mergedConfig"
+      :showDebug="true"
+      :executor="getMethodExcutor()"
+      :selected="selected"
+      v-model="value"
+      ref="qux"
+      v-if="app"
+      :screen="screen"/>
   </div>
 </template>
 <style lang="scss">
@@ -22,6 +31,9 @@ export default {
           type: String
       },
       'debug': {
+          type: String
+      },
+      'selected': {
           type: String
       },
       'executor': {

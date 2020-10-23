@@ -853,18 +853,27 @@ export default class CSSFactory {
 		}
 	}
 
-	getGridRowTracks (total, list, widget) {
-		Logger.log(6, 'CSSFactory.getGridRowTracks() > ' + widget.name, list)
-		if (list) {
-			return list.map(i => {
+	getGridRowTracks (total, rows) {
+		Logger.log(6, 'CSSFactory.getGridRowTracks() > ', rows)
+		if (rows) {
+
+			return rows.map((row, index) => {
+
 				/**
-				 * Fixed rows or spacer (no element starts here)
+				 * The last row will be free space, if it is
+				 * not fixed
+				 */
+				if (!row.fixed && index === rows.length - 1) {
+					return '1fr'
+				}
+				/**
+				 * Fixed rows or spacer (no element starts here, or first)
 				 * rows have a fixed size. Everything else is minmax
 				 */
-				if (i.fixed || i.start.length === 0) {
-					return Math.round(i.l) + 'px'
+				if (row.fixed || row.start.length === 0 || index === 0) {
+					return Math.round(row.l) + 'px'
 				}
-				return `minmax(${Math.round(i.l)}px, auto)`
+				return `minmax(${Math.round(row.l)}px, auto)`
 			}).join(' ')
 		}
 	}
@@ -1116,19 +1125,18 @@ export default class CSSFactory {
 	}
 
 	getRawStyle (style, widget) {
-
-		var result = this.getStyleByKey(style, widget, Object.keys(this.mapping))
+		let result = this.getStyleByKey(style, widget, Object.keys(this.mapping))
 		result += this.getBackGround(style, widget)
 		return result;
 	}
 
 	getPlaceHolderColor (color) {
-		if (c) {
-			var c = Color.fromString(color);
+		if (color) {
+			let c = Color.fromString(color);
 			c.a = 0.5;
-			return color.toString(c);
+			return Color.toString(c);
 		}
-		return 'rgba(255, 255, 255, 0.5)'
+		return 'rgba(0, 0, 0, 0.5)'
 	}
 
 	getBackGround(style, widget) {

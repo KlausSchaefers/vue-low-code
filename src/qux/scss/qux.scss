@@ -1,6 +1,11 @@
 .qux{
     background: none;
     height: 100%;
+
+    &.qux-component-screen{
+        height: auto;
+        display: inline-block;
+    }
 }
 
 .qux-screen {
