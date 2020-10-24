@@ -185,13 +185,15 @@ export default class CSSFactory {
 		 * Generate the template styles
 		 */
 		model.templates.forEach(t => {
-			let style = {
-				type: 'template',
-				css: t.cssSelector,
-				global:true,
-				code: this.getCSS(t, null, false)
+			if (t.style) {
+				let style = {
+					type: 'template',
+					css: t.cssSelector,
+					global:true,
+					code: this.getCSS(t, null, false)
+				}
+				result[t.id] = [style]
 			}
-			result[t.id] = [style]
 		})
 
 		/**

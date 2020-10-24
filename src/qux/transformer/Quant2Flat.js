@@ -61,9 +61,12 @@ export function transform(app, config) {
  */
 function setTemplateStyles(model) {
 	if (model.templates) {
-		model.templates.forEach((t) => {
+		Object.values(model.templates).forEach((t) => {
 			t.cssSelector = `.qux-template-${t.name.replace(/\s+/g, "_")}`
 			t.cssClass = `qux-template-${t.name.replace(/\s+/g, "_")}`
+			/**
+			 * TODO: Make faster with lookup map...
+			 */
 			Object.values(model.widgets).forEach((widget) => {
 				if (widget.template === t.id) {
 					if (!widget.sharedCssClasses) {

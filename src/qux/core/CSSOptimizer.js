@@ -32,12 +32,15 @@ export default class CSSOptimizer {
     }
 
     runTree (model) {
-        // console.debug('CSSOptimizer.runTree()')
+
         /**
 		 * Generate the template styles
 		 */
 		model.templates.forEach(template => {
-			template.style = this.compress(template.style, template)
+            // template groups have no style...
+            if (template.style) {
+                template.style = this.compress(template.style, template)
+            }
 		})
 
 		/**

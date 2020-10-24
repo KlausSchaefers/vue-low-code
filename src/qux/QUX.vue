@@ -532,11 +532,16 @@ export default {
           console.warn('QUX > debug property is decrecated. Use "app" instead.')
           await this.loadAppByKey(this.debug)
       }
-      if (this.screen) {
+      if (!this.selected) {
+        if (this.screen) {
           this.loadScreen(this.screen)
+        } else {
+            this.setScreenByRouter()
+        }
       } else {
-        this.setScreenByRouter()
+          Logger.log(-1, 'QUX.mounted() > Selected:', this.selected)
       }
+
       this.initReziseListener()
   },
   beforeDestroy () {
