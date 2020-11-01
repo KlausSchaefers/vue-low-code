@@ -1,4 +1,5 @@
 import * as ExportUtil from './ExportUtil'
+import Logger from './Logger'
 
 export default class CSSOptimizer {
 
@@ -17,21 +18,20 @@ export default class CSSOptimizer {
         this.borderColor = ['borderTopColor', 'borderRightColor', 'borderBottomColor', 'borderLeftColor']
 
         this.padding = ['paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft']
+
 	}
 
     runFlat (model) {
         model = ExportUtil.clone(model)
-
         if (model.templates) {
-            this.compressList(model.templates)
+            this.compressDict(model.templates)
         }
-        this.compressList(model.screens)
-        this.compressList(model.widgets)
-
+        this.compressDict(model.screens)
+        this.compressDict(model.widgets)
         return model
     }
 
-    runTree (model) {
+    runTree (model, replaceVerticalWithPadding = false) {
 
         /**
 		 * Generate the template styles
@@ -50,11 +50,11 @@ export default class CSSOptimizer {
 		model.screens.forEach(screen => {
             screen.style = this.compress(screen.style, screen)
 			screen.children.forEach(child => {
-				this.compressChildren(child)
+				this.compressChildren(child, replaceVerticalWithPadding)
             })
             if (screen.fixedChildren) {
                 screen.fixedChildren.forEach(child => {
-                    this.compressChildren(child)
+                    this.compressChildren(child, replaceVerticalWithPadding)
                 })
             }
         })
@@ -62,22 +62,26 @@ export default class CSSOptimizer {
         return model
     }
 
-    compressChildren (element) {
-        element.style = this.compress(element.style, element, false)
+    compressChildren (element, replaceVerticalWithPadding) {
+        element.style = this.compress(element.style, element, replaceVerticalWithPadding)
         if (element.children) {
             element.children.forEach(child => {
-				this.compressChildren(child)
+				this.compressChildren(child, replaceVerticalWithPadding)
 			})
         }
     }
 
-    compressList(list) {
-        Object.values(list).forEach(item => {
+    compressDict(dict) {
+        Object.values(dict).forEach(item => {
             item.style = this.compress(item.style, item)
         })
     }
 
-    compress (style) {
+    compress (style, element, replaceVerticalWithPadding = false) {
+
+        if (replaceVerticalWithPadding) {
+           style = this.removeVAlign(style, element)
+        }
 
         this.compressAttribes(style, this.padding, 'padding', 'px', 0)
 
@@ -122,6 +126,23 @@ export default class CSSOptimizer {
             delete style.borderRadius
         }
 
+        return style
+    }
+
+    removeVAlign (style, element) {
+        if (style.verticalAlign === 'middle' && style.fontSize && style.fontSize !== 'auto') {
+            Logger.log(3, 'CSSOptimizer.removeVAILN() > middle', element.name)
+            delete style.verticalAlign
+            style.paddingTop = Math.round((element.h - style.fontSize) / 2)
+            style.paddingBottom = element.h - style.fontSize - style.paddingTop
+        }
+
+        if (style.verticalAlign === 'bottom' && style.fontSize && style.fontSize !== 'auto') {
+            Logger.log(3, 'CSSOptimizer.removeVAILN() > bottom', element.name)
+            delete style.verticalAlign
+            style.paddingTop = Math.round((element.h - style.fontSize))
+            style.paddingBottom = 0
+        }
         return style
     }
 

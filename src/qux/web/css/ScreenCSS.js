@@ -39,7 +39,6 @@ export default class ScreenCSS {
                 }
             }
         }
-        result += this.cssFactory.getPosition(widget);
 
         /**
          * Check if we have full screen (height = 100%) or fixed size, component

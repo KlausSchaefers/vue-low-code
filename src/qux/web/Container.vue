@@ -1,37 +1,15 @@
 <template>
   <div :class="['qux-container', cssClass]" @click="onClick">
 
-      <component v-for="child in element.children"
-        :is="child.qtype"
-        :key="child.id"
-        :element="child"
-        :model="model"
-        :config="config"
-        v-model="value"
-        @qCallback="forwardCallback"
-        @qClick="forwardClick"
-        @qChange="forwardChange"
-        @qKeyPress="forwardKeyPress"
-        @qFocus="forwardFocus"
-        @qBlur="forwardBlur"
-        @qMouseOver="forwardMouseOver"
-        @qMouseOut="forwardMouseOut"
-        />
-
-      <!-- some tricky thingy to get the justified contend right...
-      <template v-if="justifyContent">
-        <div class="qux-container-wrapper-placeholder" v-for="(p,i) in wrapperPlaceHolders" :key="i"/>
-      </template>
-      -->
-
-      <template v-if="element.fixedChildren">
-        <component v-for="child in element.fixedChildren"
+      <template v-if="element">
+        <component v-for="child in element.children"
           :is="child.qtype"
           :key="child.id"
           :element="child"
           :model="model"
           :config="config"
           v-model="value"
+          @qDesignSystemCallback="forwardDesignSystemCallback"
           @qCallback="forwardCallback"
           @qClick="forwardClick"
           @qChange="forwardChange"
@@ -41,7 +19,31 @@
           @qMouseOver="forwardMouseOver"
           @qMouseOut="forwardMouseOut"
           />
+
+        <template v-if="element.fixedChildren">
+          <component v-for="child in element.fixedChildren"
+            :is="child.qtype"
+            :key="child.id"
+            :element="child"
+            :model="model"
+            :config="config"
+            v-model="value"
+            @qDesignSystemCallback="forwardDesignSystemCallback"
+            @qCallback="forwardCallback"
+            @qClick="forwardClick"
+            @qChange="forwardChange"
+            @qKeyPress="forwardKeyPress"
+            @qFocus="forwardFocus"
+            @qBlur="forwardBlur"
+            @qMouseOver="forwardMouseOver"
+            @qMouseOut="forwardMouseOut"
+            />
+        </template>
       </template>
+      <template v-else>
+        <slot></slot>
+      </template>
+
   </div>
 </template>
 <style lang="scss">

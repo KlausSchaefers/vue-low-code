@@ -6,13 +6,18 @@ export default class FigmaService {
     this.setAccessKey(key)
     this.baseURL = 'https://api.figma.com/v1/'
     this.vectorTypes = ['LINE', 'ELLIPSE', 'VECTOR']
-    this.buttonTypes = ['RECTANGLE', 'TEXT', 'FRAME', 'GROUP', 'INSTANCE', 'COMPONENT']
+    this.buttonTypes = ['RECTANGLE', 'TEXT', 'FRAME', 'GROUP', 'INSTANCE', 'COMPONENT', 'VARIANT_COMPONENT']
     this.ignoredTypes = [] // ['GROUP', 'INSTANCE']
     this.allAsVecor = false
     this.max_ids = 50
     this.pluginId = '858477504263032980'
     this.downloadVectors = true
     this.imageScaleFactor = 1
+    /**
+     * TODO: update with config
+     */
+    this.varientComponentHoverKey = 'hover'
+    this.varientComponentFocusKey = 'focus'
   }
 
   setImageScaleFactor(factor) {
@@ -30,6 +35,21 @@ export default class FigmaService {
     return this
   }
 
+  setBackgroundImages (app) {
+    Logger.log('FigmaService.setBackgroundImages()')
+    Object.values(app.screens).forEach(screen => this.setBackgroundImage(screen))
+    Object.values(app.widgets).forEach(widget => this.setBackgroundImage(widget))
+    return app
+  }
+
+  setBackgroundImage (element) {
+    if (element.props.figmaImage) {
+      element.style.backgroundImage = {
+        url: element.props.figmaImage
+      }
+    }
+  }
+
   _createDefaultHeader() {
 
     let headers = new Headers({
@@ -40,7 +60,7 @@ export default class FigmaService {
     return headers
   }
 
-  async get (key, importChildren = true, allAsVecor = false) {
+  async get (key, importChildren = true, allAsVecor = false, setVariantsAsHover = true) {
     this.allAsVecor = allAsVecor
     return new Promise ((resolve, reject) => {
       let url = this.baseURL + 'files/' + key + '?geometry=paths&plugin_data=' + this.pluginId
@@ -51,7 +71,7 @@ export default class FigmaService {
       }).then(resp => {
         resp.json().then(json => {
           try {
-            let app = this.parse(key, json, importChildren)
+            let app = this.parse(key, json, importChildren, setVariantsAsHover)
             resolve(app)
           } catch (e) {
             Logger.error('FigmaService.get() > Error', e)
@@ -94,6 +114,7 @@ export default class FigmaService {
     Logger.log(3, 'FigmaService.parse() > enter importChildren:' + importChildren,fModel)
     let model = this.createApp(id, fModel)
     let fDoc = fModel.document
+    fModel._elementsById = {}
 
     if (fDoc.children) {
       fDoc.children.forEach(page => {
@@ -104,6 +125,11 @@ export default class FigmaService {
         }
       })
     }
+
+    /**
+     * Set hover styles and mark the elements as DesignLets
+     */
+    this.setVarientComponents(model, fModel)
 
     /**
      * Fix the lines that are until now with figma ids
@@ -120,6 +146,118 @@ export default class FigmaService {
      */
 
     return model
+  }
+
+  /**
+   * Set for each instance the id to the parent. Why??
+   */
+  setVarientComponents (qModel) {
+    // console.debug('setInstanceComponents')
+
+
+    /**
+     * Mark all elements of a variant as a component for the
+     * design lets
+     */
+    let varientComponents = {}
+    Object.values(qModel.widgets).forEach(widget => {
+      let parent = qModel.widgets[widget.parentId]
+      if (parent && parent.figmaType === 'VARIANT_COMPONENT') {
+        widget.props.isComponet = true
+        widget.props.isVaraint = true
+        widget.variant = this.parseVariant(widget.name)
+        if (!varientComponents[widget.parentId]){
+          varientComponents[widget.parentId] = []
+        }
+        varientComponents[widget.parentId].push(widget)
+      }
+    })
+
+
+    /**
+     * 1) get all varient_components
+     *
+     * 2) check if they have a hover style
+     *
+     * 3) Set the .hover for all styles with the same config for the other props
+     */
+    Object.values(varientComponents).forEach(children => {
+      // console.debug('varient', children)
+      /**
+       * Make this smarter in and check for a plugin flag
+       */
+      let hoverChildren = children.filter(c => c.name.toLowerCase().indexOf('=' + this.varientComponentHoverKey) > 0)
+      if (hoverChildren.length === 1) {
+        let hoverChild = hoverChildren[0]
+
+        /**
+         * lets find out which key actually mactched hover.
+         *
+         * TODO: what if the pluginFlag was used?
+         */
+        let others = this.getOtherVarants(children, hoverChild, this.varientComponentHoverKey)
+        console.debug(hoverChild.name, others)
+      }
+    })
+
+    /**
+     * 4) Go through all widget,s check if we have a component with the hover, and copy the hover over.
+     */
+  }
+
+  getOtherVarants (children, selected, valueToIgnore) {
+    let variantToMatch = Object.entries(selected.variant).filter(e => {
+      let value = e[1]
+      if (value && value.toLowerCase) {
+        value = value.toLowerCase()
+      }
+      return value !== valueToIgnore
+    })
+    console.debug(variantToMatch)
+
+  }
+
+  parseVariant (str) {
+    let result = {}
+    str.split(',').map(s => s.split('=')).forEach(pair => result[pair[0].trim()]=pair[1].trim())
+    return result
+  }
+
+  notUsed (qModel, widgetsByFigmaID, fModel) {
+     //console.debug(widgetsByFigmaID)
+
+     Object.values(qModel.widgets).forEach(widget => {
+      if (widget.figmaComponentId) {
+        console.debug(widget.name, widget.id, widget.figmaComponentId, widget.parentId)
+        /**
+         * Check if we have an element that is in an varient component
+         * TDOD: This could be faster by setting an attrib during parsing
+         */
+        let varientCompentParent = this.getParentVarientComponent(widget, widgetsByFigmaID, qModel)
+        if (varientCompentParent) {
+          console.debug(' >>> ', varientCompentParent.name, varientCompentParent.id, varientCompentParent.figmaId)
+          /**
+           * Now lets get the figma node
+           */
+          let fVarient = fModel._elementsById[varientCompentParent.figmaId]
+
+          if (fVarient) {
+            //let hoverChild = fVarient.children.find(c => c.name.indexOf(this.varientComponentHoverKey) >=0)
+
+          }
+
+        }
+      }
+    })
+  }
+
+  getParentVarientComponent (widget, widgetsByFigmaID, qModel) {
+    let parent = widgetsByFigmaID[widget.figmaComponentId]
+    console.debug('...', parent ? parent.id + ' ' + parent.parentId : 'X' )
+    while (parent && parent.figmaType !== 'VARIANT_COMPONENT') {
+      parent = qModel.widgets[parent.parentId]
+    }
+    return parent
   }
 
   setLineTos (model) {
@@ -247,10 +385,11 @@ export default class FigmaService {
       widget = {
         id: 'w' + this.getUUID(model),
         parentId: qParentId,
-        figmaId: element.id,
         name: this.getFigmaName(element),
         type: this.getType(element),
+        figmaId: element.id,
         figmaType: element.type,
+        figmaComponentId: this.getFigmaComponentId(element),
         x: pos.x,
         y: pos.y,
         w: pos.w,
@@ -263,6 +402,7 @@ export default class FigmaService {
       widget.has = this.getHas(element, widget)
       widget = this.getPluginData(element, widget, fModel)
 
+      fModel._elementsById[element.id] = element
       model.widgets[widget.id] = widget
       qScreen.children.push(widget.id)
 
@@ -282,7 +422,7 @@ export default class FigmaService {
      */
     if (element.children) {
       /**
-       * We do nit go down on vector elemenets
+       * We do not go down on vector elemenets
        */
       if (!this.isVector(element)) {
         element.children.forEach(child => {
@@ -300,6 +440,19 @@ export default class FigmaService {
     this.addTempLine(element, model)
     return widget
   }
+
+  getFigmaComponentId (fElement) {
+    if (fElement.type === 'INSTANCE') {
+      return fElement.componentId
+    }
+    if (fElement.id.indexOf('I') === 0) {
+      let parts = fElement.id.split(';')
+      if (parts.length === 2) {
+        return parts[1]
+      }
+    }
+  }
+
 
   getFigmaName (element) {
     /**
@@ -604,6 +757,10 @@ export default class FigmaService {
       return  !this.isTooComplexStyle(element)
     }
     return false
+  }
+
+  isVariantContainer (fElement) {
+    return fElement.type === 'VARIANT_COMPONENT'
   }
 
   isTooComplexStyle (element) {

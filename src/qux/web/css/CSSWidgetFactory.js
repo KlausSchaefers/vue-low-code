@@ -264,7 +264,9 @@ export default class CSSWidgetFactory {
     let result = ''
     result += selector + ' {\n'
     result += this.cssFactory.getPosition(widget);
-
+    // FIXME: we set width and height twice
+    result += `  height:${widget.h}px;\n`
+    result += `  width:${widget.w}px;\n`
     result += '}\n\n'
 
     result += selector + ' .qux-checkbox-cntr {\n'

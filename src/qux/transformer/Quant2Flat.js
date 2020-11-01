@@ -23,7 +23,9 @@ export function transform(app, config) {
 	/**
 	 * Set default data binding
 	 */
-	model = addDefaultDataBinding(model)
+	if (config.addDefaultDatabinding) {
+		model = addDefaultDataBinding(model)
+	}
 
 	/**
 	 * Set certain widgets horizontal fixed

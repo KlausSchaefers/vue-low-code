@@ -59,6 +59,8 @@ export default {
       app: null,
       mergedConfig: {
         figma: {
+          varientComponentHoverKey: 'Mouse=Hover',
+          varientComponentDefaultKey: 'Mouse=Default'
         },
         css: {
           grid: true,
@@ -80,11 +82,9 @@ export default {
     async setFigma (figma) {
        Logger.log(-1, 'Figma.setFigma()')
        if (figma.figmaFile && figma.figmaAccessKey) {
-          let figmaService = new FigmaService(figma.figmaAccessKey)
+          let figmaService = new FigmaService(figma.figmaAccessKey, this.mergedConfig)
           let app = await figmaService.get(figma.figmaFile, true)
-
-          Object.values(app.screens).forEach(screen => this.setBackgroundImage(screen))
-          Object.values(app.widgets).forEach(widget => this.setBackgroundImage(widget))
+          app = figmaService.setBackgroundImages(app)
           this.app = app
        } else if (figma.screens && figma.widgets){
           this.app = figma
@@ -116,13 +116,6 @@ export default {
           this.mergedConfig.figma = Util.mixin(this.mergedConfig.figma, c.figma)
         }
         Logger.log(3, 'Figma.setConfig()', JSON.stringify(this.mergedConfig))
-    },
-    setBackgroundImage (element) {
-      if (element.props.figmaImage) {
-        element.style.backgroundImage = {
-          url: element.props.figmaImage
-        }
-      }
     },
     getMethodExcutor () {
         Logger.log(3, 'Figma.getMethodExcutor() > ')

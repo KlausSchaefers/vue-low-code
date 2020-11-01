@@ -25,21 +25,25 @@ export default class RepeaterCSS {
        * b) Grid
        *  1) Auto => Wrapped
        *  2) Fixed margin
+       *
+       * TODO: Use here some implicit GRID?
        */
 
       if (Util.isWrappedContainer(widget)) {
         Logger.warn('RepeaterCSS.run () > wrapped container not supported', widget)
       }
 
-      let boundingBox = Util.getBoundingBoxByBoxes(widget.children)
+      /**
+       * If we have just one child, we just take this to male sure we use teh min and max width
+       */
+      let boundingBox = widget.children.length === 1 ? widget.children[0]: Util.getBoundingBoxByBoxes(widget.children)
       boundingBox.parent = widget
 
       if (Util.isRepeaterGrid(widget)) {
         Logger.log(5, 'RepeaterCSS.run () > grid', widget)
         result += selector + ' .qux-repeater-child {\n'
         result += '  display: inline-block;\n';
-        let width = this.cssFactory.getWrappedWidth(boundingBox)
-        result += `  width: ${width};\n`;
+        result += this.cssFactory.getWrappedWidth(boundingBox);
         let height = this.cssFactory.getFixedHeight(boundingBox)
         result += `  height: ${height};\n`;
         result += `  margin-bottom:${widget.props.distanceY}px;\n`;

@@ -4,7 +4,7 @@ import CSSFactory from '../../src/qux/core/CSSFactory'
 test('Test getGridColumnTracks', () => {
 
 
-  let f = new CSSFactory(true, '', true)
+  let f = new CSSFactory(true, '', true).positionFactory
   let track = f.getGridColumnTracks(600, [
     { v: 0, start: [], end: [], fixed: true, l: 100 },
     { v: 48, start: [], end: [], fixed: true, l: 100 },
@@ -24,7 +24,7 @@ test('Test getGridColumnTracks', () => {
 
 test('Test getGridRowTracks', () => {
 
-  let f = new CSSFactory(true, '', true)
+  let f = new CSSFactory(true, '', true).positionFactory
   let track = f.getGridRowTracks(600, [
     { v: 0, start: [{}], end: [], fixed: false, l: 50 },
     { v: 50, start: [{}, {}], end: [], fixed: false, l: 440 },

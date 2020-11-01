@@ -25,6 +25,10 @@ export default {
   },
   computed: {
       isChecked () {
+        if (this.isDesignSystemRoot) {
+          // FIXME: make like real checkbox
+          return this.value === this.element.name
+        }
         if (this.element) {
           let input = this.dataBindingInput
           return input === this.element.name

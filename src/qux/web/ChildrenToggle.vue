@@ -9,6 +9,7 @@
           :model="model"
           :config="config"
           v-model="value"
+          @qDesignSystemCallback="forwardDesignSystemCallback"
           @qCallback="forwardCallback"
           @qClick="forwardClick"
           @qChange="forwardChange"
@@ -86,7 +87,10 @@ export default {
       },
       forwardCallback (element, e, value) {
         this.$emit('qCallback', element, e, value)
-    }
+      },
+      forwardDesignSystemCallback (element, e, type, callback) {
+        this.$emit('qDesignSystemCallback', element, e, type, callback)
+      }
   },
   watch: {
     value (v) {

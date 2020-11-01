@@ -133,6 +133,9 @@ export default {
         if (this.dataBindingOutputPath && this.dataBindingInputPath) {
           if (row) {
             Logger.log(3, 'qRepeater.forwardClick() > Update databidning' + this.dataBindingOutputPath, row)
+            /**
+             * FIXME: Should we do a copy here???
+             */
             JSONPath.set(this.value, this.dataBindingOutputPath, row)
           }
         }

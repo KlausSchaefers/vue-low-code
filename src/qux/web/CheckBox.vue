@@ -25,9 +25,12 @@ export default {
   },
   computed: {
       isChecked () {
+        if (this.isDesignSystemRoot) {
+          return this.value
+        }
         if (this.element) {
           let input = this.dataBindingInput
-          return input === true
+              return input === true
         }
         return this.checked
       }

@@ -47,6 +47,7 @@
 <script>
 
 import * as Util from './core/ExportUtil'
+import Config from './core/Config'
 import Logger from './core/Logger'
 import ModelTransformer from './core/ModelTransformer'
 import CSSOptimizer from './core/CSSOptimizer'
@@ -135,41 +136,7 @@ export default {
         overlayScreenIds: [],
         hash: false,
         msg: 'Loading...',
-        mergedConfig: {
-            debug: {
-                logLevel: 0
-            },
-            css: {
-                grid: true,
-                justifyContentInWrapper: false,
-                pinnedLeft: false,
-                pinnedRight: false,
-                fixedHorizontal: false,
-                attachLabels: true
-            },
-            router: {
-                key: 'screenName',
-                prefix: ''
-            },
-            databinding: {
-                default: ''
-            },
-            imageFolder: '/img',
-            responsive: {
-                mobile: {
-                    min: 0,
-                    max: 400
-                },
-                tablet: {
-                    min: 401,
-                    max: 1200
-                },
-                desktop: {
-                    min: 1201,
-                    max: 1000000
-                }
-            }
-        }
+        mergedConfig: Config.getDefault()
       }
   },
   computed: {
@@ -282,7 +249,7 @@ export default {
         const response = await fetch(url);
         if (response.status === 200) {
             let app = await response.json();
-            Logger.log(-1, 'QUX.setApp() > exit', new Date().getTime() - start)
+            Logger.log(-1, 'QUX.loadAppByKey() > exit', new Date().getTime() - start)
             return app
         } else {
             this.msg = 'The debug id is wrong!'
@@ -358,27 +325,10 @@ export default {
         }
     },
     setConfig (c) {
-        if (c.css) {
-            this.mergedConfig.css = Util.mixin(this.mergedConfig.css, c.css)
-        }
-        if (c.router) {
-            this.mergedConfig.router = Util.mixin(this.mergedConfig.router, c.router)
-        }
-        if (c.databinding) {
-            this.mergedConfig.databinding = Util.mixin(this.mergedConfig.databinding, c.databinding)
-        }
-        if (c.components) {
-            this.mergedConfig.components = c.components
-            this.initCustomComponents(this.mergedConfig.components)
-        }
-        if (c.imageFolder) {
-            this.mergedConfig.imageFolder = c.imageFolder
-        }
-        if (c.debug) {
-            this.mergedConfig.debug = Util.mixin(this.mergedConfig.debug, c.debug)
-        }
+        this.mergedConfig = Config.merge(this.mergedConfig, c)
+        this.initCustomComponents(this.mergedConfig.components)
         Logger.setLogLevel(this.mergedConfig.debug.logLevel)
-        Logger.log(-1, 'QUX.setConfig()', JSON.stringify(this.mergedConfig))
+        Logger.log(5, 'QUX.setConfig()', JSON.stringify(this.mergedConfig))
     },
     initCustomComponents (components) {
         Logger.log(1, 'QUX.initCustomComponents()')
@@ -539,7 +489,7 @@ export default {
             this.setScreenByRouter()
         }
       } else {
-          Logger.log(-1, 'QUX.mounted() > Selected:', this.selected)
+          Logger.log(-1, 'QUX.mounted() > Selected:', this.selected, this.app)
       }
 
       this.initReziseListener()

@@ -38,7 +38,10 @@ export default {
       return ''
     },
     selectedValue () {
-       if (this.element) {
+      if (this.element && this.element.isDesignSystemRoot) {
+        return this.value
+      }
+      if (this.element) {
             let input = this.dataBindingInput
             if (input) {
               if (!input.toLowerCase) {

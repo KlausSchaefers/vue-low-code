@@ -207,13 +207,23 @@ export function addGridColumns (columns, x, e, start) {
           v: x,
           start: [],
           end: [],
-          fixed: false
+          fixed: false,
+          hasMinMax: false
       }
   }
   if (start) {
       columns[x].start.push(e)
   } else {
       columns[x].end.push(e)
+  }
+  /**
+   * If we have a min max, we will
+   * later try to use max-content. This will
+   * only work for the longest element.
+   * Check CSSPosition.getGridColumnTracks()
+   */
+  if (Util.hasMinMaxWdith(e)) {
+      columns[x].hasMinMax = true
   }
 }
 

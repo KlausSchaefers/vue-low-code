@@ -17,28 +17,31 @@
     .qux-action {
         cursor: pointer;
     }
+}
 
-    .qux-valign-middle {
-        position: relative;
+/* This could be better with a grid, but then
+   the row layot of labels would break, and
+   we would not take full space */
+.qux-valign-middle {
+    position: relative;
 
-        .qux-common-label {
-            width: 100%;
-            position: absolute;
-            top:50%;
-            left: 0px;
-            transform: translateY(-50%);
-        }
+    .qux-common-label {
+        width: 100%;
+        position: absolute;
+        top:50%;
+        left: 0px;
+        transform: translateY(-50%);
     }
+}
 
-    .qux-valign-bottom  {
-        position: relative;
+.qux-valign-bottom  {
+    position: relative;
 
-        .qux-common-label{
-            width: 100%;
-            position: absolute;
-            bottom:0px;
-            left: 0px;
-        }
+    .qux-common-label{
+        width: 100%;
+        position: absolute;
+        bottom:0px;
+        left: 0px;
     }
 }
 

@@ -1,10 +1,12 @@
 <template>
   <div :class="['qux-dropdown', cssClass, {'qux-error': hasError}, {'qux-open': isOpen}, {'qux-dropdown-mobile': isMobile}]" @click="open">
-      <span class="qux-common-label">
-            {{selectOption}}
-      </span>
-      <div class="qux-dropdown-expend">
-        <span class="qux-dropdown-carret"></span>
+      <div class="qux-dropdown-label">
+        <span class="qux-common-label qux-dropdown-label">
+                {{selectOption}}
+        </span>
+        <div class="qux-dropdown-expend">
+            <span class="qux-dropdown-carret"></span>
+        </div>
       </div>
       <div class="qux-dropdown-popup" v-if="isOpen">
           <span v-for="o in dropDownOption" :key="o.label" class="qux-dropdown-item" @mousedown.stop="select(o)">
@@ -42,7 +44,7 @@ export default {
       dropDownOption () {
           if (this.element) {
             return this.options.map(o => {
-                if (o.toLowerCase) {
+                if (o.toLowerCase || typeof o === 'number') {
                     return {
                         label: o,
                         value: o
@@ -54,6 +56,9 @@ export default {
           return []
       },
       selectOption () {
+          if (this.isDesignSystemRoot) {
+            return this.value
+          }
           if (this.element) {
             let input = this.dataBindingInput
             if (input) {

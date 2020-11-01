@@ -8,6 +8,11 @@ export function hasNoChildren(widget) {
     return widget.children && widget.children.length === 0
 }
 
+export function hasChildren(widget) {
+    return widget.children && widget.children.length > 0
+}
+
+
 export function isScreen(e) {
     return e.type === 'Screen'
 }
@@ -196,6 +201,10 @@ export function isGridContainer(e) {
     return e.style.grid
 }
 
+export function isDesignSystemRoot(e) {
+    return e.isDesignSystemRoot
+}
+
 export function isRepeater(e) {
     if (e) {
         return e.type === 'Repeater'
@@ -208,6 +217,10 @@ export function hasWrappedParent(e) {
         return e.parent.style.wrap
     }
     return false
+}
+
+export function hasComponentScreenParent (e) {
+    return e.hasComponentScreenParent
 }
 
 export function hasGrid(e) {
@@ -283,6 +296,10 @@ export function isOverlay(screen) {
 
 export function hasOverlayBackground(screen) {
     return screen.style && screen.style.hasBackground
+}
+
+export function hasMinMaxWdith(screen) {
+    return screen.style && (screen.style.minWidth || screen.style.maxWidth)
 }
 
 
@@ -533,6 +550,7 @@ export function getBoundingBoxByIds (ids, model) {
 }
 
 export function getBoundingBoxByBoxes (boxes) {
+
     var result = { x: 100000000, y: 100000000, w: 0, h: 0, z: 100000000, props: {resize: {}}};
 
     for (var i = 0; i < boxes.length; i++) {
@@ -552,6 +570,8 @@ export function getBoundingBoxByBoxes (boxes) {
 
     result.h -= result.y;
     result.w -= result.x;
+
+
 
     return result;
 }
@@ -1096,4 +1116,32 @@ export function getElementsAsRows (nodes) {
         lastRowId = rowId
     })
     return rows
+}
+
+export function setCSSClassNames(parent, screenName) {
+	let name = parent.name
+	name = name.replace(/\./g, "_")
+	if (name.match(/^\d/)) {
+		name = "q" + name
+	}
+	let cssSelector = `.${name.replace(/\s+/g, "_")}`
+
+	parent.cssClass = `${name.replace(/\s+/g, "_")}`
+	if (parent.parent) {
+		cssSelector = `.${screenName.replace(/\s+/g, "_")} ${cssSelector}`
+	} else {
+		cssSelector = `.qux-screen${cssSelector}`
+	}
+	parent.cssSelector = cssSelector
+
+	if (parent && parent.children) {
+		parent.children.forEach((c) => {
+			setCSSClassNames(c, screenName)
+		})
+	}
+	if (parent && parent.fixedChildren) {
+		parent.fixedChildren.forEach((c) => {
+			setCSSClassNames(c, screenName)
+		})
+	}
 }

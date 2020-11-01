@@ -1,31 +1,42 @@
 .qux-dropdown{
     border:1px solid #333;
-    position: relative;
     transition: all 0.2s;
+    display: inline-block;
+    position: relative;
 
-    .qux-dropdown-expend {
-        position: absolute;
+    .qux-dropdown-label {
+        display: flex;
+        flex-direction: row;
         height: 100%;
-        top: 0px;
-        right: 0px;
-        width: 40px;
+        width: 100%;
+        align-items: center;
+
+        .qux-dropdown-expend {
+            position: absolute;
+            height: 100%;
+            top: 0px;
+            right: 0px;
+            width: 40px;
+        }
+
+        .qux-dropdown-carret {
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid;
+            display: inline-block;
+            height: 0;
+            margin-left: 2px;
+            vertical-align: middle;
+            width: 0;
+            position: absolute;
+            right: 50%;
+            top: 50%;
+            transform: translateY(-50%) translateX(50%);
+            cursor: pointer;
+        }
     }
 
-    .qux-dropdown-carret {
-        border-left: 4px solid transparent;
-        border-right: 4px solid transparent;
-        border-top: 4px solid;
-        display: inline-block;
-        height: 0;
-        margin-left: 2px;
-        vertical-align: middle;
-        width: 0;
-        position: absolute;
-        right: 50%;
-        top: 50%;
-        transform: translateY(-50%) translateX(50%);
-        cursor: pointer;
-    }
+
 
     .qux-dropdown-popup{
         position: absolute;
@@ -41,7 +52,7 @@
     .qux-dropdown-item {
         display: block;
         cursor: pointer;
-        
+
     }
 
     &.qux-open .qux-dropdown-popup{

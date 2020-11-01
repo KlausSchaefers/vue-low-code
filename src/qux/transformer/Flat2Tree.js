@@ -148,33 +148,7 @@ function setWidgetTypes(parent) {
 }
 
 export function setCSSClassNames(parent, screenName) {
-	let name = parent.name
-	name = name.replace(/\./g, "_")
-	if (name.match(/^\d/)) {
-		name = "q" + name
-	}
-	let cssSelector = `.${name.replace(/\s+/g, "_")}`
-
-	parent.cssClass = `${name.replace(/\s+/g, "_")}`
-	if (parent.parent) {
-		cssSelector = `.${screenName.replace(/\s+/g, "_")} ${cssSelector}`
-		// cssClass = `${screenName.replace(/\s+/g, '_')} ${cssClass}`
-	} else {
-		cssSelector = `.qux-screen${cssSelector}`
-		// cssClass = `qux-screen ${cssClass}`
-	}
-	parent.cssSelector = cssSelector
-
-	if (parent && parent.children) {
-		parent.children.forEach((c) => {
-			setCSSClassNames(c, screenName)
-		})
-	}
-	if (parent && parent.fixedChildren) {
-		parent.fixedChildren.forEach((c) => {
-			setCSSClassNames(c, screenName)
-		})
-	}
+	return Util.setCSSClassNames(parent, screenName)
 }
 
 function getWidgetType(element) {
@@ -418,7 +392,7 @@ function attachSingleLabelsInNodes(model, node, allowedTypes) {
 		 */
 		let lines = Util.getLines(child, model)
 		if (child.type === "Label" && lines.length === 0) {
-			Logger.log(4, "Falt2Tree.attachSingleLabelsInNodes()", node)
+			Logger.log(-1, "Falt2Tree.attachSingleLabelsInNodes()", node)
 			node.props.label = child.props.label
 			node.children = []
 			/**
@@ -435,16 +409,16 @@ function attachSingleLabelsInNodes(model, node, allowedTypes) {
 			})
 			node.style.paddingTop = child.y
 			node.style.paddingBottom = node.h - child.h - child.y
+			node.style.paddingLeft = child.x
+			node.style.paddingRight = node.w - child.w - child.x
 
-			if (node.style.textAlign !== "center") {
-				/**
-				 * this can cause issues in the grid because
-				 * the element minWidth getsto large
-				 */
-				node.style.paddingLeft = child.x
-				node.style.paddingRight = node.w - child.w - child.x
-			}
 			node.style = Util.fixAutos(node.style, child)
+
+			if (child.props.databinding) {
+				node.props.databinding = child.props.databinding
+			}
+
+			// remove grid??
 		}
 	} else {
 		node.children.forEach((child) => {

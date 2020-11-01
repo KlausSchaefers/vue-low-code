@@ -63,7 +63,6 @@ export default {
   computed: {
     columns () {
         if (this.element) {
-            console.debug(this.element.name, this.element.props.columns)
             let columns = []
             if (this.element.props.columns && this.element.props.columns.length > 0) {
                 columns = this.element.props.columns.map((col) => col.label)
@@ -114,7 +113,7 @@ export default {
             return rows.sort((a,b) => {
                 let valueA = a.values[key]
                 let valueB = b.values[key]
-                console.debug(valueA, '?', valueB)
+
                 if (valueA.localeCompare && valueB.localeCompare) {
                     if (this.sortOrder === 'asc') {
                         return valueA.localeCompare(valueB)

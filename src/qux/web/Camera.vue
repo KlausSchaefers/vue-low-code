@@ -38,22 +38,6 @@ export default {
       }
       return false
     },
-    label () {
-       if (this.element) {
-        let input = this.dataBindingInput
-        if (input) {
-          if (this.maxFiles > 1 && Array.isArray(input)) {
-            return input.map(f => f.name).join(', ')
-          } else {
-            return input.name
-          }
-        }
-      }
-      if (this.element && this.element.props){
-          return this.element.props.label
-      }
-      return ''
-    },
     maxFiles () {
         if (this.element && this.element.props && this.element.props.maxFiles !== undefined){
             return this.element.props.maxFiles

@@ -25,10 +25,28 @@ export default {
       },
       'lbl': {
         type: String
+      },
+      'url': {
+        type: String
+      },
+      'optionList': {
+        type: Array
+      },
+      'isStandAlone': {
+        type: Boolean
       }
   },
   computed: {
+      isDesignSystemRoot () {
+        return this.element && this.element.isDesignSystemRoot
+      },
+      hasSlot () {
+        return this.$slots.default !== undefined && this.$slots.default !== null
+      },
       hasLink () {
+        if (this.url && this.url.length > 0) {
+          return true
+        }
         if (this.element && (this.element.lines && this.element.lines)) {
           let line = this.element.lines.find(l => this.isClick(l))
           if (line) {
@@ -41,6 +59,9 @@ export default {
         return false
       },
       link () {
+        if (this.url) {
+          return this.url
+        }
         if (this.element && (this.element.lines && this.element.lines.length  === 1)) {
           let line = this.element.lines.find(l => this.isClick(l))
           if (line) {
@@ -63,13 +84,22 @@ export default {
               (this.element.props.callbacks && this.element.props.callbacks.click)
       },
       label () {
-          if (this.element && this.element.props && this.element.props.label) {
-            return this.escapeLabel(this.element.props.label)
+        if (this.lbl) {
+          return this.lbl
+        }
+        if (this.dataBindingInputPath && this.dataBindingInputPath.indexOf('$') === 0) {
+          let dsRoot = this.getDesignSystemRoot()
+          let path = this.dataBindingInputPath.substring(1)
+          if (dsRoot) {
+            if (dsRoot[path]) {
+              return dsRoot[path]
+            }
           }
-          if (this.lbl) {
-            return this.lbl
-          }
-          return ''
+        }
+        if (this.element && this.element.props && this.element.props.label) {
+          return this.escapeLabel(this.element.props.label)
+        }
+        return ''
       },
       cssClass () {
         let result = 'qux-element '
@@ -83,7 +113,7 @@ export default {
           if (this.hasAction) {
             result += `qux-action `
           }
-          if (this.config.debug && this.config.debug.resize === true) {
+          if (this.config && this.config.debug && this.config.debug.resize === true) {
             if (this.element.props && this.element.props.resize) {
               let resize = this.element.props.resize
               for (let direction in resize) {
@@ -144,13 +174,42 @@ export default {
         return ''
       },
       dataBindingLabel () {
+        /**
+         * First, cgeck if we have set a lbl property
+         */
+        if (this.lbl) {
+          return this.lbl
+        }
+        /**
+         * Next, check data binding
+         */
         if (this.hasDataBinding) {
-          let value = this.dataBindingInput
-          if (value !== undefined && value != null) {
-            Logger.log(6, '_Base.dataBindingLabel() > ',`"${value}"`)
-            return value
+          /**
+           * Check if we have a magic property path like $label
+           */
+          if (this.dataBindingInputPath && this.dataBindingInputPath.indexOf('$') === 0) {
+            Logger.log(-1, '_Base.dataBindingLabel() > props : ',`"${this.dataBindingInputPath}"`)
+            let dsRoot = this.getDesignSystemRoot()
+            if (dsRoot) {
+              let path = this.dataBindingInputPath.substring(1)
+              if (dsRoot[path]) {
+                return dsRoot[path]
+              }
+            }
+          } else {
+            /**
+             * If not magic, check if there is a variable
+             */
+            let value = this.dataBindingInput
+            if (value !== undefined && value != null) {
+              Logger.log(6, '_Base.dataBindingLabel() > ',`"${value}"`)
+              return value
+            }
           }
         }
+        /**
+         * Last, check element properties
+         */
         if (this.element && this.element.props && this.element.props.label) {
             return this.escapeLabel(this.element.props.label)
         }
@@ -160,6 +219,9 @@ export default {
         return false
       },
       options () {
+        if (this.optionList) {
+          return this.optionList
+        }
         let dataBindingOptions = this.dataBindingOptions
         if (dataBindingOptions) {
             return dataBindingOptions
@@ -183,6 +245,16 @@ export default {
       }
     },
 
+    getDesignSystemRoot () {
+      let parent = this.$parent
+      while (parent && parent.element && !parent.element.isDesignSystemRoot) {
+        parent = parent.$parent
+      }
+      if (parent.element && parent.element.isDesignSystemRoot) {
+        return parent
+      }
+    },
+
     escapeLabel (lbl) {
       lbl = lbl.replace(/&nbsp;/ig, ' ')
       return lbl
@@ -199,12 +271,15 @@ export default {
      */
     onClick (e) {
       this.$emit('qClick', this.element, e, this.getValue())
+      this.checkDesignSystemCallback(e, 'click')
     },
     onChange (e) {
       this.$emit('qChange', this.element, e, this.getValue())
+      this.checkDesignSystemCallback(e, 'change')
     },
     onKeyPress (e) {
       this.$emit('qKeyPress', this.element, e, this.getValue())
+      this.checkDesignSystemCallback(e, 'change')
     },
     onFocus (e) {
       this.$emit('qFocus', this.element, e)
@@ -218,6 +293,36 @@ export default {
     onMouseOut (e) {
       this.$emit('qMouseOut', this.element, e)
     },
+
+    checkDesignSystemCallback (e, type) {
+      Logger.log(4, '_Base.checkDesignSystemCallback() > : ' + this.element.name, type)
+      if (this.element.props && this.element.props.callbacks) {
+        let callback = this.element.props.callbacks[type]
+        if (callback) {
+          Logger.log(2, '_Base.checkDesignSystemCallback() > : ' + this.element.name, type, callback)
+          this.$emit('qDesignSystemCallback', this.element, e, type, callback, this.getValue())
+          this.emitDesignSystemCallback()
+        }
+      }
+    },
+
+    forwardDesignSystemCallback (element, e, type, callback, elementValue) {
+      Logger.log(5, '_Base.forwardDesignSystemCallback() > : ' + this.element.name, element.name)
+      this.$emit('qDesignSystemCallback', element, e, type, callback, elementValue)
+      this.emitDesignSystemCallback(element, e, type, callback, elementValue)
+    },
+
+
+    emitDesignSystemCallback (element, e, type, callback) {
+      if (this.element.isDesignSystemRoot && this.$parent) {
+        Logger.log(1, '_Base.emitDesignSystemCallback() > : ' + this.element.name, callback, this.value)
+        /**
+         * We have to call on parent, because
+         * we have this virtual wrapper around.
+         */
+        this.$parent.$emit(callback, this.value)
+      }
+    },
     /**
      * Template method which can be implemnted by children to
      * give the current value to the onChange
@@ -229,6 +334,7 @@ export default {
      * Method wich sets the value accoridng to the dataBing path.
      */
     onValueChange (value, key = 'default', e) {
+      Logger.log(3, '_Base.onValueChange() > change : ' + this.element.name, value)
       if (this.element && this.element.props && this.element.props.databinding) {
         let path =  this.element.props.databinding[key]
         if (path) {
@@ -241,6 +347,10 @@ export default {
        * We also trigger the change event
        */
       this.$emit('qChange', this.element, e, value)
+      if (this.element.isDesignSystemRoot && this.$parent) {
+        this.$parent.$emit('input', value)
+        this.$parent.$emit('change', value)
+      }
     }
 
 
