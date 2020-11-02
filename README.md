@@ -1,7 +1,32 @@
 # Vue-Low-Code
-Quant-UX (http://www.quant-ux.com) is an OpenSource UX tool for the design and test of user interfaces. The Vue-Low-Code package
-provides a new approach to the hand-off problem (See details below). The core of the solution is the QUX component,
-which renders the visual design and allows the developers to focus on business logic, without restricting the developers' freedom. The component enables:
+Vue-Low-Code is an open-source project that enables the direct inclusion of
+[Figma](https://figma.com) and [Quant-UX](https://quant-ux.com) designs in VUE applications. By ensuring that the
+design stays the single source of truth, Vue-Low-Code reduces the need for design
+hand-offs and front-end code significantly.
+
+## The handoff problem
+A constant pain point during the development of an application is the hand-off between the design and the development team.
+Often this process is not frictionless. The design team creates a set of graphics and prototypes,
+which serve as the source of truth and specification for the development team.
+The development team implements the visual design in the desired technology, which
+includes the translation of the design into front-end code and business logic, as well as
+the wiring between the two. As the development evolves, the implementation becomes a second source of truth,
+and keeping the design and the code base in sync can be a painful exercise.
+
+## Solution
+
+The core of the solution is the Vue-Low-Code component which reads the visual design and creates
+the front-end automatically on the fly. As a result, changes in the design are immediately updated in the
+application. The wiring between the front-end component and the business logic is achieved through
+method and data binding, which is defined in a Figma [plugin](https://www.figma.com/community/plugin/858477504263032980)
+or a dedicated view in Quant-UX.
+
+As a result, Developers can focus on business logic and backend connectivity, while the design team
+can iterate fast through different ideas, without impacting the development team.
+
+![Vue-Low-Code architecture](assets/SimpleArchitecture.png "Vue-Low-Code reduces front end code")
+
+In summary, the Vue-Low-Code project provides the following benfefits:
 
 1. Zero Code rendering of visual design and animations
 2. Clear separation of UI and business logic
@@ -14,25 +39,23 @@ which renders the visual design and allows the developers to focus on business l
 9. Extension with custom CSS
 10. Rich library of stylable components.
 
-## The handoff problem
-Designers and developers use different tools to build user interfaces. Once a designer has completed the interface design, he hands-off the design to the developer, usually in the form of an image and some specs.
-The developer has now to rebuild the entire design using the programming language of his choice.
-Although this process is proven, it is rather slow and not very efficient. In particular later changes in
-the design makes it hard to automize this work through code generation tools.
+More information can be found [here](https://uxdesign.cc/figma-low-code-a-new-way-to-tackle-design-hand-offs-a72cb109a455)
 
-## Envisioned workflow
+
+## Low Code Workflow
 
 We envision the following workflow to enable painless collaboration between designers and developers:
 
 ![The QUX low code workflow](assets/Workflow.png "QUX LowCode workflow")
 
-1. The designer creates an initial design in Quant-UX
-2. The developer adds data binding and method callbacks in Quant-UX using a dedicated view.
-3. The developer sets up a new project (Vue.js for now) and includes the QUX component
+1. The designer creates an initial design in Quant-UX or Figma
+2. The developer adds data binding and method callbacks in Quant-UX using a dedicated view or the Figma Plugin
+3. The developer sets up a new project (Vue.js for now) and includes the QUX (or Figma) component
 4. The developer loads the design from Quant-UX and creates the required methods and fills them with business logic.
 5. The QUX component renders the design and invokes the callbacks in clicks.
 6. Changes in the design are transparent to the developer, he just reloads the design from Quant-UX.
 
+A detail descriptiobn how to use Figma and Vue-Low-Code can be found [here](https://github.com/KlausSchaefers/figma-low-code)
 
 # How to use qux-lowcode
 
@@ -211,8 +234,6 @@ use several instances if the QUX component in your template.
 ```
 
 
-
-
 ## MDI Icons
 
 If you are using the Quant-UX icons components, you have to install the mdi-font package.
@@ -275,9 +296,13 @@ You can pass weather the **share key** or the downloaded **app json**. Again, th
 for production you should download the artifacts.
 
 
-# Examples
-https://github.com/KlausSchaefers/qux-low-code-example
 
+
+# Examples & Links
+https://github.com/KlausSchaefers/qux-low-code-example
+https://www.figma.com/community/plugin/858477504263032980/Figma-Low-Code
+https://github.com/KlausSchaefers/figma-low-code
+https://uxdesign.cc/figma-low-code-a-new-way-to-tackle-design-hand-offs-a72cb109a455
 
 # Dev Setup
 

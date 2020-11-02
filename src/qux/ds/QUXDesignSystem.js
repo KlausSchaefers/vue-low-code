@@ -1,7 +1,7 @@
 import Logger from "../core/Logger"
 import * as Util from "../core/ExportUtil"
 import Vue from 'vue'
-import QUX from '../QUX'
+import QUX from '../QUX.vue'
 
 import Button from '../web/Button.vue'
 import Label from '../web/Label.vue'
@@ -55,7 +55,6 @@ class DesignSystem {
 
   constructor () {
     this.server = 'https://quant-ux.com'
-
   }
 
 

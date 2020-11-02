@@ -5,7 +5,7 @@ import QUXDesignSystem from './QUXDesignSystem'
 class FigmaDesignSystem {
 
   async register(figmaFile, figmaAccessKey) {
-    Logger.log(-1, "DesignSystem.register()", figmaFile)
+    Logger.log(-1, "FigmaDesignSystem.register()", figmaFile)
     let app = figmaFile
     if (figmaFile && figmaAccessKey) {
       let figmaService = new FigmaService(figmaAccessKey)

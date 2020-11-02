@@ -3,6 +3,8 @@ import Figma from "./qux/figma/Figma.vue";
 import FigmaService from "./qux/figma/FigmaService";
 import Logger from "./qux/core/Logger";
 
+import FigmaDesignSystem from './qux/ds/FigmaDesignSystem'
+import QUXDesignSystem from './qux/ds/QUXDesignSystem'
 
 export default {
  install(Vue) {
@@ -19,18 +21,10 @@ export function setLogLevel (level) {
     Logger.setLogLevel(level)
 }
 
-/*
-export async function registerFigmaDesignSystem (figmaFile, figmaAcessKey) {
-    if (figmaFile && figmaAcessKey) {
-        let figmaService = new FigmaService(figmaAcessKey)
-        let app = await figmaService.get(figmaFile, true)
-
-        Object.values(app.screens).forEach(screen => setBackgroundImage(screen))
-        Object.values(app.widgets).forEach(widget => setBackgroundImage(widget))
-    }
+export async function createFigmaDesignlets (figmaFile, figmaAcessKey, config) {
+  return FigmaDesignSystem.register(figmaFile, figmaAcessKey, config)
 }
 
-export async function registerQUXDesignSystem (app) {
-
+export async function createQUXDesignLets (app, config) {
+    return QUXDesignSystem.register(app, config)
 }
-*/
