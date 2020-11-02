@@ -378,6 +378,7 @@ function attachSingleLabelsInScreen(model, screen, allowedTypes = null) {
 }
 
 function attachSingleLabelsInNodes(model, node, allowedTypes) {
+
 	/**
 	 * If we have a box that has NO label props and contains
 	 * only one child of type label, we merge this in.
@@ -385,6 +386,7 @@ function attachSingleLabelsInNodes(model, node, allowedTypes) {
 	let type = node.type
 
 	if (!node.props.label && node.children.length === 1 && (allowedTypes === null || allowedTypes.indexOf(type) >= 0)) {
+
 		let child = node.children[0]
 		/**
 		 * TODO: We should check here if teh re is a link. What to do with the link?
@@ -392,7 +394,7 @@ function attachSingleLabelsInNodes(model, node, allowedTypes) {
 		 */
 		let lines = Util.getLines(child, model)
 		if (child.type === "Label" && lines.length === 0) {
-			Logger.log(-1, "Falt2Tree.attachSingleLabelsInNodes()", node)
+			Logger.log(2, "Falt2Tree.attachSingleLabelsInNodes()", node)
 			node.props.label = child.props.label
 			node.children = []
 			/**
@@ -419,6 +421,15 @@ function attachSingleLabelsInNodes(model, node, allowedTypes) {
 			}
 
 			// remove grid??
+		} else {
+			/**
+			 * TODO: We have two conditions that can fail and require us to go deeper.
+			 * Therefore we need to call this recursive code again. We could have a better check,
+			 * to make teh code more beautifull
+			 */
+			node.children.forEach((child) => {
+				attachSingleLabelsInNodes(model, child, allowedTypes)
+			})
 		}
 	} else {
 		node.children.forEach((child) => {

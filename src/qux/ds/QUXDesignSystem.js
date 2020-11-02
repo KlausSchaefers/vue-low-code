@@ -55,6 +55,7 @@ class DesignSystem {
 
   constructor () {
     this.server = 'https://quant-ux.com'
+
   }
 
 

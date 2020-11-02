@@ -25,6 +25,6 @@ export async function createFigmaDesignlets (figmaFile, figmaAcessKey, config) {
   return FigmaDesignSystem.register(figmaFile, figmaAcessKey, config)
 }
 
-export async function createQUXDesignLets (app, config) {
+export async function createQUXDesignlets (app, config) {
     return QUXDesignSystem.register(app, config)
 }

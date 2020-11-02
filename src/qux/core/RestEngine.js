@@ -210,17 +210,26 @@ class RestEngine {
         })
     }
 
-    createDefaultHeader(request) {
+    async createDefaultHeader(request, values) {
+        let token = await this.buildToken(request, values)
+        let authType= request.authType ? request.authType : 'Bearer'
         if (request.input.type === 'JSON') {
             let headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Authorization': `Bearer ${request.token}`
+                'Authorization': `${authType} ${token}`
+            }
+            return headers
+        }
+        else if(request.input.type === 'FORM') {
+            let headers = {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Authorization': `${authType} ${token}`
             }
             return headers
         }
         return new Headers({
-            'Authorization': `Bearer ${request.token}`
+            'Authorization': `${authType} ${token}`
         })
     }
 

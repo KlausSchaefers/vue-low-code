@@ -3,6 +3,8 @@
     :class="['qux-textbox qux-text-input', cssClass]"
     :placeholder="placeholder"
     :type="type"
+    @focus="onFocus"
+    @blur="onBlur"
     @click="onClick"
     @change="onChange"
     @keyup="onKeyPress"

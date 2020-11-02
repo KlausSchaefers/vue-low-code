@@ -188,7 +188,7 @@ export default {
            * Check if we have a magic property path like $label
            */
           if (this.dataBindingInputPath && this.dataBindingInputPath.indexOf('$') === 0) {
-            Logger.log(-1, '_Base.dataBindingLabel() > props : ',`"${this.dataBindingInputPath}"`)
+            Logger.log(4, '_Base.dataBindingLabel() > props : ',`"${this.dataBindingInputPath}"`)
             let dsRoot = this.getDesignSystemRoot()
             if (dsRoot) {
               let path = this.dataBindingInputPath.substring(1)
@@ -240,8 +240,9 @@ export default {
   },
   methods: {
     stopEvent (e) {
+      Logger.warn('_Base.stopEvent()')
       if (e) {
-          e.stopPropagation()
+        e.stopPropagation()
       }
     },
 
@@ -271,21 +272,35 @@ export default {
      */
     onClick (e) {
       this.$emit('qClick', this.element, e, this.getValue())
+      this.$emit('click', e)
       this.checkDesignSystemCallback(e, 'click')
+      this.fireParentDomEvent('click', e)
+    },
+    fireParentDomEvent(type, e) {
+      /**
+        * The wrapper stops our events, so we fire DOM event on parent
+        */
+      if (this.element && this.element.isDesignSystemRoot) {
+        this.$parent.$emit(type, e)
+      }
     },
     onChange (e) {
       this.$emit('qChange', this.element, e, this.getValue())
       this.checkDesignSystemCallback(e, 'change')
+      this.fireParentDomEvent('change', e)
     },
     onKeyPress (e) {
       this.$emit('qKeyPress', this.element, e, this.getValue())
       this.checkDesignSystemCallback(e, 'change')
+      this.fireParentDomEvent('keyPress', e)
     },
     onFocus (e) {
       this.$emit('qFocus', this.element, e)
+      this.fireParentDomEvent('focus', e)
     },
     onBlur (e) {
       this.$emit('qBlur', this.element, e)
+      this.fireParentDomEvent('blur', e)
     },
     onMouseOver (e) {
       this.$emit('qMouseOver', this.element, e)
@@ -295,8 +310,8 @@ export default {
     },
 
     checkDesignSystemCallback (e, type) {
-      Logger.log(4, '_Base.checkDesignSystemCallback() > : ' + this.element.name, type)
-      if (this.element.props && this.element.props.callbacks) {
+      Logger.log(4, '_Base.checkDesignSystemCallback() > : ' + type)
+      if (this.element && this.element.props && this.element.props.callbacks) {
         let callback = this.element.props.callbacks[type]
         if (callback) {
           Logger.log(2, '_Base.checkDesignSystemCallback() > : ' + this.element.name, type, callback)
@@ -320,7 +335,7 @@ export default {
          * We have to call on parent, because
          * we have this virtual wrapper around.
          */
-        this.$parent.$emit(callback, this.value)
+        this.$parent.$emit(callback, this.value, e)
       }
     },
     /**
@@ -337,9 +352,15 @@ export default {
       Logger.log(3, '_Base.onValueChange() > change : ' + this.element.name, value)
       if (this.element && this.element.props && this.element.props.databinding) {
         let path =  this.element.props.databinding[key]
-        if (path) {
-          Logger.log(4, '_Base.onValueChange() > change : ' + path, value)
-          JSONPath.set(this.value, path, value)
+        if (path && this.value != undefined) {
+
+          try {
+            Logger.log(4, '_Base.onValueChange() > change : ' + path, value)
+            JSONPath.set(this.value, path, value)
+          } catch (ex) {
+            Logger.error('_Base.onValueChange() > Could not set value in path' + path, ex)
+          }
+
           //Logger.log(-1, '_Base.onValueChange() > exit : ', JSON.stringify(this.value, null, 2))
         }
       }
