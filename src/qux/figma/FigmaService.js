@@ -6,7 +6,7 @@ export default class FigmaService {
     this.setAccessKey(key)
     this.baseURL = 'https://api.figma.com/v1/'
     this.vectorTypes = ['LINE', 'ELLIPSE', 'VECTOR']
-    this.buttonTypes = ['RECTANGLE', 'TEXT', 'FRAME', 'GROUP', 'INSTANCE', 'COMPONENT', 'VARIANT_COMPONENT']
+    this.buttonTypes = ['RECTANGLE', 'TEXT', 'FRAME', 'GROUP', 'INSTANCE', 'COMPONENT', 'VARIANT_COMPONENT', 'COMPONENT_SET']
     this.ignoredTypes = [] // ['GROUP', 'INSTANCE']
     this.allAsVecor = false
     this.max_ids = 50
@@ -162,7 +162,7 @@ export default class FigmaService {
     let varientComponents = {}
     Object.values(qModel.widgets).forEach(widget => {
       let parent = qModel.widgets[widget.parentId]
-      if (parent && parent.figmaType === 'VARIANT_COMPONENT') {
+      if (parent && parent.figmaType === 'COMPONENT_SET') {
         widget.props.isComponet = true
         widget.props.isVaraint = true
         widget.variant = this.parseVariant(widget.name)
@@ -170,6 +170,10 @@ export default class FigmaService {
           varientComponents[widget.parentId] = []
         }
         varientComponents[widget.parentId].push(widget)
+        /**
+         * Give a better na,e other wise css will fail
+         */
+        widget.name = parent.name + '-' + Object.values(widget.variant).join('-')
       }
     })
 
@@ -221,34 +225,6 @@ export default class FigmaService {
     let result = {}
     str.split(',').map(s => s.split('=')).forEach(pair => result[pair[0].trim()]=pair[1].trim())
     return result
-  }
-
-  notUsed (qModel, widgetsByFigmaID, fModel) {
-     //console.debug(widgetsByFigmaID)
-
-     Object.values(qModel.widgets).forEach(widget => {
-      if (widget.figmaComponentId) {
-        console.debug(widget.name, widget.id, widget.figmaComponentId, widget.parentId)
-        /**
-         * Check if we have an element that is in an varient component
-         * TDOD: This could be faster by setting an attrib during parsing
-         */
-        let varientCompentParent = this.getParentVarientComponent(widget, widgetsByFigmaID, qModel)
-        if (varientCompentParent) {
-          console.debug(' >>> ', varientCompentParent.name, varientCompentParent.id, varientCompentParent.figmaId)
-          /**
-           * Now lets get the figma node
-           */
-          let fVarient = fModel._elementsById[varientCompentParent.figmaId]
-
-          if (fVarient) {
-            //let hoverChild = fVarient.children.find(c => c.name.indexOf(this.varientComponentHoverKey) >=0)
-
-          }
-
-        }
-      }
-    })
   }
 
   getParentVarientComponent (widget, widgetsByFigmaID, qModel) {
@@ -509,6 +485,7 @@ export default class FigmaService {
         if (pluginData.quxType === 'SmartContainer' && pluginData.quxSmartContainerType) {
           Logger.log(-1, 'FigmaService.getPluginData() > quxSmartContainerType : ', pluginData.quxSmartContainerType, element.name)
           widget.type = pluginData.quxSmartContainerType
+          widget.smartContainerType = pluginData.quxSmartContainerType
         }
 
       }
@@ -547,7 +524,7 @@ export default class FigmaService {
         widget.props.callbacks.load = pluginData.quxOnLoadCallback
       }
       if (pluginData.quxOnChangeCallback) {
-        Logger.log(-1, 'FigmaService.getPluginData() > quxOnChangeCallback: ', pluginData.quxOnChangeCallback, element.name)
+        Logger.log(3, 'FigmaService.getPluginData() > quxOnChangeCallback: ', pluginData.quxOnChangeCallback, element.name)
         if (!widget.props.callbacks) {
           widget.props.callbacks = {}
         }
@@ -589,7 +566,7 @@ export default class FigmaService {
        */
 
       if (pluginData.quxFixedHorizontal === 'true') {
-        Logger.log(1, 'FigmaService.getPluginData() > quxFixedHorizontal: ', pluginData.quxFixedHorizontal, element.name)
+        Logger.log(3, 'FigmaService.getPluginData() > quxFixedHorizontal: ', pluginData.quxFixedHorizontal, element.name)
         if (!widget.props.resize) {
           widget.props.resize = {}
         }
@@ -597,7 +574,7 @@ export default class FigmaService {
       }
 
       if (pluginData.quxFixedVertical === 'true') {
-        Logger.log(1, 'FigmaService.getPluginData() > quxFixedVertical: ', pluginData.quxFixedVertical, element.name)
+        Logger.log(3, 'FigmaService.getPluginData() > quxFixedVertical: ', pluginData.quxFixedVertical, element.name)
         if (!widget.props.resize) {
           widget.props.resize = {}
         }
@@ -648,6 +625,30 @@ export default class FigmaService {
         Logger.log(4, 'FigmaService.getPluginData() > quxBreakpointDesktop: ', pluginData.quxBreakpointDesktop, element.name)
         widget.props.breakpoints.desktop = true
       }
+
+      if (pluginData.quxStyleDisplay) {
+        Logger.log(4, 'FigmaService.getPluginData() > quxStyleDisplay: ', pluginData.quxStyleDisplay, element.name)
+        widget.style.display = pluginData.quxStyleDisplay
+      }
+
+      if (pluginData.quxStyleCursor) {
+        Logger.log(4, 'FigmaService.getPluginData() > quxStyleCursor: ', pluginData.quxStyleCursor, element.name)
+        widget.style.cursor = pluginData.quxStyleCursor
+      }
+
+      if (pluginData.quxStyleMaxWidth) {
+        Logger.log(4, 'FigmaService.getPluginData() > quxStyleMaxWidth: ', pluginData.quxStyleMaxWidth, element.name)
+        widget.style.maxWidth = pluginData.quxStyleMaxWidth
+      }
+
+      if (pluginData.quxStyleMinWidth) {
+        Logger.log(4, 'FigmaService.getPluginData() > quxStyleMinWidth: ', pluginData.quxStyleMinWidth, element.name)
+        widget.style.minWidth = pluginData.quxStyleMinWidth
+      }
+      /**
+       * FIXME
+          quxChildLayout: '',
+       */
 
     }
 

@@ -59,41 +59,65 @@ export default class CSSLayouter {
 	 *********************************************************************/
 
 	getDesignSystemPosition(widget) {
-		Logger.log(0, "CSSLayouter.getDesignSystemPosition()" + widget.name, widget)
+		Logger.log(3, "CSSLayouter.getDesignSystemPosition()" + widget.name, widget)
 
 		let result = ""
-		if (this.isInlineGrid(widget)) {
-			result += `  display:inline-grid;\n`
-		} else if (this.isInlineBlock(widget)) {
-			result += `  display:inline-block;\n`
-		} else {
-			result += `  display:block;\n`
-		}
 
 		/**
-		 * For wrapped we just add margins
-		 *
-		 * What about Figma? We never assume stuff is fixed with?
+		 * ComponentSet are just placed as block or inline block. The child will
+		 * determine the size. This will happen the ComponenSetCSS.js file
+		 * TODO factor this out...
 		 */
-		if (Util.isFixedHorizontal(widget)) {
-			result += `  width: ${this.getCorrectedWidth(widget)};\n`
-		} else if (Util.hasMinMaxWdith(widget)) {
-			result += this.getMinMaxWidth(widget, false)
-		}else {
-			result += `  width: auto;\n`
-		}
-		if (Util.isFixedVertical(widget)) {
-			result += `  height: ${this.getCorrectedHeight(widget)};\n`
+		if (Util.isComponentSet(widget)) {
+
+			if (Util.isBlock(widget)) {
+				result += `  display:block;\n`
+			} else {
+				result += `  display:inline-block;\n`
+			}
+
 		} else {
-			result += `  min-height: ${this.getCorrectedHeight(widget)};\n`
+			/**
+			 * For all other components we set (inline)grid or block,
+			 * with and height and a grid of needed-
+			 */
+			if (this.isGrid(widget)) {
+				if (Util.isBlock(widget)) {
+					result += `  display:grid;\n`
+				} else {
+					result += `  display:inline-grid;\n`
+				}
+			} else if (Util.isBlock(widget)) {
+				result += `  display:block;\n`
+			} else {
+				result += `  display:inline-block;\n`
+			}
+
+			/**
+			 * For wrapped we just add margins
+			 */
+			if (Util.isFixedHorizontal(widget)) {
+				result += `  width: ${this.getCorrectedWidth(widget)};\n`
+			} else if (Util.hasMinMaxWdith(widget)) {
+				result += this.getMinMaxWidth(widget, false)
+			}else {
+				result += `  width: auto;\n`
+			}
+
+			if (Util.isFixedVertical(widget)) {
+				result += `  height: ${this.getCorrectedHeight(widget)};\n`
+			} else {
+				result += `  min-height: ${this.getCorrectedHeight(widget)};\n`
+			}
+
+			if (Util.hasGrid(widget) && Util.hasChildren(widget)) {
+				Logger.log(3, "CSSFactory.getComponentScreenPosition() > add grid" + widget.name)
+				result += "  grid-template-columns: " + this.getGridColumnTracks(widget.w, widget.grid.columns, widget) + ";\n"
+				result += "  grid-template-rows: " + this.getGridRowTracks(widget.h, widget.grid.rows, widget) + ";\n"
+			}
+
 		}
 
-		if (Util.hasGrid(widget) && Util.hasChildren(widget)) {
-			Logger.log(3, "CSSFactory.getComponentScreenPosition() > add grid" + widget.name)
-			result += "  display: inline-grid;\n"
-			result += "  grid-template-columns: " + this.getGridColumnTracks(widget.w, widget.grid.columns, widget) + ";\n"
-			result += "  grid-template-rows: " + this.getGridRowTracks(widget.h, widget.grid.rows, widget) + ";\n"
-		}
 
 		return result
 	}
@@ -120,8 +144,8 @@ export default class CSSLayouter {
 		return widget.qtype !== 'qContainer'
 	}
 
-	isInlineGrid (widget) {
-		return widget.style && widget.style.verticalAlign === 'middle'
+	isGrid (widget) {
+		return Util.hasGrid(widget) && Util.hasChildren(widget)
 	}
 
 	/*********************************************************************

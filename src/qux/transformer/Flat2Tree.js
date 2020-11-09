@@ -160,6 +160,10 @@ function getWidgetType(element) {
 		return element.props.customComponent
 	}
 
+	if (element.type === "ComponentSet") {
+		return "qComponentSet"
+	}
+
 	if (element.children && element.children.length > 0) {
 		if (element.type === "Repeater") {
 			return "qRepeater"

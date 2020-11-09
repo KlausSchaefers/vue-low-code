@@ -10,33 +10,33 @@
         "type": "CANVAS",
         "children": [
           {
-            "id": "6:2",
-            "name": "VariantScreen",
+            "id": "1:2",
+            "name": "Frame 1",
             "type": "FRAME",
             "blendMode": "PASS_THROUGH",
             "children": [
               {
-                "id": "6:11",
-                "name": "VariantButton",
-                "type": "VARIANT_COMPONENT",
+                "id": "1:6",
+                "name": "VarientButton",
+                "type": "COMPONENT_SET",
                 "blendMode": "PASS_THROUGH",
                 "children": [
                   {
-                    "id": "6:6",
-                    "name": "Mouse=Default, Size=Default",
+                    "id": "1:5",
+                    "name": "type=Primary",
                     "type": "COMPONENT",
                     "blendMode": "PASS_THROUGH",
                     "children": [
                       {
-                        "id": "6:3",
-                        "name": "DefaultBack",
+                        "id": "1:3",
+                        "name": "VarientButtonBackground",
                         "type": "RECTANGLE",
                         "blendMode": "PASS_THROUGH",
                         "absoluteBoundingBox": {
-                          "x": 570.0,
-                          "y": -324.0,
-                          "width": 256.0,
-                          "height": 59.0
+                          "x": -375.0,
+                          "y": -495.0,
+                          "width": 220.0,
+                          "height": 36.0
                         },
                         "constraints": {
                           "vertical": "SCALE",
@@ -55,8 +55,8 @@
                           ]
                         ],
                         "size": {
-                          "x": 256.0,
-                          "y": 59.0
+                          "x": 220.0,
+                          "y": 36.0
                         },
                         "fills": [
                           {
@@ -72,7 +72,7 @@
                         ],
                         "fillGeometry": [
                           {
-                            "path": "M0 5C0 2.23858 2.23858 0 5 0L251 0C253.761 0 256 2.23858 256 5L256 54C256 56.7614 253.761 59 251 59L5 59C2.23858 59 0 56.7614 0 54L0 5Z",
+                            "path": "M0 0L220 0L220 36L0 36L0 0Z",
                             "windingRule": "NONZERO"
                           }
                         ],
@@ -80,30 +80,18 @@
                         "strokeWeight": 1.0,
                         "strokeAlign": "INSIDE",
                         "strokeGeometry": [],
-                        "effects": [],
-                        "cornerRadius": 5.0,
-                        "rectangleCornerRadii": [
-                          5.0,
-                          5.0,
-                          5.0,
-                          5.0
-                        ]
+                        "effects": []
                       },
                       {
-                        "id": "6:4",
-                        "name": "DefaultText",
+                        "id": "1:4",
+                        "name": "VarientButtonLabel",
                         "type": "TEXT",
-                        "pluginData": {
-                          "858477504263032980": {
-                            "quxDataBindingDefault": "$label"
-                          }
-                        },
                         "blendMode": "PASS_THROUGH",
                         "absoluteBoundingBox": {
-                          "x": 590.0,
-                          "y": -308.0,
-                          "width": 179.0,
-                          "height": 26.0
+                          "x": -336.0,
+                          "y": -488.0,
+                          "width": 122.0,
+                          "height": 16.0
                         },
                         "constraints": {
                           "vertical": "SCALE",
@@ -113,17 +101,17 @@
                           [
                             1.0,
                             0.0,
-                            20.0
+                            39.0
                           ],
                           [
                             0.0,
                             1.0,
-                            16.0
+                            7.0
                           ]
                         ],
                         "size": {
-                          "x": 179.0,
-                          "y": 26.0
+                          "x": 122.0,
+                          "y": 16.0
                         },
                         "fills": [
                           {
@@ -142,90 +130,28 @@
                         "strokeAlign": "OUTSIDE",
                         "strokeGeometry": [],
                         "effects": [],
-                        "characters": "Text",
+                        "characters": "Lala",
                         "style": {
                           "fontFamily": "Roboto",
                           "fontPostScriptName": null,
                           "fontWeight": 400,
-                          "fontSize": 24.0,
-                          "textAlignHorizontal": "LEFT",
+                          "fontSize": 20.0,
+                          "textAlignHorizontal": "CENTER",
                           "textAlignVertical": "CENTER",
                           "letterSpacing": 0.0,
-                          "lineHeightPx": 28.1250,
+                          "lineHeightPx": 23.43750,
                           "lineHeightPercent": 100.0,
                           "lineHeightUnit": "INTRINSIC_%"
                         },
                         "characterStyleOverrides": [],
                         "styleOverrideTable": {}
-                      },
-                      {
-                        "id": "6:5",
-                        "name": "DefaultEnd",
-                        "type": "RECTANGLE",
-                        "blendMode": "PASS_THROUGH",
-                        "absoluteBoundingBox": {
-                          "x": 782.0,
-                          "y": -324.0,
-                          "width": 44.0,
-                          "height": 59.0
-                        },
-                        "constraints": {
-                          "vertical": "SCALE",
-                          "horizontal": "SCALE"
-                        },
-                        "relativeTransform": [
-                          [
-                            1.0,
-                            0.0,
-                            212.0
-                          ],
-                          [
-                            0.0,
-                            1.0,
-                            0.0
-                          ]
-                        ],
-                        "size": {
-                          "x": 44.0,
-                          "y": 59.0
-                        },
-                        "fills": [
-                          {
-                            "blendMode": "NORMAL",
-                            "type": "SOLID",
-                            "color": {
-                              "r": 0.78750002384185791,
-                              "g": 0.23296874761581421,
-                              "b": 0.23296874761581421,
-                              "a": 1.0
-                            }
-                          }
-                        ],
-                        "fillGeometry": [
-                          {
-                            "path": "M0 5C0 2.23858 2.23858 0 5 0L39 0C41.7614 0 44 2.23858 44 5L44 54C44 56.7614 41.7614 59 39 59L5 59C2.23858 59 0 56.7614 0 54L0 5Z",
-                            "windingRule": "NONZERO"
-                          }
-                        ],
-                        "strokes": [],
-                        "strokeWeight": 1.0,
-                        "strokeAlign": "INSIDE",
-                        "strokeGeometry": [],
-                        "effects": [],
-                        "cornerRadius": 5.0,
-                        "rectangleCornerRadii": [
-                          5.0,
-                          5.0,
-                          5.0,
-                          5.0
-                        ]
                       }
                     ],
                     "absoluteBoundingBox": {
-                      "x": 570.0,
-                      "y": -324.0,
-                      "width": 256.0,
-                      "height": 59.0
+                      "x": -375.0,
+                      "y": -495.0,
+                      "width": 220.0,
+                      "height": 36.0
                     },
                     "constraints": {
                       "vertical": "TOP",
@@ -244,8 +170,8 @@
                       ]
                     ],
                     "size": {
-                      "x": 256.0,
-                      "y": 59.0
+                      "x": 220.0,
+                      "y": 36.0
                     },
                     "clipsContent": false,
                     "background": [
@@ -286,21 +212,21 @@
                     "effects": []
                   },
                   {
-                    "id": "6:12",
-                    "name": "Mouse=Hover, Size=Default",
+                    "id": "1:7",
+                    "name": "type=Secondary",
                     "type": "COMPONENT",
                     "blendMode": "PASS_THROUGH",
                     "children": [
                       {
-                        "id": "6:13",
-                        "name": "HoverBack",
+                        "id": "1:8",
+                        "name": "VarientButtonBackground",
                         "type": "RECTANGLE",
                         "blendMode": "PASS_THROUGH",
                         "absoluteBoundingBox": {
-                          "x": 570.0,
-                          "y": -245.0,
-                          "width": 256.0,
-                          "height": 59.0
+                          "x": -375.0,
+                          "y": -439.0,
+                          "width": 220.0,
+                          "height": 36.0
                         },
                         "constraints": {
                           "vertical": "SCALE",
@@ -319,55 +245,59 @@
                           ]
                         ],
                         "size": {
-                          "x": 256.0,
-                          "y": 59.0
+                          "x": 220.0,
+                          "y": 36.0
                         },
                         "fills": [
                           {
                             "blendMode": "NORMAL",
                             "type": "SOLID",
                             "color": {
-                              "r": 0.62083333730697632,
-                              "g": 0.47338542342185974,
-                              "b": 0.47338542342185974,
+                              "r": 1.0,
+                              "g": 1.0,
+                              "b": 1.0,
                               "a": 1.0
                             }
                           }
                         ],
                         "fillGeometry": [
                           {
-                            "path": "M0 5C0 2.23858 2.23858 0 5 0L251 0C253.761 0 256 2.23858 256 5L256 54C256 56.7614 253.761 59 251 59L5 59C2.23858 59 0 56.7614 0 54L0 5Z",
+                            "path": "M0 0L220 0L220 36L0 36L0 0Z",
                             "windingRule": "NONZERO"
                           }
                         ],
-                        "strokes": [],
+                        "strokes": [
+                          {
+                            "blendMode": "NORMAL",
+                            "type": "SOLID",
+                            "color": {
+                              "r": 0.0,
+                              "g": 0.0,
+                              "b": 0.0,
+                              "a": 1.0
+                            }
+                          }
+                        ],
                         "strokeWeight": 1.0,
                         "strokeAlign": "INSIDE",
-                        "strokeGeometry": [],
-                        "effects": [],
-                        "cornerRadius": 5.0,
-                        "rectangleCornerRadii": [
-                          5.0,
-                          5.0,
-                          5.0,
-                          5.0
-                        ]
+                        "strokeGeometry": [
+                          {
+                            "path": "M0 0L0 -1L-1 -1L-1 0L0 0ZM220 0L221 0L221 -1L220 -1L220 0ZM220 36L220 37L221 37L221 36L220 36ZM0 36L-1 36L-1 37L0 37L0 36ZM0 1L220 1L220 -1L0 -1L0 1ZM219 0L219 36L221 36L221 0L219 0ZM220 35L0 35L0 37L220 37L220 35ZM1 36L1 0L-1 0L-1 36L1 36Z",
+                            "windingRule": "NONZERO"
+                          }
+                        ],
+                        "effects": []
                       },
                       {
-                        "id": "6:14",
-                        "name": "HoverText",
+                        "id": "1:9",
+                        "name": "VarientButtonLabel",
                         "type": "TEXT",
-                        "pluginData": {
-                          "858477504263032980": {
-                            "quxDataBindingDefault": "$label"
-                          }
-                        },
                         "blendMode": "PASS_THROUGH",
                         "absoluteBoundingBox": {
-                          "x": 590.0,
-                          "y": -229.0,
-                          "width": 179.0,
-                          "height": 26.0
+                          "x": -336.0,
+                          "y": -432.0,
+                          "width": 122.0,
+                          "height": 16.0
                         },
                         "constraints": {
                           "vertical": "SCALE",
@@ -377,17 +307,17 @@
                           [
                             1.0,
                             0.0,
-                            20.0
+                            39.0
                           ],
                           [
                             0.0,
                             1.0,
-                            16.0
+                            7.0
                           ]
                         ],
                         "size": {
-                          "x": 179.0,
-                          "y": 26.0
+                          "x": 122.0,
+                          "y": 16.0
                         },
                         "fills": [
                           {
@@ -406,90 +336,28 @@
                         "strokeAlign": "OUTSIDE",
                         "strokeGeometry": [],
                         "effects": [],
-                        "characters": "Text",
+                        "characters": "Lala",
                         "style": {
                           "fontFamily": "Roboto",
                           "fontPostScriptName": null,
                           "fontWeight": 400,
-                          "fontSize": 24.0,
-                          "textAlignHorizontal": "LEFT",
+                          "fontSize": 20.0,
+                          "textAlignHorizontal": "CENTER",
                           "textAlignVertical": "CENTER",
                           "letterSpacing": 0.0,
-                          "lineHeightPx": 28.1250,
+                          "lineHeightPx": 23.43750,
                           "lineHeightPercent": 100.0,
                           "lineHeightUnit": "INTRINSIC_%"
                         },
                         "characterStyleOverrides": [],
                         "styleOverrideTable": {}
-                      },
-                      {
-                        "id": "6:15",
-                        "name": "HoverEnd",
-                        "type": "RECTANGLE",
-                        "blendMode": "PASS_THROUGH",
-                        "absoluteBoundingBox": {
-                          "x": 782.0,
-                          "y": -245.0,
-                          "width": 44.0,
-                          "height": 59.0
-                        },
-                        "constraints": {
-                          "vertical": "SCALE",
-                          "horizontal": "SCALE"
-                        },
-                        "relativeTransform": [
-                          [
-                            1.0,
-                            0.0,
-                            212.0
-                          ],
-                          [
-                            0.0,
-                            1.0,
-                            0.0
-                          ]
-                        ],
-                        "size": {
-                          "x": 44.0,
-                          "y": 59.0
-                        },
-                        "fills": [
-                          {
-                            "blendMode": "NORMAL",
-                            "type": "SOLID",
-                            "color": {
-                              "r": 0.78750002384185791,
-                              "g": 0.23296874761581421,
-                              "b": 0.23296874761581421,
-                              "a": 1.0
-                            }
-                          }
-                        ],
-                        "fillGeometry": [
-                          {
-                            "path": "M0 5C0 2.23858 2.23858 0 5 0L39 0C41.7614 0 44 2.23858 44 5L44 54C44 56.7614 41.7614 59 39 59L5 59C2.23858 59 0 56.7614 0 54L0 5Z",
-                            "windingRule": "NONZERO"
-                          }
-                        ],
-                        "strokes": [],
-                        "strokeWeight": 1.0,
-                        "strokeAlign": "INSIDE",
-                        "strokeGeometry": [],
-                        "effects": [],
-                        "cornerRadius": 5.0,
-                        "rectangleCornerRadii": [
-                          5.0,
-                          5.0,
-                          5.0,
-                          5.0
-                        ]
                       }
                     ],
                     "absoluteBoundingBox": {
-                      "x": 570.0,
-                      "y": -245.0,
-                      "width": 256.0,
-                      "height": 59.0
+                      "x": -375.0,
+                      "y": -439.0,
+                      "width": 220.0,
+                      "height": 36.0
                     },
                     "constraints": {
                       "vertical": "TOP",
@@ -504,12 +372,12 @@
                       [
                         0.0,
                         1.0,
-                        99.0
+                        76.0
                       ]
                     ],
                     "size": {
-                      "x": 256.0,
-                      "y": 59.0
+                      "x": 220.0,
+                      "y": 36.0
                     },
                     "clipsContent": false,
                     "background": [
@@ -538,271 +406,18 @@
                         }
                       }
                     ],
-                    "strokes": [],
-                    "strokeWeight": 1.0,
-                    "strokeAlign": "INSIDE",
-                    "backgroundColor": {
-                      "r": 0.0,
-                      "g": 0.0,
-                      "b": 0.0,
-                      "a": 0.0
-                    },
-                    "effects": []
-                  },
-                  {
-                    "id": "6:28",
-                    "name": "Mouse=Focus, Size=Default",
-                    "type": "COMPONENT",
-                    "blendMode": "PASS_THROUGH",
-                    "children": [
-                      {
-                        "id": "6:29",
-                        "name": "FocusBack",
-                        "type": "RECTANGLE",
-                        "blendMode": "PASS_THROUGH",
-                        "absoluteBoundingBox": {
-                          "x": 570.0,
-                          "y": -154.0,
-                          "width": 256.0,
-                          "height": 59.0
-                        },
-                        "constraints": {
-                          "vertical": "SCALE",
-                          "horizontal": "SCALE"
-                        },
-                        "relativeTransform": [
-                          [
-                            1.0,
-                            0.0,
-                            0.0
-                          ],
-                          [
-                            0.0,
-                            1.0,
-                            0.0
-                          ]
-                        ],
-                        "size": {
-                          "x": 256.0,
-                          "y": 59.0
-                        },
-                        "fills": [
-                          {
-                            "blendMode": "NORMAL",
-                            "type": "SOLID",
-                            "color": {
-                              "r": 0.38333332538604736,
-                              "g": 0.38333332538604736,
-                              "b": 0.38333332538604736,
-                              "a": 1.0
-                            }
-                          }
-                        ],
-                        "fillGeometry": [
-                          {
-                            "path": "M0 5C0 2.23858 2.23858 0 5 0L251 0C253.761 0 256 2.23858 256 5L256 54C256 56.7614 253.761 59 251 59L5 59C2.23858 59 0 56.7614 0 54L0 5Z",
-                            "windingRule": "NONZERO"
-                          }
-                        ],
-                        "strokes": [],
-                        "strokeWeight": 1.0,
-                        "strokeAlign": "INSIDE",
-                        "strokeGeometry": [],
-                        "effects": [],
-                        "cornerRadius": 5.0,
-                        "rectangleCornerRadii": [
-                          5.0,
-                          5.0,
-                          5.0,
-                          5.0
-                        ]
-                      },
-                      {
-                        "id": "6:30",
-                        "name": "FocusText",
-                        "type": "TEXT",
-                        "pluginData": {
-                          "858477504263032980": {
-                            "quxDataBindingDefault": "$label"
-                          }
-                        },
-                        "blendMode": "PASS_THROUGH",
-                        "absoluteBoundingBox": {
-                          "x": 621.0,
-                          "y": -138.0,
-                          "width": 148.0,
-                          "height": 25.0
-                        },
-                        "constraints": {
-                          "vertical": "SCALE",
-                          "horizontal": "SCALE"
-                        },
-                        "relativeTransform": [
-                          [
-                            1.0,
-                            0.0,
-                            51.0
-                          ],
-                          [
-                            0.0,
-                            1.0,
-                            16.0
-                          ]
-                        ],
-                        "size": {
-                          "x": 148.0,
-                          "y": 25.0
-                        },
-                        "fills": [
-                          {
-                            "blendMode": "NORMAL",
-                            "type": "SOLID",
-                            "color": {
-                              "r": 0.0,
-                              "g": 0.0,
-                              "b": 0.0,
-                              "a": 1.0
-                            }
-                          }
-                        ],
-                        "strokes": [],
-                        "strokeWeight": 1.0,
-                        "strokeAlign": "OUTSIDE",
-                        "strokeGeometry": [],
-                        "effects": [],
-                        "characters": "Text",
-                        "style": {
-                          "fontFamily": "Roboto",
-                          "fontPostScriptName": null,
-                          "fontWeight": 400,
-                          "fontSize": 24.0,
-                          "textAlignHorizontal": "LEFT",
-                          "textAlignVertical": "CENTER",
-                          "letterSpacing": 0.0,
-                          "lineHeightPx": 28.1250,
-                          "lineHeightPercent": 100.0,
-                          "lineHeightUnit": "INTRINSIC_%"
-                        },
-                        "characterStyleOverrides": [],
-                        "styleOverrideTable": {}
-                      },
-                      {
-                        "id": "6:31",
-                        "name": "FocusEnd",
-                        "type": "RECTANGLE",
-                        "blendMode": "PASS_THROUGH",
-                        "absoluteBoundingBox": {
-                          "x": 782.0,
-                          "y": -154.0,
-                          "width": 44.0,
-                          "height": 59.0
-                        },
-                        "constraints": {
-                          "vertical": "SCALE",
-                          "horizontal": "SCALE"
-                        },
-                        "relativeTransform": [
-                          [
-                            1.0,
-                            0.0,
-                            212.0
-                          ],
-                          [
-                            0.0,
-                            1.0,
-                            0.0
-                          ]
-                        ],
-                        "size": {
-                          "x": 44.0,
-                          "y": 59.0
-                        },
-                        "fills": [
-                          {
-                            "blendMode": "NORMAL",
-                            "type": "SOLID",
-                            "color": {
-                              "r": 0.78750002384185791,
-                              "g": 0.23296874761581421,
-                              "b": 0.23296874761581421,
-                              "a": 1.0
-                            }
-                          }
-                        ],
-                        "fillGeometry": [
-                          {
-                            "path": "M0 5C0 2.23858 2.23858 0 5 0L39 0C41.7614 0 44 2.23858 44 5L44 54C44 56.7614 41.7614 59 39 59L5 59C2.23858 59 0 56.7614 0 54L0 5Z",
-                            "windingRule": "NONZERO"
-                          }
-                        ],
-                        "strokes": [],
-                        "strokeWeight": 1.0,
-                        "strokeAlign": "INSIDE",
-                        "strokeGeometry": [],
-                        "effects": [],
-                        "cornerRadius": 5.0,
-                        "rectangleCornerRadii": [
-                          5.0,
-                          5.0,
-                          5.0,
-                          5.0
-                        ]
-                      }
-                    ],
-                    "absoluteBoundingBox": {
-                      "x": 570.0,
-                      "y": -154.0,
-                      "width": 256.0,
-                      "height": 59.0
-                    },
-                    "constraints": {
-                      "vertical": "TOP",
-                      "horizontal": "LEFT"
-                    },
-                    "relativeTransform": [
-                      [
-                        1.0,
-                        0.0,
-                        20.0
-                      ],
-                      [
-                        0.0,
-                        1.0,
-                        190.0
-                      ]
-                    ],
-                    "size": {
-                      "x": 256.0,
-                      "y": 59.0
-                    },
-                    "clipsContent": false,
-                    "background": [
+                    "strokes": [
                       {
                         "blendMode": "NORMAL",
-                        "visible": false,
                         "type": "SOLID",
                         "color": {
-                          "r": 1.0,
-                          "g": 1.0,
-                          "b": 1.0,
+                          "r": 0.0,
+                          "g": 0.0,
+                          "b": 0.0,
                           "a": 1.0
                         }
                       }
                     ],
-                    "fills": [
-                      {
-                        "blendMode": "NORMAL",
-                        "visible": false,
-                        "type": "SOLID",
-                        "color": {
-                          "r": 1.0,
-                          "g": 1.0,
-                          "b": 1.0,
-                          "a": 1.0
-                        }
-                      }
-                    ],
-                    "strokes": [],
                     "strokeWeight": 1.0,
                     "strokeAlign": "INSIDE",
                     "backgroundColor": {
@@ -815,10 +430,10 @@
                   }
                 ],
                 "absoluteBoundingBox": {
-                  "x": 550.0,
-                  "y": -344.0,
-                  "width": 299.0,
-                  "height": 285.0
+                  "x": -395.0,
+                  "y": -515.0,
+                  "width": 260.0,
+                  "height": 132.0
                 },
                 "constraints": {
                   "vertical": "TOP",
@@ -828,17 +443,17 @@
                   [
                     1.0,
                     0.0,
-                    39.0
+                    19.0
                   ],
                   [
                     0.0,
                     1.0,
-                    25.0
+                    20.0
                   ]
                 ],
                 "size": {
-                  "x": 299.0,
-                  "y": 285.0
+                  "x": 260.0,
+                  "y": 132.0
                 },
                 "clipsContent": true,
                 "background": [],
@@ -865,533 +480,13 @@
                   "a": 0.0
                 },
                 "effects": []
-              },
-              {
-                "id": "115:2",
-                "name": "VariantButtonDefault",
-                "type": "INSTANCE",
-                "blendMode": "PASS_THROUGH",
-                "children": [
-                  {
-                    "id": "I115:2;6:3",
-                    "name": "DefaultBack",
-                    "type": "RECTANGLE",
-                    "blendMode": "PASS_THROUGH",
-                    "absoluteBoundingBox": {
-                      "x": 550.0,
-                      "y": -19.0,
-                      "width": 256.0,
-                      "height": 59.0
-                    },
-                    "constraints": {
-                      "vertical": "SCALE",
-                      "horizontal": "SCALE"
-                    },
-                    "relativeTransform": [
-                      [
-                        1.0,
-                        0.0,
-                        0.0
-                      ],
-                      [
-                        0.0,
-                        1.0,
-                        0.0
-                      ]
-                    ],
-                    "size": {
-                      "x": 256.0,
-                      "y": 59.0
-                    },
-                    "fills": [
-                      {
-                        "blendMode": "NORMAL",
-                        "type": "SOLID",
-                        "color": {
-                          "r": 0.76862746477127075,
-                          "g": 0.76862746477127075,
-                          "b": 0.76862746477127075,
-                          "a": 1.0
-                        }
-                      }
-                    ],
-                    "fillGeometry": [
-                      {
-                        "path": "M0 5C0 2.23858 2.23858 0 5 0L251 0C253.761 0 256 2.23858 256 5L256 54C256 56.7614 253.761 59 251 59L5 59C2.23858 59 0 56.7614 0 54L0 5Z",
-                        "windingRule": "NONZERO"
-                      }
-                    ],
-                    "strokes": [],
-                    "strokeWeight": 1.0,
-                    "strokeAlign": "INSIDE",
-                    "strokeGeometry": [],
-                    "effects": [],
-                    "cornerRadius": 5.0,
-                    "rectangleCornerRadii": [
-                      5.0,
-                      5.0,
-                      5.0,
-                      5.0
-                    ]
-                  },
-                  {
-                    "id": "I115:2;6:4",
-                    "name": "DefaultText",
-                    "type": "TEXT",
-                    "blendMode": "PASS_THROUGH",
-                    "absoluteBoundingBox": {
-                      "x": 570.0,
-                      "y": -3.0,
-                      "width": 179.0,
-                      "height": 26.0
-                    },
-                    "constraints": {
-                      "vertical": "SCALE",
-                      "horizontal": "SCALE"
-                    },
-                    "relativeTransform": [
-                      [
-                        1.0,
-                        0.0,
-                        20.0
-                      ],
-                      [
-                        0.0,
-                        1.0,
-                        16.0
-                      ]
-                    ],
-                    "size": {
-                      "x": 179.0,
-                      "y": 26.0
-                    },
-                    "fills": [
-                      {
-                        "blendMode": "NORMAL",
-                        "type": "SOLID",
-                        "color": {
-                          "r": 0.0,
-                          "g": 0.0,
-                          "b": 0.0,
-                          "a": 1.0
-                        }
-                      }
-                    ],
-                    "strokes": [],
-                    "strokeWeight": 1.0,
-                    "strokeAlign": "OUTSIDE",
-                    "strokeGeometry": [],
-                    "effects": [],
-                    "characters": "Text",
-                    "style": {
-                      "fontFamily": "Roboto",
-                      "fontPostScriptName": null,
-                      "fontWeight": 400,
-                      "fontSize": 24.0,
-                      "textAlignHorizontal": "LEFT",
-                      "textAlignVertical": "CENTER",
-                      "letterSpacing": 0.0,
-                      "lineHeightPx": 28.1250,
-                      "lineHeightPercent": 100.0,
-                      "lineHeightUnit": "INTRINSIC_%"
-                    },
-                    "characterStyleOverrides": [],
-                    "styleOverrideTable": {}
-                  },
-                  {
-                    "id": "I115:2;6:5",
-                    "name": "DefaultEnd",
-                    "type": "RECTANGLE",
-                    "blendMode": "PASS_THROUGH",
-                    "absoluteBoundingBox": {
-                      "x": 762.0,
-                      "y": -19.0,
-                      "width": 44.0,
-                      "height": 59.0
-                    },
-                    "constraints": {
-                      "vertical": "SCALE",
-                      "horizontal": "SCALE"
-                    },
-                    "relativeTransform": [
-                      [
-                        1.0,
-                        0.0,
-                        212.0
-                      ],
-                      [
-                        0.0,
-                        1.0,
-                        0.0
-                      ]
-                    ],
-                    "size": {
-                      "x": 44.0,
-                      "y": 59.0
-                    },
-                    "fills": [
-                      {
-                        "blendMode": "NORMAL",
-                        "type": "SOLID",
-                        "color": {
-                          "r": 0.78750002384185791,
-                          "g": 0.23296874761581421,
-                          "b": 0.23296874761581421,
-                          "a": 1.0
-                        }
-                      }
-                    ],
-                    "fillGeometry": [
-                      {
-                        "path": "M0 5C0 2.23858 2.23858 0 5 0L39 0C41.7614 0 44 2.23858 44 5L44 54C44 56.7614 41.7614 59 39 59L5 59C2.23858 59 0 56.7614 0 54L0 5Z",
-                        "windingRule": "NONZERO"
-                      }
-                    ],
-                    "strokes": [],
-                    "strokeWeight": 1.0,
-                    "strokeAlign": "INSIDE",
-                    "strokeGeometry": [],
-                    "effects": [],
-                    "cornerRadius": 5.0,
-                    "rectangleCornerRadii": [
-                      5.0,
-                      5.0,
-                      5.0,
-                      5.0
-                    ]
-                  }
-                ],
-                "absoluteBoundingBox": {
-                  "x": 550.0,
-                  "y": -19.0,
-                  "width": 256.0,
-                  "height": 59.0
-                },
-                "constraints": {
-                  "vertical": "TOP",
-                  "horizontal": "LEFT"
-                },
-                "relativeTransform": [
-                  [
-                    1.0,
-                    0.0,
-                    39.0
-                  ],
-                  [
-                    0.0,
-                    1.0,
-                    350.0
-                  ]
-                ],
-                "size": {
-                  "x": 256.0,
-                  "y": 59.0
-                },
-                "clipsContent": false,
-                "background": [
-                  {
-                    "blendMode": "NORMAL",
-                    "visible": false,
-                    "type": "SOLID",
-                    "color": {
-                      "r": 1.0,
-                      "g": 1.0,
-                      "b": 1.0,
-                      "a": 1.0
-                    }
-                  }
-                ],
-                "fills": [
-                  {
-                    "blendMode": "NORMAL",
-                    "visible": false,
-                    "type": "SOLID",
-                    "color": {
-                      "r": 1.0,
-                      "g": 1.0,
-                      "b": 1.0,
-                      "a": 1.0
-                    }
-                  }
-                ],
-                "strokes": [],
-                "strokeWeight": 1.0,
-                "strokeAlign": "INSIDE",
-                "backgroundColor": {
-                  "r": 0.0,
-                  "g": 0.0,
-                  "b": 0.0,
-                  "a": 0.0
-                },
-                "effects": [],
-                "componentId": "6:6"
-              },
-              {
-                "id": "115:6",
-                "name": "VariantButtonHover",
-                "type": "INSTANCE",
-                "blendMode": "PASS_THROUGH",
-                "children": [
-                  {
-                    "id": "I115:6;6:13",
-                    "name": "HoverBack",
-                    "type": "RECTANGLE",
-                    "blendMode": "PASS_THROUGH",
-                    "absoluteBoundingBox": {
-                      "x": 550.0,
-                      "y": 59.0,
-                      "width": 256.0,
-                      "height": 59.0
-                    },
-                    "constraints": {
-                      "vertical": "SCALE",
-                      "horizontal": "SCALE"
-                    },
-                    "relativeTransform": [
-                      [
-                        1.0,
-                        0.0,
-                        0.0
-                      ],
-                      [
-                        0.0,
-                        1.0,
-                        0.0
-                      ]
-                    ],
-                    "size": {
-                      "x": 256.0,
-                      "y": 59.0
-                    },
-                    "fills": [
-                      {
-                        "blendMode": "NORMAL",
-                        "type": "SOLID",
-                        "color": {
-                          "r": 0.62083333730697632,
-                          "g": 0.47338542342185974,
-                          "b": 0.47338542342185974,
-                          "a": 1.0
-                        }
-                      }
-                    ],
-                    "fillGeometry": [
-                      {
-                        "path": "M0 5C0 2.23858 2.23858 0 5 0L251 0C253.761 0 256 2.23858 256 5L256 54C256 56.7614 253.761 59 251 59L5 59C2.23858 59 0 56.7614 0 54L0 5Z",
-                        "windingRule": "NONZERO"
-                      }
-                    ],
-                    "strokes": [],
-                    "strokeWeight": 1.0,
-                    "strokeAlign": "INSIDE",
-                    "strokeGeometry": [],
-                    "effects": [],
-                    "cornerRadius": 5.0,
-                    "rectangleCornerRadii": [
-                      5.0,
-                      5.0,
-                      5.0,
-                      5.0
-                    ]
-                  },
-                  {
-                    "id": "I115:6;6:14",
-                    "name": "HoverText",
-                    "type": "TEXT",
-                    "blendMode": "PASS_THROUGH",
-                    "absoluteBoundingBox": {
-                      "x": 570.0,
-                      "y": 75.0,
-                      "width": 179.0,
-                      "height": 26.0
-                    },
-                    "constraints": {
-                      "vertical": "SCALE",
-                      "horizontal": "SCALE"
-                    },
-                    "relativeTransform": [
-                      [
-                        1.0,
-                        0.0,
-                        20.0
-                      ],
-                      [
-                        0.0,
-                        1.0,
-                        16.0
-                      ]
-                    ],
-                    "size": {
-                      "x": 179.0,
-                      "y": 26.0
-                    },
-                    "fills": [
-                      {
-                        "blendMode": "NORMAL",
-                        "type": "SOLID",
-                        "color": {
-                          "r": 0.0,
-                          "g": 0.0,
-                          "b": 0.0,
-                          "a": 1.0
-                        }
-                      }
-                    ],
-                    "strokes": [],
-                    "strokeWeight": 1.0,
-                    "strokeAlign": "OUTSIDE",
-                    "strokeGeometry": [],
-                    "effects": [],
-                    "characters": "Text",
-                    "style": {
-                      "fontFamily": "Roboto",
-                      "fontPostScriptName": null,
-                      "fontWeight": 400,
-                      "fontSize": 24.0,
-                      "textAlignHorizontal": "LEFT",
-                      "textAlignVertical": "CENTER",
-                      "letterSpacing": 0.0,
-                      "lineHeightPx": 28.1250,
-                      "lineHeightPercent": 100.0,
-                      "lineHeightUnit": "INTRINSIC_%"
-                    },
-                    "characterStyleOverrides": [],
-                    "styleOverrideTable": {}
-                  },
-                  {
-                    "id": "I115:6;6:15",
-                    "name": "HoverEnd",
-                    "type": "RECTANGLE",
-                    "blendMode": "PASS_THROUGH",
-                    "absoluteBoundingBox": {
-                      "x": 762.0,
-                      "y": 59.0,
-                      "width": 44.0,
-                      "height": 59.0
-                    },
-                    "constraints": {
-                      "vertical": "SCALE",
-                      "horizontal": "SCALE"
-                    },
-                    "relativeTransform": [
-                      [
-                        1.0,
-                        0.0,
-                        212.0
-                      ],
-                      [
-                        0.0,
-                        1.0,
-                        0.0
-                      ]
-                    ],
-                    "size": {
-                      "x": 44.0,
-                      "y": 59.0
-                    },
-                    "fills": [
-                      {
-                        "blendMode": "NORMAL",
-                        "type": "SOLID",
-                        "color": {
-                          "r": 0.78750002384185791,
-                          "g": 0.23296874761581421,
-                          "b": 0.23296874761581421,
-                          "a": 1.0
-                        }
-                      }
-                    ],
-                    "fillGeometry": [
-                      {
-                        "path": "M0 5C0 2.23858 2.23858 0 5 0L39 0C41.7614 0 44 2.23858 44 5L44 54C44 56.7614 41.7614 59 39 59L5 59C2.23858 59 0 56.7614 0 54L0 5Z",
-                        "windingRule": "NONZERO"
-                      }
-                    ],
-                    "strokes": [],
-                    "strokeWeight": 1.0,
-                    "strokeAlign": "INSIDE",
-                    "strokeGeometry": [],
-                    "effects": [],
-                    "cornerRadius": 5.0,
-                    "rectangleCornerRadii": [
-                      5.0,
-                      5.0,
-                      5.0,
-                      5.0
-                    ]
-                  }
-                ],
-                "absoluteBoundingBox": {
-                  "x": 550.0,
-                  "y": 59.0,
-                  "width": 256.0,
-                  "height": 59.0
-                },
-                "constraints": {
-                  "vertical": "TOP",
-                  "horizontal": "LEFT"
-                },
-                "relativeTransform": [
-                  [
-                    1.0,
-                    0.0,
-                    39.0
-                  ],
-                  [
-                    0.0,
-                    1.0,
-                    428.0
-                  ]
-                ],
-                "size": {
-                  "x": 256.0,
-                  "y": 59.0
-                },
-                "clipsContent": false,
-                "background": [
-                  {
-                    "blendMode": "NORMAL",
-                    "visible": false,
-                    "type": "SOLID",
-                    "color": {
-                      "r": 1.0,
-                      "g": 1.0,
-                      "b": 1.0,
-                      "a": 1.0
-                    }
-                  }
-                ],
-                "fills": [
-                  {
-                    "blendMode": "NORMAL",
-                    "visible": false,
-                    "type": "SOLID",
-                    "color": {
-                      "r": 1.0,
-                      "g": 1.0,
-                      "b": 1.0,
-                      "a": 1.0
-                    }
-                  }
-                ],
-                "strokes": [],
-                "strokeWeight": 1.0,
-                "strokeAlign": "INSIDE",
-                "backgroundColor": {
-                  "r": 0.0,
-                  "g": 0.0,
-                  "b": 0.0,
-                  "a": 0.0
-                },
-                "effects": [],
-                "componentId": "6:12"
               }
             ],
             "absoluteBoundingBox": {
-              "x": 511.0,
-              "y": -369.0,
-              "width": 1200.0,
-              "height": 700.0
+              "x": -414.0,
+              "y": -535.0,
+              "width": 805.0,
+              "height": 726.0
             },
             "constraints": {
               "vertical": "TOP",
@@ -1401,17 +496,17 @@
               [
                 1.0,
                 0.0,
-                511.0
+                -414.0
               ],
               [
                 0.0,
                 1.0,
-                -369.0
+                -535.0
               ]
             ],
             "size": {
-              "x": 1200.0,
-              "y": 700.0
+              "x": 805.0,
+              "y": 726.0
             },
             "clipsContent": true,
             "background": [
@@ -1458,39 +553,29 @@
         },
         "prototypeStartNodeID": null,
         "prototypeDevice": {
-          "type": "PRESET",
-          "size": {
-            "width": 414.0,
-            "height": 736.0
-          },
-          "presetIdentifier": "APPLE_IPHONE_8_PLUS_GOLD",
+          "type": "NONE",
           "rotation": "NONE"
         }
       }
     ]
   },
   "components": {
-    "6:6": {
-      "key": "90b3bee2d4a0274d50b06bc25679ce2375943d5b",
-      "name": "Mouse=Default, Size=Default",
+    "1:5": {
+      "key": "c031ff57adb75d7bd56928efea951a50bed2b848",
+      "name": "type=Primary",
       "description": ""
     },
-    "6:12": {
-      "key": "1796a4b314447dfa693a1f93261f8efdb6f4bccc",
-      "name": "Mouse=Hover, Size=Default",
-      "description": ""
-    },
-    "6:28": {
-      "key": "72351962d2aa53b50a772568b16a7af336e87e31",
-      "name": "Mouse=Focus, Size=Default",
+    "1:7": {
+      "key": "e76e5f606a2665d75b2b7291fdb5b1d665a2001e",
+      "name": "type=Secondary",
       "description": ""
     }
   },
   "schemaVersion": 0,
   "styles": {},
-  "name": "Varient Playground",
-  "lastModified": "2020-10-29T21:55:31.601298Z",
-  "thumbnailUrl": "https://s3-alpha-sig.figma.com/thumbnails/dd7b550a-1006-4a7b-bafa-074604d1a1dc?Expires=1604880000&Signature=CsbbBPYWBvUnwx8KIkVN7qd0o0esaEuYSm8fvgHBQXqjerqvcoDZuEkNQDE9RFoy4XK5Y~sI-MD2AjiK6kn39y7FuDmDK1NVT8t5iLyB5naHSyThQoDx5x8SKQsMIg1Mv2OtTxklx8jiZnehjhU1yTweiqBpYl5~Eo8-CbkaGIOG1qtHfNYeiNeHG7~CWPey5QovNZt8qNlgvfR~wHjJ2Lv1ycO6mwciKVZrrsBDmqHBf3RIjY7AeyButJPuXrg~rSDPUsWkSLRDBF0-s2XbWj5q1xEswDykMMgwin31lAyUUPgFbm03NeDvF0-ERviZW-LRTi~eVhR6qmAEaaOasQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
-  "version": "521190293",
+  "name": "Untitled",
+  "lastModified": "2020-11-04T21:44:34.998718Z",
+  "thumbnailUrl": "https://s3-alpha-sig.figma.com/thumbnails/01da7a65-2dbc-48b2-8bbc-b098b7d58aab?Expires=1605484800&Signature=B4xtYZhWeXKJccj4qwP3OqgCSRn~fonyGnRZ92GOpCYiGDH6tFcgbRJaffbpak09tASURQRDrNC2eFy0alGd709ncmG5B3crPKjaZVd86hdrZLveo9HZDOhA4xnN0v2kP8nV~oOnLoKjAkAJzKZBjjLkGrOgATAgW5TBGZsUnh9SCxHSdDlx5gfbmn9j6gxYbj2sjnU~QI0u5-f557lKlMe2rY1OGUXmH11ijhElkBh4pNmRm42iI1HTA2c8NOA~Y~rzo8XioN1M5rBSbot01VECaTmQo1wD~hUq0w3K6wnN1819wejdKVXz0~JjpR6xJ2OVhil55vU-rJBmOMFhXg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
+  "version": "529095169",
   "role": "owner"
 }

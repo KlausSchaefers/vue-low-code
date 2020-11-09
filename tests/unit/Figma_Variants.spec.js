@@ -28,29 +28,19 @@ test('Test Varients', async () => {
 
   let screen = model.screens[0]
 
-  // console.debug(TestUtil.print(screen))
+  console.debug(TestUtil.print(screen))
 
-  expect(screen.children.length).toBe(3)
+  expect(screen.children.length).toBe(1)
   /**
    * The scroll container should be foound because of parent child relation ship
    */
-  expect(screen.children[0].name).toBe('VariantButton')
+  expect(screen.children[0].name).toBe('VarientButton')
   expect(screen.children[0].props.isComponet).toBe(undefined)
-  expect(screen.children[0].children.length).toBe(3)
-  expect(screen.children[0].children[0].name).toBe('Mouse=Default, Size=Default')
-  expect(screen.children[0].children[0].props.isComponet).toBe(true)
-  expect(screen.children[0].children[1].name).toBe('Mouse=Hover, Size=Default')
-  expect(screen.children[0].children[1].variant.Mouse).toBe('Hover')
-  expect(screen.children[0].children[2].name).toBe('Mouse=Focus, Size=Default')
-  expect(screen.children[0].children[2].variant.Mouse).toBe('Focus')
+  expect(screen.children[0].children.length).toBe(2)
+  expect(screen.children[0].children[0].name).toBe('VarientButton-Primary')
+  expect(screen.children[0].children[1].name).toBe('VarientButton-Secondary')
 
-  expect(screen.children[1].name).toBe('VariantButtonDefault')
-  expect(screen.children[1].figmaComponentId).toBe('6:6')
-  expect(screen.children[1].children[0].name).toBe('DefaultBack')
-  expect(screen.children[1].children[0].figmaComponentId).toBe('6:3')
 
-  let hover = TestUtil.findOneElementsByName(screen, 'VariantButtonHover')
-  expect(hover.figmaComponentId).toBe('6:12')
 });
 
 

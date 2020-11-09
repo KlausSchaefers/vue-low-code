@@ -310,11 +310,11 @@ export default {
     },
 
     checkDesignSystemCallback (e, type) {
-      Logger.log(4, '_Base.checkDesignSystemCallback() > : ' + type)
+      Logger.log(4, '_Base.checkDesignSystemCallback() > : ' + type, this.element)
       if (this.element && this.element.props && this.element.props.callbacks) {
         let callback = this.element.props.callbacks[type]
         if (callback) {
-          Logger.log(2, '_Base.checkDesignSystemCallback() > : ' + this.element.name, type, callback)
+          Logger.log(1, '_Base.checkDesignSystemCallback() > : ' + this.element.name, type, callback)
           this.$emit('qDesignSystemCallback', this.element, e, type, callback, this.getValue())
           this.emitDesignSystemCallback()
         }
@@ -352,15 +352,13 @@ export default {
       Logger.log(3, '_Base.onValueChange() > change : ' + this.element.name, value)
       if (this.element && this.element.props && this.element.props.databinding) {
         let path =  this.element.props.databinding[key]
-        if (path && this.value != undefined) {
-
+        if (path && this.value != undefined && this.value !== true && this.value !== false) {
           try {
             Logger.log(4, '_Base.onValueChange() > change : ' + path, value)
             JSONPath.set(this.value, path, value)
           } catch (ex) {
-            Logger.error('_Base.onValueChange() > Could not set value in path' + path, ex)
+            Logger.error('_Base.onValueChange() > Could not set value in path' + path, this.value)
           }
-
           //Logger.log(-1, '_Base.onValueChange() > exit : ', JSON.stringify(this.value, null, 2))
         }
       }
@@ -368,6 +366,10 @@ export default {
        * We also trigger the change event
        */
       this.$emit('qChange', this.element, e, value)
+
+      /**
+       * For design system roots, we also fire event
+       */
       if (this.element.isDesignSystemRoot && this.$parent) {
         this.$parent.$emit('input', value)
         this.$parent.$emit('change', value)

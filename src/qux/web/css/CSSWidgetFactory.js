@@ -13,6 +13,7 @@ import SegmentCSS from './SegmentCSS'
 import UploadCSS from './UploadCSS'
 import CameraCSS from './CameraCSS'
 import UploadPreviewCSS from './UploadPreviewCSS'
+import ComponentSetCSS from './ComponentSetCSS'
 
 export default class CSSWidgetFactory {
 
@@ -31,8 +32,14 @@ export default class CSSWidgetFactory {
       'Segment': new SegmentCSS(cssFactory),
       'Upload': new UploadCSS(cssFactory),
       'Camera': new CameraCSS(cssFactory),
-      'UploadPreview': new UploadPreviewCSS(cssFactory)
+      'UploadPreview': new UploadPreviewCSS(cssFactory),
+      'ComponentSet': new ComponentSetCSS(cssFactory)
     }
+  }
+
+  getCSS_ComponentSet(selector, style, widget) {
+    Logger.log(5, 'getComponentSet', widget)
+    return this.factories.ComponentSet.run(selector, style, widget)
   }
 
   getCSS_UploadPreview(selector, style, widget) {

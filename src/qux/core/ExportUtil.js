@@ -259,6 +259,10 @@ export function isRepeaterGrid (e) {
     return false
 }
 
+export function isBlock(e) {
+    return e && e.style && e.style.display === 'block'
+}
+
 export function isCentered (e) {
     if (e.parent) {
         let dif = e.parent.w - (2 * e.x + e.w)
@@ -292,6 +296,14 @@ export function allChildrenAreFixedHorizontal(children) {
 
 export function isOverlay(screen) {
     return screen.style && screen.style.overlay
+}
+
+export function isComponentSet (e) {
+    return e.figmaType === 'COMPONENT_SET'
+}
+
+export function isChildrenToggle(e) {
+    return e.type === 'ChildrenToggle' || e.smartContainerType === 'ChildrenToggle'
 }
 
 export function hasOverlayBackground(screen) {

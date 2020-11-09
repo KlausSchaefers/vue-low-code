@@ -47,7 +47,6 @@ export default {
           this.$emit('input', this.checked)
           Logger.log(5, 'qCheckBox.toggle() >' + this.checked)
         }
-
       }
   },
   watch: {

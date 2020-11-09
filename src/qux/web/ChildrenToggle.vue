@@ -42,9 +42,18 @@ export default {
   },
   computed: {
       isActive () {
+        if (this.isDesignSystemRoot) {
+          /**
+           * If no v-model is passed, we take the active
+           */
+          if (this.value === undefined) {
+            return this.active
+          }
+          return this.value
+        }
         if (this.element) {
           let input = this.dataBindingInput
-          Logger.log(5, 'qChildrenToggle.toggle() >' + this.dataBindingInputPath, input)
+          Logger.log(3, 'qChildrenToggle.toggle() >' + this.dataBindingInputPath, input)
           return input === true
         }
         return this.active
@@ -52,11 +61,15 @@ export default {
   },
   methods: {
       toggle (e) {
+        /**
+         * We stop this here, because of the repeater in the demo.
+         */
         this.stopEvent(e)
         if (this.element) {
           let value = !this.isActive
           this.onValueChange(value, 'default')
-          Logger.log(-1, 'qChildrenToggle.toggle() >' + this.dataBindingInputPath, value)
+          this.active = value
+          Logger.log(3, 'qChildrenToggle.toggle() >' + this.dataBindingInputPath, value)
         } else {
           this.active = !this.active
           this.$emit('change', this.active)
@@ -102,7 +115,7 @@ export default {
     }
   },
   mounted () {
-    Logger.log(5, 'qChildrenToggle.mounted() enter')
+    Logger.log(-1, 'qChildrenToggle.mounted() enter', this.value)
     if (this.value === true || this.value === true) {
       this.active = this.value
     }

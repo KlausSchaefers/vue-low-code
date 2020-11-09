@@ -35,6 +35,7 @@ import Upload from '../web/Upload.vue'
 import Camera from '../web/Camera.vue'
 import UploadPreview from '../web/UploadPreview.vue'
 import ChildrenToggle from '../web/ChildrenToggle.vue'
+import ComponentSet from '../web/ComponentSet.vue'
 
 
 import ModelTransformer from '../core/ModelTransformer'
@@ -55,11 +56,9 @@ class DesignSystem {
 
   constructor () {
     this.server = 'https://quant-ux.com'
-
   }
 
-
-	async register(app, config = {}) {
+	async register(app, config = {}, hasComponentSet = false) {
     Logger.log(2, "DesignSystem.register()", app)
 
 		if (app.substring) {
@@ -68,10 +67,10 @@ class DesignSystem {
     }
 
     config.addDefaultDatabinding = false
-		this.onAppLoaded(app, Config.merge(Config.getDefault(), config))
+		this.onAppLoaded(app, Config.merge(Config.getDefault(), config), hasComponentSet)
   }
 
-  onAppLoaded (app, config) {
+  onAppLoaded (app, config, hasComponentSet) {
     Logger.log(3, "DesignSystem.onAppLoaded() > enter", app, config)
     let start = new Date().getTime()
 
@@ -99,21 +98,28 @@ class DesignSystem {
      */
     tree.screens.forEach(screen => {
       screen.children.forEach(widget => {
-
-
-        this.registerElement(app, widget, config, cssFactory)
+        this.registerElement(app, widget, config, cssFactory, hasComponentSet)
       })
     })
 
     /**
-     * Create all templates
+     * ToDO: Create all templates
      */
+
+
+
     let stop = new Date().getTime()
     Logger.log(-1, "DesignSystem.onAppLoaded() > exit", stop - start)
   }
 
-  registerElement (app, element, config, cssFactory) {
-    Logger.log(2, "DesignSystem.registerElement() > enter", element.name)
+  registerElement (app, element, config, cssFactory, hasComponentSet) {
+    Logger.log(-1, "DesignSystem.registerElement() > enter", `<${element.name}>/`)
+
+    let props = ['label', 'value', 'options', 'href']
+
+    if (hasComponentSet && Util.isComponentSet(element)) {
+      this.fixComponentSet(element, props)
+    }
 
     /**
       * Set flag for special handling and reset the cssSelectors
@@ -124,7 +130,7 @@ class DesignSystem {
      * property names to nice onces, like 'lbl' => 'label'
      */
     Vue.component(element.name, {
-      props: ['label', 'value', 'options', 'href'],
+      props: props,
       data: function () {
         return {
           count: 0
@@ -147,6 +153,22 @@ class DesignSystem {
     this.createCSS(app, element, config, cssFactory)
   }
 
+  fixComponentSet (element, props) {
+    element.qtype = 'qComponentSet'
+    element.type = 'ComponentSet'
+    if (element.children && element.children.length > 0) {
+      let child = element.children[0]
+      if (child.variant) {
+        Object.keys(child.variant).forEach(key => {
+          if (props.indexOf(key) === -1) {
+            props.push(key)
+          }
+        })
+      }
+      Logger.log(-1, "DesignSystem.fixComponentSet() > component set", `<${element.name} >/`, props)
+    }
+  }
+
 
   createCSS (app, element, config, cssFactory) {
     Logger.log(4, "DesignSystem.createCSS() > register", element.name)
@@ -160,7 +182,6 @@ class DesignSystem {
     element.cssSelector = '.' + element.cssClass
 
 
-
     let classes = cssFactory.generateDesignSystemRoot(element)
     let css = []
     css = Object.values(classes).flatMap(element => {
@@ -169,7 +190,7 @@ class DesignSystem {
         })
     });
     css = css.join('\n')
-    CSSWriter.write(css, element.id)
+    CSSWriter.write(css, app.id + '-' + element.id)
   }
 
   registerAsQUX (app, element) {
@@ -254,6 +275,7 @@ class DesignSystem {
       Vue.component('qCamera', Camera)
       Vue.component('qChildrenToggle', ChildrenToggle)
       Vue.component('qUploadPreview', UploadPreview)
+      Vue.component('qComponentSet', ComponentSet)
   }
 }
 export default new DesignSystem()

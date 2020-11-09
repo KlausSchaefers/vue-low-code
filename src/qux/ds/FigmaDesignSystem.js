@@ -12,6 +12,7 @@ class FigmaDesignSystem {
       app = await figmaService.get(figmaFile, true)
       app = figmaService.setBackgroundImages(app)
     }
+
     /**
      * In <Figma> we do not attach labels. This gives a better design (grid instead of padding),
      * but the labels would not be found, neither slots would work.
@@ -23,7 +24,10 @@ class FigmaDesignSystem {
         attachLabels: true
       }
     }
-    return QUXDesignSystem.register(app, config)
+    /**
+     * Pass here also the hasComponentSet = true!
+     */
+    return QUXDesignSystem.register(app, config, true)
   }
 }
 

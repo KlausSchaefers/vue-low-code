@@ -100,7 +100,6 @@ export default {
     }
   },
   mounted () {
-     //console.debug('Container.mounted()', this.element.name, this.element.isColumn, this.element.isRow)
   }
 }
 </script>
