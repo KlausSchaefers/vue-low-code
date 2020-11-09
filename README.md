@@ -80,7 +80,8 @@ npm i vue-low-code
 
 
 ## Full Mode
-Second, you have to globaly import the QUX component
+In the full mode the <QUX> or <Figma> component are used to render the entire front end. The first step is top register these components in Vue. The following section will use Quant-UX design as an example. For Figma, please check the [Figma-Low-Code](https://github.com/KlausSchaefers/figma-low-code) repo.
+
 
 ```javascript
 import Vue from "vue";
@@ -93,10 +94,9 @@ Vue.use(QUX);
 Now you can start including the component, for instance in your home components. You have to pass your Quant-UX prototype
 to the component, so it knows what to render. You can either pass a **javascrit object** or a **share key**
 
-```
+```vue
 <QUX :app="app"/>
 ```
-
 
 You can optain the share key from the http://quant-ux.com website by clicking share in the canvas menu. In general the
 share key is best for development. Updates in Quant-UX will be immediatly visible after a page reload. However, for production you should pass an app object. You can download the app json with the quant-ux command line interface:
@@ -119,6 +119,8 @@ Please note that home component should be wrapped by a router-view, otherwise na
     <router-view/>
   </div>
 ```
+
+
 
 ### Update Router
 
