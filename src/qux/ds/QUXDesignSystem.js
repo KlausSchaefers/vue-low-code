@@ -1,7 +1,6 @@
 import Logger from "../core/Logger"
 import * as Util from "../core/ExportUtil"
 import Vue from 'vue'
-import QUX from '../QUX.vue'
 
 import Button from '../web/Button.vue'
 import Label from '../web/Label.vue'
@@ -52,14 +51,14 @@ import CSSWriter from '../core/CSSWriter'
 
 import Config from '../core/Config'
 
-class DesignSystem {
+class QUXDesignSystem {
 
   constructor () {
     this.server = 'https://quant-ux.com'
   }
 
 	async register(app, config = {}, hasComponentSet = false) {
-    Logger.log(2, "DesignSystem.register()", app)
+    Logger.log(2, "QUXDesignSystem.register()", app)
 
 		if (app.substring) {
       config.imageFolder = `${this.server}/rest/images/${app}/`
@@ -71,9 +70,10 @@ class DesignSystem {
   }
 
   onAppLoaded (app, config, hasComponentSet) {
-    Logger.log(3, "DesignSystem.onAppLoaded() > enter", app, config)
+    Logger.log(3, "QUXDesignSystem.onAppLoaded() > enter", app, config)
     let start = new Date().getTime()
 
+    let prefix = config.designletPrefix ? config.designletPrefix : ''
     /**
      * Build tree
      */
@@ -98,7 +98,7 @@ class DesignSystem {
      */
     tree.screens.forEach(screen => {
       screen.children.forEach(widget => {
-        this.registerElement(app, widget, config, cssFactory, hasComponentSet)
+        this.registerElement(app, widget, config, cssFactory, hasComponentSet, prefix)
       })
     })
 
@@ -112,8 +112,8 @@ class DesignSystem {
     Logger.log(-1, "DesignSystem.onAppLoaded() > exit", stop - start)
   }
 
-  registerElement (app, element, config, cssFactory, hasComponentSet) {
-    Logger.log(-1, "DesignSystem.registerElement() > enter", `<${element.name}>/`)
+  registerElement (app, element, config, cssFactory, hasComponentSet, prefix) {
+    Logger.log(-1, "QUXDesignSystem.registerElement() > enter", `<${prefix}${element.name}>/`)
 
     let props = ['label', 'value', 'options', 'href']
 
@@ -129,7 +129,7 @@ class DesignSystem {
      * Here we create dynamicaly the qWidget that is needed! we also map our internal
      * property names to nice onces, like 'lbl' => 'label'
      */
-    Vue.component(element.name, {
+    Vue.component(prefix + element.name, {
       props: props,
       data: function () {
         return {
@@ -165,14 +165,13 @@ class DesignSystem {
           }
         })
       }
-      Logger.log(-1, "DesignSystem.fixComponentSet() > component set", `<${element.name} >/`, props)
+      Logger.log(3, "QUXDesignSystem.fixComponentSet() > component set", `<${element.name} >/`, props)
     }
   }
 
 
   createCSS (app, element, config, cssFactory) {
-    Logger.log(4, "DesignSystem.createCSS() > register", element.name)
-
+    Logger.log(4, "QUXDesignSystem.createCSS() > register", element.name)
 
 
     /**
@@ -193,36 +192,17 @@ class DesignSystem {
     CSSWriter.write(css, app.id + '-' + element.id)
   }
 
-  registerAsQUX (app, element) {
-    Logger.log(5, "DesignSystem.registerAsQUX() > register", element.name)
-    Vue.component(element.name, {
-      data: function () {
-        return {
-          count: 0
-        }
-      },
-      render (createElement) {
-        return createElement(QUX, {
-          props: {
-           app: app,
-           selected: element.name
-          }
-        })
-      }
-    })
-  }
-
 	async loadAppByKey(key) {
-		Logger.log(2, "DesignSystem.loadAppByKey() > enter", key)
+		Logger.log(2, "QUXDesignSystem.loadAppByKey() > enter", key)
 		let url = `${this.server}/rest/invitation/${key}/app.json`
 		let start = new Date().getTime()
 		const response = await fetch(url)
 		if (response.status === 200) {
 			let app = await response.json()
-			Logger.log(-1, "DesignSystem.loadAppByKey() > exit", new Date().getTime() - start)
+			Logger.log(-1, "QUXDesignSystem.loadAppByKey() > exit", new Date().getTime() - start)
 			return app
 		} else {
-			Logger.error("DesignSystem.loadAppByKey() > Could not load")
+			Logger.error("QUXDesignSystem.loadAppByKey() > Could not load")
 		}
   }
 
@@ -278,4 +258,4 @@ class DesignSystem {
       Vue.component('qComponentSet', ComponentSet)
   }
 }
-export default new DesignSystem()
+export default new QUXDesignSystem()

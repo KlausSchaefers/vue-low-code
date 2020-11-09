@@ -4,7 +4,7 @@ import QUXDesignSystem from './QUXDesignSystem'
 
 class FigmaDesignSystem {
 
-  async register(figmaFile, figmaAccessKey) {
+  async register(figmaFile, figmaAccessKey, config) {
     Logger.log(-1, "DesignSystem.register()", figmaFile)
     let app = figmaFile
     if (figmaFile && figmaAccessKey) {
@@ -13,17 +13,6 @@ class FigmaDesignSystem {
       app = figmaService.setBackgroundImages(app)
     }
 
-    /**
-     * In <Figma> we do not attach labels. This gives a better design (grid instead of padding),
-     * but the labels would not be found, neither slots would work.
-     *
-     * TODO: This should be fixed since 0.4.40
-     */
-    let config = {
-      css: {
-        attachLabels: true
-      }
-    }
     /**
      * Pass here also the hasComponentSet = true!
      */

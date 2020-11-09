@@ -11,6 +11,7 @@ class Config {
 			debug: {
 				logLevel: 0,
 			},
+			designletPrefix:'',
 			css: {
 				grid: true,
 				justifyContentInWrapper: false,
@@ -68,7 +69,10 @@ class Config {
     }
     if (overwrites.debug) {
       config.debug = Util.mixin(config.debug, overwrites.debug)
-    }
+		}
+		if (overwrites.designletPrefix) {
+			config.designletPrefix = overwrites.designletPrefix
+		}
 
     return config
   }

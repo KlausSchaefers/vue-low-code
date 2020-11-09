@@ -483,7 +483,7 @@ export default class FigmaService {
          * SmartContainer has a subType
          */
         if (pluginData.quxType === 'SmartContainer' && pluginData.quxSmartContainerType) {
-          Logger.log(-1, 'FigmaService.getPluginData() > quxSmartContainerType : ', pluginData.quxSmartContainerType, element.name)
+          Logger.log(2, 'FigmaService.getPluginData() > quxSmartContainerType : ', pluginData.quxSmartContainerType, element.name)
           widget.type = pluginData.quxSmartContainerType
           widget.smartContainerType = pluginData.quxSmartContainerType
         }
@@ -491,7 +491,7 @@ export default class FigmaService {
       }
 
       if (pluginData.quxTypeCustom) {
-        Logger.log(-1, 'FigmaService.getPluginData() > quxTypeCustom: ', pluginData.quxOnChangeCallback, element.name)
+        Logger.log(3, 'FigmaService.getPluginData() > quxTypeCustom: ', pluginData.quxOnChangeCallback, element.name)
         widget.props.customComponent = pluginData.quxTypeCustom
       }
 

@@ -1,6 +1,6 @@
 # Vue-Low-Code
-Vue-Low-Code is an open-source project that enables the direct inclusion of
-[Figma](https://figma.com) and [Quant-UX](https://quant-ux.com) designs in VUE applications. By ensuring that the
+Vue-Low-Code is an open-source project that turns [Figma](https://figma.com) and [Quant-UX](https://quant-ux.com)
+designs into fully functional VUE applications. By ensuring that the
 design stays the single source of truth, Vue-Low-Code reduces the need for design
 hand-offs and front-end code significantly.
 
@@ -42,22 +42,35 @@ In summary, the Vue-Low-Code project provides the following benfefits:
 More information can be found [here](https://uxdesign.cc/figma-low-code-a-new-way-to-tackle-design-hand-offs-a72cb109a455)
 
 
-## Low Code Workflow
+# Two ways of using Vue-Low-Code
 
-We envision the following workflow to enable painless collaboration between designers and developers:
+Vue-Low-Code provides two modes of operation.
+1. The first mode is the 'Full' low code mode. The Figma or Quant-UX design is entirely rendered and wired to the
+business logic. The front-end developers will usually do little UI customization and  focus on backend connectivity and business logic.
+2. The second mode is the so called 'DesignLet' mode, which turn your design system into Vue components that can be used as normal components Vue-Low-Code.
+Vuw-Low-Code will generate custom VUE components on the fly and register them. The developers will develop the mayority of the application by hand and use design system components for certain
+elements such as buttons or input fields.
 
-![The QUX low code workflow](assets/Workflow.png "QUX LowCode workflow")
 
-1. The designer creates an initial design in Quant-UX or Figma
-2. The developer adds data binding and method callbacks in Quant-UX using a dedicated view or the Figma Plugin
-3. The developer sets up a new project (Vue.js for now) and includes the QUX (or Figma) component
-4. The developer loads the design from Quant-UX and creates the required methods and fills them with business logic.
-5. The QUX component renders the design and invokes the callbacks in clicks.
-6. Changes in the design are transparent to the developer, he just reloads the design from Quant-UX.
+![Vue-Low-Code architecture](assets/LowCodeModes.png "Vue-Low-Code support to modes of operations")
 
-A detail descriptiobn how to use Figma and Vue-Low-Code can be found [here](https://github.com/KlausSchaefers/figma-low-code)
+The full mode will in general result to a faster development experience, however the developers have less control over the front end. The
+'DesignLet' speeds up development and helps to implement design systems. Please note, that both approaches will maintain the Figma or Quant-UX
+design as the single source of truth. Design channges will be instantly visible in the application.
 
-# How to use qux-lowcode
+
+# Development Guide
+
+Table of contents
+
+[Installation](##how-to-install-vue-low-code)
+[Full Lets Mode](##full-mode)
+[Design Lets Mode](##designlet-mode)
+[Defintion of Bindings in Quant-UX](##define-data-binding-and-callbacks)
+[Low Code Workflow](##-low-code-workflow)
+
+
+## How to install Vue-Low-Code
 
 First, you have to install the QUX-LowCode package via NPM
 
@@ -65,6 +78,8 @@ First, you have to install the QUX-LowCode package via NPM
 npm i vue-low-code
 ```
 
+
+## Full Mode
 Second, you have to globaly import the QUX component
 
 ```
@@ -73,7 +88,7 @@ import QUX from 'vue-low-code'
 Vue.use(QUX);
 ```
 
-## Place the QUX component.
+### Place the QUX component.
 
 Now you can start including the component, for instance in your home components. You have to pass your Quant-UX prototype
 to the component, so it knows what to render. You can either pass a **javascrit object** or a **share key**
@@ -86,32 +101,30 @@ to the component, so it knows what to render. You can either pass a **javascrit 
 You can optain the share key from the http://quant-ux.com website by clicking share in the canvas menu. In general the
 share key is best for development. Updates in Quant-UX will be immediatly visible after a page reload. However, for production you should pass an app object. You can download the app json with the quant-ux command line interface:
 
-```
+```bash
 npm install -g quant-ux-cli
 ```
 
-Now you can call quant-ux on the command line. Please pass the **share key** and selct download. The json file will be loaded and
+Now you can call quant-ux on the command line. Please pass the **share key** and select download. The json file will be loaded and
 all images will be stored in the public folder
 
-```
+```bash
 quant-ux
 ```
 
-
-
 Please note that home component should be wrapped by a router-view, otherwise navigation will not work. If you use VUE-CLI to bootrap the project, everything will be configured out of the box.
 
-```
+```vue
  <div id="app">
     <router-view/>
   </div>
 ```
 
-## Update Router
+### Update Router
 
 Last, you have to update your router to delegate all routes to home.
 
-```
+```vue
 const routes = [
   {
     path: '/',
@@ -128,18 +141,18 @@ const routes = [
 
 The default paramter QUX will look for is 'screenName'.
 
-## Configure qux-lowcode
+### Configure qux-lowcode
 
 You can configure certain parameters, e.g. the routing rules. To do so, pass a config object to the
 qux component.
 
-```
+```vue
 <QUX :app="app":config="config"/>
 ```
 
 The config object can have the following properties and hsould be defined in the data section of the home component.
 
-```
+```vue
     config: {
         css: {
           grid: true, // Use CSS grid to align objects. False will use CSS-Flex.
@@ -153,22 +166,22 @@ The config object can have the following properties and hsould be defined in the
 ```
 
 
-## Data Binding
+### Data Binding
 
 QUX-LowCode supports VUE data binding. You have to pass a v-model to the QUX component. The databindings for the
 widgets must be defined in the Quant-UX canvas.
 
-```
+```vue
 <QUX :app="app" v-model="view-model"/>
 ```
 
-## Method Binding
+### Method Binding
 
 In the Quant-UX canvas you can define javascript callbacks for the widgets.
 Place the methods in the parent compoent of QUX.
 The method will have the following signature:
 
-```
+```vue
 myMethod (value, element, e) {
  ...
 }
@@ -176,7 +189,7 @@ myMethod (value, element, e) {
 
 If a method returns a string, matching a screen name, the QUX will navigate to this screen.
 
-```
+```vue
 myMethod (value, element, e) {
  ...
  // navigate to screen 2
@@ -185,8 +198,7 @@ myMethod (value, element, e) {
 ```
 
 
-
-## Custom components and rendering
+### Custom components and rendering
 
 Sometimes you want to render a certain part of the UI by your self, or replace existing widgets with custom implementations.
 These components will be used at the specified screen
@@ -210,7 +222,7 @@ config = {
 
 You can set the name of the custom component in the data view in Quant-UX.
 
-## Selecting sub areas of the prototype
+### Selecting sub areas of the prototype
 
 Sometimes you might not want to render the entire prototype, but just a small subsection, e.g. a dialog. You can do this by using
 the 'selected' property. Enter the name of the component to show. Please make sure, that the **name is unique**. You can also
@@ -248,7 +260,118 @@ Afterwards import the icons in the App.vue
 import '@mdi/font/css/materialdesignicons.css'
 ```
 
-# Define data binding and callbacks in Quant-UX.
+## DesignLet Mode
+
+The DesignLet allows to turn your design system into Vue components that can be used as normal components. DesignLets are not limited to
+simple components like buttons or text, but can also be compplex components like forms, dialogs and so on. The first step is
+to *globally* register the designlets before any template is parsed. The easiest way is to register the designlets in the `main.js`file:
+
+```vue
+import Vue from 'vue'
+import App from './App.vue'
+import './registerServiceWorker'
+import router from './router'
+import * as VueLowCode from 'vue-low-code'
+import figmaDesign from './views/figma-design-system.json'
+import quxDesign from './views/qux-design-system.json'
+
+Vue.config.productionTip = false
+
+/*
+ * Make sure the design is registered before the App is mounted
+ */
+async function init () {
+    // for live debuging use Figma.createFigmaDesignlets(<FileID>, <AccessKey>)
+  await VueLowCode.createFigmaDesignlets(figmaDesign)
+  // for live debuging use Figma.createFigmaDesignlets(<sharekey>)
+  await VueLowCode.createQUXDesignlets(quxDesign)
+
+  new Vue({
+    router,
+    render: h => h(App)
+  }).$mount('#app')
+}
+
+init()
+
+```
+
+The Vue-Low-Code package provides a method for Figma (`createFigmaDesignlets`) and for Quant-UX (`createQUXDesignlets`). For Figma design systems,
+you use your [API token](https://www.figma.com/developers/api#access-tokens) and file if, or you can download the Figma design using the *download.js* script
+
+```bash
+node download.js <api token> <file id>
+```
+
+For Quant-UX you can use share key or download the file with the *QuantUX-CLI*:
+
+```bash
+npm install -g quant-ux-cli
+quant-ux
+```
+
+
+### Using designlets
+
+Once the designlets are registered, they can be used within any template in the application. Suppose there is primary button defined in the design system. This can be invoked be simple using a tag with the corresponding name. Please make sure that the design system names do not clash with standard HTML elements, or other
+components in your code base.
+
+```vue
+<PrimaryButton/>
+```
+
+For simple elements like boxes, rectangles or labels one can use the wrapped notion to replace the inner elements. An alternative is to use the label property
+
+```vue
+<PrimaryButton>Hello World</PrimaryButton>
+<PrimaryButton label="Hello World"/>
+```
+
+For input elements, also the v-model element works. In addtion a placeholder and options element is supported
+
+```vue
+<PrimaryField v-model="user.name" placeholder="Enter a name"/>
+<PrimaryDropDown v-model="user.job" :options="job" />
+...
+jobs = [
+  {label: 'Developer', value:'deverloper'},
+  {label: 'Designer', value:'designer'},
+]
+
+```
+
+### Data and Method Binding
+
+For complex designlets such as dialogs, one has to use data and method binding ([Details](##define-data-binding-and-callbacks)). The relevant
+elements have to be wired to the right data and the right actions have to be defined. For instance in a login dialog, the email field needs to be
+wired to the `email` variable and the password field to the `password` variable. The button needs to get a method binding for the `login` method. When the
+user clicks in the button, and 'login' event will be fired, which can be used using the standard '@' notation. Please note, that when a component consist out of more than one shapes, it is not possible infer where the label text should be shown. One has to
+specify a magic data binding (`$label`). The wiring of the login dialog would look like
+
+![A complex designlet with data and method binding](assets/DesignletDataBinding.png "Data and Method binding for designlets")
+
+The code would be
+
+```vue
+<LoginDialog v-model="loginData" label="Enter your credentials" @login="myLoginMethod">
+
+...
+loginData = {
+  email: '',
+  password: ''
+}
+
+....
+
+myLoginMethod () {
+  // your code
+}
+```
+
+
+
+
+## Define data binding and callbacks.
 
 You can define the data binding and the callbacks in the normal Quant-UX designer. Before you start,
 you have to enable the Beta features. To do so:
@@ -272,7 +395,7 @@ here. Please note, that Quant-UX supports JSON Path, so a variable name can be "
 
 ![Open the settings and tick the beta feature checkbox](assets/Code.png "Enable Beta features")
 
-# Reponsive Rendering for different devices types
+### Reponsive Rendering for different devices types
 
 The QUX allows you to specify for each device type a different app. By doing this, you have to complete freedom
 to design for each device type, without worrying too much about the responsive behavior. Also, this approahc allows
@@ -294,6 +417,23 @@ let apps = {
 
 You can pass weather the **share key** or the downloaded **app json**. Again, the share key is great for development, but
 for production you should download the artifacts.
+
+
+
+## Low Code Workflow
+
+We envision the following workflow to enable painless collaboration between designers and developers:
+
+![The QUX low code workflow](assets/Workflow.png "QUX LowCode workflow")
+
+1. The designer creates an initial design in Quant-UX or Figma
+2. The developer adds data binding and method callbacks in Quant-UX using a dedicated view or the Figma Plugin
+3. The developer sets up a new project (Vue.js for now) and includes the QUX (or Figma) component
+4. The developer loads the design from Quant-UX and creates the required methods and fills them with business logic.
+5. The QUX component renders the design and invokes the callbacks in clicks.
+6. Changes in the design are transparent to the developer, he just reloads the design from Quant-UX.
+
+A detail descriptiobn how to use Figma and Vue-Low-Code can be found [here](https://github.com/KlausSchaefers/figma-low-code)
 
 
 
