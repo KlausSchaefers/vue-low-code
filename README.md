@@ -67,8 +67,11 @@ Table of contents
 2. [Full Lets Mode](#Full-Mode)
 3. [Design Lets Mode](#Designlet-Mode)
 4. [Defintion of Bindings in Quant-UX](#Define-data-binding-and-callbacks)
-5. [Responsive Rendering](#Low-Code-Workflow)
-5. [Low Code Workflow](#Low-Code-Workflow)
+5. [Responsive Rendering](#Responsive-Rendering)
+6. [Low Code Workflow](#Low-Code-Workflow)
+7. [Example & Links](#Examples-And-Links)
+8. [Development Setup](#Dev-Setup)
+9. [Contact & Support](#Contact-and-Support)
 
 
 ## How to install Vue-Low-Code
@@ -440,18 +443,17 @@ We envision the following workflow to enable painless collaboration between desi
 5. The QUX component renders the design and invokes the callbacks in clicks.
 6. Changes in the design are transparent to the developer, he just reloads the design from Quant-UX.
 
-A detail descriptiobn how to use Figma and Vue-Low-Code can be found [here](https://github.com/KlausSchaefers/figma-low-code)
 
-
-
-
-# Examples & Links
-https://github.com/KlausSchaefers/qux-low-code-example
-https://www.figma.com/community/plugin/858477504263032980/Figma-Low-Code
-https://github.com/KlausSchaefers/figma-low-code
-https://uxdesign.cc/figma-low-code-a-new-way-to-tackle-design-hand-offs-a72cb109a455
+# Examples-And-Links
+- [Quant-UX](https://quant-ux.com)
+- [Low Code Example](https://github.com/KlausSchaefers/qux-low-code-example)
+- [Figma Plugin](https://www.figma.com/community/plugin/858477504263032980/Figma-Low-Code)
+- [Figma Low Code](https://github.com/KlausSchaefers/figma-low-code)
+- [Some motivation for the project](https://uxdesign.cc/figma-low-code-a-new-way-to-tackle-design-hand-offs-a72cb109a455)
 
 # Dev Setup
+
+For fixes and improvements please clone the repository and submit pull requests.
 
 ```
 npm install
@@ -461,3 +463,9 @@ Build:
 ```
 npx bili --bundle-node-modules
 ```
+
+
+
+# Contact-and-Support
+
+If you want to reach out please use the [Contact](https://quant-ux.com/#/contact.html) page or [Spectrum Chat](https://spectrum.chat/quant-ux)
