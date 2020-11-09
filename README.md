@@ -63,11 +63,11 @@ design as the single source of truth. Design channges will be instantly visible 
 
 Table of contents
 
-1. [Installation](##-how-to-install-vue-low-code)
-2. [Full Lets Mode](##-full-mode)
-3. [Design Lets Mode](##-designlet-mode)
-4. [Defintion of Bindings in Quant-UX](##-define-data-binding-and-callbacks)
-5. [Low Code Workflow](##-Low-Code-Workflow)
+1. [Installation](#How-to-install-Vue-Low-Code)
+2. [Full Lets Mode](#Full-Mode)
+3. [Design Lets Mode](#Designlet-Mode)
+4. [Defintion of Bindings in Quant-UX](#Define-data-binding-and-callbacks)
+5. [Low Code Workflow](#Low-Code-Workflow)
 
 
 ## How to install Vue-Low-Code
