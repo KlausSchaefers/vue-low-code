@@ -64,8 +64,8 @@ design as the single source of truth. Design channges will be instantly visible 
 Table of contents
 
 1. [Installation](#How-to-install-Vue-Low-Code)
-2. [Full Lets Mode](#Full-Mode)
-3. [Design Lets Mode](#Designlet-Mode)
+2. [Full Mode](#Full-Mode)
+3. [Designlet Mode](#Designlet-Mode)
 4. [Defintion of Bindings in Quant-UX](#Define-data-binding-and-callbacks)
 5. [Responsive Rendering](#Responsive-Rendering)
 6. [Low Code Workflow](#Low-Code-Workflow)
