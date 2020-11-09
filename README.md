@@ -63,18 +63,18 @@ design as the single source of truth. Design channges will be instantly visible 
 
 Table of contents
 
-[Installation](##how-to-install-vue-low-code)
-[Full Lets Mode](##full-mode)
-[Design Lets Mode](##designlet-mode)
-[Defintion of Bindings in Quant-UX](##define-data-binding-and-callbacks)
-[Low Code Workflow](##-low-code-workflow)
+1. [Installation](##-how-to-install-vue-low-code)
+2. [Full Lets Mode](##-full-mode)
+3. [Design Lets Mode](##-designlet-mode)
+4. [Defintion of Bindings in Quant-UX](##-define-data-binding-and-callbacks)
+5. [Low Code Workflow](##-Low-Code-Workflow)
 
 
 ## How to install Vue-Low-Code
 
 First, you have to install the QUX-LowCode package via NPM
 
-```
+```bash
 npm i vue-low-code
 ```
 
@@ -82,7 +82,7 @@ npm i vue-low-code
 ## Full Mode
 Second, you have to globaly import the QUX component
 
-```
+```javascript
 import Vue from "vue";
 import QUX from 'vue-low-code'
 Vue.use(QUX);
@@ -124,7 +124,7 @@ Please note that home component should be wrapped by a router-view, otherwise na
 
 Last, you have to update your router to delegate all routes to home.
 
-```vue
+```javascript
 const routes = [
   {
     path: '/',
@@ -181,7 +181,7 @@ In the Quant-UX canvas you can define javascript callbacks for the widgets.
 Place the methods in the parent compoent of QUX.
 The method will have the following signature:
 
-```vue
+```javascript
 myMethod (value, element, e) {
  ...
 }
@@ -189,7 +189,7 @@ myMethod (value, element, e) {
 
 If a method returns a string, matching a screen name, the QUX will navigate to this screen.
 
-```vue
+```javascript
 myMethod (value, element, e) {
  ...
  // navigate to screen 2
@@ -260,13 +260,13 @@ Afterwards import the icons in the App.vue
 import '@mdi/font/css/materialdesignicons.css'
 ```
 
-## DesignLet Mode
+## Designlet Mode
 
 The DesignLet allows to turn your design system into Vue components that can be used as normal components. DesignLets are not limited to
 simple components like buttons or text, but can also be compplex components like forms, dialogs and so on. The first step is
 to *globally* register the designlets before any template is parsed. The easiest way is to register the designlets in the `main.js`file:
 
-```vue
+```javascript
 import Vue from 'vue'
 import App from './App.vue'
 import './registerServiceWorker'
