@@ -67,6 +67,7 @@ Table of contents
 2. [Full Lets Mode](#Full-Mode)
 3. [Design Lets Mode](#Designlet-Mode)
 4. [Defintion of Bindings in Quant-UX](#Define-data-binding-and-callbacks)
+5. [Responsive Rendering](#Low-Code-Workflow)
 5. [Low Code Workflow](#Low-Code-Workflow)
 
 
@@ -397,15 +398,19 @@ here. Please note, that Quant-UX supports JSON Path, so a variable name can be "
 
 ![Open the settings and tick the beta feature checkbox](assets/Code.png "Enable Beta features")
 
-### Reponsive Rendering for different devices types
+### Responsive Rendering
 
-The QUX allows you to specify for each device type a different app. By doing this, you have to complete freedom
+Vue-Low-Code apps are to some degree responsive, depending on the constraints that affre defined in Quant-UX or Figma.
+In addtion you can define min and max widths, and determine the flow of child components (Grid vs Flex).
+
+However, sometimes this is not enough and one needs different UIs for different devices. Vue-Low-Code allows you to specify
+for each device type a different app. By doing this, you have to complete freedom
 to design for each device type, without worrying too much about the responsive behavior. Also, this approahc allows
 you to provide completly different navigation patters, e.g. a hamburger menu on mobile and a central navbar on desktop.
 
 To enable the responsive behavior do:
 
-```
+```vue
 <QUX :app="apps"/>
 
 ...
