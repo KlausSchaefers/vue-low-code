@@ -55,6 +55,7 @@ class QUXDesignSystem {
 
   constructor () {
     this.server = 'https://quant-ux.com'
+    this.components = {}
   }
 
 	async register(app, config = {}, hasComponentSet = false) {
@@ -119,6 +120,11 @@ class QUXDesignSystem {
 
     if (hasComponentSet && Util.isComponentSet(element)) {
       this.fixComponentSet(element, props)
+    }
+
+    this.components[`${prefix}${element.name}`] = {
+      name: `${prefix}${element.name}`,
+      element: element
     }
 
     /**

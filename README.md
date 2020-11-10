@@ -47,15 +47,13 @@ More information can be found [here](https://uxdesign.cc/figma-low-code-a-new-wa
 Vue-Low-Code provides two modes of operation.
 1. The first mode is the 'Full' low code mode. The Figma or Quant-UX design is entirely rendered and wired to the
 business logic. The front-end developers will usually do little UI customization and  focus on backend connectivity and business logic.
-2. The second mode is the so called 'DesignLet' mode, which turn your design system into Vue components that can be used as normal components Vue-Low-Code.
-Vuw-Low-Code will generate custom VUE components on the fly and register them. The developers will develop the mayority of the application by hand and use design system components for certain
-elements such as buttons or input fields.
+2. The second mode is the so called 'Design System' mode, which turns your design system into Vue components. The developers can simply use these as any other VUE component within their projects.
 
 
 ![Vue-Low-Code architecture](assets/LowCodeModes.png "Vue-Low-Code support to modes of operations")
 
 The full mode will in general result to a faster development experience, however the developers have less control over the front end. The
-'DesignLet' speeds up development and helps to implement design systems. Please note, that both approaches will maintain the Figma or Quant-UX
+'Design System' mode speeds up development and helps to implement design systems. Please note, that both approaches will maintain the
 design as the single source of truth. Design channges will be instantly visible in the application.
 
 
@@ -65,7 +63,7 @@ Table of contents
 
 1. [Installation](#How-to-install-Vue-Low-Code)
 2. [Full Mode](#Full-Mode)
-3. [Designlet Mode](#Designlet-Mode)
+3. [Design System Mode](#Design-System-Mode)
 4. [Defintion of Bindings in Quant-UX](#Define-data-binding-and-callbacks)
 5. [Responsive Rendering](#Responsive-Rendering)
 6. [Low Code Workflow](#Low-Code-Workflow)
@@ -266,11 +264,10 @@ Afterwards import the icons in the App.vue
 import '@mdi/font/css/materialdesignicons.css'
 ```
 
-## Designlet Mode
+## Design System Mode
 
-The DesignLet allows to turn your design system into Vue components that can be used as normal components. DesignLets are not limited to
-simple components like buttons or text, but can also be compplex components like forms, dialogs and so on. The first step is
-to *globally* register the designlets before any template is parsed. The easiest way is to register the designlets in the `main.js`file:
+The Design System mode allows to turn your design system into Vue components that can be used as normal components. The first step is
+to *globally* register the design system before any template is parsed. The easiest way is to register the design system in the `main.js`file:
 
 ```javascript
 import Vue from 'vue'
@@ -287,10 +284,10 @@ Vue.config.productionTip = false
  * Make sure the design is registered before the App is mounted
  */
 async function init () {
-    // for live debuging use Figma.createFigmaDesignlets(<FileID>, <AccessKey>)
-  await VueLowCode.createFigmaDesignlets(figmaDesign)
-  // for live debuging use Figma.createFigmaDesignlets(<sharekey>)
-  await VueLowCode.createQUXDesignlets(quxDesign)
+    // for live debuging use Figma.createFigmaDesignSystem(<FileID>, <AccessKey>)
+  await VueLowCode.createFigmaDesignSystem(figmaDesign)
+  // for live debuging use Figma.createQUXDesignSystem(<quxSharekey>)
+  await VueLowCode.createQUXDesignSystem(quxDesign)
 
   new Vue({
     router,
@@ -302,8 +299,8 @@ init()
 
 ```
 
-The Vue-Low-Code package provides a method for Figma (`createFigmaDesignlets`) and for Quant-UX (`createQUXDesignlets`). For Figma design systems,
-you use your [API token](https://www.figma.com/developers/api#access-tokens) and file if, or you can download the Figma design using the *download.js* script
+The Vue-Low-Code package provides a method for Figma (`createFigmaDesignSystem`) and for Quant-UX (`createQUXDesignSystem`). For Figma design systems,
+you use your [API token](https://www.figma.com/developers/api#access-tokens) and fileID, or you can download the Figma design using the *download.js* script
 
 ```bash
 node download.js <api token> <file id>
@@ -317,9 +314,9 @@ quant-ux
 ```
 
 
-### Using designlets
+### Using the Low Code Design System
 
-Once the designlets are registered, they can be used within any template in the application. Suppose there is primary button defined in the design system. This can be invoked be simple using a tag with the corresponding name. Please make sure that the design system names do not clash with standard HTML elements, or other
+Once the design system is registered, they can be used within any template in the application. Suppose there is primary button defined in the design system. This can be invoked be simple using a tag with the corresponding name. Please make sure that the design system names do not clash with standard HTML elements, or other
 components in your code base.
 
 ```vue
@@ -348,13 +345,13 @@ jobs = [
 
 ### Data and Method Binding
 
-For complex designlets such as dialogs, one has to use data and method binding ([Details](##define-data-binding-and-callbacks)). The relevant
-elements have to be wired to the right data and the right actions have to be defined. For instance in a login dialog, the email field needs to be
+Low Code Design Systems are not limited to simple components like buttons or text, but can also be compplex components like forms, dialogs and so on.
+Usually one has to use data and method binding ([Details](##define-data-binding-and-callbacks)) in this situations to populate the elements with data.
+The relevant (child) elements have to be wired to the right data and the right actions have to be defined. For instance in a login dialog, the email field needs to be
 wired to the `email` variable and the password field to the `password` variable. The button needs to get a method binding for the `login` method. When the
-user clicks in the button, and 'login' event will be fired, which can be used using the standard '@' notation. Please note, that when a component consist out of more than one shapes, it is not possible infer where the label text should be shown. One has to
-specify a magic data binding (`$label`). The wiring of the login dialog would look like
+user clicks in the button, and 'login' event will be fired, which can be used using the standard '@' notation. Please note, that when a component consist out of more than one shapes, it is not possible infer where the label text should be shown. One has to specify a magic data binding (`$label`). The wiring of the login dialog would look like
 
-![A complex designlet with data and method binding](assets/DesignletDataBinding.png "Data and Method binding for designlets")
+![A complex component with data and method binding](assets/DesignletDataBinding.png "Data and Method binding for components")
 
 The code would be
 
@@ -448,7 +445,8 @@ We envision the following workflow to enable painless collaboration between desi
 - [Quant-UX](https://quant-ux.com)
 - [Low Code Example](https://github.com/KlausSchaefers/qux-low-code-example)
 - [Figma Plugin](https://www.figma.com/community/plugin/858477504263032980/Figma-Low-Code)
-- [Figma Low Code](https://github.com/KlausSchaefers/figma-low-code)
+- [Figma-Low-Code](https://github.com/KlausSchaefers/figma-low-code)
+- [Figma-Low-Code Design System Example](https://github.com/KlausSchaefers/figma-design-system-example)
 - [Some motivation for the project](https://uxdesign.cc/figma-low-code-a-new-way-to-tackle-design-hand-offs-a72cb109a455)
 
 # Dev Setup
