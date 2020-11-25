@@ -52,6 +52,9 @@ export default {
             return {
             }
         }
+      },
+      'page': {
+        type: String
       }
   },
   data: function () {
@@ -80,10 +83,11 @@ export default {
   },
   methods: {
     async setFigma (figma) {
-       Logger.log(-1, 'Figma.setFigma()')
+       Logger.log(-1, 'Figma.setFigma()', this.page)
        if (figma.figmaFile && figma.figmaAccessKey) {
           let figmaService = new FigmaService(figma.figmaAccessKey, this.mergedConfig)
-          let app = await figmaService.get(figma.figmaFile, true)
+          let selectedPages = this.page ? [this.page] : []
+          let app = await figmaService.get(figma.figmaFile, true, false, selectedPages)
           app = figmaService.setBackgroundImages(app)
           this.app = app
        } else if (figma.screens && figma.widgets){

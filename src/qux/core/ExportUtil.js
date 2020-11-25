@@ -190,7 +190,14 @@ export function getDistanceFromScreenBottom(element, model) {
 }
 
 export function isWrappedContainer(e) {
-    return e.style.wrap
+    return e.style.wrap || e.style.layout === 'Wrap'
+}
+
+export function hasWrappedParent(e) {
+    if (e.parent) {
+        return e.parent.style.wrap || e.parent.style.layout === 'Wrap'
+    }
+    return false
 }
 
 export function isRowContainer(e) {
@@ -208,13 +215,6 @@ export function isDesignSystemRoot(e) {
 export function isRepeater(e) {
     if (e) {
         return e.type === 'Repeater'
-    }
-    return false
-}
-
-export function hasWrappedParent(e) {
-    if (e.parent) {
-        return e.parent.style.wrap
     }
     return false
 }
@@ -797,6 +797,19 @@ export function createContaineredModel(inModel) {
     }
 }
 
+export function copyTemplateStyles(model) {
+    if (model.templates) {
+        for (let widgetID in model.widgets){
+            let widget = model.widgets[widgetID]
+            if (widget.template) {
+                let template = model.templates[widget.template]
+                widget._template = template
+            }
+        }
+    }
+    return model
+}
+
 export function inlineTemplateStyles (model) {
     for (let widgetID in model.widgets){
         let widget = model.widgets[widgetID]
@@ -804,6 +817,10 @@ export function inlineTemplateStyles (model) {
             /**
              * FIXME: What about style?
              */
+            let style = this.getTemplatedStyle(widget, model, 'style')
+            if (style) {
+                widget.style = style
+            }
             let hover = this.getTemplatedStyle(widget, model, 'hover')
             if (hover) {
                 widget.hover = hover
@@ -820,6 +837,8 @@ export function inlineTemplateStyles (model) {
             if (active) {
                 widget.active = active
             }
+
+            console.debug(widget)
         }
 
     }
@@ -830,6 +849,7 @@ export function getTemplatedStyle(widget, model, prop) {
     if (widget.template) {
         if (model.templates) {
             var t = model.templates[widget.template];
+            console.debug(t)
             if (t && t[prop]) {
                 /**
                  * Merge in overwriten styles

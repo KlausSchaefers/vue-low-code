@@ -1,0 +1,46 @@
+.qux-spinner{
+  border: none;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+
+  .qux-spinner-border{
+    position: absolute;
+    height: 33.3%;
+    width: 100%;
+    top: 33.3%;
+    left: 0px;
+    border-top:1px solid #333;
+    border-bottom: 1px solid #333;
+  }
+
+  .qux-spinner-option-cntr{
+    position: absolute;
+    left:0px;
+    height: 300%;
+    width: 100%;
+
+    &.qux-spinner-option-cntr-animated {
+      transition: 0.33s all;
+    }
+  }
+
+  .qux-spinner-option {
+    display: block;
+    height: 20%;
+    width: 100%;
+    opacity: 0.6;
+    position: relative;
+    text-align: center;
+
+
+    .qux-common-label{
+      width: 100%;
+    }
+
+    &.qux-spinner-option-selected{
+      opacity: 1;
+    }
+  }
+
+}

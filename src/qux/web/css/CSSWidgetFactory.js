@@ -14,6 +14,7 @@ import UploadCSS from './UploadCSS'
 import CameraCSS from './CameraCSS'
 import UploadPreviewCSS from './UploadPreviewCSS'
 import ComponentSetCSS from './ComponentSetCSS'
+import SpinnerCSS from './SpinnerCSS'
 
 export default class CSSWidgetFactory {
 
@@ -33,8 +34,14 @@ export default class CSSWidgetFactory {
       'Upload': new UploadCSS(cssFactory),
       'Camera': new CameraCSS(cssFactory),
       'UploadPreview': new UploadPreviewCSS(cssFactory),
-      'ComponentSet': new ComponentSetCSS(cssFactory)
+      'ComponentSet': new ComponentSetCSS(cssFactory),
+      'Spinner': new SpinnerCSS(cssFactory)
     }
+  }
+
+  getCSS_Spinner(selector, style, widget) {
+    Logger.log(5, 'getSpinner', widget)
+    return this.factories.Spinner.run(selector, style, widget)
   }
 
   getCSS_ComponentSet(selector, style, widget) {

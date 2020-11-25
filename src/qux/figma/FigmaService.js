@@ -2,7 +2,7 @@ import Logger from '../core/Logger'
 
 export default class FigmaService {
 
-  constructor (key) {
+  constructor (key, config = {}) {
     this.setAccessKey(key)
     this.baseURL = 'https://api.figma.com/v1/'
     this.vectorTypes = ['LINE', 'ELLIPSE', 'VECTOR']
@@ -13,6 +13,21 @@ export default class FigmaService {
     this.pluginId = '858477504263032980'
     this.downloadVectors = true
     this.imageScaleFactor = 1
+    this.throttleRequestThreshold = 10
+    this.throttleRequestTimeout = 1000
+
+    if (config.figma) {
+      if (config.figma.throttleRequestThreshold) {
+        this.throttleRequestThreshold = config.figma.throttleRequestThreshold
+      }
+      if (config.figma.throttleRequestTimeout) {
+        this.throttleRequestTimeout = config.figma.throttleRequestTimeout
+      }
+
+      if (config.figma.throttleBatchSize) {
+        this.max_ids = config.figma.throttleBatchSize
+      }
+    }
     /**
      * TODO: update with config
      */
@@ -60,7 +75,7 @@ export default class FigmaService {
     return headers
   }
 
-  async get (key, importChildren = true, allAsVecor = false, setVariantsAsHover = true) {
+  async get (key, importChildren = true, allAsVecor = false, selectedPages= []) {
     this.allAsVecor = allAsVecor
     return new Promise ((resolve, reject) => {
       let url = this.baseURL + 'files/' + key + '?geometry=paths&plugin_data=' + this.pluginId
@@ -71,7 +86,7 @@ export default class FigmaService {
       }).then(resp => {
         resp.json().then(json => {
           try {
-            let app = this.parse(key, json, importChildren, setVariantsAsHover)
+            let app = this.parse(key, json, importChildren, selectedPages)
             resolve(app)
           } catch (e) {
             Logger.error('FigmaService.get() > Error', e)
@@ -110,18 +125,21 @@ export default class FigmaService {
     })
   }
 
-  async parse (id, fModel, importChildren) {
-    Logger.log(3, 'FigmaService.parse() > enter importChildren:' + importChildren,fModel)
+  async parse (id, fModel, importChildren, selectedPages) {
+    Logger.log(3, 'FigmaService.parse() > enter importChildren:' + importChildren, fModel)
     let model = this.createApp(id, fModel)
     let fDoc = fModel.document
     fModel._elementsById = {}
 
     if (fDoc.children) {
       fDoc.children.forEach(page => {
-        if (page.children) {
-          page.children.forEach(screen => {
-            this.parseScreen(screen, model, fModel, importChildren)
-          })
+        if (selectedPages.length === 0 || selectedPages.indexOf(page.name) >= 0) {
+          Logger.log(-1, 'FigmaService.parse() > parse page:' + page.name)
+          if (page.children) {
+            page.children.forEach(screen => {
+              this.parseScreen(screen, model, fModel, importChildren)
+            })
+          }
         }
       })
     }
@@ -262,7 +280,7 @@ export default class FigmaService {
         let batches = this.getChunks(vectorWidgets, this.max_ids)
 
         let promisses = batches.map((batch,i) => {
-          return this.addBackgroundImagesBatch(id, batch, i)
+          return this.addBackgroundImagesBatch(id, batch, i, batches.length)
         })
         await Promise.all(promisses)
       }
@@ -280,30 +298,40 @@ export default class FigmaService {
     }
   }
 
-  async addBackgroundImagesBatch(id, batch, i) {
+  async addBackgroundImagesBatch(id, batch, i, totalNumberOfBatches) {
     Logger.log(3, 'FigmaService.addBackgroundImagesBatch() > start', i)
     return new Promise((resolve, reject) => {
-      let vectorWidgetIds = batch.map(w => w.figmaId).join(',')
-      this.getImages(id, vectorWidgetIds).then(imageResponse => {
-        if (imageResponse.err === null) {
-          Logger.log(3, 'FigmaService.addBackgroundImagesBatch () > end', i)
-          let images = imageResponse.images
-          batch.forEach(w => {
-            let image = images[w.figmaId]
-            if (image) {
-              w.props.figmaImage = image
-            }
-            resolve(batch)
-          })
-        } else {
-          Logger.error('FigmaService.addBackgroundImagesBatch () > Could not get images', imageResponse)
-          reject(imageResponse.err)
-        }
-      }, err => {
-        Logger.error('FigmaService.addBackgroundImagesBatch() > Could not get images', err)
-        reject(err)
-      })
+      setTimeout( () => {
+        let vectorWidgetIds = batch.map(w => w.figmaId).join(',')
+        this.getImages(id, vectorWidgetIds).then(imageResponse => {
+          if (imageResponse.err === null) {
+            Logger.log(3, 'FigmaService.addBackgroundImagesBatch () > end', i)
+            let images = imageResponse.images
+            batch.forEach(w => {
+              let image = images[w.figmaId]
+              if (image) {
+                w.props.figmaImage = image
+              }
+              resolve(batch)
+            })
+          } else {
+            Logger.error('FigmaService.addBackgroundImagesBatch () > Could not get images', imageResponse)
+            reject(imageResponse.err)
+          }
+        }, err => {
+          Logger.error('FigmaService.addBackgroundImagesBatch() > Could not get images', err)
+          reject(err)
+        })
+      }, this.getImageTimeout(i, totalNumberOfBatches))
     })
+  }
+
+  getImageTimeout (i, totalNumberOfBatches) {
+    if (totalNumberOfBatches > this.throttleRequestThreshold) {
+      Logger.warn(`igmaService.getImageTimeout () > Throttle requests. Delay request ${i} by ${(i * this.throttleRequestTimeout)} ms` )
+      return i * this.throttleRequestTimeout
+    }
+    return 0
   }
 
   getChunks (array, size) {

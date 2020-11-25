@@ -90,7 +90,9 @@ export default class CSSFactory {
 			"boxShadow" : "box-shadow",
 			"textShadow" : "text-shadow",
 
-			"opacity": "opacity"
+			"opacity": "opacity",
+
+			"cursor": "cursor"
 		}
 
 		this.paddingProperties = ["paddingBottom", "paddingLeft", "paddingRight", "paddingTop", "padding"]
@@ -168,7 +170,7 @@ export default class CSSFactory {
 					type: 'template',
 					css: t.cssSelector,
 					global:true,
-					code: this.getCSS(t, null, false)
+					code: this.getTemplateCSS(t, null, false)
 				}
 				result[t.id] = [style]
 			}
@@ -239,7 +241,6 @@ export default class CSSFactory {
 		// add something like inlibe block, and fexl with if no children
 		// generate rest like usual
 
-
 		return result
 	}
 
@@ -247,22 +248,6 @@ export default class CSSFactory {
 
 		result[node.id] = []
 
-		/**
-		 * If we have a templated node,
-		 * add also the template class here
-		 */
-		if (node.template) {
-			let template = result[node.template]
-			if (template) {
-				template.forEach(t => {
-					result[node.id].push(t)
-				})
-			}
-		}
-
-		/**
-		 * TDOD: If we have shared code...
-		 */
 		result[node.id].push({
 			type: 'widget',
 			css: node.cssSelector,
@@ -308,6 +293,57 @@ export default class CSSFactory {
 			name = `${this.prefix}_${name}`
 		}
 		return name
+	}
+
+	getTemplateCSS (widget, screen) {
+		var result = "";
+
+		var style = widget.style;
+		style = Util.fixAutos(style, widget)
+
+		let selector = this.getSelector(widget, screen);
+		if (this.widgetFactory['getCSS_' + widget.type]) {
+			result += this.widgetFactory['getCSS_' + widget.type](selector, widget.style, widget)
+		} else {
+			/**
+			 * Add normal css
+			 */
+			result += selector + ' {\n'
+			result += this.getRawStyle(style, widget);
+			result += '}\n\n'
+
+			if (widget.hover) {
+				result += selector + ':hover {\n'
+				result += '  transition: all 0.2s;\n'
+				result += this.getRawStyle(widget.hover, widget);
+				result += '}\n\n'
+			}
+
+			if (widget.focus) {
+				result += selector + ':focus {\n'
+				result += this.getRawStyle(widget.focus, widget);
+				result += '}\n\n'
+			}
+
+			if (widget.error) {
+				result += selector + ':invalid {\n'
+				result += this.getRawStyle(widget.error, widget);
+				result += '}\n\n'
+			}
+
+			if (widget.active) {
+				result += selector + '.qux-active {\n'
+				result += this.getRawStyle(widget.active, widget);
+				result += '}\n\n'
+			}
+
+			if (Util.isInputElement(widget)) {
+				result += selector + '::placeholder {\n'
+				result += `  color: ${this.getPlaceHolderColor(style.color)};\n`
+				result += '}\n\n'
+			}
+		}
+		return result
 	}
 
 	getCSS (widget, screen) {
@@ -572,19 +608,20 @@ export default class CSSFactory {
 		 */
 		if (Util.isDesignSystemRoot(widget)) {
 			return this.positionFactory.getDesignSystemPosition(widget)
-
-		} else if (Util.hasComponentScreenParent(widget)) {
-			return this.positionFactory.getComponentScreenPosition(widget)
-
-		} else if (widget.style.fixed && widget.type !== 'Screen') {
-			return this.positionFactory.getFixedPosition(widget)
-
-		} else if (Util.hasWrappedParent(widget)) {
-			return this.positionFactory.getWrappedPosition(widget)
-
-		} else  {
-			return this.positionFactory.getGridPosition(widget)
 		}
+
+		if (Util.hasComponentScreenParent(widget)) {
+			return this.positionFactory.getComponentScreenPosition(widget)
+		}
+		if (widget.style.fixed && widget.type !== 'Screen') {
+			return this.positionFactory.getFixedPosition(widget)
+		}
+
+		if (Util.hasWrappedParent(widget)) {
+			return this.positionFactory.getWrappedPosition(widget)
+		}
+
+		return this.positionFactory.getGridPosition(widget)
 	}
 
 

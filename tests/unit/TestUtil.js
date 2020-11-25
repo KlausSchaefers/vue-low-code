@@ -47,6 +47,10 @@ export function findOneElementsByName (e, name, result = []) {
     return result[0]
 }
 
+export function findCSSBySelector (classes, selector) {
+    return Object.values(classes).flatMap(c => c).filter(c => c.css.indexOf(selector) >=0)
+}
+
 export function findOneElementsByProp(e, value, prop, result = []) {
     if (e.children) {
         e.children.forEach(c => {

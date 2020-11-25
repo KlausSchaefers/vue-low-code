@@ -16,6 +16,12 @@ export function transform(app, config) {
 	model = Util.createInheritedModel(model)
 
 	/**
+	 * Copy templates as _template into widgets so we can use the information later
+	 * in the CSSPostion.getCorrectedHeight!
+	 */
+	model = Util.copyTemplateStyles(model)
+
+	/**
 	 * Set forced left and right pinned
 	 */
 	model = addForcedResize(model, isForcePinnedLeft, isForcePinnedRight, isForceFixedHorizontal)

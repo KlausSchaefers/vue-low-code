@@ -222,7 +222,7 @@ export default class CSSLayouter {
 	}
 
 	getWrappedWidth(widget) {
-		Logger.log(-1, "CSSFactory.getWrappedWidth() " + widget.name, Util.hasMinMaxWdith(widget))
+		Logger.log(3, "CSSFactory.getWrappedWidth() " + widget.name, Util.hasMinMaxWdith(widget))
 		if (Util.hasMinMaxWdith(widget)) {
 			return this.getMinMaxWidth(widget, true)
 		}
@@ -283,6 +283,7 @@ export default class CSSLayouter {
 	}
 
 	getGridChildAlignment(widget) {
+
 		let result = ""
 		if (Util.isWrappedContainer(widget)) {
 			result += this.setWrappedContainer(widget)
@@ -314,12 +315,9 @@ export default class CSSLayouter {
 		if (Util.hasParentRepeaterGrid(widget)) {
 			Logger.log(3, "CSSFactory.getGridParentAlign() > " + widget.name, widget)
 			/**
-			 * FIXME: Do we need this?
-			 * in a repeater we have a parent element that was
-			 * aligned by the Grid (qux-repeater-child). We just set the
-			 * width
+			 * FIXME: Do we need to set width? I believe not.
 			 */
-			result += `  width: 100%;\n`
+			// result += `  width: 100%;\n`
 			if (Util.isFixedVertical(widget)) {
 				result += `  height: ${this.getCorrectedHeight(widget, true)};\n`
 			} else {
@@ -327,17 +325,19 @@ export default class CSSLayouter {
 				result += `  height: 100%;\n`
 			}
 		} else if (widget.parent) {
+
 			/**
 			 * Check if we have to do a normal flex layout because the grid
 			 * is row (=== 1 columns)
 			 */
-			if (widget.parent.grid && widget.parent.grid.isRow) {
+			if (widget.parent.grid && (widget.parent.grid.isRow)) {
 				result += this.getGridParentRowAlignment(widget)
 			} else {
 				result += `  grid-column-start: ${widget.gridColumnStart + 1};\n`
 				result += `  grid-column-end: ${widget.gridColumnEnd + 1};\n`
 				result += `  grid-row-start: ${widget.gridRowStart + 1};\n`
 				result += `  grid-row-end: ${widget.gridRowEnd + 1};\n`
+
 				if (widget.z) {
 					result += `  z-index: ${widget.z};\n`
 				}
@@ -346,6 +346,10 @@ export default class CSSLayouter {
 			if (this.isForceGrid && Util.isScreen(widget)) {
 				result += `  min-height: ${widget.h}px;\n`
 			} else {
+				/**
+				 * This has caused issues with templates and fixed in combination.
+				 * Thus we do not call getPostion for templates anymore.
+				 */
 				result += `  min-height: 100%;\n`
 			}
 		}
@@ -356,7 +360,7 @@ export default class CSSLayouter {
 	 * Normal alignment when places as rows in flex
 	 */
 	getGridParentRowAlignment(widget) {
-		Logger.log(5, "CSSFactory.getGridParentRowAlignment() > as row: ", widget.name, widget)
+		Logger.log(2, "CSSFactory.getGridParentRowAlignment() > as row: ", widget.name, widget)
 
 		let result = ""
 		if (this.isPinnedLeft(widget) && this.isPinnedRight(widget)) {
@@ -439,9 +443,11 @@ export default class CSSLayouter {
 					if (Math.abs(max - i.l) <= this.gridAutoErrorThreshold) {
 						// max === i.l
 						/**
-						 * If we have a min max , we use max-content.
+						 * If we have a min max , we use max-content, but only of there
+						 * is more than one column! Otherwise the resizing will not work
+						 * correctly!
 						 */
-						if (i.hasMinMax) {
+						if (i.hasMinMax && list.length > 1) {
 							return "minmax(0,max-content)" //'1fr'
 						} else {
 							return "minmax(0,1fr)" //'1fr'
@@ -589,6 +595,7 @@ export default class CSSLayouter {
 		if (h < 0) {
 			h = widget.h
 		}
+
 		/**
 		 * when we are positioning, we only sustract
 		 * for certain widgets
@@ -601,6 +608,20 @@ export default class CSSLayouter {
 				h -= widget.style[key]
 			}
 		})
+
+		/**
+		 * For templated widgets, we need to also check for
+		 * template padings. Also check for '_padding' and so...
+		 */
+		if (widget._template) {
+			let template = widget._template
+			this.heightProperties.forEach((key) => {
+				if (template.style[key] && !widget.style[key] && !widget.style['_'+key]) {
+					h -= template.style[key]
+				}
+			})
+		}
+
 		return h + "px"
 	}
 

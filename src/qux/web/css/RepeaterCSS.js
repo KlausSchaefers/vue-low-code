@@ -46,9 +46,16 @@ export default class RepeaterCSS {
         result += this.cssFactory.getWrappedWidth(boundingBox);
         let height = this.cssFactory.getFixedHeight(boundingBox)
         result += `  height: ${height};\n`;
-        result += `  margin-bottom:${widget.props.distanceY}px;\n`;
         if (!Util.isRepeaterAuto(widget)) {
+          result += `  margin-bottom:${widget.props.distanceY}px;\n`;
           result += `  margin-right:${widget.props.distanceX}px;\n`;
+        } else {
+          /**
+           * The last elements should not have a margin...
+           */
+          let rows = Math.floor(widget.h / boundingBox.h)
+          let distance = (widget.h - (boundingBox.h * rows)) / (rows - 1)
+          result += `  margin-bottom:${distance}px;\n`;
         }
         if (boundingBox.x > 0) {
           result += `  margin-left:${boundingBox.x}px;\n`;
@@ -58,7 +65,7 @@ export default class RepeaterCSS {
         }
         result += '}\n\n'
       }  else {
-        Logger.log(5, 'RepeaterCSS.run () > row', widget)
+        Logger.log(5, 'RepeaterCSS.run () > ', widget)
         /**
          * Row
          */
