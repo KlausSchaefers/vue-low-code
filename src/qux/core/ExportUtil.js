@@ -79,23 +79,25 @@ export function canBeChild (child, parent) {
 }
 /**
  * Determine if the grid is collection
- * of stacked rows
+ * of stacked rows. This is true of arwew no overlaps
  */
 export function isRowGrid(widget){
-    let hasOverlaps = false
     if (widget){
         let nodes = widget.children
-        nodes.forEach(a => {
-            nodes.forEach(b => {
+        let length = nodes.length
+        for (let i = 0; i < length; i++) {
+            for (let j = 0; j < length; j++) {
+                let a = nodes[i]
+                let b = nodes[j]
                 if (a.id !== b.id) {
                     if (isOverLappingY(a,b)) {
-                        hasOverlaps = true
+                        return false
                     }
                 }
-            })
-        })
+            }
+        }
     }
-    return !hasOverlaps
+    return true
 }
 
 export function isOverLappingX(pos, box) {
@@ -1110,22 +1112,20 @@ export function print(screen, grid = false, hasXY=false) {
     printElement(res, screen, '', grid, hasXY)
     screen.fixedChildren.forEach(e => {
         let pos = grid ? ` > col: ${e.gridColumnStart} - ${e.gridColumnEnd} > row: ${e.gridRowStart} - ${e.gridRowEnd}` : ''
-        let row = e.row ? e.row : ''
         let xw = hasXY ? `${e.x} - ${e.w}` : ''
         let actions ='' // e.lines ? ' -> ' + e.lines.map(l => l.event + ':' + l.screen.name) : ''
-        res.push(`  ${e.name}*  ${pos} ${xw} ${row}  ${actions} `)
+        res.push(`  ${e.name}*  ${pos} ${xw} ${actions} `)
     })
     return res.join('\n')
 }
 
 function printElement(res, e, space='', grid, hasXY =true) {
     let actions ='' // e.lines ? ' -> ' + e.lines.map(l => l.event + ':' + l.screen.name) : ''
-    let row = e.row ? e.row : ''
     let parent = e.parent ? e.parent.name + ' '  + e.parent.id :  "null"
     let pos = grid ? ` > col: ${e.gridColumnStart} - ${e.gridColumnEnd} > row: ${e.gridRowStart} - ${e.gridRowEnd}` : ''
 
     let xw = hasXY ? `${e.x} - ${e.w}` : ''
-    res.push(`${space}${e.name} - (${parent})  ${pos} ${xw}  ${row}  ${actions} `)
+    res.push(`${space}${e.name} - (${parent})  ${pos} ${xw} ${actions} `)
     if (e.children) {
         e.children.forEach(c => {
             printElement(res, c, space + '  ', grid)

@@ -443,15 +443,16 @@ export default class CSSLayouter {
 					if (Math.abs(max - i.l) <= this.gridAutoErrorThreshold) {
 						// max === i.l
 						/**
-						 * If we have a min max , we use max-content, but only of there
+						 * FIXME: If we have a min max , we use max-content, but only of there
 						 * is more than one column! Otherwise the resizing will not work
 						 * correctly!
 						 */
-						if (i.hasMinMax && list.length > 1) {
-							return "minmax(0,max-content)" //'1fr'
-						} else {
-							return "minmax(0,1fr)" //'1fr'
-						}
+						// if (i.hasMinMax && list.length > 1) {
+						// 	return "minmax(0,max-content)" //'1fr'
+						// } else {
+						//	return "minmax(0,1fr)" //'1fr'
+						// }
+						return "minmax(0,1fr)"
 					}
 
 					// TODO: Check if we have min max??????

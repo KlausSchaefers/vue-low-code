@@ -12,16 +12,28 @@ export function print(screen, grid = false) {
 
 function printElement(res, e, space='', grid) {
     let actions =''
-    let row = e.row ? e.row : ''
     let parent = e.parent ? e.parent.name + ' '  + e.parent._id :  "null"
     let pos = grid ? ` > col: ${e.gridColumnStart} - ${e.gridColumnEnd} > row: ${e.gridRowStart} - ${e.gridRowEnd}` : ''
-    res.push(`${space}${e.name} - (${parent})  ${pos}  ${row}  ${actions} `)
+    res.push(`${space}${e.name} - (${parent})  ${pos} ${actions} `)
     if (e.children) {
         e.children.forEach(c => {
             printElement(res, c, space + '  ', grid)
         });
     }
 }
+
+export function findScreen (app, name, result = []) {
+    if (app.screens) {
+        app.screens.forEach(c => {
+            if (c.name === name) {
+                result.push(c)
+            }
+            findElementsByName(c, name, result)
+        })
+    }
+    return result[0]
+}
+
 
 export function findElementsByName (e, name, result = []) {
     if (e.children) {
