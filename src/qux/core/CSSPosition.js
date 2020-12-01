@@ -403,6 +403,13 @@ export default class CSSLayouter {
 					result += `  width: ${this.getFixedWidth(widget)};\n`
 					result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
 				}
+			} else if (Util.hasMinMaxWdith(widget) && Util.isCentered(widget)) {
+				/**
+				 * If we have min max and center we will use minmax with relative width
+				 */
+				result += this.getMinMaxWidth(widget, true)
+				result += `  margin-left: auto;\n`
+				result += `  margin-right: auto;\n`
 			} else {
 				result += `  margin-right: ${this.getResponsiveRight(widget)};\n`
 				result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`

@@ -1,0 +1,865 @@
+{
+  "_id" : "5fc168d3e2fb535abe5c4771",
+  "version" : 2.1,
+  "name" : "Luisa-Cloud-Desktop",
+  "description" : "",
+  "screenSize" : {
+    "w" : 1280,
+    "h" : 720
+  },
+  "type" : "desktop",
+  "screens" : {
+    "s10000" : {
+      "x" : 3454,
+      "y" : 2358,
+      "h" : 1634,
+      "w" : 1280,
+      "name" : "Home",
+      "type" : "Screen",
+      "style" : {
+        "background" : "#f9f9f9"
+      },
+      "min" : {
+        "w" : 1280,
+        "h" : 720
+      },
+      "has" : {
+        "image" : true
+      },
+      "props" : {
+        "start" : true
+      },
+      "children" : [ "w10018", "w10002", "w10020", "w10003" ],
+      "id" : "s10000",
+      "modified" : 1606510814295,
+      "parents" : [ "s10010" ]
+    },
+    "s10004" : {
+      "x" : 4882,
+      "y" : 2362,
+      "h" : 1634,
+      "w" : 1280,
+      "name" : "About",
+      "type" : "Screen",
+      "style" : {
+        "background" : "#f9f9f9"
+      },
+      "min" : {
+        "w" : 1280,
+        "h" : 720
+      },
+      "has" : {
+        "image" : true
+      },
+      "props" : { },
+      "children" : [ "w10019", "w10021", "w10007", "w10022" ],
+      "id" : "s10004",
+      "modified" : 1606510784089,
+      "parents" : [ "s10010" ]
+    },
+    "s10010" : {
+      "x" : 3454,
+      "y" : 1328,
+      "h" : 720,
+      "w" : 1280,
+      "name" : "Navbar",
+      "type" : "Screen",
+      "style" : {
+        "background" : "#ffffff"
+      },
+      "min" : {
+        "w" : 1280,
+        "h" : 720
+      },
+      "has" : {
+        "image" : true
+      },
+      "props" : {
+        "start" : false
+      },
+      "children" : [ "w10011", "w10013", "w10014", "w10016", "w10028" ],
+      "id" : "s10010",
+      "modified" : 1606511144104,
+      "segment" : false
+    },
+    "s10023" : {
+      "x" : 6642,
+      "y" : 2358,
+      "h" : 1634,
+      "w" : 1280,
+      "name" : "LowCode",
+      "type" : "Screen",
+      "style" : {
+        "background" : "#f9f9f9"
+      },
+      "min" : {
+        "w" : 1280,
+        "h" : 720
+      },
+      "has" : {
+        "image" : true
+      },
+      "props" : { },
+      "children" : [ "w10025", "w10026", "w10027", "w10030" ],
+      "id" : "s10023",
+      "modified" : 1606516755566,
+      "parents" : [ "s10010" ]
+    }
+  },
+  "widgets" : {
+    "w10002" : {
+      "type" : "Button",
+      "name" : "MinMaxCenterCntr",
+      "x" : 3646,
+      "y" : 2478,
+      "w" : 896,
+      "h" : 400,
+      "z" : 1,
+      "props" : {
+        "label" : "",
+        "resize" : {
+          "right" : false,
+          "up" : false,
+          "left" : false,
+          "down" : false,
+          "fixedHorizontal" : false,
+          "fixedVertical" : false
+        }
+      },
+      "has" : {
+        "backgroundColor" : true,
+        "border" : true,
+        "label" : true,
+        "padding" : true,
+        "onclick" : true
+      },
+      "actions" : { },
+      "style" : {
+        "fontSize" : 14,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#ffffff",
+        "borderTopRightRadius" : 5,
+        "borderTopLeftRadius" : 5,
+        "borderBottomRightRadius" : 5,
+        "borderBottomLeftRadius" : 5,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "background" : "#ffffff",
+        "paddingTop" : 0,
+        "paddingBottom" : 0,
+        "paddingLeft" : 0,
+        "paddingRight" : 0,
+        "boxShadow" : {
+          "v" : 0,
+          "h" : 0,
+          "b" : 10,
+          "s" : 2,
+          "c" : "rgba(0,0,0,0.25)"
+        },
+        "maxWidth" : "1200",
+        "minWidth" : "400"
+      },
+      "id" : "w10002",
+      "created" : 1606510617553,
+      "modified" : 1606516309404
+    },
+    "w10003" : {
+      "type" : "Label",
+      "name" : "Label",
+      "x" : 3670,
+      "y" : 2502,
+      "w" : 602,
+      "h" : 44,
+      "z" : 2,
+      "props" : {
+        "label" : "Luisa-Cloud"
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : "Auto",
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "#333333"
+      },
+      "id" : "w10003",
+      "created" : 1606510643013,
+      "modified" : 1606516318836
+    },
+    "w10007" : {
+      "type" : "Label",
+      "name" : "Label",
+      "x" : 5098,
+      "y" : 2506,
+      "w" : 602,
+      "h" : 44,
+      "z" : 2,
+      "props" : {
+        "label" : "What this is about!"
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : "Auto",
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "#333333"
+      },
+      "id" : "w10007",
+      "created" : 1606510643013,
+      "modified" : 1606516315348,
+      "copyOf" : "w10003"
+    },
+    "w10011" : {
+      "type" : "Button",
+      "name" : "NavBar",
+      "x" : 3454,
+      "y" : 1328,
+      "w" : 1280,
+      "h" : 80,
+      "z" : 3,
+      "props" : {
+        "label" : ""
+      },
+      "has" : {
+        "backgroundColor" : true,
+        "border" : true,
+        "label" : true,
+        "padding" : true,
+        "onclick" : true
+      },
+      "actions" : { },
+      "style" : {
+        "fontSize" : 14,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#ffffff",
+        "borderTopRightRadius" : 0,
+        "borderTopLeftRadius" : 0,
+        "borderBottomRightRadius" : 0,
+        "borderBottomLeftRadius" : 0,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "background" : "#333333",
+        "paddingTop" : 0,
+        "paddingBottom" : 0,
+        "paddingLeft" : 0,
+        "paddingRight" : 0
+      },
+      "id" : "w10011",
+      "created" : 1606511128871,
+      "modified" : 1606516309404,
+      "copyOf" : "w10001"
+    },
+    "w10013" : {
+      "type" : "Button",
+      "name" : "NavCntr",
+      "x" : 3646,
+      "y" : 1328,
+      "w" : 896,
+      "h" : 80,
+      "z" : 4,
+      "props" : {
+        "label" : ""
+      },
+      "has" : {
+        "backgroundColor" : true,
+        "border" : true,
+        "label" : true,
+        "padding" : true,
+        "onclick" : true
+      },
+      "actions" : { },
+      "style" : {
+        "fontSize" : 14,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#ffffff",
+        "borderTopRightRadius" : 0,
+        "borderTopLeftRadius" : 0,
+        "borderBottomRightRadius" : 0,
+        "borderBottomLeftRadius" : 0,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "background" : "rgba(255, 255, 255, 0)",
+        "paddingTop" : 0,
+        "paddingBottom" : 0,
+        "paddingLeft" : 0,
+        "paddingRight" : 0,
+        "minWidth" : "400",
+        "maxWidth" : "1200"
+      },
+      "id" : "w10013",
+      "created" : 1606511160440,
+      "modified" : 1606516309404
+    },
+    "w10014" : {
+      "type" : "Label",
+      "name" : "Nav1",
+      "x" : 3646,
+      "y" : 1352,
+      "w" : 86,
+      "h" : 28,
+      "z" : 5,
+      "props" : {
+        "label" : "Home",
+        "resize" : {
+          "right" : false,
+          "up" : false,
+          "left" : false,
+          "down" : false,
+          "fixedHorizontal" : true,
+          "fixedVertical" : false
+        }
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : 24,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "#ffffff"
+      },
+      "id" : "w10014",
+      "created" : 1606511185700,
+      "modified" : 1606516309404
+    },
+    "w10016" : {
+      "type" : "Label",
+      "name" : "Nav2",
+      "x" : 3734,
+      "y" : 1352,
+      "w" : 100,
+      "h" : 28,
+      "z" : 6,
+      "props" : {
+        "label" : "About",
+        "resize" : {
+          "right" : false,
+          "up" : false,
+          "left" : false,
+          "down" : false,
+          "fixedHorizontal" : true,
+          "fixedVertical" : false
+        }
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : 24,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "#ffffff"
+      },
+      "id" : "w10016",
+      "created" : 1606511219749,
+      "modified" : 1606516309404,
+      "copyOf" : "w10014"
+    },
+    "w10018" : {
+      "type" : "Label",
+      "name" : "Label",
+      "x" : 3644,
+      "y" : 2387,
+      "w" : 139,
+      "h" : 28,
+      "z" : 7,
+      "props" : { },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontWeight" : "bold"
+      },
+      "id" : "w10018",
+      "created" : 1606511251948,
+      "modified" : 1606516309404,
+      "copyOf" : "w10014",
+      "parentWidget" : "w10014",
+      "parentWidgetPos" : true,
+      "hover" : { }
+    },
+    "w10019" : {
+      "type" : "Label",
+      "name" : "Label 1",
+      "x" : 5211,
+      "y" : 2391,
+      "w" : 139,
+      "h" : 28,
+      "z" : 8,
+      "props" : { },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontWeight" : "bold"
+      },
+      "id" : "w10019",
+      "created" : 1606511258889,
+      "modified" : 1606516309404,
+      "copyOf" : "w10016",
+      "parentWidget" : "w10016",
+      "parentWidgetPos" : true,
+      "hover" : { }
+    },
+    "w10020" : {
+      "type" : "Label",
+      "name" : "CoolStuff",
+      "x" : 3670,
+      "y" : 2590,
+      "w" : 577,
+      "h" : 22,
+      "z" : 9,
+      "props" : {
+        "label" : "Here comes some cool stugfgf"
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : "Auto",
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "#333333"
+      },
+      "id" : "w10020",
+      "created" : 1606515994318,
+      "modified" : 1606516309404
+    },
+    "w10021" : {
+      "type" : "Button",
+      "name" : "FixedCenterCntr",
+      "x" : 5074,
+      "y" : 2482,
+      "w" : 896,
+      "h" : 400,
+      "z" : 0,
+      "props" : {
+        "label" : "",
+        "resize" : {
+          "right" : false,
+          "up" : false,
+          "left" : false,
+          "down" : false,
+          "fixedHorizontal" : true,
+          "fixedVertical" : false
+        }
+      },
+      "has" : {
+        "backgroundColor" : true,
+        "border" : true,
+        "label" : true,
+        "padding" : true,
+        "onclick" : true
+      },
+      "actions" : { },
+      "style" : {
+        "fontSize" : 14,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#ffffff",
+        "borderTopRightRadius" : 5,
+        "borderTopLeftRadius" : 5,
+        "borderBottomRightRadius" : 5,
+        "borderBottomLeftRadius" : 5,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "background" : "#ffffff",
+        "paddingTop" : 0,
+        "paddingBottom" : 0,
+        "paddingLeft" : 0,
+        "paddingRight" : 0,
+        "boxShadow" : {
+          "v" : 0,
+          "h" : 0,
+          "b" : 10,
+          "s" : 2,
+          "c" : "rgba(0,0,0,0.25)"
+        },
+        "maxWidth" : "1200",
+        "minWidth" : "400"
+      },
+      "id" : "w10021",
+      "created" : 1606516302533,
+      "modified" : 1606516747119,
+      "copyOf" : "w10002"
+    },
+    "w10022" : {
+      "type" : "Label",
+      "name" : "CoolStuff",
+      "x" : 5098,
+      "y" : 2594,
+      "w" : 577,
+      "h" : 22,
+      "z" : 10,
+      "props" : {
+        "label" : "Here comes some cool stugfgf"
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : "Auto",
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "#333333"
+      },
+      "id" : "w10022",
+      "created" : 1606516413693,
+      "modified" : 1606516309404,
+      "copyOf" : "w10020"
+    },
+    "w10025" : {
+      "type" : "Button",
+      "name" : "ResponsiveCenterCntr",
+      "x" : 6834,
+      "y" : 2478,
+      "w" : 896,
+      "h" : 400,
+      "z" : 0,
+      "props" : {
+        "label" : "",
+        "resize" : {
+          "right" : false,
+          "up" : false,
+          "left" : false,
+          "down" : false,
+          "fixedHorizontal" : false,
+          "fixedVertical" : false
+        }
+      },
+      "has" : {
+        "backgroundColor" : true,
+        "border" : true,
+        "label" : true,
+        "padding" : true,
+        "onclick" : true
+      },
+      "actions" : { },
+      "style" : {
+        "fontSize" : 14,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#ffffff",
+        "borderTopRightRadius" : 5,
+        "borderTopLeftRadius" : 5,
+        "borderBottomRightRadius" : 5,
+        "borderBottomLeftRadius" : 5,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "background" : "#ffffff",
+        "paddingTop" : 0,
+        "paddingBottom" : 0,
+        "paddingLeft" : 0,
+        "paddingRight" : 0,
+        "boxShadow" : {
+          "v" : 0,
+          "h" : 0,
+          "b" : 10,
+          "s" : 2,
+          "c" : "rgba(0,0,0,0.25)"
+        },
+        "maxWidth" : "",
+        "minWidth" : ""
+      },
+      "id" : "w10025",
+      "created" : 1606516302533,
+      "modified" : 1606516908704,
+      "copyOf" : "w10021"
+    },
+    "w10026" : {
+      "type" : "Label",
+      "name" : "Label",
+      "x" : 6858,
+      "y" : 2502,
+      "w" : 602,
+      "h" : 44,
+      "z" : 2,
+      "props" : {
+        "label" : "This is reponsive"
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : "Auto",
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "#333333"
+      },
+      "id" : "w10026",
+      "created" : 1606510643013,
+      "modified" : 1606516800388,
+      "copyOf" : "w10007"
+    },
+    "w10027" : {
+      "type" : "Label",
+      "name" : "CoolStuff",
+      "x" : 6858,
+      "y" : 2590,
+      "w" : 577,
+      "h" : 22,
+      "z" : 10,
+      "props" : {
+        "label" : "Here comes some cool stugfgf"
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : "Auto",
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "#333333"
+      },
+      "id" : "w10027",
+      "created" : 1606516413693,
+      "modified" : 1606516755566,
+      "copyOf" : "w10022"
+    },
+    "w10028" : {
+      "type" : "Label",
+      "name" : "Nav3",
+      "x" : 3838,
+      "y" : 1352,
+      "w" : 104,
+      "h" : 28,
+      "z" : 11,
+      "props" : {
+        "label" : "LowCode",
+        "resize" : {
+          "right" : false,
+          "up" : false,
+          "left" : false,
+          "down" : false,
+          "fixedHorizontal" : true,
+          "fixedVertical" : false
+        }
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : 24,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "#ffffff"
+      },
+      "id" : "w10028",
+      "created" : 1606516817656,
+      "modified" : 1606516843026,
+      "copyOf" : "w10016"
+    },
+    "w10030" : {
+      "type" : "Label",
+      "name" : "Nav3",
+      "x" : 7026,
+      "y" : 2382,
+      "w" : 104,
+      "h" : 28,
+      "z" : 12,
+      "props" : { },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontWeight" : "bold"
+      },
+      "id" : "w10030",
+      "created" : 1606516876325,
+      "modified" : 1606516877744,
+      "copyOf" : "w10028",
+      "parentWidget" : "w10028",
+      "parentWidgetPos" : true,
+      "hover" : { }
+    }
+  },
+  "lines" : {
+    "l10015" : {
+      "id" : "l10015",
+      "from" : "w10014",
+      "to" : "s10000",
+      "points" : [ ],
+      "event" : "click",
+      "hidden" : true
+    },
+    "l10017" : {
+      "id" : "l10017",
+      "from" : "w10016",
+      "to" : "s10004",
+      "points" : [ {
+        "x" : 3834,
+        "y" : 2304,
+        "w" : -2,
+        "h" : 4,
+        "box" : {
+          "x" : {
+            "x" : 1917,
+            "y" : 683,
+            "d" : "right",
+            "h" : 0,
+            "w" : 0
+          },
+          "y" : {
+            "x" : 1917,
+            "y" : 683,
+            "d" : "right",
+            "h" : 0,
+            "w" : 0
+          }
+        },
+        "r" : false,
+        "d" : false
+      }, {
+        "x" : 5014,
+        "y" : 2304,
+        "w" : 1,
+        "h" : 1
+      } ],
+      "event" : "click",
+      "hidden" : true
+    },
+    "l10029" : {
+      "id" : "l10029",
+      "from" : "w10028",
+      "to" : "s10023",
+      "points" : [ {
+        "x" : 3942,
+        "y" : 2216,
+        "w" : 6,
+        "h" : 14,
+        "box" : {
+          "x" : {
+            "x" : 1971,
+            "y" : 683,
+            "d" : "right",
+            "h" : 0,
+            "w" : 0
+          },
+          "y" : {
+            "x" : 1971,
+            "y" : 683,
+            "d" : "right",
+            "h" : 0,
+            "w" : 0
+          }
+        },
+        "r" : false,
+        "d" : false
+      }, {
+        "x" : 6872,
+        "y" : 2216,
+        "w" : 2,
+        "h" : 2
+      } ],
+      "event" : "click",
+      "hidden" : true
+    }
+  },
+  "groups" : { },
+  "lastUUID" : 10031,
+  "lastUpdate" : 1606516908707,
+  "created" : 1606510803411,
+  "startScreen" : "",
+  "grid" : {
+    "w" : 8,
+    "h" : 8,
+    "style" : "line",
+    "color" : "#cecece",
+    "visible" : false,
+    "enabled" : true
+  },
+  "domain" : "Quant-UX.com",
+  "size" : 11923,
+  "isDirty" : true,
+  "sizeBackup" : 10768,
+  "lastBackup" : 1606517118301,
+  "id" : "5fc168d3e2fb535abe5c4771"
+}
