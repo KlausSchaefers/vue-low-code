@@ -617,10 +617,20 @@ export default class CSSFactory {
 			return this.positionFactory.getFixedPosition(widget)
 		}
 
+		/**
+		 * If we have a wrapper parent, we just use normal flow
+		 */
 		if (Util.hasWrappedParent(widget)) {
 			return this.positionFactory.getWrappedPosition(widget)
 		}
 
+		/**
+		 * FIXME: we should have here the row stuff.
+		 */
+
+		/**
+		 * Default is grid, bit it will also do the row stuff.
+		 */
 		return this.positionFactory.getGridPosition(widget)
 	}
 

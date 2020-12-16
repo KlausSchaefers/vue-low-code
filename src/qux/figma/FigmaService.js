@@ -125,7 +125,7 @@ export default class FigmaService {
     })
   }
 
-  async parse (id, fModel, importChildren, selectedPages) {
+  async parse (id, fModel, importChildren = true, selectedPages = []) {
     Logger.log(3, 'FigmaService.parse() > enter importChildren:' + importChildren, fModel)
     let model = this.createApp(id, fModel)
     let fDoc = fModel.document
@@ -463,7 +463,7 @@ export default class FigmaService {
      * FIXME: Check if teh name is tool long or has spaces or shit...
      */
     let name = element.name
-    return name.replace('#', '').replace('/', '-').replace('&', '')
+    return name.replace(/#/g, '').replace(/\//g, '-').replace(/&/g, '').replace(/,/g, '-')
   }
 
   addTempLine (element,  model) {
@@ -749,6 +749,13 @@ export default class FigmaService {
           break;
       }
     }
+
+    if (element.layoutGrow !== undefined) {
+      if (element.layoutGrow === 0.0) {
+        props.resize.fixedHorizontal = true
+        props.resize.growHorizontal = element.layoutGrow
+      }
+    }
   }
 
   isIgnored (element) {
@@ -909,10 +916,13 @@ export default class FigmaService {
     if (!this.isVector(element)) {
       if (element.strokes && element.strokes.length > 0) {
         let stroke = element.strokes[0]
-        style.borderBottomColor = this.getColor(stroke.color, element)
-        style.borderTopColor = this.getColor(stroke.color, element)
-        style.borderLeftColor = this.getColor(stroke.color, element)
-        style.borderRightColor = this.getColor(stroke.color, element)
+        if (stroke.color) {
+          style.borderBottomColor = this.getColor(stroke.color, element)
+          style.borderTopColor = this.getColor(stroke.color, element)
+          style.borderLeftColor = this.getColor(stroke.color, element)
+          style.borderRightColor = this.getColor(stroke.color, element)
+        }
+
 
         if (element.strokeWeight) {
           style.borderBottomWidth = element.strokeWeight

@@ -254,6 +254,10 @@ export default class CSSLayouter {
 		result += "  flex-wrap: wrap;\n"
 		result += "  align-items: flex-start;\n"
 		result += "  align-content: flex-start;\n"
+
+		/**
+		 * FIXME:This hsould be configured in the UI?
+		 */
 		if (this.justifyContentInWrapper) {
 			result += "  justify-content: space-between;\n"
 		}
@@ -433,14 +437,28 @@ export default class CSSLayouter {
 	 */
 	getGridColumnTracks(total, list) {
 		Logger.log(6, "CSSFactory.getGridColumnTracks() > ", list)
+
 		if (list) {
 			/**
-			 * FIXME: we could get the max not fixed. Still we would
+			 * We get the max not fixed. Still we would
 			 * need to make sure we get the fixed stuff
 			 */
-			let max = Math.max(...list.map((i) => i.l))
+			let notFixed = list.filter(i => !i.fixed)
+			if (notFixed.length === 0) {
+				notFixed = list
+			}
+			let max = Math.max(...notFixed.map((i) => i.l))
+
 			return list
 				.map((i) => {
+
+					/**
+					 * Fixed has priority. For rows we have always fixed...
+					 */
+					if (i.fixed) {
+						return i.l + "px"
+					}
+
 					/**
 					 * We might want several autos. This is very sensitive
 					 * to small changes in the editor. Therefore we give a
@@ -461,17 +479,7 @@ export default class CSSLayouter {
 						// }
 						return "minmax(0,1fr)"
 					}
-
-					// TODO: Check if we have min max??????
-
-					/**
-					 * Fixed has priority. For rows we have always fixed...
-					 */
-					if (i.fixed) {
-						return i.l + "px"
-					}
-
-					return Math.round((i.l * 100) / total) + "%"
+					return (Math.round((i.l * 1000) / total) / 10 )+ "%"
 				})
 				.join(" ")
 		}
