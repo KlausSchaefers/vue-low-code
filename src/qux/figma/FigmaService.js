@@ -1,5 +1,5 @@
 import Logger from '../core/Logger'
-
+import {Layout} from '../core/Const'
 export default class FigmaService {
 
   constructor (key, config = {}) {
@@ -15,6 +15,7 @@ export default class FigmaService {
     this.imageScaleFactor = 1
     this.throttleRequestThreshold = 10
     this.throttleRequestTimeout = 1000
+    this.pinnRight = false
 
     if (config.figma) {
       if (config.figma.throttleRequestThreshold) {
@@ -27,12 +28,24 @@ export default class FigmaService {
       if (config.figma.throttleBatchSize) {
         this.max_ids = config.figma.throttleBatchSize
       }
+
+      if (config.figma.pinnRight) {
+        this.pinnRight = config.figma.pinnRight
+      }
     }
     /**
      * TODO: update with config
      */
     this.varientComponentHoverKey = 'hover'
     this.varientComponentFocusKey = 'focus'
+
+    this.figmaAlignMapping = {
+      MIN: 'flex-start',
+      CENTER: 'center',
+      MAX: 'flex-end',
+      SPACE_BETWEEN: 'space-between'
+    }
+
   }
 
   setImageScaleFactor(factor) {
@@ -398,6 +411,7 @@ export default class FigmaService {
         y: pos.y,
         w: pos.w,
         h: pos.h,
+        layout: {},
         z: this.getZ(element, model)
       }
 
@@ -405,6 +419,7 @@ export default class FigmaService {
       widget.props = this.getProps(element, widget)
       widget.has = this.getHas(element, widget)
       widget = this.getPluginData(element, widget, fModel)
+      widget = this.getLayout(element, widget)
 
       fModel._elementsById[element.id] = element
       model.widgets[widget.id] = widget
@@ -594,19 +609,13 @@ export default class FigmaService {
        */
 
       if (pluginData.quxFixedHorizontal === 'true') {
-        Logger.log(3, 'FigmaService.getPluginData() > quxFixedHorizontal: ', pluginData.quxFixedHorizontal, element.name)
-        if (!widget.props.resize) {
-          widget.props.resize = {}
-        }
-        widget.props.resize.fixedHorizontal = true
+        Logger.warn('FigmaService.getPluginData() > DEPRECTAED quxFixedHorizontal: ', pluginData.quxFixedHorizontal, element.name)
+        //this.setFixedHozontal(widget, true)
       }
 
       if (pluginData.quxFixedVertical === 'true') {
-        Logger.log(3, 'FigmaService.getPluginData() > quxFixedVertical: ', pluginData.quxFixedVertical, element.name)
-        if (!widget.props.resize) {
-          widget.props.resize = {}
-        }
-        widget.props.resize.fixedVertical = true
+        Logger.log('FigmaService.getPluginData() > DEPRECTAED quxFixedVertical: ', pluginData.quxFixedVertical, element.name)
+        // this.setFixedVertical(widget)
       }
 
       /**
@@ -673,16 +682,30 @@ export default class FigmaService {
         Logger.log(4, 'FigmaService.getPluginData() > quxStyleMinWidth: ', pluginData.quxStyleMinWidth, element.name)
         widget.style.minWidth = pluginData.quxStyleMinWidth
       }
-      /**
-       * FIXME
-          quxChildLayout: '',
-       */
+
+      if (pluginData.quxWrapContent) {
+        Logger.log(-1, 'FigmaService.getPluginData() > quxWrapContent: ', pluginData.quxWrapContent, element.name)
+        widget.style.layout = 'Wrap'
+      }
 
     }
 
     return widget
   }
 
+  setFixedHozontal (widget, value = true) {
+    if (!widget.props.resize) {
+      widget.props.resize = {}
+    }
+    widget.props.resize.fixedHorizontal = value
+  }
+
+  setFixedVertical (widget) {
+    if (!widget.props.resize) {
+      widget.props.resize = {}
+    }
+    widget.props.resize.fixedVertical = true
+  }
 
   addDynamicStyle (widget, type, key, value) {
     if (!widget[type]) {
@@ -709,16 +732,29 @@ export default class FigmaService {
     }
 
     /**
-     * Add here constraints
+     * Add here constraints.
+     * Since 0.5 keep the normaal figma constraints and make elements fixed and not pinned right
      */
-    props.resize = {
-      right: true,
-      left: true,
-      up: false,
-      down: false,
-      fixedHorizontal: false,
-      fixedVertical: false
+    if (this.pinnRight) {
+      props.resize = {
+        right: true,
+        left: true,
+        up: false,
+        down: false,
+        fixedHorizontal: false,
+        fixedVertical: false
+      }
+    } else {
+      props.resize = {
+        right: false,
+        left: true,
+        up: false,
+        down: false,
+        fixedHorizontal: true,
+        fixedVertical: false
+      }
     }
+
 
     /**
      * FIXME: Should come only after plugin data...
@@ -727,6 +763,71 @@ export default class FigmaService {
 
     return props
   }
+
+  getLayout (fElement, qElement) {
+
+
+
+    if (fElement.layoutMode === 'HORIZONTAL') {
+      qElement.layout.type = Layout.AutoHorizontal
+      qElement.layout.justifyContent = this.mapAlign(fElement.primaryAxisAlignItems)
+      qElement.layout.alignItems = this.mapAlign(fElement.counterAxisAlignItems)
+    }
+
+    if (fElement.layoutMode === 'VERTICAL') {
+      qElement.layout.type = Layout.AutoVertical
+      qElement.layout.justifyContent = this.mapAlign(fElement.primaryAxisAlignItems)
+      qElement.layout.alignItems = this.mapAlign(fElement.counterAxisAlignItems)
+    }
+
+
+    if (fElement.itemSpacing !== undefined) {
+      qElement.layout.itemSpacing = fElement.itemSpacing
+    }
+
+    if (fElement.layoutAlign !== undefined) {
+      qElement.layout.align = fElement.layoutAlign
+    }
+
+    /**
+     * FXIME: This fucks up the reponsive ness
+     */
+    if (fElement.layoutGrow === 0.0) {
+      this.setFixedHozontal(qElement, true)
+    }
+
+    if (fElement.layoutGrow === 1) {
+      this.setFixedHozontal(qElement, false)
+    }
+
+    qElement.layout.grow = fElement.layoutGrow
+
+    /**
+     * We have to substract borders, because of the outer border of Figma
+     */
+    qElement.layout.paddingLeft = this.mapPadding(fElement.paddingLeft, qElement.style.borderLeftWidth)
+    qElement.layout.paddingRight = this.mapPadding(fElement.paddingRight, qElement.style.borderRightWidth)
+    qElement.layout.paddingTop = this.mapPadding(fElement.paddingTop, qElement.style.borderTopWidth)
+    qElement.layout.paddingBottom = this.mapPadding(fElement.paddingBottom, qElement.style.borderBottomWidth)
+
+    return qElement
+  }
+
+  mapPadding(padding, border) {
+    let p = padding ? padding : 0
+    let b = border ? border : 0
+    return p- b
+  }
+
+  mapAlign (v) {
+    if (this.figmaAlignMapping[v]) {
+      return this.figmaAlignMapping[v]
+    }
+    // default is start
+    return 'flex-start'
+  }
+
+
 
   setContraints (element, props) {
 
@@ -737,25 +838,21 @@ export default class FigmaService {
         case 'RIGHT':
           props.resize.left = false
           props.resize.right = true
+          props.resize.fixedHorizontal = false
           break;
 
-        //case 'LEFT_RIGHT':
-        //  Logger.log(-1, 'FigmaService.setContraints() > LEFT_RIGHT', element.name)
-        //  props.resize.left = true
-        //  props.resize.right = true
-        //  break;
+        case 'LEFT_RIGHT':
+          Logger.log(-1, 'FigmaService.setContraints() > LEFT_RIGHT', element.name)
+          props.resize.left = true
+          props.resize.right = true
+          props.resize.fixedHorizontal = false
+          break;
 
         default:
           break;
       }
     }
 
-    if (element.layoutGrow !== undefined) {
-      if (element.layoutGrow === 0.0) {
-        props.resize.fixedHorizontal = true
-        props.resize.growHorizontal = element.layoutGrow
-      }
-    }
   }
 
   isIgnored (element) {

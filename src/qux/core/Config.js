@@ -15,9 +15,6 @@ class Config {
 			css: {
 				grid: true,
 				justifyContentInWrapper: false,
-				pinnedLeft: false,
-				pinnedRight: false,
-				fixedHorizontal: false,
 				attachLabels: true,
 			},
 			router: {

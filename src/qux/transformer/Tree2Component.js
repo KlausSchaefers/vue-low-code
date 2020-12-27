@@ -38,9 +38,6 @@ export function transform(tree, selectedName, config, postFix = '-WrapperScreen'
       actions: [],
       props: {},
       style: {},
-      isColumn: false,
-      isRow: false,
-      isWrap: false,
       isComponentScreen: true
     }
     componentTree.screens.push(screen)

@@ -1,3 +1,5 @@
+
+
 export function print(screen, grid = false) {
     let res = []
     printElement(res, screen, '', grid)
@@ -12,9 +14,10 @@ export function print(screen, grid = false) {
 
 function printElement(res, e, space='', grid) {
     let actions =''
-    let parent = e.parent ? e.parent.name + ' '  + e.parent._id :  "null"
+    //let parent = e.parent ? e.parent.name + ' '  + e.parent._id :  "null"
     let pos = grid ? ` > col: ${e.gridColumnStart} - ${e.gridColumnEnd} > row: ${e.gridRowStart} - ${e.gridRowEnd}` : ''
-    res.push(`${space}${e.name} - (${parent})  ${pos} ${actions} `)
+    let l = e.layout ? e.layout.type : '?'
+    res.push(`${space}${e.name} - (${l})  ${pos} ${actions} `)
     if (e.children) {
         e.children.forEach(c => {
             printElement(res, c, space + '  ', grid)

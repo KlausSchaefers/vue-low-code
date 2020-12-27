@@ -599,39 +599,10 @@ export default class CSSFactory {
 	 *********************************************************************/
 
 	getPosition (widget) {
-		// Overlays will no be rendered as fixed...
-
-
-		/**
-		 * FIXME we should have here better support for the
-		 * for auto layouts like wrap, row and column
-		 */
-		if (Util.isDesignSystemRoot(widget)) {
-			return this.positionFactory.getDesignSystemPosition(widget)
-		}
-
-		if (Util.hasComponentScreenParent(widget)) {
-			return this.positionFactory.getComponentScreenPosition(widget)
-		}
-		if (widget.style.fixed && widget.type !== 'Screen') {
-			return this.positionFactory.getFixedPosition(widget)
-		}
-
-		/**
-		 * If we have a wrapper parent, we just use normal flow
-		 */
-		if (Util.hasWrappedParent(widget)) {
-			return this.positionFactory.getWrappedPosition(widget)
-		}
-
-		/**
-		 * FIXME: we should have here the row stuff.
-		 */
-
 		/**
 		 * Default is grid, bit it will also do the row stuff.
 		 */
-		return this.positionFactory.getGridPosition(widget)
+		return this.positionFactory.getPostion(widget)
 	}
 
 

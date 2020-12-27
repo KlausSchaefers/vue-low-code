@@ -4,6 +4,9 @@
       <!--
           FIXME: the forwardClick ($event) contains only the element that was called, nit the value, nor
           the dom event. We would need something like $event1,...$event2
+
+          FIXME: For auto layout we might need a stupid wrapper around that can grow horizontally
+          to allow scrolling. In This oculd for now somehow be solved in Figma, so I will ignore this...
       -->
 
       <div v-for="(row, i) in rows" :key="i" class="qux-repeater-child">
@@ -25,7 +28,7 @@
       </div>
 
       <!-- add here some empty placeholder elements to get a nice wrapping... -->
-      <div v-for="(placeholder, i) in placeholders" :key="'p'+i" class="qux-repeater-child qux-repeater-placeholder" style="height:0px; margin:0px;">
+      <div v-for="(placeholder, i) in placeholders" :key="'p'+i" class="qux-repeater-child qux-repeater-placeholder" style="height:0px; margin:0px;" >
       </div>
 
   </div>
@@ -38,6 +41,7 @@
 import _Base from './_Base.vue'
 import JSONPath from '../core/JSONPath'
 import Logger from '../core/Logger'
+import * as Util from '../core/ExportUtil'
 
 export default {
   name: 'qRepeater',
@@ -52,6 +56,9 @@ export default {
         /**
          * Make here some better math and calculate hwo many elements i really need?
          */
+        if (Util.isLayoutAuto(this.element)) {
+          return []
+        }
         return [1,2,3,4,5,6,7]
       },
       rows () {

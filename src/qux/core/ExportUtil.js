@@ -1,4 +1,35 @@
 import Logger from "./Logger";
+import {Layout} from './Const'
+
+export function isLayoutWrap (e) {
+    return e.layout && e.layout.type === Layout.Wrap
+}
+
+export function isLayoutRow (e) {
+    return e.layout && e.layout.type === Layout.Row
+}
+
+export function isLayoutGrid (e) {
+    return e.layout && e.layout.type === Layout.Grid
+}
+
+export function isLayoutGrow (e) {
+    return e.layout && e.layout.grow > 0
+}
+
+
+export function isLayoutAuto(e) {
+    return e.layout !== undefined && (e.layout.type === Layout.AutoHorizontal || e.layout.type === Layout.AutoVertical || e.layout.align !== undefined)
+}
+
+export function isLayoutAutoHorizontal(e) {
+    return e.layout && e.layout.type === Layout.AutoHorizontal
+}
+
+export function isLayoutAutovertical(e) {
+    return e.layout && e.layout.type === Layout.AutoVertical
+}
+
 
 export function getFileName(name) {
     return name.replace(/\s/g, '_');
@@ -77,11 +108,12 @@ export function canBeChild (child, parent) {
 
     return false
 }
+
 /**
  * Determine if the grid is collection
  * of stacked rows. This is true of arwew no overlaps
  */
-export function isRowGrid(widget){
+export function hasRowLayout(widget){
     if (widget){
         let nodes = widget.children
         let length = nodes.length
@@ -99,6 +131,88 @@ export function isRowGrid(widget){
     }
     return true
 }
+
+
+export function isWrappedContainer(e) {
+    return e.style.wrap || e.style.layout === 'Wrap'
+}
+
+
+export function isGridContainer(e) {
+    return e.style.grid
+}
+
+export function isDesignSystemRoot(e) {
+    return e.isDesignSystemRoot
+}
+
+export function isRepeater(e) {
+    if (e) {
+        return e.type === 'Repeater'
+    }
+    return false
+}
+
+export function hasComponentScreenParent (e) {
+    return e.hasComponentScreenParent
+}
+
+export function isRepeaterAuto (e) {
+    if (e.type === 'Repeater' && e.props.layout == 'grid' && e.props.auto === true) {
+        return true
+    }
+    return false
+}
+
+
+export function isFixedPosition (widget) {
+    return widget.style.fixed && widget.type !== 'Screen'
+}
+
+export function isRepeaterGrid (e) {
+    if (e.type === 'Repeater' && e.props.layout === 'grid') {
+        return true
+    }
+    return false
+}
+
+export function isBlock(e) {
+    return e && e.style && e.style.display === 'block'
+}
+
+export function hasParentRepeaterGrid (e) {
+    if (e.parent) {
+        return isRepeaterGrid(e.parent)
+    }
+    return false
+}
+
+/**
+ * Determine if the grid is collection
+ * of stacked rows. This is true of arwew no overlaps
+ */
+export function isRowGrid(widget){
+    //console.debug('DEPREACTED isRowGrid()')
+    if (widget){
+        let nodes = widget.children
+        let length = nodes.length
+        for (let i = 0; i < length; i++) {
+            for (let j = 0; j < length; j++) {
+                let a = nodes[i]
+                let b = nodes[j]
+                if (a.id !== b.id) {
+                    if (isOverLappingY(a,b)) {
+                        return false
+                    }
+                }
+            }
+        }
+    }
+    return true
+}
+
+
+
 
 export function isOverLappingX(pos, box) {
     return !isLeft(pos, box) && !isRight(pos, box);
@@ -191,92 +305,12 @@ export function getDistanceFromScreenBottom(element, model) {
     return 0
 }
 
-export function isWrappedContainer(e) {
-    return e.style.wrap || e.style.layout === 'Wrap'
-}
-
-export function hasWrappedParent(e) {
-    if (e.parent) {
-        return e.parent.style.wrap || e.parent.style.layout === 'Wrap'
-    }
-    return false
-}
-
-export function isRowContainer(e) {
-    return e.isRow
-}
-
-export function isGridContainer(e) {
-    return e.style.grid
-}
-
-export function isDesignSystemRoot(e) {
-    return e.isDesignSystemRoot
-}
-
-export function isRepeater(e) {
-    if (e) {
-        return e.type === 'Repeater'
-    }
-    return false
-}
-
-export function hasComponentScreenParent (e) {
-    return e.hasComponentScreenParent
-}
-
-export function hasGrid(e) {
-    return e.grid
-}
-
-export function hasParentGrid(e) {
-    if (e.parent) {
-        return hasGrid(e.parent)
-    }
-    return false;
-}
-
-export function hasRowGrid(e) {
-    return e.grid && e.grid.isRow
-}
-
-export function hasParentRowGrid(e) {
-    if (e.parent) {
-        return hasRowGrid(e.parent)
-    }
-    return false;
-}
-
-export function isRepeaterAuto (e) {
-    if (e.type === 'Repeater' && e.props.layout == 'grid' && e.props.auto === true) {
-        return true
-    }
-    return false
-}
-
-export function isRepeaterGrid (e) {
-    if (e.type === 'Repeater' && e.props.layout === 'grid') {
-        return true
-    }
-    return false
-}
-
-export function isBlock(e) {
-    return e && e.style && e.style.display === 'block'
-}
 
 export function isCentered (e) {
     if (e.parent) {
         let dif = e.parent.w - (2 * e.x + e.w)
         // We have a minimum threshold of 3px
         return Math.abs(dif) < Math.max(3, e.parent.w * 0.003)
-    }
-    return false
-}
-
-export function hasParentRepeaterGrid (e) {
-    if (e.parent) {
-        return isRepeaterGrid(e.parent)
     }
     return false
 }
@@ -313,7 +347,7 @@ export function hasOverlayBackground(screen) {
 }
 
 export function hasMinMaxWdith(screen) {
-    return screen.style && (screen.style.minWidth || screen.style.maxWidth)
+    return screen.style && (screen.style.minWidth > 0 || screen.style.maxWidth > 0)
 }
 
 
@@ -1121,11 +1155,11 @@ export function print(screen, grid = false, hasXY=false) {
 
 function printElement(res, e, space='', grid, hasXY =true) {
     let actions ='' // e.lines ? ' -> ' + e.lines.map(l => l.event + ':' + l.screen.name) : ''
-    let parent = e.parent ? e.parent.name + ' '  + e.parent.id :  "null"
+    ///let parent = e.parent ? e.parent.name + ' '  + e.parent.id :  "null"
     let pos = grid ? ` > col: ${e.gridColumnStart} - ${e.gridColumnEnd} > row: ${e.gridRowStart} - ${e.gridRowEnd}` : ''
 
     let xw = hasXY ? `${e.x} - ${e.w}` : ''
-    res.push(`${space}${e.name} - (${parent})  ${pos} ${xw} ${actions} `)
+    res.push(`${space}${e.name} - (${e.layout})  ${pos} ${xw} ${actions} `)
     if (e.children) {
         e.children.forEach(c => {
             printElement(res, c, space + '  ', grid)

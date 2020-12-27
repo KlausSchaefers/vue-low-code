@@ -107,8 +107,6 @@ class QUXDesignSystem {
      * ToDO: Create all templates
      */
 
-
-
     let stop = new Date().getTime()
     Logger.log(-1, "DesignSystem.onAppLoaded() > exit", stop - start)
   }

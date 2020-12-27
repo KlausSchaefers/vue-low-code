@@ -45,13 +45,11 @@ test('Test min max center', () => {
   expect(fixedCenter).not.toBeNull()
   expect(fixedCenter.code.indexOf('margin-right: auto')).toBeGreaterThan(0)
   expect(fixedCenter.code.indexOf('margin-left: auto;')).toBeGreaterThan(0)
-  expect(fixedCenter.code.indexOf('width: 896px')).toBeGreaterThan(0)
+  expect(fixedCenter.code.indexOf('width: 70%')).toBeGreaterThan(0)
 
   expect(reponsiveCenter).not.toBeNull()
-  expect(reponsiveCenter.code.indexOf('margin-right: auto')).toBe(-1)
-  expect(reponsiveCenter.code.indexOf('margin-left: auto;')).toBe(-1)
-  expect(reponsiveCenter.code.indexOf('margin-right: 15%')).toBeGreaterThan(0)
-  expect(reponsiveCenter.code.indexOf('margin-left: 15%')).toBeGreaterThan(0)
-  expect(reponsiveCenter.code.indexOf('width')).toBe(-1)
+  expect(reponsiveCenter.code.indexOf('margin-right: auto')).toBeGreaterThan(0)
+  expect(reponsiveCenter.code.indexOf('margin-left: auto;')).toBeGreaterThan(0)
+  expect(reponsiveCenter.code.indexOf('width: 70%')).toBeGreaterThan(-1)
 
 });

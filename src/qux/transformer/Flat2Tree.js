@@ -1,7 +1,8 @@
 import * as Util from "../core/ExportUtil"
 import Logger from "../core/Logger"
 import * as Grid from "./GridLayouter"
-import * as Rows from "./RowLayouter"
+import {Layout} from '../core/Const'
+// import * as Rows from "./RowLayouter"
 
 var cloneID = 0
 
@@ -89,12 +90,16 @@ export function transform(model, config) {
 
 		/**
 		 * Now we need to layout the shit again, because we have removed the fixed elements.
-		 * FIXME: Make the layoutTree method faster taht it also works with the fixedChildren
+		 * FIXME: Make the layoutTree method faster that it also works with the fixedChildren
 		 */
 		if (screen.fixedChildren && screen.fixedChildren.length > 0) {
 			Logger.log(1, "Falt2Tree.transform() > fixed elements require double layout")
 			screen = layoutTree(screen, model)
 		}
+
+		/**
+		 * Since 0.5 we will set now the layouts.
+		 */
 
 		/**
 		 * set screen pos to 0,0
@@ -112,26 +117,171 @@ export function transform(model, config) {
 		setCSSClassNames(screen, screen.name)
 
 		result.screens.push(screen)
+
 	}
 
 	return result
 }
 
-function layoutTree(screen, hasRows) {
-  Logger.log('Flat2Tree.layoutTree() > ', hasRows)
+function layoutTree(screen) {
+  Logger.log('Flat2Tree.layoutTree() > ')
 
 	/**
 	 * We add lines, because for wrapped groups we need the rows!
 	 * Attention: In the UI we can not configure this anymore!
 	 */
-	screen = Rows.addRows(screen)
+	// screen = Rows.addRows(screen)
 
-	screen = setOrderAndRelativePositions(screen, false)
+	/**
+	 * First we determine the type of layout
+	 */
+	addLayoutType(screen)
+
+
+	/**
+	 * Afterwards we re order the elements
+	 */
 	fixParents(screen)
 
 	screen = addGrid(screen)
 	return screen
 }
+
+function addLayoutType (element) {
+
+	/**
+	 * We set here for each element how it should be rendered, if and only if,
+	 * the layout has not been set by hand, e.g. in Figma.
+	 *
+	 * If we set the layout, the options are:
+	 * 1) Wrap -> defined in UI. Has priority
+	 * 2) Rows -> if the X over laps
+	 * 3) Grid -> Default
+	 */
+
+	if (!Util.isLayoutAuto(element)) {
+
+		/**
+		 * For Fima Autos, the wrap will be ignored!
+		 */
+		if (Util.isWrappedContainer(element)) {
+
+			element.layout = {type: Layout.Wrap}
+			setOrderInWrapper(element, element.children)
+
+		} else if (Util.hasRowLayout(element)) {
+
+			element.layout = {type: Layout.Row}
+			setOrderInRow(element, element.children, false)
+
+		} else {
+			element.layout = {type: Layout.Grid}
+		}
+	}
+
+
+	if (element.children) {
+		element.children.forEach(child => addLayoutType(child, element))
+	}
+
+	return element
+}
+
+
+function addGrid(screen) {
+	Grid.addGridToElements(screen)
+	return screen
+}
+
+
+
+/**
+ * In a column, elements are rendered top to down
+ */
+function setOrderInRow (parent, nodes) {
+	Logger.log(5, "Falt2Tree.setOrderInRow() > Column", parent.name)
+	nodes.sort((a, b) => {
+		return a.y - b.y
+	})
+	let last = 0
+	nodes.forEach((n) => {
+		let top = n.y - last
+		last = n.y + n.h
+		//n.row = i
+		n.top = top
+	})
+}
+
+
+
+/**
+* Sort by bz row and column. After wards set just paddings and mardings
+*/
+function setOrderInWrapper (parent, nodes) {
+	Logger.log(3, "Falt2Tree.setOrderInWrapper() > Wrapper Container", parent.name)
+
+	nodes.sort((a, b) => {
+		if (Util.isOverLappingY(a, b)) {
+			return a.x - b.x
+		}
+		return a.y - b.y
+	})
+
+	if (parent.isGroup) {
+		/*
+			* If the parent is group, the offet will be 0! So we calculate instead
+			* the didtance between the first and second row and first and second column.
+			* This is offcourse just guess.
+			*/
+
+		let offsetBottom = 10
+		let offSetRight = 10
+		/**
+		 * FIXME: This is broken???
+		 */
+		let rows = Util.getElementsAsRows(nodes)
+		if (rows[0] && rows[0].length > 1 && rows[1]) {
+			let firstRowChild1 = rows[0][0]
+			let firstRowChild2 = rows[0][1]
+			let secondRowChild2 = rows[1][0]
+			offSetRight = firstRowChild2.x - (firstRowChild1.x + firstRowChild1.w)
+			offsetBottom = secondRowChild2.y - (firstRowChild1.y + firstRowChild1.h)
+		} else {
+			Logger.log(-1, "Falt2Tree.setOrderAndRelativePositons() > cannot guess offsets for Wrapper Container", parent.name)
+		}
+
+		parent.style.paddingTop = 0
+		parent.style.paddingBottom = 0
+		parent.style.paddingLeft = 0
+		parent.style.paddingRight = 0
+
+		nodes.forEach((n) => {
+			n.wrapOffSetBottom = offsetBottom
+			n.wrapOffSetRight = offSetRight
+			n.wrapOffSetY = 0
+			n.wrapOffSetX = 0
+		})
+	} else {
+		/**
+		 * We take as the position, the offset of the first element
+		 * Then we add half as padding and the rest a masgin for
+		 * the children
+		 */
+		let firstNode = nodes[0]
+		let offSetX = Math.round(firstNode.x / 2)
+		let offSetY = Math.round(firstNode.y / 2)
+		parent.style.paddingTop = offSetY
+		parent.style.paddingBottom = offSetY
+		parent.style.paddingLeft = offSetX
+		parent.style.paddingRight = offSetX
+		nodes.forEach((n) => {
+			n.wrapOffSetY = offSetY
+			n.wrapOffSetX = offSetX
+		})
+	}
+}
+
+
 
 function setWidgetTypes(parent) {
 	parent.qtype = getWidgetType(parent)
@@ -192,189 +342,6 @@ function fixParents(parent) {
 			c.parent = parent
 			fixParents(c)
 		})
-	}
-}
-
-function addGrid(screen) {
-	Grid.addGridToElements(screen)
-	return screen
-}
-
-function setOrderAndRelativePositions(parent, relative) {
-	Logger.log(5, "Falt2Tree.setOrderAndRelativePositons() > enter", parent.name)
-
-	let nodes = parent.children
-	/**
-	 * We have three kind of containers. Wrapped, Rows and Grid as Default. For each we have
-	 * to compute the and align the children differently
-	 */
-	if (Util.isWrappedContainer(parent)) {
-		setOrderInWrapper(parent, nodes)
-	} else if (Util.isRowContainer(parent)) { // isRow is only true for row containers
-		setOrderInRow(parent, nodes, relative)
-	} else {
-		// FIXME: We should not have this any more,. becasue we do not use flex!
-		setOrderInColumn(parent, nodes, relative)
-	}
-
-	nodes.forEach((n) => {
-		if (n.children && n.children.length > 0) {
-			setOrderAndRelativePositions(n, relative)
-		}
-	})
-
-	return parent
-}
-
-/**
- * In a column, elements are rendered top to down
- */
-function setOrderInColumn (parent, nodes, relative) {
-	Logger.log(5, "Falt2Tree.setOrderInColumn() > Column", parent.name)
-	nodes.sort((a, b) => {
-		return a.y - b.y
-	})
-	let last = 0
-	nodes.forEach((n, i) => {
-		let y = n.y - last
-		last = n.y + n.h
-		if (relative) {
-			n.y = y
-			n.r = i
-		} else {
-			n.top = y
-		}
-	})
-}
-
-/**
-	* In a row the elements are rendered form left to right.
-	*/
-function setOrderInRow (parent, nodes, relative) {
-	Logger.warn("Falt2Tree.setOrderInRow() > DEPRECTAED", parent.name)
-
-	nodes.sort((a, b) => {
-		return a.x - b.x
-	})
-
-	let last = 0
-	/**
-	 * We calculate now as x the position the the child before,
-	 * but we also save the absolute position
-	 */
-	nodes.forEach((n, i) => {
-		let x = n.x - last
-		last = n.x + n.w
-		n.absX = n.x
-		/**
-		 * FIXME: add also right
-		 */
-		if (relative) {
-			n.x = x
-			n.c = i
-		} else {
-			n.left = x
-			n.c = i
-		}
-		// console.debug('absX', n.name, n.x, n.absX)
-	})
-
-	/**
-	 * Update responsive propeties in rows
-	 */
-	if (parent.props && parent.props.resize) {
-		let lastNode = null
-		nodes.forEach((node, i) => {
-			mergeResponsiveInParent(parent, node, i, nodes.length)
-
-			node.canGrow = true
-			/**
-			 * Make right fixed, left fixed
-			 */
-			if (lastNode && Util.isPinnedRight(lastNode)) {
-				Logger.log(5, "Falt2Tree.setOrderAndRelativePositons() > fix rightPinned :" + lastNode.name, node.name)
-				node.props.resize.left = true
-				node.canGrow = false
-			}
-			lastNode = node
-		})
-	}
-}
-
-/**
-* Sort by bz row and column. After wards set just paddings and mardings
-*/
-function setOrderInWrapper (parent, nodes) {
-	Logger.log(-1, "Falt2Tree.setOrderInWrapper() > Wrapper Container", parent.name)
-
-	nodes.sort((a, b) => {
-		if (Util.isOverLappingY(a, b)) {
-			return a.x - b.x
-		}
-		return a.y - b.y
-	})
-
-	if (parent.isGroup) {
-		/*
-			* If the parent is group, the offet will be 0! So we calculate instead
-			* the didtance between the first and second row and first and second column.
-			* This is offcourse just guess.
-			*/
-
-		let offsetBottom = 10
-		let offSetRight = 10
-		let rows = Util.getElementsAsRows(nodes)
-		if (rows[0] && rows[0].length > 1 && rows[1]) {
-			let firstRowChild1 = rows[0][0]
-			let firstRowChild2 = rows[0][1]
-			let secondRowChild2 = rows[1][0]
-			offSetRight = firstRowChild2.x - (firstRowChild1.x + firstRowChild1.w)
-			offsetBottom = secondRowChild2.y - (firstRowChild1.y + firstRowChild1.h)
-		} else {
-			Logger.log(-1, "Falt2Tree.setOrderAndRelativePositons() > cannot guess offsets for Wrapper Container", parent.name)
-		}
-
-		parent.style.paddingTop = 0
-		parent.style.paddingBottom = 0
-		parent.style.paddingLeft = 0
-		parent.style.paddingRight = 0
-
-		nodes.forEach((n) => {
-			n.wrapOffSetBottom = offsetBottom
-			n.wrapOffSetRight = offSetRight
-			n.wrapOffSetY = 0
-			n.wrapOffSetX = 0
-		})
-	} else {
-		/**
-		 * We take as the position, the offset of the first element
-		 * Then we add half as padding and the rest a masgin for
-		 * the children
-		 */
-		let firstNode = nodes[0]
-		let offSetX = Math.round(firstNode.x / 2)
-		let offSetY = Math.round(firstNode.y / 2)
-		parent.style.paddingTop = offSetY
-		parent.style.paddingBottom = offSetY
-		parent.style.paddingLeft = offSetX
-		parent.style.paddingRight = offSetX
-		nodes.forEach((n) => {
-			n.wrapOffSetY = offSetY
-			n.wrapOffSetX = offSetX
-		})
-	}
-}
-
-function mergeResponsiveInParent(container, c, index, childrenCount) {
-	if (container.props.resize) {
-		if (index === 0) {
-			Logger.log(5, "Falt2Tree.mergeResponsiveInParent() > left: " + container.name, Util.isPinnedLeft(c))
-			container.props.resize.left = Util.isPinnedLeft(c)
-		}
-		if (index === childrenCount - 1) {
-			Logger.log(5, "Falt2Tree.mergeResponsiveInParent() > right: " + container.name, Util.isPinnedRight(c))
-			container.props.resize.right = Util.isPinnedRight(c)
-		}
 	}
 }
 

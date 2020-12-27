@@ -1,7 +1,7 @@
 import Logger from "./Logger"
 import * as Util from "./ExportUtil"
 
-export default class CSSLayouter {
+export default class CSSPosition {
 
   constructor (config, f) {
 		this.cssFacotory = f
@@ -52,14 +52,638 @@ export default class CSSLayouter {
 			'borderRightWidth',
 			'_borderRightWidth'
 		]
-  }
+	}
+
+	getPostion(widget) {
+		Logger.log(3, "CSSPostion.getPostion()" + widget.name, widget.layout)
+
+
+		/**
+		 * Special handling for deisgn systems and fixed stuff
+		 */
+		if (Util.isDesignSystemRoot(widget)) {
+			return this.getDesignSystemPosition(widget)
+		}
+
+		if (Util.hasComponentScreenParent(widget)) {
+			return this.getComponentScreenPosition(widget)
+		}
+
+
+		/**
+		 * Normal layout:
+		 * 1) Position in parent
+		 * 2) Set position of childnre
+		 */
+		let result = ''
+		let parent = widget.parent
+
+		result += this.getParentPosition(parent, widget)
+		result += this.getChildPosition(widget)
+
+		return result
+	}
+
+	getParentPosition(parent, widget) {
+
+		if (!parent) {
+			return this.getParentDefault(widget)
+		}
+
+		if (Util.isFixedPosition(widget)) {
+			return this.getParentFixed(widget)
+		}
+
+		if (Util.isRepeater(parent)) {
+			return this.getParentRepeater(widget)
+		}
+
+		if (Util.isLayoutWrap(parent)) {
+			return this.getParentWrap(widget)
+		}
+
+		if (Util.isLayoutAutoHorizontal(parent)) {
+			return this.getParentAutoHorizontal(widget)
+		}
+
+		if (Util.isLayoutAutovertical(parent)) {
+			return this.getParentAutoVertical(widget)
+		}
+
+
+		if (Util.isLayoutRow(parent)) {
+			return this.getParentRow(widget)
+		}
+
+		if (Util.isLayoutGrid(parent)) {
+			return this.getParentGrid(widget)
+		}
+
+		return ''
+	}
+
+	getChildPosition(widget) {
+
+		if (!Util.hasChildren(widget)) {
+			return ''
+		}
+		if (Util.isRepeater(widget)) {
+			return this.setChildrenRepeater(widget)
+		}
+
+		if (Util.isLayoutWrap(widget)) {
+			return this.getChildrenWrap(widget)
+		}
+
+		if (Util.isLayoutAutoHorizontal(widget)) {
+			return this.getChildrenAutoHorizontal(widget)
+		}
+
+		if (Util.isLayoutAutovertical(widget)) {
+			return this.getChildrenAutoVertical(widget)
+		}
+
+		if (Util.isLayoutRow(widget)) {
+			return this.getChildrenRow(widget)
+		}
+
+		if (Util.isLayoutGrid(widget)) {
+			return this.getChildrenGrid(widget)
+		}
+
+		return ''
+	}
+
+	getParentDefault(widget) {
+		let result = ''
+		if (this.isForceGrid && Util.isScreen(widget)) {
+			result += `  min-height: ${widget.h}px;\n`
+		} else {
+			/**
+			 * This has caused issues with templates and fixed in combination.
+			 * Thus we do not call getPostion for templates anymore.
+			 */
+			result += `  min-height: 100%;\n`
+		}
+		return result
+	}
+
+
+
+	/*********************************************************************
+	 * Auto
+	 *********************************************************************/
+
+	getChildrenAutoHorizontal (widget) {
+		Logger.log(-5, "CSSPosition.getChildrenAutoHorizontal()" + widget.name)
+		let result = ''
+
+		let l = widget.layout
+		result += "  display: flex;\n"
+		result += "  flex-direction: row;\n"
+		result += `  align-items: ${l.alignItems};\n`
+		result += `  justify-content: ${l.justifyContent};\n`
+
+
+		if(Util.isWrappedContainer(widget)) {
+			result += "  flex-wrap: wrap;\n"
+		}
+
+		result += `  gap: ${l.itemSpacing}px;\n`
+		result += `  padding-left: ${l.paddingLeft}px;\n`
+		result += `  padding-right: ${l.paddingRight}px;\n`
+		result += `  padding-top: ${l.paddingTop}px;\n`
+		result += `  padding-bottom: ${l.paddingBottom}px;\n`
+
+
+		return result
+	}
+
+	getParentAutoHorizontal (widget) {
+		Logger.log(5, "CSSPosition.getParentAutoHorizontal()" + widget.name)
+		let result = ''
+
+		result += `  height: ${this.getCorrectedHeight(widget, true)};\n`
+
+		if (Util.hasMinMaxWdith(widget)) {
+			result += this.getMinMaxWidth(widget, false)
+			result += `  flex-grow: 1;\n`
+		} else if (Util.isFixedHorizontal(widget)) {
+			result += `  width: ${this.getFixedWidth(widget)};\n`
+		} else {
+			if (Util.isLayoutGrow(widget)) {
+				//result += `  min-width: ${this.getFixedWidth(widget)};\n`
+				//result += `  max-width: 100%;\n`
+				result += `  flex-grow: 1;\n`
+			} else {
+				result += `  width: ${this.getResponsiveWidth(widget)};\n`
+			}
+		}
+
+
+		return result
+	}
+
+	getChildrenAutoVertical (widget) {
+		Logger.log(3, "CSSPosition.getChildrenAutoVertical()" + widget.name)
+		let result = ''
+
+
+		let l = widget.layout
+		result += "  display: flex;\n"
+		result += "  flex-direction: column;\n"
+		result += `  align-items: ${l.alignItems};\n`
+		result += `  justify-content: ${l.justifyContent};\n`
+		result += `  gap: ${l.itemSpacing}px;\n`
+
+		result += `  padding-left: ${l.paddingLeft}px;\n`
+		result += `  padding-right: ${l.paddingRight}px;\n`
+		result += `  padding-top: ${l.paddingTop}px;\n`
+		result += `  padding-bottom: ${l.paddingBottom}px;\n`
+
+		return result
+	}
+
+	getParentAutoVertical (widget) {
+		Logger.log(3, "CSSPosition.getParentAutovertical()" + widget.name)
+		let result = ''
+
+		if (Util.isLayoutGrow(widget)) {
+			result += `  min-height: ${this.getCorrectedHeight(widget, true)};\n`
+			result += `  flex-grow: 1;\n`
+		} else {
+			result += `  height: ${this.getCorrectedHeight(widget, true)};\n`
+		}
+
+		result += `  width: ${this.getFixedWidth(widget)};\n`
+
+
+		return result
+	}
+
+	/*********************************************************************
+	 * Grid
+	 *********************************************************************/
+
+	getChildrenGrid (widget) {
+		Logger.log(3, "CSSPosition.getChildrenGrid()" + widget.name)
+		let result = ''
+		result += "  display: grid;\n"
+		result += "  grid-template-columns: " + this.getGridColumnTracks(widget.w, widget.grid.columns, widget) + ";\n"
+		result += "  grid-template-rows: " + this.getGridRowTracks(widget.h, widget.grid.rows, widget, true) + ";\n"
+		return result
+	}
+
+	getParentGrid (widget) {
+		Logger.log(3, "CSSPosition.getParentGrid()" + widget.name)
+
+		let result = ''
+		result += `  grid-column-start: ${widget.gridColumnStart + 1};\n`
+		result += `  grid-column-end: ${widget.gridColumnEnd + 1};\n`
+		result += `  grid-row-start: ${widget.gridRowStart + 1};\n`
+		result += `  grid-row-end: ${widget.gridRowEnd + 1};\n`
+
+		if (widget.z) {
+			result += `  z-index: ${widget.z};\n`
+		}
+		return result
+	}
+
+
+	/**
+	 * Returns the tracks for the grid. It makes sure the biggest element
+	 * is auto, so the grid is responsive... we could also use minmax()
+	 */
+	getGridColumnTracks(total, list) {
+		Logger.log(6, "CSSPosition.getGridColumnTracks() > ", list)
+
+		if (list) {
+			/**
+			 * We get the max not fixed. Still we would
+			 * need to make sure we get the fixed stuff
+			 */
+			let notFixed = list.filter(i => !i.fixed)
+			if (notFixed.length === 0) {
+				notFixed = list
+			}
+			let max = Math.max(...notFixed.map((i) => i.l))
+
+			return list
+				.map((i) => {
+
+					/**
+					 * Fixed has priority. For rows we have always fixed...
+					 */
+					if (i.fixed) {
+						return i.l + "px"
+					}
+
+					/**
+					 * We might want several autos. This is very sensitive
+					 * to small changes in the editor. Therefore we give a
+					 * small error margin. Use minmax to prevent blowout
+					 * https://css-tricks.com/preventing-a-grid-blowout/
+					 */
+					if (Math.abs(max - i.l) <= this.gridAutoErrorThreshold) {
+						// max === i.l
+						/**
+						 * FIXME: If we have a min max , we use max-content, but only of there
+						 * is more than one column! Otherwise the resizing will not work
+						 * correctly!
+						 */
+						// if (i.hasMinMax && list.length > 1) {
+						// 	return "minmax(0,max-content)" //'1fr'
+						// } else {
+						//	return "minmax(0,1fr)" //'1fr'
+						// }
+						return "minmax(0,1fr)"
+					}
+					return (Math.round((i.l * 1000) / total) / 10 )+ "%"
+				})
+				.join(" ")
+		}
+	}
+
+	getGridRowTracks(total, rows) {
+		Logger.log(6, "CSSPosition.getGridRowTracks() > ", rows)
+		if (rows) {
+			return rows
+				.map((row, index) => {
+					/**
+					 * The last row will be free space, if it is
+					 * not fixed
+					 */
+					if (!row.fixed && index === rows.length - 1) {
+						return "1fr"
+					}
+					/**
+					 * Fixed rows or spacer (no element starts here, or first)
+					 * rows have a fixed size. Everything else is minmax
+					 */
+					if (row.fixed || row.start.length === 0 || index === 0) {
+						return Math.round(row.l) + "px"
+					}
+					return `minmax(${Math.round(row.l)}px, auto)`
+				})
+				.join(" ")
+		}
+	}
+
+	/*********************************************************************
+	 * Fixed Position
+	 *********************************************************************/
+
+	getParentFixed(widget) {
+		let result = "  position: fixed;\n"
+		if (this.isFixedHorizontal(widget)) {
+			result += `  width: ${this.getFixedWidth(widget)};\n`
+		} else {
+			result += `  width: ${this.getResponsiveWidth(widget)};\n`
+		}
+		if (Util.isPinnedLeft(widget)) {
+			result += `  left: ${this.getPinnedLeft(widget)};\n`
+		} else if (Util.isPinnedRight(widget)) {
+			result += `  right: ${this.getPinnedRight(widget)};\n`
+		} else {
+			result += `  left: ${this.getResponsiveLeft(widget)};\n`
+		}
+		if (Util.isPinnedDown(widget)) {
+			result += `  bottom: ${widget.bottom}px;\n`
+		} else {
+			result += `  top: ${widget.y}px;\n`
+		}
+		result += `  height: ${this.getCorrectedHeight(widget)};\n`
+		return result
+	}
+
+
+	/*********************************************************************
+	 * Wrapped
+	 *********************************************************************/
+
+
+	getParentWrap (widget) {
+		Logger.log(3, "CSSPosition.getParentWrap()" + widget.name)
+		let result = ""
+		/**
+		 * For wrapped we just add margins
+		 */
+		result += `  min-height: ${this.getWrappedHeight(widget)};\n`
+		result += this.getWrappedWidth(widget)
+		if (widget.wrapOffSetBottom && widget.wrapOffSetRight && !this.justifyContentInWrapper) {
+			result += `  margin-bottom: ${widget.wrapOffSetBottom}px ;\n`
+			result += `  margin-right: ${widget.wrapOffSetRight}px ;\n`
+		} else {
+			result += `  margin: ${widget.wrapOffSetY}px ${widget.wrapOffSetX}px;\n`
+		}
+
+		return result
+	}
+
+	getChildrenWrap (widget) {
+		Logger.log(4, "CSSPosition.getChildrenWrap() " + widget.name)
+		let result = ""
+		result += "  display: flex;\n"
+		result += "  flex-direction: row;\n"
+		result += "  flex-wrap: wrap;\n"
+		result += "  align-items: flex-start;\n"
+		result += "  align-content: flex-start;\n"
+
+		/**
+		 * FIXME:This hsould be configured in the UI
+		 */
+		if (this.justifyContentInWrapper) {
+			result += "  justify-content: space-between;\n"
+		}
+		return result
+	}
+
+	getWrappedHeight(widget) {
+		return this.getCorrectedHeight(widget)
+	}
+
+	getWrappedWidth(widget) {
+		Logger.log(3, "CSSPosition.getWrappedWidth() " + widget.name, Util.hasMinMaxWdith(widget))
+		if (Util.hasMinMaxWdith(widget)) {
+			return this.getMinMaxWidth(widget, true)
+		}
+		if (this.isFixedHorizontal(widget)) {
+			return `  width: ${this.getFixedWidth(widget)};\n`
+		}
+		return `  width: ${this.getResponsiveWidth(widget)};\n`
+	}
+
+	/*********************************************************************
+	 * Repeater
+	 *********************************************************************/
+
+	getParentRepeater (widget) {
+		Logger.log(5, "CSSPosition.getParentRepeater() " + widget.name)
+		let result = ""
+
+		if (Util.isFixedVertical(widget)) {
+			result += `  height: ${this.getCorrectedHeight(widget, true)};\n`
+		} else {
+			result += `  min-height: ${this.getCorrectedHeight(widget, true)};\n`
+			result += `  height: 100%;\n`
+		}
+		// Take the border of the child out!
+		result += `  width: calc(100% - ${this.getLeftRightBorder(widget)}px);\n`
+
+		return result
+	}
+
+	getLeftRightBorder (widget) {
+		let result = 0
+		if (widget.style) {
+			this.widthProperties.forEach((key) => {
+				if (widget.style[key]) {
+					result += widget.style[key]
+				}
+			})
+		}
+		return result
+	}
+
+	setChildrenRepeater(widget) {
+		Logger.log(5, "CSSPosition.setChildrenRepeater() " + widget.name)
+
+
+		/**
+		 * First check of we have an auto layout
+		 */
+		if (Util.isLayoutAutoHorizontal(widget)) {
+			return this.getChildrenAutoHorizontal(widget)
+		}
+
+		if (Util.isLayoutAutovertical(widget)) {
+			return this.getChildrenAutovertical(widget)
+		}
+
+		/**
+		 * Otherwise return standard grid or row style
+		 */
+		let result = ""
+		if (Util.isRepeaterGrid(widget)) {
+			result += "  display: flex;\n"
+			result += "  flex-direction: row;\n"
+			result += "  flex-wrap: wrap;\n"
+			result += "  align-items: flex-start;\n"
+			result += "  align-content: flex-start;\n"
+			if (Util.isRepeaterAuto(widget)) {
+				result += "  justify-content: space-between;\n"
+			}
+		} else {
+			result += "  display: flex;\n"
+			result += "  flex-direction: column;\n"
+		}
+
+		return result
+	}
+
+
+
+	/*********************************************************************
+	 * Rows
+	 *********************************************************************/
+
+	getChildrenRow () {
+		let result = ""
+		result += "  display: flex;\n"
+		result += "  flex-direction: column;\n"
+		return result
+	}
+
+	getParentRow (widget) {
+		Logger.log(5, "CSSPosition.getParentRow() " + widget.name, widget.props)
+		let result = ""
+
+		result += this.getParentRowHorizontal(widget)
+		result += this.getParentRowVertical(widget)
+
+		return result
+	}
+
+	getParentRowVertical(widget) {
+		let result = ""
+		if (Util.isFixedVertical(widget)) {
+			result += `  height: ${this.getCorrectedHeight(widget, true)};\n`
+		} else {
+			result += `  min-height: ${this.getCorrectedHeight(widget, true)};\n`
+		}
+		result += `  margin-top: ${this.getPinnedTop(widget)};\n`
+		return result
+	}
+
+	getParentRowHorizontal (widget) {
+
+		/**
+		 * Stronged constraint is left and right pinned!
+		 */
+		if (this.isPinnedLeft(widget) && this.isPinnedRight(widget)) {
+			return this.getParentRowPinnedBoth(widget)
+		}
+
+		/**
+		 * Second constraint is centered!
+		 */
+		if (Util.isCentered(widget)) {
+			return this.getParentRowCenter(widget)
+		}
+
+		if (this.isPinnedLeft(widget)) {
+			return this.getParentRowPinnedLeft(widget)
+		}
+
+		if (this.isPinnedRight(widget)) {
+			return this.getParentRowPinneRight(widget)
+		}
+
+		/**
+		 * Default is more or less quant-ux standard
+		 */
+		return this.getParentRowPinnedNone(widget)
+
+	}
+
+	getParentRowCenter(widget) {
+		let result = ''
+
+		if (Util.hasMinMaxWdith(widget)) {
+			result += this.getMinMaxWidth(widget, true)
+		} else if (Util.isFixedHorizontal(widget)){
+			result += `  width: ${this.getFixedWidth(widget)};\n`
+		} else {
+			result += `  width: ${this.getResponsiveWidth(widget)};\n`
+		}
+
+		result += `  margin-left: auto;\n`
+		result += `  margin-right: auto;\n`
+
+		return result
+	}
+
+	getParentRowPinnedBoth (widget) {
+		let result = ""
+		result += `  margin-left: ${this.getPinnedLeft(widget)};\n`
+		result += `  margin-right: ${this.getPinnedRight(widget)};\n`
+		return result
+	}
+
+	getParentRowPinnedLeft (widget) {
+		let result = ""
+		if (this.isFixedHorizontal(widget)) {
+			result += `  width: ${this.getFixedWidth(widget)};\n`
+			result += `  margin-left: ${this.getPinnedLeft(widget)};\n`
+		} else {
+			result += `  margin-right: ${this.getResponsiveRight(widget)};\n`
+			result += `  margin-left: ${this.getPinnedLeft(widget)};\n`
+		}
+		return result
+	}
+
+	getParentRowPinneRight (widget) {
+		let result = ""
+		/**
+		 * This is a tricky one.
+		 */
+		if (this.isFixedHorizontal(widget)) {
+			result += `  width: ${this.getFixedWidth(widget)};\n`
+			result += `  margin-left: ${this.getCalcLeft(widget)};\n`
+		} else {
+			/**
+			 * TODO: can we use somehow a reposnive calculated left?
+			 */
+			result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
+			result += `  margin-right: ${this.getPinnedRight(widget)};\n`
+		}
+		return result
+	}
+
+	getParentRowPinnedNone(widget) {
+		let result = ""
+
+		/**
+		 * Nothing is pinned.
+		 * We are in a rowGrid, this means the widget is alone. Therefore
+		 * we can set the margin left and right and not the width.
+		 */
+		if (this.isFixedHorizontal(widget)) {
+
+			/**
+			 * FIXME: This branch should be dead. We catch this before!
+			 */
+			if (Util.isCentered(widget)) {
+				result += `  width: ${this.getFixedWidth(widget)};\n`
+				result += `  margin-left: auto;\n`
+				result += `  margin-right: auto;\n`
+			} else {
+				result += `  width: ${this.getFixedWidth(widget)};\n`
+				result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
+			}
+
+		} else if (Util.hasMinMaxWdith(widget) && Util.isCentered(widget)) {
+			/**
+			 * If we have min max and center we will use minmax with relative width
+			 */
+			result += this.getMinMaxWidth(widget, true)
+			result += `  margin-left: auto;\n`
+			result += `  margin-right: auto;\n`
+
+		} else {
+			result += `  margin-right: ${this.getResponsiveRight(widget)};\n`
+			result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
+		}
+
+		return result
+	}
 
 	/*********************************************************************
 	 * Design System
 	 *********************************************************************/
 
 	getDesignSystemPosition(widget) {
-		Logger.log(3, "CSSLayouter.getDesignSystemPosition()" + widget.name, widget)
+		Logger.log(3, "CSSPosition.getDesignSystemPosition()" + widget.name, widget)
 
 		let result = ""
 
@@ -110,10 +734,15 @@ export default class CSSLayouter {
 				result += `  min-height: ${this.getCorrectedHeight(widget)};\n`
 			}
 
-			if (Util.hasGrid(widget) && Util.hasChildren(widget)) {
-				Logger.log(3, "CSSFactory.getComponentScreenPosition() > add grid" + widget.name)
-				result += "  grid-template-columns: " + this.getGridColumnTracks(widget.w, widget.grid.columns, widget) + ";\n"
-				result += "  grid-template-rows: " + this.getGridRowTracks(widget.h, widget.grid.rows, widget) + ";\n"
+			if (Util.hasChildren(widget)) {
+				if (Util.isLayoutGrid(widget)) {
+					Logger.log(3, "CSSPosition.getComponentScreenPosition() > add grid" + widget.name)
+					result += "  grid-template-columns: " + this.getGridColumnTracks(widget.w, widget.grid.columns, widget) + ";\n"
+					result += "  grid-template-rows: " + this.getGridRowTracks(widget.h, widget.grid.rows, widget) + ";\n"
+				} else {
+					result += "  display: flex;\n"
+					result += "  flex-direction: column;\n"
+				}
 			}
 
 		}
@@ -145,7 +774,7 @@ export default class CSSLayouter {
 	}
 
 	isGrid (widget) {
-		return Util.hasGrid(widget) && Util.hasChildren(widget)
+		return Util.isLayoutGrid(widget) && Util.hasChildren(widget)
 	}
 
 	/*********************************************************************
@@ -153,7 +782,7 @@ export default class CSSLayouter {
 	 *********************************************************************/
 
 	getComponentScreenPosition(widget) {
-		Logger.log(3, "CSSFactory.getComponentScreenPosition()" + widget.name)
+		Logger.log(3, "CSSPosition.getComponentScreenPosition()" + widget.name)
 		let result = ""
 		/**
 		 * For wrapped we just add margins
@@ -161,8 +790,11 @@ export default class CSSLayouter {
 		result += `  height:100%;\n`
 		result += `  width: 100%;\n`
 
-		if (Util.hasGrid(widget)) {
-			Logger.log(-1, "CSSFactory.getComponentScreenPosition() > add grid" + widget.name)
+		/**
+		 * FIXME: Add here check for
+		 */
+		if (Util.isLayoutGrid(widget)) {
+			Logger.log(-1, "CSSPosition.getComponentScreenPosition() > add grid" + widget.name)
 			result += "  display: grid;\n"
 			result += "  grid-template-columns: " + this.getGridColumnTracks(widget.w, widget.grid.columns, widget) + ";\n"
 			result += "  grid-template-rows: " + this.getGridRowTracks(widget.h, widget.grid.rows, widget) + ";\n"
@@ -171,344 +803,6 @@ export default class CSSLayouter {
 		return result
 	}
 
-	/*********************************************************************
-	 * Wrapped Position
-	 *********************************************************************/
-
-	getWrappedPosition(widget) {
-		Logger.log(3, "CSSFactory.getWrappedPosition()" + widget.name)
-		let result = ""
-		/**
-		 * For wrapped we just add margins
-		 */
-		result += `  min-height: ${this.getWrappedHeight(widget)};\n`
-		result += this.getWrappedWidth(widget)
-		if (widget.wrapOffSetBottom && widget.wrapOffSetRight && !this.justifyContentInWrapper) {
-			result += `  margin-bottom: ${widget.wrapOffSetBottom}px ;\n`
-			result += `  margin-right: ${widget.wrapOffSetRight}px ;\n`
-		} else {
-			result += `  margin: ${widget.wrapOffSetY}px ${widget.wrapOffSetX}px;\n`
-		}
-
-		/**
-		 * If the wrapped element has a grid, add it as well
-		 */
-		if (Util.hasGrid(widget)) {
-			Logger.log(3, "CSSFactory.getWrappedPosition() > add grid" + widget.name)
-			result += "  display: grid;\n"
-			result += "  grid-template-columns: " + this.getGridColumnTracks(widget.w, widget.grid.columns, widget) + ";\n"
-			result += "  grid-template-rows: " + this.getGridRowTracks(widget.h, widget.grid.rows, widget) + ";\n"
-		} else {
-			widget.grid.isRow = true
-			result += `  display: flex;\n`
-			result += `  flex-direction: column;\n`
-		}
-		return result
-	}
-
-	getWrappedEnd(selector, widget) {
-		let result = ""
-		if (Util.isWrappedContainer(widget)) {
-			result += selector + ":after {\n"
-			result += `  content:'';\n`
-			result += `  flex:auto;\n`
-			result += "}\n\n"
-		}
-		return result
-	}
-
-	getWrappedHeight(widget) {
-		return this.getCorrectedHeight(widget)
-	}
-
-	getWrappedWidth(widget) {
-		Logger.log(3, "CSSFactory.getWrappedWidth() " + widget.name, Util.hasMinMaxWdith(widget))
-		if (Util.hasMinMaxWdith(widget)) {
-			return this.getMinMaxWidth(widget, true)
-		}
-		if (this.isFixedHorizontal(widget)) {
-			return `  width: ${this.getFixedWidth(widget)};\n`
-		}
-		return `  width: ${this.getResponsiveWidth(widget)};\n`
-	}
-
-	setRepeaterContainer(widget) {
-		Logger.log(5, "CSSFactory.setRepeaterContainer() " + widget.name)
-		let result = ""
-		result += "  display: flex;\n"
-		result += "  flex-direction: row;\n"
-		result += "  flex-wrap: wrap;\n"
-		result += "  align-items: flex-start;\n"
-		result += "  align-content: flex-start;\n"
-		if (Util.isRepeaterAuto(widget)) {
-			result += "  justify-content: space-between;\n"
-		}
-		return result
-	}
-
-	setWrappedContainer(widget) {
-		Logger.log(4, "CSSFactory.setWrappedContainer() " + widget.name)
-		let result = ""
-		result += "  display: flex;\n"
-		result += "  flex-direction: row;\n"
-		result += "  flex-wrap: wrap;\n"
-		result += "  align-items: flex-start;\n"
-		result += "  align-content: flex-start;\n"
-
-		/**
-		 * FIXME:This hsould be configured in the UI?
-		 */
-		if (this.justifyContentInWrapper) {
-			result += "  justify-content: space-between;\n"
-		}
-		return result
-	}
-
-	/*********************************************************************
-	 * Grid Position
-	 *********************************************************************/
-
-	getGridPosition(widget) {
-		Logger.log(3, "CSSFactory.getGridPosition() > " + widget.name, widget)
-		let result = ""
-
-		/**
-		 * First determine how we align the children
-		 */
-		if (widget.grid) {
-			result = this.getGridChildAlignment(widget)
-		}
-
-		/**
-		 * Second align to parent
-		 */
-		result += this.getGridParentAlign(widget)
-		return result
-	}
-
-	getGridChildAlignment(widget) {
-
-		let result = ""
-		if (Util.isWrappedContainer(widget)) {
-			result += this.setWrappedContainer(widget)
-		} else if (Util.isRepeaterGrid(widget)) {
-			result += this.setRepeaterContainer(widget)
-		} else if (Util.isRowGrid(widget) && !widget.isComponentScreen) {
-			/**
-			 * FIXME: Move this code to the model transformer. The isRow value
-			 * will be later used in the getGridParentAlign() method
-			 */
-			if (!widget.grid) {
-				widget.grid = {}
-			}
-			widget.grid.isRow = true
-			result += `  display: flex;\n`
-			result += `  flex-direction: column;\n`
-		} else {
-			result += "  display: grid;\n"
-			result += "  grid-template-columns: " + this.getGridColumnTracks(widget.w, widget.grid.columns, widget) + ";\n"
-			result += "  grid-template-rows: " + this.getGridRowTracks(widget.h, widget.grid.rows, widget, true) + ";\n"
-		}
-		return result
-	}
-
-	getGridParentAlign(widget) {
-		Logger.log(6, "CSSFactory.getGridParentAlign() > " + widget.name, widget)
-		let result = ""
-
-		if (Util.hasParentRepeaterGrid(widget)) {
-			Logger.log(3, "CSSFactory.getGridParentAlign() > " + widget.name, widget)
-			/**
-			 * FIXME: Do we need to set width? I believe not.
-			 */
-			// result += `  width: 100%;\n`
-			if (Util.isFixedVertical(widget)) {
-				result += `  height: ${this.getCorrectedHeight(widget, true)};\n`
-			} else {
-				result += `  min-height: ${this.getCorrectedHeight(widget, true)};\n`
-				result += `  height: 100%;\n`
-			}
-		} else if (widget.parent) {
-
-			/**
-			 * Check if we have to do a normal flex layout because the grid
-			 * is row (=== 1 columns)
-			 */
-			if (widget.parent.grid && (widget.parent.grid.isRow)) {
-				result += this.getGridParentRowAlignment(widget)
-			} else {
-				result += `  grid-column-start: ${widget.gridColumnStart + 1};\n`
-				result += `  grid-column-end: ${widget.gridColumnEnd + 1};\n`
-				result += `  grid-row-start: ${widget.gridRowStart + 1};\n`
-				result += `  grid-row-end: ${widget.gridRowEnd + 1};\n`
-
-				if (widget.z) {
-					result += `  z-index: ${widget.z};\n`
-				}
-			}
-		} else {
-			if (this.isForceGrid && Util.isScreen(widget)) {
-				result += `  min-height: ${widget.h}px;\n`
-			} else {
-				/**
-				 * This has caused issues with templates and fixed in combination.
-				 * Thus we do not call getPostion for templates anymore.
-				 */
-				result += `  min-height: 100%;\n`
-			}
-		}
-		return result
-	}
-
-	/**
-	 * Normal alignment when places as rows in flex
-	 */
-	getGridParentRowAlignment(widget) {
-		Logger.log(2, "CSSFactory.getGridParentRowAlignment() > as row: ", widget.name, widget)
-
-		let result = ""
-		if (this.isPinnedLeft(widget) && this.isPinnedRight(widget)) {
-			result += `  margin-left: ${this.getPinnedLeft(widget)};\n`
-			result += `  margin-right: ${this.getPinnedRight(widget)};\n`
-		} else if (this.isPinnedLeft(widget)) {
-			if (this.isFixedHorizontal(widget)) {
-				result += `  width: ${this.getFixedWidth(widget)};\n`
-				result += `  margin-left: ${this.getPinnedLeft(widget)};\n`
-			} else {
-				result += `  margin-right: ${this.getResponsiveRight(widget)};\n`
-				result += `  margin-left: ${this.getPinnedLeft(widget)};\n`
-			}
-		} else if (this.isPinnedRight(widget)) {
-			/**
-			 * This is a tricky one.
-			 */
-			if (this.isFixedHorizontal(widget)) {
-				result += `  width: ${this.getFixedWidth(widget)};\n`
-				result += `  margin-left: ${this.getCalcLeft(widget)};\n`
-			} else {
-				/**
-				 * TODO: can we use somehow a reposnive calculated left?
-				 */
-				result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
-				result += `  margin-right: ${this.getPinnedRight(widget)};\n`
-			}
-		} else {
-			/**
-			 * Nothing is pinned.
-			 * We are in a rowGrid, this means the widget is alone. Therefore
-			 * we can set the margin left and right and not the width.
-			 */
-			if (this.isFixedHorizontal(widget)) {
-				if (Util.isCentered(widget)) {
-					result += `  width: ${this.getFixedWidth(widget)};\n`
-					result += `  margin-left: auto;\n`
-					result += `  margin-right: auto;\n`
-				} else {
-					result += `  width: ${this.getFixedWidth(widget)};\n`
-					result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
-				}
-			} else if (Util.hasMinMaxWdith(widget) && Util.isCentered(widget)) {
-				/**
-				 * If we have min max and center we will use minmax with relative width
-				 */
-				result += this.getMinMaxWidth(widget, true)
-				result += `  margin-left: auto;\n`
-				result += `  margin-right: auto;\n`
-			} else {
-				result += `  margin-right: ${this.getResponsiveRight(widget)};\n`
-				result += `  margin-left: ${this.getResponsiveLeft(widget)};\n`
-			}
-		}
-
-		if (Util.isFixedVertical(widget)) {
-			result += `  height: ${this.getCorrectedHeight(widget, true)};\n`
-		} else {
-			result += `  min-height: ${this.getCorrectedHeight(widget, true)};\n`
-		}
-		result += `  margin-top: ${this.getPinnedTop(widget)};\n`
-
-		return result
-	}
-
-
-	/**
-	 * Returns the tracks for the grid. It makes sure the biggest element
-	 * is auto, so the grid is responsive... we could also use minmax()
-	 */
-	getGridColumnTracks(total, list) {
-		Logger.log(6, "CSSFactory.getGridColumnTracks() > ", list)
-
-		if (list) {
-			/**
-			 * We get the max not fixed. Still we would
-			 * need to make sure we get the fixed stuff
-			 */
-			let notFixed = list.filter(i => !i.fixed)
-			if (notFixed.length === 0) {
-				notFixed = list
-			}
-			let max = Math.max(...notFixed.map((i) => i.l))
-
-			return list
-				.map((i) => {
-
-					/**
-					 * Fixed has priority. For rows we have always fixed...
-					 */
-					if (i.fixed) {
-						return i.l + "px"
-					}
-
-					/**
-					 * We might want several autos. This is very sensitive
-					 * to small changes in the editor. Therefore we give a
-					 * small error margin. Use minmax to prevent blowout
-					 * https://css-tricks.com/preventing-a-grid-blowout/
-					 */
-					if (Math.abs(max - i.l) <= this.gridAutoErrorThreshold) {
-						// max === i.l
-						/**
-						 * FIXME: If we have a min max , we use max-content, but only of there
-						 * is more than one column! Otherwise the resizing will not work
-						 * correctly!
-						 */
-						// if (i.hasMinMax && list.length > 1) {
-						// 	return "minmax(0,max-content)" //'1fr'
-						// } else {
-						//	return "minmax(0,1fr)" //'1fr'
-						// }
-						return "minmax(0,1fr)"
-					}
-					return (Math.round((i.l * 1000) / total) / 10 )+ "%"
-				})
-				.join(" ")
-		}
-	}
-
-	getGridRowTracks(total, rows) {
-		Logger.log(6, "CSSFactory.getGridRowTracks() > ", rows)
-		if (rows) {
-			return rows
-				.map((row, index) => {
-					/**
-					 * The last row will be free space, if it is
-					 * not fixed
-					 */
-					if (!row.fixed && index === rows.length - 1) {
-						return "1fr"
-					}
-					/**
-					 * Fixed rows or spacer (no element starts here, or first)
-					 * rows have a fixed size. Everything else is minmax
-					 */
-					if (row.fixed || row.start.length === 0 || index === 0) {
-						return Math.round(row.l) + "px"
-					}
-					return `minmax(${Math.round(row.l)}px, auto)`
-				})
-				.join(" ")
-		}
-	}
 
 	/*********************************************************************
 	 * Position Helpers
@@ -543,7 +837,7 @@ export default class CSSLayouter {
 		if (Util.isFullWidth(widget)) {
 			return "100%"
 		}
-		return widget.w + "px"
+		return this.getCorrectedWidth(widget)
 	}
 
 	getFixedTop(widget) {
@@ -599,7 +893,7 @@ export default class CSSLayouter {
 			 */
 			return Math.round((widget.w * 100) / widget.parent.w) + "%"
 		}
-		Logger.warn("CSSFactory.getResponsiveWidth() > No parent! " + widget.name)
+		Logger.warn("CSSPosition.getResponsiveWidth() > No parent! " + widget.name)
 		return "100%"
 	}
 
@@ -626,6 +920,13 @@ export default class CSSLayouter {
 		})
 
 		/**
+		 * For auto layouts we have the padding in the layout
+		 */
+		if (Util.isLayoutAuto(widget)) {
+			h -= widget.layout.paddingTop
+			h -= widget.layout.paddingBottom
+		}
+		/**
 		 * For templated widgets, we need to also check for
 		 * template padings. Also check for '_padding' and so...
 		 */
@@ -648,6 +949,15 @@ export default class CSSLayouter {
 		if (isPosition && this.ignoreCorrectWidthAndHeigth.indexOf(widget.type) >= 0) {
 			return w + "px"
 		}
+
+		/**
+		 * For auto layouts we have the padding in the layout
+		 */
+		if (Util.isLayoutAuto(widget)) {
+			w -= widget.layout.paddingLeft
+			w -= widget.layout.paddingRight
+		}
+
 		this.widthProperties.forEach((key) => {
 			if (widget.style[key]) {
 				w -= widget.style[key]
@@ -658,100 +968,6 @@ export default class CSSLayouter {
 
 	isFixedHorizontal(widget) {
 		return Util.isFixedHorizontal(widget)
-	}
-
-	/*********************************************************************
-	 * Fixed Position
-	 *********************************************************************/
-
-	getFixedPosition(widget) {
-		let result = "  position: fixed;\n"
-		if (this.isFixedHorizontal(widget)) {
-			result += `  width: ${this.getFixedWidth(widget)};\n`
-		} else {
-			result += `  width: ${this.getResponsiveWidth(widget)};\n`
-		}
-		if (Util.isPinnedLeft(widget)) {
-			result += `  left: ${this.getPinnedLeft(widget)};\n`
-		} else if (Util.isPinnedRight(widget)) {
-			result += `  right: ${this.getPinnedRight(widget)};\n`
-		} else {
-			result += `  left: ${this.getResponsiveLeft(widget)};\n`
-		}
-		if (Util.isPinnedDown(widget)) {
-			result += `  bottom: ${widget.bottom}px;\n`
-		} else {
-			result += `  top: ${widget.y}px;\n`
-		}
-
-		result += `  height: ${this.getCorrectedHeight(widget)};\n`
-
-		/**
-		 * Align children in grid
-		 */
-		result += this.getGridChildAlignment(widget)
-
-		return result
-	}
-
-	getAbsolutePosition(widget) {
-		let result = ""
-
-		/**
-		 * If the widget is on the root level, we use teh screen!
-		 */
-		let w = widget.w
-		let h = widget.h
-		let top = widget.y
-		let left = Math.max(0, widget.x - this.marginWhiteSpaceCorrect)
-		let unitX = "px"
-		let unitY = "px"
-
-		/**
-		 * Take padding and border into account into account
-		 */
-		if (widget.style) {
-			if (widget.style.paddingTop) {
-				h -= widget.style.paddingTop
-			}
-			if (widget.style.paddingBottom) {
-				h -= widget.style.paddingBottom
-			}
-			if (widget.style.paddingLeft) {
-				w -= widget.style.paddingLeft
-			}
-			if (widget.style.paddingRight) {
-				w -= widget.style.paddingRight
-			}
-
-			if (widget.style.borderTopWidth) {
-				h -= widget.style.borderTopWidth
-			}
-			if (widget.style.borderBottomWidth) {
-				h -= widget.style.borderBottomWidth
-			}
-			if (widget.style.borderLeftWidth) {
-				w -= widget.style.borderLeftWidth
-			}
-			if (widget.style.borderRightWidth) {
-				w -= widget.style.borderRightWidth
-			}
-		}
-
-		/**
-		 * To deal with margin collapsing we set things to inline-block. We could
-		 * still check for borders...
-		 */
-		if (this.getSiblings(widget).length > 1) {
-			result += "  display: inline-block;\n"
-		}
-
-		result += `  width: ${w}px;\n`
-		result += `  min-height: ${h}${unitY};\n`
-		result += `  margin-top: ${top}${unitY};\n`
-		result += `  margin-left: ${left}${unitX};\n`
-
-		return result
 	}
 
 	getSiblings(widget) {
