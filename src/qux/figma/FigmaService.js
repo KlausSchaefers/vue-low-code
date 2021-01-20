@@ -16,6 +16,7 @@ export default class FigmaService {
     this.throttleRequestThreshold = 10
     this.throttleRequestTimeout = 1000
     this.pinnRight = false
+    this.errors = []
 
     if (config.figma) {
       if (config.figma.throttleRequestThreshold) {
@@ -88,6 +89,45 @@ export default class FigmaService {
     return headers
   }
 
+  async getRaw (key) {
+    return new Promise ((resolve, reject) => {
+      let url = this.baseURL + 'files/' + key + '?geometry=paths&plugin_data=' + this.pluginId
+      fetch(url, {
+        method: 'get',
+        credentials: "same-origin",
+        headers: this._createDefaultHeader()
+      }).then(resp => {
+        resp.json().then(json => {
+          try {
+            resolve(json)
+          } catch (e) {
+            Logger.error('FigmaService.getRaw() > Error', e)
+            resolve(null)
+          }
+        })
+      }, err => {
+        reject(err)
+      })
+    })
+  }
+
+  getPages (fModel) {
+    Logger.log(-1, 'getPages() > enter')
+    let pages = []
+    let fDoc = fModel.document
+    if (fDoc.children) {
+      fDoc.children.forEach(page => {
+        pages.push({
+          id: page.id,
+          value: page.id,
+          label: page.name
+        })
+      })
+    }
+    Logger.log(-1, 'getPages() > exit', pages)
+    return pages
+  }
+
   async get (key, importChildren = true, allAsVecor = false, selectedPages= []) {
     this.allAsVecor = allAsVecor
     return new Promise ((resolve, reject) => {
@@ -110,7 +150,6 @@ export default class FigmaService {
         reject(err)
       })
     })
-
   }
 
   getImages (key, ids) {
@@ -140,6 +179,7 @@ export default class FigmaService {
 
   async parse (id, fModel, importChildren = true, selectedPages = []) {
     Logger.log(3, 'FigmaService.parse() > enter importChildren:' + importChildren, fModel)
+    this.errors = []
     let model = this.createApp(id, fModel)
     let fDoc = fModel.document
     fModel._elementsById = {}
@@ -150,7 +190,7 @@ export default class FigmaService {
           Logger.log(-1, 'FigmaService.parse() > parse page:' + page.name)
           if (page.children) {
             page.children.forEach(screen => {
-              this.parseScreen(screen, model, fModel, importChildren)
+              this.parseScreen(screen, model, fModel, importChildren, page)
             })
           }
         }
@@ -285,13 +325,13 @@ export default class FigmaService {
   }
 
   async addBackgroundImages(id, model, importChildren) {
-
+    Logger.log(-1, 'FigmaService.addBackgroundImages() > importChildren', importChildren)
     if (this.downloadVectors) {
       let vectorWidgets = this.getElementsWithBackgroundIMage(model, importChildren)
+
       if (vectorWidgets.length > 0) {
         Logger.log(-1, 'FigmaService.addBackgroundImages() > vectors', vectorWidgets.length)
         let batches = this.getChunks(vectorWidgets, this.max_ids)
-
         let promisses = batches.map((batch,i) => {
           return this.addBackgroundImagesBatch(id, batch, i, batches.length)
         })
@@ -312,7 +352,7 @@ export default class FigmaService {
   }
 
   async addBackgroundImagesBatch(id, batch, i, totalNumberOfBatches) {
-    Logger.log(3, 'FigmaService.addBackgroundImagesBatch() > start', i)
+    Logger.log(1, 'FigmaService.addBackgroundImagesBatch() > start', i)
     return new Promise((resolve, reject) => {
       setTimeout( () => {
         let vectorWidgetIds = batch.map(w => w.figmaId).join(',')
@@ -324,6 +364,12 @@ export default class FigmaService {
               let image = images[w.figmaId]
               if (image) {
                 w.props.figmaImage = image
+              } else {
+                Logger.error('FigmaService.addBackgroundImagesBatch() > Cannot get image for ', w)
+                this.errors.push({
+                  type: 'ImageGetError',
+                  data: w
+                })
               }
               resolve(batch)
             })
@@ -356,12 +402,13 @@ export default class FigmaService {
     return result;
   }
 
-  parseScreen (fScreen, model, fModel) {
+  parseScreen (fScreen, model, fModel, importChildren, page) {
     Logger.log(3, 'FigmaService.parseScreen()', fScreen.name)
     let pos = this.getPosition(fScreen)
     let qScreen = {
       id: 's' + this.getUUID(model),
       figmaId: fScreen.id,
+      pageName: page.name,
       name: fScreen.name,
       type: 'Screen',
       x: pos.x,
@@ -399,10 +446,11 @@ export default class FigmaService {
     let widget = null
     if (!this.isIgnored(element) && !this.isInsisible(element)) {
       let pos = this.getPosition(element)
+      let qID = 'w' + this.getUUID(model)
       widget = {
-        id: 'w' + this.getUUID(model),
+        id: qID,
         parentId: qParentId,
-        name: this.getFigmaName(element),
+        name: this.getFigmaName(element, qID),
         type: this.getType(element),
         figmaId: element.id,
         figmaType: element.type,
@@ -473,11 +521,15 @@ export default class FigmaService {
   }
 
 
-  getFigmaName (element) {
+  getFigmaName (element,qID) {
     /**
      * FIXME: Check if teh name is tool long or has spaces or shit...
      */
     let name = element.name
+    if (name.length > 50) {
+      name = qID
+    }
+
     return name.replace(/#/g, '').replace(/\//g, '-').replace(/&/g, '').replace(/,/g, '-')
   }
 
@@ -939,6 +991,7 @@ export default class FigmaService {
   }
 
   getStyle (element, widget) {
+
     let style = {
       fontFamily: 'Helvetica Neue,Helvetica,Arial,sans-serif',
       borderBottomWidth: 0,

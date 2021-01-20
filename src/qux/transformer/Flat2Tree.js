@@ -67,6 +67,9 @@ export function transform(model, config) {
 		screens: [],
 	}
 
+	/**
+	 * IN QUX we want to attach label nodes. In Figma this causes issues. with attachLabels we control for which elements we should use this
+	 */
 	let nodesWithLabelAttachment = config.css && config.css.attachLabels === true ? ["TextBox", "Password", "TextArea", "Box", "Button"] : ["TextBox", "Password", "TextArea"]
 	let hasRows = config.css && config.css.grid !== true
 
@@ -370,7 +373,8 @@ function attachSingleLabelsInNodes(model, node, allowedTypes) {
 		 */
 		let lines = Util.getLines(child, model)
 		if (child.type === "Label" && lines.length === 0) {
-			Logger.log(2, "Falt2Tree.attachSingleLabelsInNodes()", node)
+			//Logger.log(-1, "Falt2Tree.attachSingleLabelsInNodes()", node, child)
+
 			node.props.label = child.props.label
 			node.children = []
 			/**
@@ -389,6 +393,13 @@ function attachSingleLabelsInNodes(model, node, allowedTypes) {
 			node.style.paddingBottom = node.h - child.h - child.y
 			node.style.paddingLeft = child.x
 			node.style.paddingRight = node.w - child.w - child.x
+
+			/**
+			 * If the parent is an auto layout, remove it.
+			 */
+			if (Util.isLayoutAuto(node)) {
+				node.layout = {type: Layout.Row}
+			}
 
 			node.style = Util.fixAutos(node.style, child)
 
@@ -505,7 +516,7 @@ function setFixedChildren(screen, model) {
 	return screen
 }
 
-function setFixedChildrenInElement(element, screen, model, fixBottomNodes = false) {
+function setFixedChildrenInElement(element, screen, model, fixBottomNodes = true) {
 	/**
 	 * Attention. Fixed elements must be set in the model as fixed. Otherwise
 	 * the oder in the tree method is not correct and the will be wrongly nested!
@@ -516,11 +527,15 @@ function setFixedChildrenInElement(element, screen, model, fixBottomNodes = fals
 			if (child.style.fixed === true) {
 				child.x = child._x - screen.x
 				child.y = child._y - screen.y
-				element.parent = screen
-                setAllChildrenAsNotFixed(child)
-                if (fixBottomNodes) {
-                    setFixedBottom(child, model)
-                }
+				// the first call if with the element being the screen
+				if (element.id !== screen.id) {
+					element.parent = screen
+				}
+
+				setAllChildrenAsNotFixed(child)
+				if (fixBottomNodes) {
+					setFixedBottom(child, model)
+				}
 				screen.fixedChildren.push(child)
 			} else {
 				setFixedChildrenInElement(child, screen, model)
@@ -532,23 +547,7 @@ function setFixedChildrenInElement(element, screen, model, fixBottomNodes = fals
 }
 
 function setFixedBottom(element, model) {
-	/**
-	 * If an element (e.g. tabbar) is fixed at the bottom.
-	 */
-	if (Util.isAtBottom(element, model)) {
-		if (!element.props.resize) {
-			element.props.resize = {
-				right: false,
-				up: false,
-				left: false,
-				down: false,
-				fixedHorizontal: false,
-				fixedVertical: false,
-			}
-		}
-		element.props.resize.down = true
-		Logger.log(2, "Falt2Tree.setFixedChildrenInElement() > pinn fixed to bottom", element.name)
-	}
+
 	/**
 	 * IF we have an pinned bottom
 	 */

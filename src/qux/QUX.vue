@@ -137,13 +137,20 @@ export default {
         overlayScreenIds: [],
         hash: false,
         msg: 'Loading...',
-        mergedConfig: Config.getDefault()
+        mergedConfig: Config.getDefault(),
+        deviceType: ''
       }
   },
   computed: {
       treeModel () {
           if (this.model) {
-              let transformer = new ModelTransformer(this.model, this.mergedConfig, this.selected)
+              let model = this.model
+              if (this.mergedConfig.responsive) {
+                model = this.getResponsiveModel(model, this.mergedConfig.responsive)
+              }
+
+
+              let transformer = new ModelTransformer(model, this.mergedConfig, this.selected)
               let tree = transformer.transform()
               this.setGlobalCSS(tree, this.selected)
               return tree
@@ -197,6 +204,32 @@ export default {
       }
   },
   methods: {
+    getResponsiveModel (model, responsive) {
+        let pagesWithTypes = responsive.filter(t => t.types.length > 0)
+        /**
+         * Makre sure we have some configuration
+         */
+        if (pagesWithTypes.length > 0) {
+
+            this.setDeviceType()
+            model = Util.clone(model)
+            let pages = this.mergedConfig.responsive.filter(t => t.types.indexOf(this.deviceType) > -1).map(t => t.value)
+            Logger.log(1, 'QUX.getResponsiveModel() > Pages >', pages.join(','))
+            let filteredScreens = {}
+            Object.values(model.screens).forEach(s => {
+                if (pages.indexOf(s.pageName) > -1) {
+                    filteredScreens[s.id] = s
+                }
+            })
+
+            if (Object.values(filteredScreens).length > 0) {
+                Logger.log(-1, 'QUX.getResponsiveModel() > exit :', this.deviceType)
+                model.screens = filteredScreens
+            }
+
+        }
+        return model
+    },
     setGlobalCSS (tree) {
         let compressed = new CSSOptimizer(this.mergedConfig).runTree(tree)
         let classes = new CSSFactory(this.mergedConfig, this.imagePrefix).generate(compressed)
@@ -421,27 +454,28 @@ export default {
         }
     },
     initReziseListener () {
-        window.addEventListener("resize", this.onResize);
+        window.addEventListener("resize", this.setDeviceType);
     },
-    onResize () {
+    setDeviceType () {
+        Logger.log(3, 'QUX.setDeviceType > enter')
         let w = window.outerWidth
-        let conf = this.mergedConfig.responsive
-        if (w < conf.mobile.max && this.mobileModel) {
-            Logger.log(2, 'QUX.onResize > exit mobile', w)
-            this.model = this.mobileModel
+        let breakpoints = this.mergedConfig.breakpoints
+        if (breakpoints) {
+            if (w < breakpoints.mobile.max) {
+                Logger.log(-1, 'QUX.setDeviceType > exit mobile', w)
+                this.deviceType = 'mobile'
+                return
+            }
+            if (w < breakpoints.tablet.max) {
+                Logger.log(-1, 'QUX.setDeviceType > exit tablet', w)
+                this.deviceType = 'tablet'
+                return
+            }
+
+            Logger.log(-1, 'QUX.setDeviceType > exit desktop', w)
+            this.deviceType = 'desktop'
             return
         }
-        if (w < conf.tablet.max && this.tabletModel) {
-            Logger.log(2, 'QUX.onResize > exit tablet', w)
-            this.model = this.tabletModel
-            return
-        }
-        if (this.desktoModel) {
-            Logger.log(2, 'QUX.onResize > exit desktop', w)
-            this.model = this.desktoModel
-            return
-        }
-        this.initViewModel()
     },
     getMethodExcutor () {
         Logger.log(3, 'QUX.getMethodExcutor() > ')

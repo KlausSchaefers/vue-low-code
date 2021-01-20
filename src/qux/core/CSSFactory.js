@@ -209,7 +209,7 @@ export default class CSSFactory {
 		})
 
 		let end = new Date().getTime()
-		Logger.log(-1, 'CSSFactory.generate() > took ', end - start)
+		Logger.log(1, 'CSSFactory.generate() > took ', end - start)
 		return result
 	}
 

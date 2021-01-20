@@ -10,6 +10,7 @@ export default class ScreenCSS {
     }
 
     run (selector, style, widget) {
+
         let result = ''
         result += selector + ' {\n'
         result += this.cssFactory.getPosition(widget);
@@ -51,6 +52,7 @@ export default class ScreenCSS {
         } else {
             result += '  height:100%;\n'
         }
+
 
         result += '}\n\n'
         return result

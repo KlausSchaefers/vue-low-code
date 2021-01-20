@@ -175,7 +175,7 @@ export default class CSSPosition {
 	 *********************************************************************/
 
 	getChildrenAutoHorizontal (widget) {
-		Logger.log(-5, "CSSPosition.getChildrenAutoHorizontal()" + widget.name)
+		Logger.log(5, "CSSPosition.getChildrenAutoHorizontal()" + widget.name)
 		let result = ''
 
 		let l = widget.layout

@@ -26,7 +26,7 @@ class Config {
 			},
       imageFolder: "/img",
       components: {},
-			responsive: {
+			breakpoints: {
 				mobile: {
 					min: 0,
 					max: 400,
@@ -69,6 +69,10 @@ class Config {
 		}
 		if (overwrites.designletPrefix) {
 			config.designletPrefix = overwrites.designletPrefix
+		}
+
+		if (overwrites.responsive) {
+			config.responsive = overwrites.responsive
 		}
 
     return config
