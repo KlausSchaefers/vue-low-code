@@ -20,6 +20,10 @@
 .qux-action {
     cursor: pointer;
     text-decoration: none;
+
+    * {
+        cursor: pointer;
+    }
 }
 
 /* This could be better with a grid, but then

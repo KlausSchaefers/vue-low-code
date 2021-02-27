@@ -1,5 +1,5 @@
 <template>
-  <div :class="['qux-upload-preview', cssClass]" @click="onClick" :style="{'backgroundImage': src}" >
+  <div :class="['qux-upload-preview', cssClass, {'qux-upload-preview-border': hasBorder}]" @click="onClick" :style="{'backgroundImage': src}" >
   </div>
 </template>
 <style lang="scss">
@@ -20,11 +20,18 @@ export default {
       }
   },
   computed: {
+    hasBorder () {
+      let file = this.dataBindingInput
+      return file === null || file === undefined
+    },
     src () {
       let file = this.dataBindingInput
-      if (file.name && file.size) {
+      if (file && file.name && file.size) {
         this.setFile()
         return this.dataURL
+      }
+      if (file && file.url) {
+        return `url(${file.url})`
       }
       return this.placeholder
     }
@@ -52,7 +59,7 @@ export default {
       return url
     },
     setFile () {
-      Logger.log(2, 'qUploadPreview.setFile()')
+      Logger.log(1, 'qUploadPreview.setFile()')
       let file = this.dataBindingInput
       if (file && file.name && file.size) {
         let reader = new FileReader()

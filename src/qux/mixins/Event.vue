@@ -63,7 +63,7 @@ export default {
         if (element.lines) {
             let line = Util.getClickLine(element)
             if (line) {
-                this.executeLine(line)
+                this.executeLine(line, value)
                 this.stopEvent(e)
             }
         }
@@ -89,12 +89,12 @@ export default {
         }
     },
 
-    executeLine(line) {
-        Logger.log(0, 'QUX.executeLine() > enter', line)
+    executeLine(line, value) {
+        Logger.log(-1, 'QUX.executeLine() > enter', line, value)
         if (line) {
             let box = Util.getBoxById(line.to, this.model)
             if (box.type === 'Screen') {
-                this.navigateToScreen(box, line)
+                this.navigateToScreen(box, line, value)
                 return
             } else if (box.type === 'Rest') {
                 this.executeRest(box, line)
@@ -116,6 +116,14 @@ export default {
             let callback = element.props.callbacks[type]
             if (callback) {
                 Logger.log(2, 'QUX.dispatchCallback() > callback > ' + type, callback)
+
+                if (this.actionEngine && this.actionEngine.hasAction(callback)) {
+                    Logger.log(-1, 'QUX.dispatchCallback() > action engine: ', callback)
+                    let result = await this.actionEngine.executeAction(this.app, callback, this.value)
+                    this.handleCallbackResult(result, callback)
+                    return
+                }
+
                 let executor = this.getMethodExcutor()
                 if (executor) {
                     if (executor[callback]) {
@@ -162,17 +170,26 @@ export default {
         }
     },
 
-    navigateToScreen (screen, line) {
+    navigateToScreen (screen, line, value) {
         if (screen.style && screen.style.overlay === true) {
             Logger.log(1, 'Qux(Event).navigateToScreen() > Overlay', screen.name)
             this.overlayScreenIds.push(screen.id)
         } else {
             Logger.log(1, 'Qux(Event).navigateToScreen() > Link', screen.name)
             this.overlayScreenIds = []
-            this.setScreen(screen.name)
+            this.setScreen(screen.name, this.getValueQuery(value))
             if (!line || line.scroll !== true) {
                 this.scrollToTop()
             }
+        }
+    },
+
+    getValueQuery (value) {
+        /**
+         * We have here the magic *id* property that can come from a repeater!
+         */
+        if (value && value.id) {
+            return `id=${value.id}`
         }
     },
 

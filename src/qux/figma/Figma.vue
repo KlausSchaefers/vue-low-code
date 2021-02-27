@@ -116,6 +116,9 @@ export default {
         if (c.debug) {
             this.mergedConfig.debug = Util.mixin(this.mergedConfig.debug, c.debug)
         }
+        if (c.responsive) {
+            this.mergedConfig.responsive = c.responsive
+        }
         if (c.figma) {
           this.mergedConfig.figma = Util.mixin(this.mergedConfig.figma, c.figma)
         }

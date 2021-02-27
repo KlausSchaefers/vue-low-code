@@ -162,6 +162,13 @@ function addLayoutType (element) {
 	 * 3) Grid -> Default
 	 */
 
+	/**
+		* FIXME: This might override Figma grow stuff.
+	  */
+	let grow = 0
+	if (element.layout && element.layout.grow !== undefined) {
+		grow = element.layout.grow
+	}
 	if (!Util.isLayoutAuto(element)) {
 
 		/**
@@ -169,16 +176,16 @@ function addLayoutType (element) {
 		 */
 		if (Util.isWrappedContainer(element)) {
 
-			element.layout = {type: Layout.Wrap}
+			element.layout = {type: Layout.Wrap, grow: grow}
 			setOrderInWrapper(element, element.children)
 
 		} else if (Util.hasRowLayout(element)) {
 
-			element.layout = {type: Layout.Row}
+			element.layout = {type: Layout.Row, grow: grow}
 			setOrderInRow(element, element.children, false)
 
 		} else {
-			element.layout = {type: Layout.Grid}
+			element.layout = {type: Layout.Grid, grow: grow}
 		}
 	}
 

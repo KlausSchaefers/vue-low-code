@@ -27,14 +27,15 @@ test('Test Image Fills', async () => {
   expect(model).not.toBeNull()
 
   let screen = model.screens[0]
+  expect(screen).not.toBeUndefined()
 
   // here should be only two children, but the scrolls are created as vectors,
   // that's why the things are not embedded
 
-  console.debug(TestUtil.print(screen))
+  //console.debug(TestUtil.print(screen))
 
   // FIXME: now test that the elements are correctly embedded.
   // expect(screen.children.length).toBe(2)
 
-  console.debug(screen.grid)
+
 });

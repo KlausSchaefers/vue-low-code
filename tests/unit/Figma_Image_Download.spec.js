@@ -13,7 +13,6 @@ test('Test Luisa Landing', async () => {
 
   let placeHolderWidget = Object.values(app.widgets).find(w => w.figmaId === '124:388')
   expect(placeHolderWidget).not.toBeUndefined()
-  console.debug(placeHolderWidget)
 
   let nodesWithImages = figmaService.getElementsWithBackgroundIMage(app, true)
   let placeHolderWidget2 = nodesWithImages.find( w => w.figmaId === '124:388')

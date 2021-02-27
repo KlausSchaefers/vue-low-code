@@ -110,7 +110,6 @@ export default class CSSPosition {
 			return this.getParentAutoVertical(widget)
 		}
 
-
 		if (Util.isLayoutRow(parent)) {
 			return this.getParentRow(widget)
 		}
@@ -443,7 +442,7 @@ export default class CSSPosition {
 	}
 
 	getWrappedWidth(widget) {
-		Logger.log(3, "CSSPosition.getWrappedWidth() " + widget.name, Util.hasMinMaxWdith(widget))
+		Logger.log(5, "CSSPosition.getWrappedWidth() " + widget.name, Util.hasMinMaxWdith(widget))
 		if (Util.hasMinMaxWdith(widget)) {
 			return this.getMinMaxWidth(widget, true)
 		}
@@ -497,7 +496,7 @@ export default class CSSPosition {
 		}
 
 		if (Util.isLayoutAutovertical(widget)) {
-			return this.getChildrenAutovertical(widget)
+			return this.getChildrenAutoVertical(widget)
 		}
 
 		/**
@@ -943,6 +942,7 @@ export default class CSSPosition {
 	}
 
 	getCorrectedWidth(widget, isPosition = false, w = -1) {
+
 		if (w < 0) {
 			w = widget.w
 		}
@@ -963,6 +963,8 @@ export default class CSSPosition {
 				w -= widget.style[key]
 			}
 		})
+
+
 		return w + "px"
 	}
 

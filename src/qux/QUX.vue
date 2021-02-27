@@ -53,6 +53,8 @@ import ModelTransformer from './core/ModelTransformer'
 import CSSOptimizer from './core/CSSOptimizer'
 import CSSFactory from './core/CSSFactory'
 import CSSWriter from './core/CSSWriter'
+import ActionEngine from './actions/ActionEngine'
+
 import Vue from 'vue'
 
 import Button from './web/Button.vue'
@@ -124,6 +126,9 @@ export default {
             return {
             }
         }
+      },
+      'actions': {
+        type: Array
       }
   },
   data: function () {
@@ -148,8 +153,6 @@ export default {
               if (this.mergedConfig.responsive) {
                 model = this.getResponsiveModel(model, this.mergedConfig.responsive)
               }
-
-
               let transformer = new ModelTransformer(model, this.mergedConfig, this.selected)
               let tree = transformer.transform()
               this.setGlobalCSS(tree, this.selected)
@@ -248,7 +251,7 @@ export default {
             this.model = model
             this.hash = app
         } else if (app.mobile || app.desktop) {
-            Logger.log(1, 'QUX.setApp() > reponsive', app)
+            Logger.error('DEPRECTAED: QUX.setApp() > reponsive', app)
             if (app.mobile) {
                 if (app.mobile.substring) {
                     this.mobileModel = await this.loadAppByKey(app.mobile)
@@ -289,14 +292,20 @@ export default {
             this.msg = 'The debug id is wrong!'
         }
     },
-    setScreen (screenName) {
-        Logger.log(2, 'QUX.setScreen() > ', screenName)
+    setScreen (screenName, query) {
+        Logger.log(2, 'QUX.setScreen() > ', screenName, query)
         // Update url, which will trigger watcher, which will call setScreenByRouter() which will call loadScreen()
         let prefix = ''
         if (this.config && this.config.router && this.config.router.prefix) {
             prefix = this.config.router.prefix + '/'
         }
         let url = `#/${prefix}${screenName}.html`
+        /**
+         * FIXME: Check if the hash has 'url', 'app' or 'version' in the query. Keep it?
+         */
+        if (query) {
+            url += '?' + query
+        }
         location.hash = url
     },
     loadScreen (name) {
@@ -511,6 +520,9 @@ export default {
       if (this.config) {
           this.setConfig(this.config)
       }
+      if (this.actions && this.actions.length > 0) {
+        this.actionEngine = new ActionEngine(this.actions)
+      }
       if (this.app) {
           await this.setApp(this.app)
       }
@@ -527,6 +539,8 @@ export default {
       } else {
           Logger.log(-1, 'QUX.mounted() > Selected:', this.selected, this.app)
       }
+
+
 
       this.initReziseListener()
   },

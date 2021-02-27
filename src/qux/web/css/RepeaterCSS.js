@@ -40,7 +40,7 @@ export default class RepeaterCSS {
     }
 
     getChildrenAuto(selector, widget, boundingBox) {
-      Logger.log(5, 'RepeaterCSS.getChildrenAuto () > ', widget)
+      Logger.log(3, 'RepeaterCSS.getChildrenAuto () > ', widget, boundingBox)
       let result = ''
       let height = this.cssFactory.getFixedHeight(boundingBox)
       result += `  height: ${height};\n`;
@@ -49,11 +49,18 @@ export default class RepeaterCSS {
     }
 
     getChildrenRow (selector, widget, boundingBox) {
-      Logger.log(5, 'RepeaterCSS.getChildrenRow () > ', widget)
+      Logger.log(3, 'RepeaterCSS.getChildrenRow () > ', widget)
       let result = ''
 
       result += this.cssFactory.getWrappedWidth(boundingBox);
       result += `  margin-bottom:${widget.props.distanceY}px;\n`;
+
+      if (boundingBox.x > 0) {
+        result += `  margin-left:${boundingBox.x}px;\n`;
+      }
+      if (boundingBox.y > 0) {
+        result += `  margin-top:${boundingBox.y}px;\n`;
+      }
 
       return result
     }

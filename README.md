@@ -156,7 +156,7 @@ qux component.
 
 The config object can have the following properties and hsould be defined in the data section of the home component.
 
-```vue
+```javascript
     config: {
         css: {
           grid: true, // Use CSS grid to align objects. False will use CSS-Flex.

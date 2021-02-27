@@ -1,7 +1,7 @@
 <template>
   <div :class="['qux-combo', cssClass,{ 'qux-error': hasError }, { 'qux-open': isOpen }]">
-    <input class="qux-combo-input" @keyup="onKeyPress" v-model="inputValue" :placeholder="placeholder"/>
-    <div class="qux-combo-popup" v-if="isOpen">
+    <input class="qux-combo-input" @keyup="onKeyPress" v-model="inputValue" :placeholder="placeholder" @change="onInputChange" @blur="onBlur" ref="comboInput"/>
+    <div class="qux-combo-popup" v-if="isOpen && matches.length > 0">
       <span
         v-for="(o, i) in matches"
         :key="o.label"
@@ -30,7 +30,7 @@ export default {
       isOpen: false,
       selected: null,
       matches: [],
-      selectedIndex: 0
+      selectedIndex: -1
     }
   },
   computed: {
@@ -41,18 +41,16 @@ export default {
       return ''
     },
     hints() {
-      if (this.element) {
-        return this.options.map(o => {
-          if (o.toLowerCase) {
-            return {
-              label: o,
-              value: o
-            }
+      return this.options.map(o => {
+        if (o.toLowerCase) {
+          return {
+            label: o,
+            value: o
           }
-          return o
-        })
-      }
-      return []
+        }
+        return o
+      })
+
     },
     selectOption() {
       if (this.element) {
@@ -94,16 +92,32 @@ export default {
         return
       }
 
+      if (27 == key) {
+        this.onInputChange()
+        this.close()
+        return
+      }
+
       if (13 == key) {
+        Logger.log(-5, "qCombo.handleArrows()", this.selectedIndex, this.matches)
         if (this.selectedIndex >= 0 && this.selectedIndex < this.matches.length) {
           this.select(this.matches[this.selectedIndex])
           return
         }
-        if (this.suggestions.length == 1) {
-          this.onSelect(this.matches[0])
-          return
-        }
+        this.onInputChange()
+        this.close()
+        return
       }
+      this.selectedIndex = -1
+    },
+    blur () {
+      if (this.$refs.comboInput) {
+        this.$refs.comboInput.blur()
+      }
+    },
+    onBlur () {
+      this.onInputChange()
+      this.close()
     },
     open() {
       Logger.log(5, "qCombo.open()")
@@ -113,27 +127,33 @@ export default {
       }
     },
     close() {
-      Logger.log(5, "qCombo.close()")
+      Logger.log(-5, "qCombo.close()")
       this.isOpen = false
-      this.selectedIndex = 0
+      this.selectedIndex = -1
       if (this._bodyListener) {
         this._bodyListener.remove()
       }
     },
+    onInputChange () {
+      Logger.log(-5, "qCombo.onInputChange()", this.inputValue)
+      if (this.element) {
+        this.onValueChange(this.inputValue, "default")
+      } else {
+        this.selected = this.inputValue
+        this.$emit("change", this.selected)
+        this.$emit("input", this.selected)
+      }
+    },
     select(option) {
-      Logger.log(5, "qCombo.select()", option)
+      Logger.log(-5, "qCombo.select()", option.value)
       if (this.element) {
         this.onValueChange(option.value, "default")
-        Logger.log(
-          5,
-          "qCombo.toggle() >" + this.dataBindingInputPath,
-          option.value
-        )
+        Logger.log( 5,"qCombo.toggle() >" + this.dataBindingInputPath, option.value)
       } else {
         this.selected = option.value
         this.$emit("change", this.selected)
         this.$emit("input", this.selected)
-        Logger.log(5, "qSwitch.select() >" + this.selected)
+        Logger.log(5, "qCombo.select() >" + this.selected)
       }
       this.inputValue = option.label
       this.close()
@@ -144,7 +164,10 @@ export default {
     this.close()
   },
   mounted() {
-    Logger.log(5, "qCombo.mounted() enter")
+    Logger.log(1, "qCombo.mounted() enter", this.value)
+    if (!this.element) {
+      this.inputValue = this.value
+    }
   }
 }
 </script>

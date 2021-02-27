@@ -19,7 +19,8 @@ export function isLayoutGrow (e) {
 
 
 export function isLayoutAuto(e) {
-    return e.layout !== undefined && (e.layout.type === Layout.AutoHorizontal || e.layout.type === Layout.AutoVertical || e.layout.align !== undefined)
+    // why did check for this??? || e.layout.align !== undefined Take a look at auto fixed. This is somehow needed for the growth
+    return e.layout !== undefined && (e.layout.type === Layout.AutoHorizontal || e.layout.type === Layout.AutoVertical ) //|| e.layout.align !== undefined
 }
 
 export function isLayoutAutoHorizontal(e) {
@@ -347,7 +348,7 @@ export function hasOverlayBackground(screen) {
 }
 
 export function hasMinMaxWdith(screen) {
-    return screen.style && (screen.style.minWidth > 0 || screen.style.maxWidth > 0)
+    return screen.style !== undefined && (screen.style.minWidth > 0 || screen.style.maxWidth > 0)
 }
 
 
@@ -599,7 +600,7 @@ export function getBoundingBoxByIds (ids, model) {
 
 export function getBoundingBoxByBoxes (boxes) {
 
-    var result = { x: 100000000, y: 100000000, w: 0, h: 0, z: 100000000, props: {resize: {}}};
+    var result = { x: 100000000, y: 100000000, w: 0, h: 0, z: 100000000, props: {resize: {}}, style: {}};
 
     for (var i = 0; i < boxes.length; i++) {
         var box = boxes[i];

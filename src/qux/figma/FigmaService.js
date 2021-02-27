@@ -570,7 +570,7 @@ export default class FigmaService {
     if (element.pluginData && element.pluginData[this.pluginId]) {
       let pluginData = element.pluginData[this.pluginId]
       if (pluginData.quxType) {
-        Logger.log(3, 'FigmaService.getPluginData() > quxType : ', pluginData.quxType, element.name)
+        Logger.log(-1, 'FigmaService.getPluginData() > quxType : ', pluginData.quxType, element.name)
         widget.type = pluginData.quxType
         widget.props.placeholder = true
 
@@ -581,6 +581,10 @@ export default class FigmaService {
           Logger.log(2, 'FigmaService.getPluginData() > quxSmartContainerType : ', pluginData.quxSmartContainerType, element.name)
           widget.type = pluginData.quxSmartContainerType
           widget.smartContainerType = pluginData.quxSmartContainerType
+        }
+
+        if (pluginData.quxType === 'Image' && pluginData.quxDataBindingDefault) {
+          widget.type = 'UploadPreview'
         }
 
       }
@@ -817,8 +821,6 @@ export default class FigmaService {
   }
 
   getLayout (fElement, qElement) {
-
-
 
     if (fElement.layoutMode === 'HORIZONTAL') {
       qElement.layout.type = Layout.AutoHorizontal

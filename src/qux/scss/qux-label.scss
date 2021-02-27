@@ -1,3 +1,36 @@
 .qux-label{
     display: inline-block;
+
+    .qux-richtext {
+        h1 {
+            font-size: 150%;
+            font-weight: 600;
+        }
+
+        h2 {
+            font-size: 140%;
+            font-weight: 600;
+        }
+
+        h3 {
+            font-size: 130%;
+            font-weight: 600;
+        }
+
+        h4 {
+            font-size: 120%;
+            font-weight: 600;
+        }
+
+        h5 {
+            font-size: 100%;
+            font-weight: 600;
+        }
+
+        h6 {
+            font-size: 100%;
+            font-weight: 600;
+        }
+
+    }
 }

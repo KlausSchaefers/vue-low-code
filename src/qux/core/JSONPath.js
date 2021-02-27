@@ -28,6 +28,8 @@ class JSONPath {
             i++
             if (elements.length > 0) {
                 if (!node[current]) {
+                    // FIXME: This looks like a bug! This should be always true?? But be careful because of
+                    // the repeater...
                     if (elements[0].toLowerCase) {
                         this._set(node, current, {});
                     } else {
