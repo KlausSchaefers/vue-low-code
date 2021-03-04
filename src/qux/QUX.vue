@@ -216,7 +216,7 @@ export default {
 
             this.setDeviceType()
             model = Util.clone(model)
-            let pages = this.mergedConfig.responsive.filter(t => t.types.indexOf(this.deviceType) > -1).map(t => t.value)
+            let pages = this.mergedConfig.responsive.filter(t => t.types.indexOf(this.deviceType) > -1).map(t => t.page)
             Logger.log(1, 'QUX.getResponsiveModel() > Pages >', pages.join(','))
             let filteredScreens = {}
             Object.values(model.screens).forEach(s => {

@@ -70,8 +70,8 @@ export function transform(app, config) {
 function setTemplateStyles(model) {
 	if (model.templates) {
 		Object.values(model.templates).forEach((t) => {
-			t.cssSelector = `.qux-template-${t.name.replace(/\s+/g, "_")}`
-			t.cssClass = `qux-template-${t.name.replace(/\s+/g, "_")}`
+			t.cssSelector = `.qux-template-${t.name}`
+			t.cssClass = `qux-template-${t.name}`
 			/**
 			 * TODO: Make faster with lookup map...
 			 */
@@ -193,6 +193,7 @@ function fixHorizontal(model) {
 function fixNames(model) {
 	let screens = Object.values(model.screens)
 	screens.forEach((screen, j) => {
+		screen.name = fixElementName(screen.name)
 		let otherScreensWithSameName = screens.filter((o) => o.name === screen.name)
 		if (otherScreensWithSameName.length > 1) {
 			Logger.log(3, "Quant2Flat.fixNames() > Fix double screen name:" + screen.name)
@@ -206,6 +207,7 @@ function fixNames(model) {
 			})
 
 			widgets.forEach((w, i) => {
+				w.name = fixElementName(w.name)
 				let others = widgets.filter((o) => o.name === w.name)
 				if (others.length > 1) {
 					Logger.log(3, "Quant2Flat.fixNames() > Fix double widget name: " + w.name + " in screen " + screen.name)
@@ -214,6 +216,12 @@ function fixNames(model) {
 			})
 		}
 	})
+
+	if (model.templates) {
+		Object.values(model.templates).forEach((t) => {
+			t.name = fixElementName(t.name)
+		})
+	}
 
 	/**
 	 * DEPREACTED SHOULD NEVER BE CALLED: We should fix doubles names. With mastre screens
@@ -233,6 +241,10 @@ function fixNames(model) {
 		})
 	}
 	return model
+}
+
+function fixElementName (str) {
+	return str.replace(/[^0-9a-z-]/gi, '')
 }
 
 function addGroupWrapper(screen, model) {

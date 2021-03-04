@@ -27,7 +27,8 @@ test('Test Page name added', async () => {
   expect(model).not.toBeNull()
 
   let screen = model.screens[0]
-  expect(screen.figmaScreenName).toBe('Page 1')
+  console.debug(screen)
+  expect(screen.pageName).toBe('Page 1')
 
 
 });
