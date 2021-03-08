@@ -1118,7 +1118,7 @@ export default class FigmaService {
 
       if (element.style) {
         let fStyle = element.style
-        style.fontSize = fStyle.fontSize
+        style.fontFamily = fStyle.fontFamily
         style.fontSize = fStyle.fontSize
         style.fontWeight = fStyle.fontWeight
         style.lineHeight = fStyle.lineHeightPercent / 100 // this has a different weird formular! https://help.figma.com/text/line-height
