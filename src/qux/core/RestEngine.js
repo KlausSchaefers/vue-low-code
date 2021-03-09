@@ -39,6 +39,12 @@ class RestEngine {
         return data;
     }
 
+    async buildToken (request, values) {
+        let data = await this.fillString(request.token, values, true);
+        Logger.log(-1, "RestEngine.buildToken", "exit" ,data)
+        return data;
+    }
+
     async fillString (s, values, encodeFiles = true) {
         for (let key in values) {
             let value = await this.getStringFilelValue(values[key], encodeFiles)

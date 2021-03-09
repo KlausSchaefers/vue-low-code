@@ -5,6 +5,7 @@
 <script>
 import Logger from '../core/Logger'
 import * as Util from '../core/ExportUtil'
+import JSONPath from '../core/JSONPath'
 
 export default {
   name: 'Event',
@@ -12,6 +13,7 @@ export default {
 
     onScreenLoaded (screen) {
         Logger.log(3, 'QUX.onScreenLoaded() > ', screen)
+        this.setSystemVariable('screen', screen.name)
         this.$emit('qScreenLoad', {
             value: this.value,
             element: screen,
@@ -248,6 +250,10 @@ export default {
 
     onMouseOut (element, e) {
         this.$emit('qMouseOut', element, e)
+    },
+
+    setSystemVariable (key, value) {
+        JSONPath.set(this.value, '_qux.' + key, value)
     }
   }
 }
