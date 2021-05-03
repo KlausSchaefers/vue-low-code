@@ -209,6 +209,7 @@ export default {
   methods: {
     getResponsiveModel (model, responsive) {
         let pagesWithTypes = responsive.filter(t => t.types.length > 0)
+
         /**
          * Makre sure we have some configuration
          */
@@ -217,7 +218,7 @@ export default {
             this.setDeviceType()
             model = Util.clone(model)
             let pages = this.mergedConfig.responsive.filter(t => t.types.indexOf(this.deviceType) > -1).map(t => t.page)
-            Logger.log(1, 'QUX.getResponsiveModel() > Pages >', pages.join(','))
+            Logger.log(-1, 'QUX.getResponsiveModel() > Pages >' + this.deviceType, pages.join(','))
             let filteredScreens = {}
             Object.values(model.screens).forEach(s => {
                 if (pages.indexOf(s.pageName) > -1) {

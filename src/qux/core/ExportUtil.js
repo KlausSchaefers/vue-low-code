@@ -774,6 +774,11 @@ export function createInheritedModel(model) {
             }
         }
     }
+
+    /**
+     * Inline designtokens. must come last, otherwise master screen widgets are not correctly filled.
+     */
+    inModel = inlineModelDesignTokens(inModel)
     return inModel;
 }
 
@@ -833,6 +838,67 @@ export function createContaineredModel(inModel) {
         }
     }
 }
+
+function inlineModelDesignTokens (model) {
+    /**
+     * This is quite costly. Can we do this smarter? Maybe we could do it in the
+     * RenderFactory (beawre of hover etc). Then we would have to just add here
+     * for all the reference design token the modified?
+     */
+    if (model.designtokens) {
+        for (let widgetID in model.widgets) {
+            let widget = model.widgets[widgetID]
+            inlineBoxDesignToken(widget, model)
+        }
+        for (let screenId in model.screens) {
+            let scrn = model.screens[screenId]
+            inlineBoxDesignToken(scrn, model)
+        }
+        /**
+         * FIXME Add tempaltes
+         */
+    }
+    return model
+}
+
+function inlineBoxDesignToken (box, model) {
+    /**
+     * If the box is templates, we copy all the designtokens from the template
+     */
+    if (box && box.template && model.templates && model.templates[box.template]) {
+        let template = model.templates[box.template]
+        if (template.designtokens) {
+            /**
+             * We could mix this in....
+             */
+            box.designtokens = template.designtokens
+        }
+    }
+    if (box && box.designtokens) {
+        let designtokens = box.designtokens
+        for (let state in designtokens) {
+            if (!box[state]) {
+                box[state] = {}
+            }
+            let stateTokens = designtokens[state]
+            for (let cssProp in stateTokens) {
+                let designTokenId = stateTokens[cssProp]
+                let designToken = model.designtokens[designTokenId]
+                if (designToken) {
+                    if (designToken.isComplex) {
+                        box[state][cssProp] = designToken.value[cssProp]
+                    } else {
+                        box[state][cssProp] = designToken.value
+                    }
+                } else {
+                    console.warn('ModelUtil.inlineBoxDesignToken() > NO token with id or no value:' + designTokenId, designToken)
+                }
+            }
+        }
+    }
+    return box
+}
+
 
 export function copyTemplateStyles(model) {
     if (model.templates) {
