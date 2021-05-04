@@ -44,6 +44,7 @@ export default class CSSFactory {
 			"fontWeight" : "font-weight",
 			"letterSpacing" : "letter-spacing",
 			"lineHeight" : "line-height",
+			"textTransform": "text-transform",
 
 			"border": "border",
 			"borderWidth": "border-width",

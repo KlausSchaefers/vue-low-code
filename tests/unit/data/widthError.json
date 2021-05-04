@@ -1,0 +1,927 @@
+{
+  "_id" : "608fdcdc295894e6d285a670",
+  "version" : 2.1,
+  "name" : "LowCode_Width_Issue",
+  "description" : "",
+  "screenSize" : {
+    "w" : 375,
+    "h" : 667
+  },
+  "type" : "smartphone",
+  "screens" : {
+    "s10000" : {
+      "x" : 1922,
+      "y" : 2318,
+      "h" : 667,
+      "w" : 375,
+      "name" : "Start",
+      "type" : "Screen",
+      "style" : {
+        "background" : "#0f2f47",
+        "backgroundImage" : {
+          "name" : "a7c6b8d960cde1218d01a45c4d6ccfd5.jpeg",
+          "url" : "608fdcdc295894e6d285a670/a2aa10a8FIYQ7LztJ8W1F6HFea36eBjQykikMMw6rP5WD4I8sF5DFAH24A6K.jpeg",
+          "w" : 640,
+          "h" : 1280
+        }
+      },
+      "min" : {
+        "w" : 375,
+        "h" : 667
+      },
+      "has" : {
+        "image" : true
+      },
+      "props" : {
+        "start" : true
+      },
+      "children" : [ "w11559", "w11560", "w11561", "w11562", "w11563", "w11564", "w11565", "w11566", "w11569", "w11570", "w11567", "w11568" ],
+      "id" : "s10000",
+      "modified" : 1620040738609,
+      "parents" : [ "s11572" ]
+    },
+    "s10006" : {
+      "x" : 2741,
+      "y" : 2319,
+      "h" : 667,
+      "w" : 375,
+      "name" : "NotificationSoftCrying",
+      "type" : "Screen",
+      "style" : {
+        "background" : "rgba(177, 176, 175, 0.99)",
+        "overlay" : false,
+        "backgroundImage" : {
+          "name" : "a7c6b8d960cde1218d01a45c4d6ccfd5.jpeg",
+          "url" : "608fdcdc295894e6d285a670/a2aa10a8FIYQ7LztJ8W1F6HFea36eBjQykikMMw6rP5WD4I8sF5DFAH24A6K.jpeg",
+          "w" : 640,
+          "h" : 1280
+        }
+      },
+      "min" : {
+        "w" : 375,
+        "h" : 667
+      },
+      "has" : {
+        "image" : true
+      },
+      "props" : {
+        "start" : false,
+        "callbacks" : {
+          "load" : "setCrying"
+        }
+      },
+      "children" : [ "w11594", "w11595", "w11596", "w11597", "w11598", "w11599" ],
+      "id" : "s10006",
+      "modified" : 1620040722528,
+      "animation" : {
+        "ScreenLoaded" : {
+          "widgets" : {
+            "w11594" : {
+              "duration" : 500,
+              "delay" : 0,
+              "type" : "fadeIn",
+              "easing" : null
+            }
+          },
+          "groups" : {
+            "g11600" : {
+              "duration" : 500,
+              "delay" : 200,
+              "type" : "fadeIn",
+              "easing" : null
+            }
+          }
+        }
+      },
+      "parents" : [ "s11572" ]
+    },
+    "s11572" : {
+      "x" : 1922,
+      "y" : 1508,
+      "h" : 668,
+      "w" : 375,
+      "name" : "HomeMaster",
+      "type" : "Screen",
+      "style" : {
+        "background" : "#0f2f47",
+        "backgroundImage" : {
+          "name" : "a7c6b8d960cde1218d01a45c4d6ccfd5.jpeg",
+          "url" : "608fdcdc295894e6d285a670/a2aa10a8FIYQ7LztJ8W1F6HFea36eBjQykikMMw6rP5WD4I8sF5DFAH24A6K.jpeg",
+          "w" : 640,
+          "h" : 1280
+        }
+      },
+      "min" : {
+        "w" : 375,
+        "h" : 667
+      },
+      "has" : {
+        "image" : true
+      },
+      "props" : { },
+      "children" : [ "w11573", "w11574" ],
+      "id" : "s11572",
+      "modified" : 1620040176566
+    }
+  },
+  "widgets" : {
+    "w11559" : {
+      "type" : "Button",
+      "name" : "Notification1Background",
+      "x" : 1938,
+      "y" : 2542,
+      "w" : 344,
+      "h" : 104,
+      "z" : 290,
+      "props" : {
+        "label" : ""
+      },
+      "has" : {
+        "backgroundColor" : true,
+        "border" : true,
+        "label" : true,
+        "padding" : true,
+        "onclick" : true
+      },
+      "actions" : { },
+      "style" : {
+        "fontSize" : 14,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#ffffff",
+        "borderTopRightRadius" : 8,
+        "borderTopLeftRadius" : 8,
+        "borderBottomRightRadius" : 8,
+        "borderBottomLeftRadius" : 8,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "background" : "rgba(255, 255, 255, 0.72)",
+        "paddingTop" : 0,
+        "paddingBottom" : 0,
+        "paddingLeft" : 0,
+        "paddingRight" : 0
+      },
+      "id" : "w11559",
+      "created" : 1620034173761,
+      "modified" : 1620040481172,
+      "copyOf" : "w10011"
+    },
+    "w11560" : {
+      "type" : "Label",
+      "name" : "Label 3",
+      "x" : 2202,
+      "y" : 2550,
+      "w" : 64,
+      "h" : 16,
+      "z" : 291,
+      "props" : {
+        "label" : "NOW"
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : 12,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "right",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "rgba(88, 88, 88, 0.84)",
+        "textShadow" : null,
+        "fontWeight" : "bold"
+      },
+      "id" : "w11560",
+      "created" : 1620034212280,
+      "modified" : 1620040481215
+    },
+    "w11561" : {
+      "type" : "Label",
+      "name" : "Label",
+      "x" : 1954,
+      "y" : 2598,
+      "w" : 264,
+      "h" : 40,
+      "z" : 292,
+      "props" : {
+        "label" : "Thomas is awake and crying, best you have a look."
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : "16",
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "#333333"
+      },
+      "id" : "w11561",
+      "created" : 1620037973374,
+      "modified" : 1620040481252,
+      "copyOf" : "w10012"
+    },
+    "w11562" : {
+      "type" : "Label",
+      "name" : "Label 4",
+      "x" : 1954,
+      "y" : 2574,
+      "w" : 192,
+      "h" : 16,
+      "z" : 293,
+      "props" : {
+        "label" : "Scenario Crying"
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : "16",
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "#333333",
+        "textShadow" : null,
+        "fontWeight" : "bold"
+      },
+      "id" : "w11562",
+      "created" : 1620037996006,
+      "modified" : 1620040481290
+    },
+    "w11563" : {
+      "type" : "Label",
+      "name" : "Label 5",
+      "x" : 1970,
+      "y" : 2550,
+      "w" : 192,
+      "h" : 16,
+      "z" : 294,
+      "props" : {
+        "label" : "Philips"
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : 16,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "rgba(73, 73, 73, 0.71)",
+        "textShadow" : null,
+        "fontWeight" : "bold"
+      },
+      "id" : "w11563",
+      "created" : 1620038084086,
+      "modified" : 1620040481328,
+      "copyOf" : "w11562"
+    },
+    "w11564" : {
+      "type" : "Image",
+      "name" : "Shield_Favicon_32x32_with 4 Stars_nov13.png",
+      "x" : 1953,
+      "y" : 2553,
+      "w" : 12,
+      "h" : 12,
+      "z" : 295,
+      "props" : { },
+      "has" : {
+        "image" : true,
+        "onclick" : true,
+        "backgroundImage" : true,
+        "border" : true
+      },
+      "actions" : { },
+      "style" : {
+        "borderTopRightRadius" : 0,
+        "borderTopLeftRadius" : 0,
+        "borderBottomRightRadius" : 0,
+        "borderBottomLeftRadius" : 0,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "backgroundImage" : {
+          "name" : "Shield_Favicon_32x32_with 4 Stars_nov13.png",
+          "url" : "608fdcdc295894e6d285a670/a2aa10awLsxKFEl2YEHabfXjf0LAOrt8JcbcE49eq8jzfcrQYoeiba6HuyMW.png",
+          "w" : 32,
+          "h" : 32
+        },
+        "backgroundSize" : 106,
+        "backgroundPosition" : {
+          "top" : -0.047872340425531915,
+          "left" : -0.11702127659574468
+        },
+        "filter" : {
+          "blur" : 0,
+          "opacity" : 100,
+          "grayscale" : 97,
+          "hueRotate" : 0,
+          "brightness" : 134,
+          "contrast" : 100,
+          "saturate" : 100
+        }
+      },
+      "id" : "w11564",
+      "created" : 1620038259965,
+      "modified" : 1620040481366
+    },
+    "w11565" : {
+      "type" : "Button",
+      "name" : "Box 1",
+      "x" : 1938,
+      "y" : 2678,
+      "w" : 344,
+      "h" : 104,
+      "z" : 290,
+      "props" : {
+        "label" : ""
+      },
+      "has" : {
+        "backgroundColor" : true,
+        "border" : true,
+        "label" : true,
+        "padding" : true,
+        "onclick" : true
+      },
+      "actions" : { },
+      "style" : {
+        "fontSize" : 14,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#ffffff",
+        "borderTopRightRadius" : 8,
+        "borderTopLeftRadius" : 8,
+        "borderBottomRightRadius" : 8,
+        "borderBottomLeftRadius" : 8,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "background" : "rgba(255, 255, 255, 0.72)",
+        "paddingTop" : 0,
+        "paddingBottom" : 0,
+        "paddingLeft" : 0,
+        "paddingRight" : 0
+      },
+      "id" : "w11565",
+      "created" : 1620039398215,
+      "modified" : 1620040481405,
+      "copyOf" : "w11559"
+    },
+    "w11566" : {
+      "type" : "Label",
+      "name" : "Label 6",
+      "x" : 2202,
+      "y" : 2686,
+      "w" : 64,
+      "h" : 16,
+      "z" : 291,
+      "props" : {
+        "label" : "NOW"
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : 12,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "right",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "rgba(88, 88, 88, 0.84)",
+        "textShadow" : null,
+        "fontWeight" : "bold"
+      },
+      "id" : "w11566",
+      "created" : 1620039398258,
+      "modified" : 1620040481441,
+      "copyOf" : "w11560"
+    },
+    "w11567" : {
+      "type" : "Label",
+      "name" : "Label 6",
+      "x" : 1954,
+      "y" : 2734,
+      "w" : 264,
+      "h" : 40,
+      "z" : 292,
+      "props" : {
+        "label" : "Thomas is awake and crying, best you have a look."
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : "16",
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "#333333"
+      },
+      "id" : "w11567",
+      "created" : 1620039398295,
+      "modified" : 1620040481551,
+      "copyOf" : "w11561"
+    },
+    "w11568" : {
+      "type" : "Label",
+      "name" : "Label 7",
+      "x" : 1954,
+      "y" : 2710,
+      "w" : 192,
+      "h" : 16,
+      "z" : 293,
+      "props" : {
+        "label" : "Scenario Crying"
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : "16",
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "#333333",
+        "textShadow" : null,
+        "fontWeight" : "bold"
+      },
+      "id" : "w11568",
+      "created" : 1620039398333,
+      "modified" : 1620040481587,
+      "copyOf" : "w11562"
+    },
+    "w11569" : {
+      "type" : "Label",
+      "name" : "Label 8",
+      "x" : 1970,
+      "y" : 2686,
+      "w" : 192,
+      "h" : 16,
+      "z" : 294,
+      "props" : {
+        "label" : "Philips"
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : 16,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "rgba(73, 73, 73, 0.71)",
+        "textShadow" : null,
+        "fontWeight" : "bold"
+      },
+      "id" : "w11569",
+      "created" : 1620039398389,
+      "modified" : 1620040481478,
+      "copyOf" : "w11563"
+    },
+    "w11570" : {
+      "type" : "Image",
+      "name" : "Shield_Favicon_32x32_with 4 Stars_nov13.png 1",
+      "x" : 1953,
+      "y" : 2689,
+      "w" : 12,
+      "h" : 12,
+      "z" : 295,
+      "props" : { },
+      "has" : {
+        "image" : true,
+        "onclick" : true,
+        "backgroundImage" : true,
+        "border" : true
+      },
+      "actions" : { },
+      "style" : {
+        "borderTopRightRadius" : 0,
+        "borderTopLeftRadius" : 0,
+        "borderBottomRightRadius" : 0,
+        "borderBottomLeftRadius" : 0,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "backgroundImage" : {
+          "name" : "Shield_Favicon_32x32_with 4 Stars_nov13.png",
+          "url" : "608fdcdc295894e6d285a670/a2aa10awLsxKFEl2YEHabfXjf0LAOrt8JcbcE49eq8jzfcrQYoeiba6HuyMW.png",
+          "w" : 32,
+          "h" : 32
+        },
+        "backgroundSize" : 106,
+        "backgroundPosition" : {
+          "top" : -0.047872340425531915,
+          "left" : -0.11702127659574468
+        },
+        "filter" : {
+          "blur" : 0,
+          "opacity" : 100,
+          "grayscale" : 97,
+          "hueRotate" : 0,
+          "brightness" : 134,
+          "contrast" : 100,
+          "saturate" : 100
+        }
+      },
+      "id" : "w11570",
+      "created" : 1620039398428,
+      "modified" : 1620040481515,
+      "copyOf" : "w11564"
+    },
+    "w11573" : {
+      "type" : "Label",
+      "name" : "Label 2",
+      "x" : 1978,
+      "y" : 1668,
+      "w" : 256,
+      "h" : 32,
+      "z" : 288,
+      "props" : {
+        "label" : "Tuesday, 5 May",
+        "databinding" : {
+          "default" : "currentDate"
+        }
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : 20,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "center",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "rgba(255, 255, 255, 0.84)",
+        "textShadow" : null
+      },
+      "id" : "w11573",
+      "created" : 1620033968676,
+      "modified" : 1620040260991,
+      "copyOf" : "w11552"
+    },
+    "w11574" : {
+      "type" : "Label",
+      "name" : "Label 1",
+      "x" : 1978,
+      "y" : 1572,
+      "w" : 264,
+      "h" : 88,
+      "z" : 287,
+      "props" : {
+        "label" : "12:00",
+        "databinding" : {
+          "default" : "currentTime"
+        }
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : "Auto",
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "center",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "rgba(255, 255, 255, 0.84)",
+        "textShadow" : null
+      },
+      "id" : "w11574",
+      "created" : 1620033907751,
+      "modified" : 1620040254702,
+      "copyOf" : "w11551"
+    },
+    "w11594" : {
+      "type" : "Button",
+      "name" : "NotificationBackend",
+      "x" : 2757,
+      "y" : 2543,
+      "w" : 344,
+      "h" : 104,
+      "z" : 290,
+      "props" : {
+        "label" : ""
+      },
+      "has" : {
+        "backgroundColor" : true,
+        "border" : true,
+        "label" : true,
+        "padding" : true,
+        "onclick" : true
+      },
+      "actions" : { },
+      "style" : {
+        "fontSize" : 14,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1.4,
+        "color" : "#ffffff",
+        "borderTopRightRadius" : 8,
+        "borderTopLeftRadius" : 8,
+        "borderBottomRightRadius" : 8,
+        "borderBottomLeftRadius" : 8,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "background" : "rgba(255, 255, 255, 0.72)",
+        "paddingTop" : 0,
+        "paddingBottom" : 0,
+        "paddingLeft" : 0,
+        "paddingRight" : 0
+      },
+      "id" : "w11594",
+      "created" : 1620040542113,
+      "modified" : 1620040481172,
+      "copyOf" : "w11559"
+    },
+    "w11595" : {
+      "type" : "Label",
+      "name" : "Label 3",
+      "x" : 3021,
+      "y" : 2551,
+      "w" : 64,
+      "h" : 16,
+      "z" : 291,
+      "props" : {
+        "label" : "NOW"
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : 12,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "right",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "rgba(88, 88, 88, 0.84)",
+        "textShadow" : null,
+        "fontWeight" : "bold"
+      },
+      "id" : "w11595",
+      "created" : 1620040542155,
+      "modified" : 1620040481215,
+      "copyOf" : "w11560"
+    },
+    "w11596" : {
+      "type" : "Label",
+      "name" : "Label",
+      "x" : 2773,
+      "y" : 2599,
+      "w" : 264,
+      "h" : 40,
+      "z" : 292,
+      "props" : {
+        "label" : "Thomas is awake and crying, best you have a look."
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : "16",
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "#333333"
+      },
+      "id" : "w11596",
+      "created" : 1620040542192,
+      "modified" : 1620040481252,
+      "copyOf" : "w11561"
+    },
+    "w11597" : {
+      "type" : "Label",
+      "name" : "Label 4",
+      "x" : 2773,
+      "y" : 2575,
+      "w" : 192,
+      "h" : 16,
+      "z" : 293,
+      "props" : {
+        "label" : "Scenario Crying"
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : "16",
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "#333333",
+        "textShadow" : null,
+        "fontWeight" : "bold"
+      },
+      "id" : "w11597",
+      "created" : 1620040542229,
+      "modified" : 1620040481290,
+      "copyOf" : "w11562"
+    },
+    "w11598" : {
+      "type" : "Label",
+      "name" : "Label 5",
+      "x" : 2789,
+      "y" : 2551,
+      "w" : 192,
+      "h" : 16,
+      "z" : 294,
+      "props" : {
+        "label" : "Philips"
+      },
+      "has" : {
+        "label" : true,
+        "padding" : true,
+        "advancedText" : true
+      },
+      "style" : {
+        "fontSize" : 16,
+        "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "textAlign" : "left",
+        "letterSpacing" : 0,
+        "lineHeight" : 1,
+        "color" : "rgba(73, 73, 73, 0.71)",
+        "textShadow" : null,
+        "fontWeight" : "bold"
+      },
+      "id" : "w11598",
+      "created" : 1620040542266,
+      "modified" : 1620040481328,
+      "copyOf" : "w11563"
+    },
+    "w11599" : {
+      "type" : "Image",
+      "name" : "Shield_Favicon_32x32_with 4 Stars_nov13.png",
+      "x" : 2772,
+      "y" : 2554,
+      "w" : 12,
+      "h" : 12,
+      "z" : 295,
+      "props" : { },
+      "has" : {
+        "image" : true,
+        "onclick" : true,
+        "backgroundImage" : true,
+        "border" : true
+      },
+      "actions" : { },
+      "style" : {
+        "borderTopRightRadius" : 0,
+        "borderTopLeftRadius" : 0,
+        "borderBottomRightRadius" : 0,
+        "borderBottomLeftRadius" : 0,
+        "borderTopWidth" : 0,
+        "borderBottomWidth" : 0,
+        "borderRightWidth" : 0,
+        "borderLeftWidth" : 0,
+        "borderTopColor" : "#333333",
+        "borderBottomColor" : "#333333",
+        "borderRightColor" : "#333333",
+        "borderLeftColor" : "#333333",
+        "backgroundImage" : {
+          "name" : "Shield_Favicon_32x32_with 4 Stars_nov13.png",
+          "url" : "608fdcdc295894e6d285a670/a2aa10awLsxKFEl2YEHabfXjf0LAOrt8JcbcE49eq8jzfcrQYoeiba6HuyMW.png",
+          "w" : 32,
+          "h" : 32
+        },
+        "backgroundSize" : 106,
+        "backgroundPosition" : {
+          "top" : -0.047872340425531915,
+          "left" : -0.11702127659574468
+        },
+        "filter" : {
+          "blur" : 0,
+          "opacity" : 100,
+          "grayscale" : 97,
+          "hueRotate" : 0,
+          "brightness" : 134,
+          "contrast" : 100,
+          "saturate" : 100
+        }
+      },
+      "id" : "w11599",
+      "created" : 1620040542303,
+      "modified" : 1620040481366,
+      "copyOf" : "w11564"
+    }
+  },
+  "lines" : {
+    "l10705" : {
+      "id" : "l10705",
+      "from" : "s10006",
+      "to" : "s10000",
+      "points" : [ ],
+      "event" : "click"
+    },
+    "l11602" : {
+      "id" : "l11602",
+      "from" : "g11601",
+      "to" : "s10006",
+      "points" : [ ],
+      "event" : "click"
+    }
+  },
+  "groups" : {
+    "g11571" : {
+      "id" : "g11571",
+      "children" : [ "w11566", "w11569", "w11570" ],
+      "groups" : [ ],
+      "name" : "Group 24"
+    },
+    "g11600" : {
+      "id" : "g11600",
+      "children" : [ "w11595", "w11596", "w11597", "w11598", "w11599" ],
+      "groups" : [ ],
+      "name" : "NotificationContent"
+    },
+    "g11601" : {
+      "id" : "g11601",
+      "children" : [ "w11559", "w11560", "w11561", "w11562", "w11563", "w11564" ],
+      "groups" : [ ],
+      "name" : "Scenario1"
+    }
+  },
+  "lastUUID" : 11604,
+  "lastUpdate" : 1620041503259,
+  "created" : 1620040924905,
+  "startScreen" : "",
+  "grid" : {
+    "w" : 8,
+    "h" : 8,
+    "style" : "line",
+    "color" : "#cecece",
+    "visible" : false,
+    "enabled" : true
+  },
+  "domain" : "Quant-UX.com",
+  "size" : 14629,
+  "sizeBackup" : 5681430,
+  "lastCategory" : "Charts",
+  "isPublic" : false,
+  "parent" : "608a90f7295894e6d285155f",
+  "id" : "608fdcdc295894e6d285a670",
+  "isDirty" : true,
+  "lastBackup" : 1620041238346
+}

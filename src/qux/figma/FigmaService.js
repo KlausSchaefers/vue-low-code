@@ -1123,6 +1123,18 @@ export default class FigmaService {
         style.fontWeight = fStyle.fontWeight
         style.lineHeight = fStyle.lineHeightPercent / 100 // this has a different weird formular! https://help.figma.com/text/line-height
         style.letterSpacing = fStyle.letterSpacing
+
+        if (fStyle.textCase === 'UPPER') {
+          style.textTransform = 'uppercase'
+        }
+        if (fStyle.textCase === 'LOWER') {
+          style.textTransform = 'lowercase'
+        }
+        if (fStyle.textCase === 'TITLE') {
+          style.textTransform = 'capitalize'
+        }
+
+
         if (fStyle.textAlignHorizontal) {
           style.textAlign = fStyle.textAlignHorizontal.toLowerCase()
         }
