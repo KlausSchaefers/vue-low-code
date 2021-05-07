@@ -444,6 +444,7 @@ export default class FigmaService {
     Logger.log(5, 'FigmaService.parseElement() > enter: ' + element.name, element.type)
 
     let widget = null
+    console.debug('parse', element.name, this.isInsisible(element))
     if (!this.isIgnored(element) && !this.isInsisible(element)) {
       let pos = this.getPosition(element)
       let qID = 'w' + this.getUUID(model)
@@ -489,9 +490,9 @@ export default class FigmaService {
      */
     if (element.children) {
       /**
-       * We do not go down on vector elemenets
+       * We do not go down on vector elements and hidden elements.
        */
-      if (!this.isVector(element)) {
+      if (!this.isVector(element) && !this.isInsisible(element)) {
         element.children.forEach(child => {
           if (child.visible !== false) {
             child._parent = element
