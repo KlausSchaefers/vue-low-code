@@ -296,13 +296,21 @@ export default class FigmaService {
 
   parseVariant (str) {
     let result = {}
-    str.split(',').map(s => s.split('=')).forEach(pair => result[pair[0].trim()]=pair[1].trim())
+
+    /**
+     * Figma somehpw changed the name of the varient...
+     */
+    if (str.indexOf('-') >= 0) {
+      str.split('-').map(s => s.split('=')).filter(pair => pair.length > 1).forEach(pair => result[pair[0].trim()]=pair[1].trim())
+    } else {
+      str.split(',').map(s => s.split('=')).filter(pair => pair.length > 1).forEach(pair => result[pair[0].trim()]=pair[1].trim())
+    }
+    Logger.log(-1, 'FigmaService.addBackgroundImages() > parseVariant', str, result)
     return result
   }
 
   getParentVarientComponent (widget, widgetsByFigmaID, qModel) {
     let parent = widgetsByFigmaID[widget.figmaComponentId]
-    console.debug('...', parent ? parent.id + ' ' + parent.parentId : 'X' )
     while (parent && parent.figmaType !== 'VARIANT_COMPONENT') {
       parent = qModel.widgets[parent.parentId]
     }

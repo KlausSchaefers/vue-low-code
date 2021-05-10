@@ -5,12 +5,15 @@ import QUXDesignSystem from './QUXDesignSystem'
 class FigmaDesignSystem {
 
   async register(figmaFile, figmaAccessKey, config) {
-    Logger.log(-1, "DesignSystem.register()", figmaFile)
+    Logger.log(-1, "FigmaDesignSystem.register()", figmaFile)
     let app = figmaFile
     if (figmaFile && figmaAccessKey) {
       /**
-       * Fore the design system we pinn right for now
+       * Force the design system we pinn right for now
        */
+      if (!config) {
+        config = {}
+      }
       config.figma = {
         pinnRight: false
       }
