@@ -190,7 +190,9 @@ export default class FigmaService {
           Logger.log(-1, 'FigmaService.parse() > parse page:' + page.name)
           if (page.children) {
             page.children.forEach(screen => {
-              this.parseScreen(screen, model, fModel, importChildren, page)
+              if (!this.isInvisible(screen)){
+                this.parseScreen(screen, model, fModel, importChildren, page)
+              }
             })
           }
         }
@@ -444,8 +446,7 @@ export default class FigmaService {
     Logger.log(5, 'FigmaService.parseElement() > enter: ' + element.name, element.type)
 
     let widget = null
-    console.debug('parse', element.name, this.isInsisible(element))
-    if (!this.isIgnored(element) && !this.isInsisible(element)) {
+    if (!this.isIgnored(element) && !this.isInvisible(element)) {
       let pos = this.getPosition(element)
       let qID = 'w' + this.getUUID(model)
       widget = {
@@ -492,7 +493,7 @@ export default class FigmaService {
       /**
        * We do not go down on vector elements and hidden elements.
        */
-      if (!this.isVector(element) && !this.isInsisible(element)) {
+      if (!this.isVector(element) && !this.isInvisible(element)) {
         element.children.forEach(child => {
           if (child.visible !== false) {
             child._parent = element
@@ -915,13 +916,13 @@ export default class FigmaService {
     return this.ignoredTypes.indexOf(element.type) >= 0
   }
 
-  isInsisible (element) {
+  isInvisible (element) {
     if (element.visible === false) {
-      Logger.log(5, 'FigmaService.isInsisible() > exit (visible): ' + element.name, element.type)
+      Logger.log(5, 'FigmaService.isInvisible() > exit (visible): ' + element.name, element.type)
       return true
     }
     if (element.opacity <= 0) {
-      Logger.log(5, 'FigmaService.isInsisible() > exit (opacity): ' + element.name, element.type)
+      Logger.log(5, 'FigmaService.isInvisible() > exit (opacity): ' + element.name, element.type)
       return true
     }
     return false
