@@ -164,7 +164,7 @@ export default {
       },
       currentScreen () {
         if (this.selectedScreenId) {
-            let screen = this.treeModel.screens.find(screen => screen.id === this.selectedScreenId)
+            let screen = this.treeModel.screens.filter(screen => screen.isComponentScreen !== true).find(screen => screen.id === this.selectedScreenId)
             if (screen) {
                 return screen
             }
@@ -337,9 +337,9 @@ export default {
     },
     getDefaultScreen () {
         Logger.log(2, 'QUX.getDefaultScreen() > enter')
-        let screen = this.treeModel.screens.find(screen => screen.props.start === true)
+        let screen = this.treeModel.screens.filter(screen => screen.isComponentScreen !== true).find(screen => screen.props.start === true)
         if (!screen) {
-            screen = this.treeModel.screens[0]
+            screen = this.treeModel.screens.filter(screen => screen.isComponentScreen !== true)[0]
         }
         return screen
     },
@@ -541,7 +541,9 @@ export default {
           Logger.log(-1, 'QUX.mounted() > Selected:', this.selected, this.app)
       }
 
-
+      if (this.$router && this.$router.mode === 'history') {
+        Logger.log(-1, 'QUX.mounted() > Launch router with history', this.$router)
+      }
 
       this.initReziseListener()
   },

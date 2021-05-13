@@ -58,6 +58,9 @@ export default {
         }
         return false
       },
+      hasHistoryRouter () {
+        return this.$router && this.$router.mode === 'history'
+      },
       link () {
         if (this.url) {
           return this.url
@@ -70,6 +73,9 @@ export default {
               let prefix = ''
               if (this.config && this.config.router && this.config.router.prefix) {
                 prefix = this.config.router.prefix + '/'
+              }
+              if (this.hasHistoryRouter) {
+                return `/${prefix}${box.name}.html`
               }
               return `#/${prefix}${box.name}.html`
             }

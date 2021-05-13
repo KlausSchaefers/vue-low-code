@@ -51,7 +51,8 @@ const supportedWidgetTypes = [
 	"ChildrenToggle",
 	"Camera",
 	"UploadPreview",
-	"Spinner"
+	"Spinner",
+	"DynamicContainer"
 ]
 
 const textProperties = ["color", "textDecoration", "textAlign", "fontFamily", "fontSize", "fontStyle", "fontWeight", "letterSpacing", "lineHeight"]

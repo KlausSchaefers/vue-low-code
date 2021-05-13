@@ -79,7 +79,7 @@ export function isInputElement (element) {
 
 export function isContainerElement (element) {
     const type = element.type
-    return type === 'Box' || type === 'Button' || type === 'Image' || type === 'ChildrenToggle' || type === 'Repeater'
+    return type === 'Box' || type === 'Button' || type === 'Image' || type === 'ChildrenToggle' || type === 'Repeater' || type === 'DynamicContainer'
 }
 
 /**

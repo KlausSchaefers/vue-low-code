@@ -4,6 +4,7 @@ import Logger from './Logger'
 import * as Flat2Tree from '../transformer/Flat2Tree'
 import * as Quant2Flat from '../transformer/Quant2Flat'
 import * as Tree2Component from '../transformer/Tree2Component'
+import * as Inline from '../transformer/Inline'
 
 /**
  * This class transforms an absolute quant-ux model into an
@@ -22,14 +23,20 @@ export default class ModelTransformer {
       Logger.log(0, 'ModelTransformer.transform()', this.selected)
       let model = this.model
 
+      // 1) Make a flat model, e.g. merge in master screens
       let flatModel = Quant2Flat.transform(model, this.config)
+
+      // 2) Build a tree and layout everything. This will also layout component sets!
       let treeModel = Flat2Tree.transform(flatModel, this.config)
 
+      // 3) For dynamic widgets, inline all children.
+      let inlineModel = Inline.transform(treeModel, this.config)
+
       if (this.selected) {
-        treeModel = Tree2Component.transform(treeModel, this.selected, this.config)
+        inlineModel = Tree2Component.transform(inlineModel, this.selected, this.config)
       }
 
-      return treeModel
+      return inlineModel
     }
 
 }

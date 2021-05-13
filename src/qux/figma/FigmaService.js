@@ -182,16 +182,23 @@ export default class FigmaService {
     this.errors = []
     let model = this.createApp(id, fModel)
     let fDoc = fModel.document
+    // add some lookup maps for speedy lookups later
     fModel._elementsById = {}
+    fModel._elementsToWidgets = {}
 
     if (fDoc.children) {
       fDoc.children.forEach(page => {
         if (selectedPages.length === 0 || selectedPages.indexOf(page.name) >= 0) {
           Logger.log(-1, 'FigmaService.parse() > parse page:' + page.name)
           if (page.children) {
-            page.children.forEach(screen => {
-              if (!this.isInvisible(screen)){
-                this.parseScreen(screen, model, fModel, importChildren, page)
+            page.children.forEach(child => {
+              if (!this.isInvisible(child)){
+                if (this.isFrame(child)) {
+                  this.parseScreen(child, model, fModel, importChildren, page)
+                }
+                if (this.isComponet(child) || this.isComponentSet(child)) {
+                  this.parseComponent(child, model, fModel, importChildren, page)
+                }
               }
             })
           }
@@ -199,8 +206,9 @@ export default class FigmaService {
       })
     }
 
+
     /**
-     * Set hover styles and mark the elements as DesignLets
+     * Set varients for designlets
      */
     this.setVarientComponents(model, fModel)
 
@@ -208,6 +216,11 @@ export default class FigmaService {
      * Fix the lines that are until now with figma ids
      */
     this.setLineTos(model, fModel)
+
+    /**
+     * now find the dynamic components
+     */
+    this.setDynamicComponents(model, fModel)
 
     /**
      * Get download images for all
@@ -221,12 +234,73 @@ export default class FigmaService {
     return model
   }
 
+
+  setDynamicComponents (qModel, fModel) {
+    Logger.log(2, 'FigmaService.setDynamicComponents() > enter')
+
+
+    /**
+     * 1) Check all component lines
+     *
+     * 2) Take the source
+     *
+     * 3) Check of teh target is a componnt
+     *
+     * 5) Find out of the target is in a componentSet
+     *
+     * 5) If so, make it a dynamic component, including references of the
+     */
+    Object.values(qModel.widgets).forEach(w => {
+      if (w.fimgaTransitionNodeID && w.figmaType === 'INSTANCE') {
+        let target = fModel._elementsById[w.fimgaTransitionNodeID]
+        if (target && target._parent) {
+          let parent = target._parent
+          if (parent.type === 'COMPONENT_SET' && parent.children) {
+            w.type = "DynamicContainer"
+            w.props.dynamicChildren = []
+            w.props.dynamicLines = []
+
+            /**
+             * Check if the children are all the same, so we can set the animation type to transform...
+             */
+
+            parent.children.forEach(child => {
+              let childId = fModel._elementsToWidgets[child.id]
+              if (childId) {
+                w.props.dynamicChildren.push(childId)
+                if (child.id === w.figmaComponentId) {
+                  w.props.dynamicStart = childId
+                }
+
+                if (child.transitionNodeID) {
+                  let targetId = fModel._elementsToWidgets[child.transitionNodeID]
+                  w.props.dynamicLines.push({
+                    from: child.id,
+                    to: targetId,
+                    duration: child.transitionDuration,
+                    animation: "none",
+                    event: "click"
+                  })
+                }
+              }
+            })
+
+
+            Logger.log(-1, 'FigmaService.setDynamicComponents() > ' + w.name, w.props.dynamicStart, w.props.dynamicChildren)
+            Logger.log(-1, 'FigmaService.setDynamicComponents() > ' + w.name, w.props.dynamicLines)
+          }
+        }
+      }
+    })
+
+  }
+
+
   /**
    * Set for each instance the id to the parent. Why??
    */
   setVarientComponents (qModel) {
     // console.debug('setInstanceComponents')
-
 
     /**
      * Mark all elements of a variant as a component for the
@@ -249,50 +323,8 @@ export default class FigmaService {
         widget.name = parent.name + '-' + Object.values(widget.variant).join('-')
       }
     })
-
-
-    /**
-     * 1) get all varient_components
-     *
-     * 2) check if they have a hover style
-     *
-     * 3) Set the .hover for all styles with the same config for the other props
-     */
-    Object.values(varientComponents).forEach(children => {
-      // console.debug('varient', children)
-      /**
-       * Make this smarter in and check for a plugin flag
-       */
-      let hoverChildren = children.filter(c => c.name.toLowerCase().indexOf('=' + this.varientComponentHoverKey) > 0)
-      if (hoverChildren.length === 1) {
-        let hoverChild = hoverChildren[0]
-
-        /**
-         * lets find out which key actually mactched hover.
-         *
-         * TODO: what if the pluginFlag was used?
-         */
-        let others = this.getOtherVarants(children, hoverChild, this.varientComponentHoverKey)
-        console.debug(hoverChild.name, others)
-      }
-    })
-
-    /**
-     * 4) Go through all widget,s check if we have a component with the hover, and copy the hover over.
-     */
   }
 
-  getOtherVarants (children, selected, valueToIgnore) {
-    let variantToMatch = Object.entries(selected.variant).filter(e => {
-      let value = e[1]
-      if (value && value.toLowerCase) {
-        value = value.toLowerCase()
-      }
-      return value !== valueToIgnore
-    })
-    console.debug(variantToMatch)
-
-  }
 
   parseVariant (str) {
     let result = {}
@@ -305,7 +337,7 @@ export default class FigmaService {
     } else {
       str.split(',').map(s => s.split('=')).filter(pair => pair.length > 1).forEach(pair => result[pair[0].trim()]=pair[1].trim())
     }
-    Logger.log(-1, 'FigmaService.addBackgroundImages() > parseVariant', str, result)
+    Logger.log(2, 'FigmaService.addBackgroundImages() > parseVariant', str, result)
     return result
   }
 
@@ -330,12 +362,18 @@ export default class FigmaService {
 
     Object.values(model.lines).forEach(line => {
       line.from = widgetMapping[line.figmaFrom]
-      line.to = screenMapping[line.figmaTo]
+      if (screenMapping[line.figmaTo]) {
+        line.to = screenMapping[line.figmaTo]
+      }
+      if (widgetMapping[line.figmaTo]) {
+        line.to = widgetMapping[line.figmaTo]
+        line.isComponentLine = true
+      }
     })
   }
 
   async addBackgroundImages(id, model, importChildren) {
-    Logger.log(-1, 'FigmaService.addBackgroundImages() > importChildren', importChildren)
+    Logger.log(1, 'FigmaService.addBackgroundImages() > importChildren', importChildren)
     if (this.downloadVectors) {
       let vectorWidgets = this.getElementsWithBackgroundIMage(model, importChildren)
 
@@ -412,6 +450,39 @@ export default class FigmaService {
     return result;
   }
 
+  parseComponent (fElement, qModel, fModel, importChildren, page) {
+    Logger.log(3, 'FigmaService.parseComponent()', fElement.name)
+
+    /**
+     * We create a wrapper screen!
+     */
+    let pos = this.getPosition(fElement)
+    let qScreen = {
+      id: 's' + this.getUUID(qModel),
+      figmaId: fElement.id,
+      pageName: page.name ,
+      name: fElement.name +'ScreenWrapper',
+      isComponentScreen: true,
+      type: 'Screen',
+      x: pos.x,
+      y: pos.y,
+      w: pos.w,
+      h: pos.h,
+      props: {},
+      children: [],
+      style: {
+        background: 'transparent'
+      }
+    }
+    qModel.screens[qScreen.id] = qScreen
+
+    this.getPluginData(fElement, qScreen, fModel)
+
+    this.parseElement(fElement, qScreen, fElement, qModel, fModel, qScreen.id)
+
+
+  }
+
   parseScreen (fScreen, model, fModel, importChildren, page) {
     Logger.log(3, 'FigmaService.parseScreen()', fScreen.name)
     let pos = this.getPosition(fScreen)
@@ -465,6 +536,7 @@ export default class FigmaService {
         figmaId: element.id,
         figmaType: element.type,
         figmaComponentId: this.getFigmaComponentId(element),
+        fimgaTransitionNodeID: element.transitionNodeID,
         x: pos.x,
         y: pos.y,
         w: pos.w,
@@ -480,6 +552,7 @@ export default class FigmaService {
       widget = this.getLayout(element, widget)
 
       fModel._elementsById[element.id] = element
+      fModel._elementsToWidgets[element.id] = qID
       model.widgets[widget.id] = widget
       qScreen.children.push(widget.id)
 
@@ -934,6 +1007,18 @@ export default class FigmaService {
       return true
     }
     return false
+  }
+
+  isFrame (element) {
+    return element.type === 'FRAME'
+  }
+
+  isComponet (element) {
+    return element.type === 'COMPONENT'
+  }
+
+  isComponentSet (element) {
+    return element.type === 'COMPONENT_SET'
   }
 
   isVector (element) {
