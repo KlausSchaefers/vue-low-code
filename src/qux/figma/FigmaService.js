@@ -250,15 +250,19 @@ export default class FigmaService {
      *
      * 5) If so, make it a dynamic component, including references of the
      */
-    Object.values(qModel.widgets).forEach(w => {
-      if (w.fimgaTransitionNodeID && w.figmaType === 'INSTANCE') {
-        let target = fModel._elementsById[w.fimgaTransitionNodeID]
+    Object.values(qModel.widgets).forEach(qWidget => {
+      if (qWidget.fimgaTransitionNodeID && qWidget.figmaType === 'INSTANCE') {
+        let target = fModel._elementsById[qWidget.fimgaTransitionNodeID]
         if (target && target._parent) {
           let parent = target._parent
           if (parent.type === 'COMPONENT_SET' && parent.children) {
-            w.type = "DynamicContainer"
-            w.props.dynamicChildren = []
-            w.props.dynamicLines = []
+            qWidget.type = "DynamicContainer"
+            qWidget.props.dynamicChildren = []
+            qWidget.props.dynamicLines = []
+
+            let parentWidgetId = fModel._elementsToWidgets[parent.id]
+            qWidget.props.dynamicParent = parentWidgetId
+
 
             /**
              * Check if the children are all the same, so we can set the animation type to transform...
@@ -267,15 +271,15 @@ export default class FigmaService {
             parent.children.forEach(child => {
               let childId = fModel._elementsToWidgets[child.id]
               if (childId) {
-                w.props.dynamicChildren.push(childId)
-                if (child.id === w.figmaComponentId) {
-                  w.props.dynamicStart = childId
+                qWidget.props.dynamicChildren.push(childId)
+                if (child.id === qWidget.figmaComponentId) {
+                  qWidget.props.dynamicStart = childId
                 }
 
                 if (child.transitionNodeID) {
                   let targetId = fModel._elementsToWidgets[child.transitionNodeID]
-                  w.props.dynamicLines.push({
-                    from: child.id,
+                  qWidget.props.dynamicLines.push({
+                    from: childId,
                     to: targetId,
                     duration: child.transitionDuration,
                     animation: "none",
@@ -286,8 +290,8 @@ export default class FigmaService {
             })
 
 
-            Logger.log(-1, 'FigmaService.setDynamicComponents() > ' + w.name, w.props.dynamicStart, w.props.dynamicChildren)
-            Logger.log(-1, 'FigmaService.setDynamicComponents() > ' + w.name, w.props.dynamicLines)
+            Logger.log(3, 'FigmaService.setDynamicComponents() > ' + qWidget.name, qWidget.props.dynamicStart, qWidget.props.dynamicChildren)
+            Logger.log(3, 'FigmaService.setDynamicComponents() > ' + qWidget.name, qWidget.props.dynamicLines, qWidget.props.dynamicParent)
           }
         }
       }
@@ -461,7 +465,7 @@ export default class FigmaService {
       id: 's' + this.getUUID(qModel),
       figmaId: fElement.id,
       pageName: page.name ,
-      name: fElement.name +'ScreenWrapper',
+      name: fElement.name +'Wrapper',
       isComponentScreen: true,
       type: 'Screen',
       x: pos.x,
@@ -670,6 +674,11 @@ export default class FigmaService {
           widget.type = 'UploadPreview'
         }
 
+      }
+
+      if (pluginData.quxDataValue) {
+        Logger.log(3, 'FigmaService.getPluginData() > quxDataValue: ', pluginData.quxDataValue, element.name)
+        widget.props.dataValue = pluginData.quxDataValue
       }
 
       if (pluginData.quxTypeCustom) {

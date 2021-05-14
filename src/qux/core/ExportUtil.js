@@ -1257,15 +1257,17 @@ export function setCSSClassNames(parent, screenName) {
 	if (name.match(/^\d/)) {
 		name = "q" + name
 	}
-	let cssSelector = `.${name.replace(/\s+/g, "_")}`
-
+    parent.cssScreen = `${screenName.replace(/\s+/g, "_")}`
 	parent.cssClass = `${name.replace(/\s+/g, "_")}`
+
+    let cssSelector = `.${name.replace(/\s+/g, "_")}`
 	if (parent.parent) {
 		cssSelector = `.${screenName.replace(/\s+/g, "_")} ${cssSelector}`
 	} else {
 		cssSelector = `.qux-screen${cssSelector}`
 	}
 	parent.cssSelector = cssSelector
+
 
 	if (parent && parent.children) {
 		parent.children.forEach((c) => {
@@ -1277,4 +1279,14 @@ export function setCSSClassNames(parent, screenName) {
 			setCSSClassNames(c, screenName)
 		})
 	}
+}
+
+export function stringToType (value) {
+    if (value === 'true') {
+        value = true
+    }
+    if (value === 'false') {
+        value = false
+    }
+    return value
 }

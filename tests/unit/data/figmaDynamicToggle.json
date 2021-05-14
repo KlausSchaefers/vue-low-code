@@ -19,6 +19,11 @@
                 "id": "1:4",
                 "name": "Property 1=ToggleOn",
                 "type": "COMPONENT",
+                "pluginData": {
+                  "858477504263032980": {
+                    "quxDataValue": "true"
+                  }
+                },
                 "blendMode": "PASS_THROUGH",
                 "children": [
                   {
@@ -212,6 +217,11 @@
                 "id": "1:16",
                 "name": "Property 1=ToggleOff",
                 "type": "COMPONENT",
+                "pluginData": {
+                  "858477504263032980": {
+                    "quxDataValue": "false"
+                  }
+                },
                 "blendMode": "PASS_THROUGH",
                 "children": [
                   {
@@ -317,7 +327,7 @@
                     "strokeAlign": "OUTSIDE",
                     "strokeGeometry": [],
                     "effects": [],
-                    "characters": "On",
+                    "characters": "Off",
                     "style": {
                       "fontFamily": "Roboto",
                       "fontPostScriptName": null,
@@ -461,19 +471,25 @@
             "blendMode": "PASS_THROUGH",
             "children": [
               {
-                "id": "5:4",
-                "name": "INSTANCE 1",
+                "id": "11:0",
+                "name": "Instance 1",
                 "type": "INSTANCE",
+                "pluginData": {
+                  "858477504263032980": {
+                    "quxDataBindingDefault": "toggle",
+                    "quxDataValue": "true"
+                  }
+                },
                 "blendMode": "PASS_THROUGH",
                 "children": [
                   {
-                    "id": "I5:4;1:2",
+                    "id": "I11:0;1:2",
                     "name": "BackgroundOn",
                     "type": "RECTANGLE",
                     "blendMode": "PASS_THROUGH",
                     "absoluteBoundingBox": {
-                      "x": -294.0,
-                      "y": -263.0,
+                      "x": -326.0,
+                      "y": -306.0,
                       "width": 138.0,
                       "height": 46.0
                     },
@@ -522,13 +538,13 @@
                     "effects": []
                   },
                   {
-                    "id": "I5:4;1:3",
+                    "id": "I11:0;1:3",
                     "name": "On",
                     "type": "TEXT",
                     "blendMode": "PASS_THROUGH",
                     "absoluteBoundingBox": {
-                      "x": -274.0,
-                      "y": -253.0,
+                      "x": -306.0,
+                      "y": -296.0,
                       "width": 95.0,
                       "height": 22.0
                     },
@@ -587,8 +603,8 @@
                   }
                 ],
                 "absoluteBoundingBox": {
-                  "x": -294.0,
-                  "y": -263.0,
+                  "x": -326.0,
+                  "y": -306.0,
                   "width": 138.0,
                   "height": 46.0
                 },
@@ -600,12 +616,12 @@
                   [
                     1.0,
                     0.0,
-                    68.0
+                    36.0
                   ],
                   [
                     0.0,
                     1.0,
-                    75.0
+                    32.0
                   ]
                 ],
                 "size": {
@@ -747,8 +763,8 @@
   "schemaVersion": 0,
   "styles": {},
   "name": "Interactive components",
-  "lastModified": "2021-05-11T18:42:41Z",
-  "thumbnailUrl": "https://s3-alpha-sig.figma.com/thumbnails/32765c6c-f3aa-4b5b-814e-f92032747d47?Expires=1621814400&Signature=ZDt25dg3X-oPtPjvTLC92Ryz26I0TgnUbZO~f7dwNT9aCwQXEwC~0BFLy5sRW19tzqg4Y6idHt2rGbETAk~ozA1Tkhzvz29PbBYLMsojblK0Ng0kagC19QEA1bcrO5DExBiyH3K~Z~DE~clGIuJx1xkJzf0sAibIjaxJ7JBRhDEyaVm5Hpn1eUYg49XuojU8yqQBNgWEHwadhSYlnpLdB1f9J9FEMuhfv-JphG3QjLqO-jFqw5Cx-15WZ6kCmh9HqFmTJWlmhLLGBge1xzK71F0UV69jgx9V0j7oankklv~-MOen-BAvidDaq0V-Ev2mRoioRSc1sdW657vQslPr1A__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
-  "version": "842946353",
+  "lastModified": "2021-05-14T20:43:18Z",
+  "thumbnailUrl": "https://s3-alpha-sig.figma.com/thumbnails/83434cf4-5ea7-4585-9a52-b4f83330542a?Expires=1621814400&Signature=GpDFrdFKoRMgP3PuSFvYA4yUcXyiPU6-2SeCTgswBDC15E7u-TaqzebJmbFsDiXZbjTPVWqpE2hQXfcrja-mI3NH1I2mRT4YaqWJ1TVpWsJjttqvb6cAN4TiIZBDScl90J8HiYhlaOTDQrJcytnMypMQd95qdPCIst7K8xBtJDLM-NNsJW09QBQcXtrjHldcfODqEmTVOPDJ8~LRJbKj1wESMSWOgWlcIiybcb~79AsiUKo0lcs-LMb-OYakxxgMw3bne1Z3Vzd9WQ8rzTMQSuXezop2VZFBFC9h3IFZBcIAA3J2a1Q66jGVsi5Ze6qYjH0~lrsCnTj2HRk5YyL4nA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
+  "version": "850267161",
   "role": "owner"
 }

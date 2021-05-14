@@ -107,6 +107,12 @@ export default {
         }
         return ''
       },
+      cssComponentClasses () {
+        if (this.element && this.element.cssComponentClasses) {
+          return this.element.cssComponentClasses.join(' ')
+        }
+        return ''
+      },
       cssClass () {
         let result = 'qux-element '
         if (this.element) {
@@ -352,7 +358,7 @@ export default {
       return this.dataBindingInput
     },
     /**
-     * Method wich sets the value accoridng to the dataBing path.
+     * Method which sets the value accoridng to the dataBing path.
      */
     onValueChange (value, key = 'default', e) {
       Logger.log(3, '_Base.onValueChange() > change : ' + this.element.name, value)

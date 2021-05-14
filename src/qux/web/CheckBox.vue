@@ -30,7 +30,7 @@ export default {
         }
         if (this.element) {
           let input = this.dataBindingInput
-              return input === true
+          return input === true
         }
         return this.checked
       }

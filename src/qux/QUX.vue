@@ -90,6 +90,7 @@ import Camera from './web/Camera.vue'
 import UploadPreview from './web/UploadPreview.vue'
 import ChildrenToggle from './web/ChildrenToggle.vue'
 import Spinner from './web/Spinner.vue'
+import DynamicContainer from './web/DynamicContainer.vue'
 
 import Logic from './mixins/Logic.vue'
 import Event from './mixins/Event.vue'
@@ -424,6 +425,7 @@ export default {
         Vue.component('qChildrenToggle', ChildrenToggle)
         Vue.component('qUploadPreview', UploadPreview)
         Vue.component('qSpinner', Spinner)
+        Vue.component('qDynamicContainer', DynamicContainer)
     },
     initViewModel () {
         Logger.log(5, 'QUX.initViewModel > enter')

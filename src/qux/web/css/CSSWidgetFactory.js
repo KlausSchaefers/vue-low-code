@@ -15,6 +15,7 @@ import CameraCSS from './CameraCSS'
 import UploadPreviewCSS from './UploadPreviewCSS'
 import ComponentSetCSS from './ComponentSetCSS'
 import SpinnerCSS from './SpinnerCSS'
+import DynamicContainerCSS from './DynamicContainerCSS'
 
 export default class CSSWidgetFactory {
 
@@ -35,8 +36,14 @@ export default class CSSWidgetFactory {
       'Camera': new CameraCSS(cssFactory),
       'UploadPreview': new UploadPreviewCSS(cssFactory),
       'ComponentSet': new ComponentSetCSS(cssFactory),
-      'Spinner': new SpinnerCSS(cssFactory)
+      'Spinner': new SpinnerCSS(cssFactory),
+      'DynamicContainer': new DynamicContainerCSS(cssFactory)
     }
+  }
+
+  getCSS_DynamicContainer(selector, style, widget) {
+    Logger.log(5, 'getDynamicContainer', widget)
+    return this.factories.DynamicContainer.run(selector, style, widget)
   }
 
   getCSS_Spinner(selector, style, widget) {

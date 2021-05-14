@@ -1,43 +1,52 @@
-// import * as Util from "../core/ExportUtil"
+import * as Util from "../core/ExportUtil"
 import Logger from "../core/Logger"
 
 
 export function transform(treeModel, config) {
 	Logger.log(3, "Inline.transform () > enter", config)
 
-
 	let elements = getTreeElements(treeModel)
 	Logger.log(-1,  "Inline.transform () > elements", Object.keys(elements).length)
-	//let cloneCount = 0
+
 	for (let id in elements) {
 		let element = elements[id]
 		if (element.type === 'DynamicContainer' && element.props.dynamicChildren) {
 			Logger.log(-1,  "Inline.transform () > inline", element.name, element.figmaComponentId)
 
-			//let orignalChildren = element.children
+			/**
+			 * We have to set here the component class
+			 */
+			if (element.props.dynamicParent && elements[element.props.dynamicParent]) {
+				let parent = elements[element.props.dynamicParent]
+				element.cssComponentClasses = [parent.cssScreen]
+			}
+
+			/**
+			 * Attention. We set here only references. This means the
+			 * parent and css selectors are per so not correct
+			 */
 			element.children = []
 			element.props.dynamicChildren.forEach(childId => {
 				let childElement = elements[childId]
 				if (childElement) {
-					// make somehow a copy
-					//let clone = Util.clone(childElement)
-					//clone.id = childElement.id + 'Clone' + cloneCount++
-					//clone.x = 0
-					//clone.y = 0
 					element.children.push(childElement)
 				}
-				console.debug(childElement.figmaId)
 			})
 
 		}
 	}
-
-
-
-
-
 	return treeModel
+}
 
+export function createCopy (element, count = 0) {
+	let result = {
+		id: element.id + ':' + count,
+		name: element.name,
+		style: Util.clone(element.style),
+		props: Util.clone(element.props),
+	}
+
+	return result
 }
 
 

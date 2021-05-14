@@ -1,6 +1,6 @@
 
 <template>
-  <div :class="['qux-compoment-set', cssClass]" @click="toggle">
+  <div :class="['qux-dynamic-container', cssClass + ' ' + cssComponentClasses]">
 
       <template v-if="selectedChild">
         <component
@@ -12,7 +12,7 @@
           v-model="value"
           @qDesignSystemCallback="forwardDesignSystemCallback"
           @qCallback="forwardCallback"
-          @qClick="forwardClick"
+          @qClick="onClick"
           @qChange="forwardChange"
           @qKeyPress="forwardKeyPress"
           @qFocus="forwardFocus"
@@ -28,7 +28,7 @@
   </div>
 </template>
 <style lang="scss">
-    @import '../scss/qux-component-set.scss';
+    @import '../scss/qux-dynamic-container.scss';
 </style>
 <script>
 
@@ -37,135 +37,53 @@ import * as Util from '../core/ExportUtil'
 import Logger from '../core/Logger'
 
 export default {
-  name: 'qComponentSet',
+  name: 'qDynamicContainer',
   mixins: [_Base],
   data: function () {
       return {
-        checked: false,
-        qErrorMessage: 'No varient matching!',
-        debug: false
+        selectedValue: null,
+        selectedChildIndex: 0,
+        dynamicLines:[],
+        dynamicChildValues: [],
+        qErrorMessage: 'Nothing'
       }
   },
   computed: {
-    isActive () {
-      if (this.isDesignSystemRoot) {
-        /**
-         * If no v-model is passed, we take the checked
-         */
-        if (this.value === undefined ) {
-          return this.checked
-        }
-        return this.value
-      }
-      if (this.element) {
-        let input = this.dataBindingInput
-        return input === true
-      }
-      return this.checked
-    },
     selectedChild () {
-
-      if (this.element && this.$parent) {
-        let matches = this.getMatchesByVarient()
-        Logger.log(2, 'qComponentSet.selectedChild() ', matches)
-        if (Util.isChildrenToggle(this.element) && this.element.children.length > 1) {
-           if (matches.length == 2) {
-             /**
-              * FIXME: Herre the order matters!
-              */
-            if (this.isActive) {
-              return matches[1]
-            } else {
-              return matches[0]
-            }
-          } else {
-            Logger.error('qComponentSet.selectedChild() > More than 2 matches for toggle', matches)
-          }
-        } else {
-          if (matches.length === 1) {
-            return matches[0]
-          } else {
-            Logger.error('qComponentSet.selectedChild() > More than 1 macthes', matches)
+      if (this.element) {
+        let dataBindingInput = this.dataBindingInput
+        if (dataBindingInput !== undefined) {
+          let index = this.dynamicChildValues.indexOf(dataBindingInput)
+          if (index >=0 && index < this.element.children.length) {
+              let child = this.element.children[index]
+              return child
           }
         }
+        return this.element.children[this.selectedChildIndex]
       }
       return null
-    },
-    justifyContent () {
-      if (Util.isWrappedContainer(this.element) && this.config.css.justifyContentInWrapper) {
-        return true
-      }
-      return false
-    },
-    wrapperPlaceHolders () {
-      return [1,2,3,4,5,6,7,8]
     }
   },
   methods: {
-    toggle (e) {
-      if (this.element) {
-        let value = !this.isActive
-        this.onValueChange(value, 'default')
-        Logger.log(4, 'qComponentSet.toggle(element) > ' + this.dataBindingInputPath, value)
-        this.checked = value
-      } else {
-        this.checked = !this.checked
-        this.$emit('change', this.checked)
-        this.$emit('input', this.checked)
-        Logger.log(5, 'qComponentSet.toggle() >' + this.checked)
-      }
-      /**
-       * Also fire onClick
-       */
-      this.onClick(e)
-    },
-    getMatchesByVarient () {
-      let variantKeys = this.getPresentPropertyKeys()
-      Logger.log(4, 'qComponentSet.toggle(element) > ' + this.element.name, variantKeys)
-      let matches = this.element.children.filter(child => {
-          if (child.variant) {
-            let isMatch = true
-            variantKeys.forEach(key => {
-              let value = child.variant[key]
-              isMatch &= value === this.$parent.$props[key]
-            })
-            return isMatch
+    onClick (element, e, value) {
+      let fromLine = this.dynamicLines.find(line => line.from === element.id)
+      if (fromLine) {
+        if (this.element && this.element.children) {
+          let toIndex = this.element.children.findIndex(c => c.id === fromLine.to)
+          if (toIndex >= 0) {
+            Logger.log(-1, 'DynamicContainer.onClick() > select ', fromLine.to, toIndex )
+            this.selectedChildIndex = toIndex
+            this.emitDynamicDataBinding(toIndex)
+            return
           }
-          return false
-      })
-      return matches
-    },
-    getPresentPropertyKeys () {
-      if (this.element && this.element.children.length > 1) {
-        /**
-         * Assume the first child has all variants
-         */
-        let firstChild = this.element.children[0]
-        if (firstChild.variant) {
-          return Object.keys(firstChild.variant).filter(key => {
-              let value = this.$parent.$props[key]
-              return value !== undefined
-          })
         }
       }
-      return []
+      this.$emit('qClick', element, e, value);
     },
-    getMatchByProps () {
-      let matches = this.element.children.filter(child => {
-        if (child.variant) {
-          let isMatch = true
-          for (let key in child.variant) {
-            let value = child.variant[key]
-            isMatch &= value === this.$parent.$props[key]
-          }
-          return isMatch
-        }
-        return false
-      })
-      return matches
-    },
-    getValue () {
-      return this.isActive
+    emitDynamicDataBinding (index) {
+      let value = this.dynamicChildValues[index]
+      this.onValueChange(value)
+      Logger.log(1, 'DynamicContainer.emitDynamicDataBinding() > ', value )
     },
     forwardClick (element, e, value) {
       this.$emit('qClick', element, e, value);
@@ -193,7 +111,29 @@ export default {
     }
   },
   mounted () {
-    // console.debug('ComponentSet.mounted()', this.element.name, this.label, this.element)
+    Logger.log(-1, 'DynamicComponent.mounted()', this.element )
+    if (this.element && this.element.props) {
+      if (this.element.props.dynamicLines) {
+        this.dynamicLines = this.element.props.dynamicLines
+      }
+    }
+
+    let childDataValues = []
+    if (this.element.children) {
+      this.element.children.forEach((child, index) => {
+        if (child.props) {
+          let dataValue = child.props.dataValue
+          if (dataValue !== undefined) {
+            dataValue = Util.stringToType(dataValue)
+          } else {
+            dataValue = index
+          }
+          childDataValues[index] = dataValue
+        }
+      })
+    }
+    this.dynamicChildValues = childDataValues
+    Logger.log(1, 'DynamicComponent.mounted() > dataValues', this.dynamicChildValues )
   }
 }
 </script>

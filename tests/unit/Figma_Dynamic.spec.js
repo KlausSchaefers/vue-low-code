@@ -22,13 +22,22 @@ test('Test Figma Dynamic', async () => {
    expect(Object.values(app.widgets).length).toBe(10)
    expect(Object.values(app.lines).length).toBe(3) // there is one line from the instance to the component
 
-   let instance = Object.values(app.widgets).find(w => w.name === 'INSTANCE 1')
+   let instance = Object.values(app.widgets).find(w => w.name === 'Instance 1')
    expect(instance).not.toBeUndefined()
    expect(instance.type).toBe('DynamicContainer')
    expect(instance.props.dynamicChildren.length).toBe(2)
    expect(instance.props.dynamicStart).not.toBeUndefined()
    expect(instance.props.dynamicLines).not.toBeUndefined()
    expect(instance.props.dynamicLines.length).toBe(2)
+
+   let comp1 = Object.values(app.widgets).find(w => w.name === 'Component 1-ToggleOn')
+   expect(comp1).not.toBeUndefined()
+   expect(comp1.props.dataValue).toBe('true')
+
+   let comp2 = Object.values(app.widgets).find(w => w.name === 'Component 1-ToggleOff')
+   expect(comp2).not.toBeUndefined()
+   expect(comp2.props.dataValue).toBe('false')
+
   /**
    * Check if transform works correctly
    */

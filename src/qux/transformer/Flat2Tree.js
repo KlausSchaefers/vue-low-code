@@ -330,6 +330,10 @@ function getWidgetType(element) {
 		return "qComponentSet"
 	}
 
+	if (element.type === "DynamicContainer") {
+		return "qDynamicContainer"
+	}
+
 	if (element.children && element.children.length > 0) {
 		if (element.type === "Repeater") {
 			return "qRepeater"
