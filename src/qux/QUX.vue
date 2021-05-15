@@ -295,20 +295,25 @@ export default {
         }
     },
     setScreen (screenName, query) {
-        Logger.log(2, 'QUX.setScreen() > ', screenName, query)
+        Logger.log(-1, 'QUX.setScreen() > ', screenName, query)
         // Update url, which will trigger watcher, which will call setScreenByRouter() which will call loadScreen()
         let prefix = ''
         if (this.config && this.config.router && this.config.router.prefix) {
             prefix = this.config.router.prefix + '/'
         }
-        let url = `#/${prefix}${screenName}.html`
-        /**
-         * FIXME: Check if the hash has 'url', 'app' or 'version' in the query. Keep it?
-         */
+        let url = `/${prefix}${screenName}.html`
         if (query) {
             url += '?' + query
         }
-        location.hash = url
+        /**
+         * In history mode we have to set the entire URL
+         */
+        if (this.$router && this.$router.mode === 'history'){
+            location = url
+        } else {
+            location.hash = '#' + url
+        }
+
     },
     loadScreen (name) {
         Logger.log(2 , 'QUX.loadScreen() >', name)
