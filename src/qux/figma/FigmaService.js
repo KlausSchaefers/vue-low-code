@@ -1225,7 +1225,10 @@ export default class FigmaService {
         style.fontFamily = fStyle.fontFamily
         style.fontSize = fStyle.fontSize
         style.fontWeight = fStyle.fontWeight
-        style.lineHeight = fStyle.lineHeightPercent / 100 // this has a different weird formular! https://help.figma.com/text/line-height
+
+        // this has a different weird formular! https://help.figma.com/text/line-height
+        this.setLineHeight(style, fStyle)
+
         style.letterSpacing = fStyle.letterSpacing
 
         if (fStyle.textCase === 'UPPER') {
@@ -1274,6 +1277,40 @@ export default class FigmaService {
     }
 
     return style
+  }
+
+
+  setLineHeight (style, fStyle) {
+    /**
+     * If we have pixel line height, everything is easy.
+     */
+    if (fStyle.lineHeightUnit === 'PIXELS') {
+      style.lineHeightPX = fStyle.lineHeightPx
+      return
+    }
+
+    /**
+     * we might have 'auto', which seems 150%. We set as pixel, because
+     * Figma inspect gives the same values.
+     */
+    if (fStyle.lineHeightUnit === 'INTRINSIC_%' && fStyle.lineHeightPercent) {
+      style.lineHeightPX = Math.round(style.fontSize * 1.5)
+      return
+    }
+
+    /**
+     * For % we have to take the lineHeightPercentFontSize
+     */
+    if (fStyle.lineHeightUnit === 'FONT_SIZE_%') {
+      style.lineHeight = fStyle.lineHeightPercentFontSize / 100
+      return
+    }
+
+
+    /**
+     * Defautl is line-heigth in percentage
+     */
+    style.lineHeight = fStyle.lineHeightPercent / 100
   }
 
   setAllChildrenFixed (element) {

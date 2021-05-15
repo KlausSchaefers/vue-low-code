@@ -44,6 +44,7 @@ export default class CSSFactory {
 			"fontWeight" : "font-weight",
 			"letterSpacing" : "letter-spacing",
 			"lineHeight" : "line-height",
+			"lineHeightPX": "line-height",
 			"textTransform": "text-transform",
 
 			"border": "border",
@@ -113,7 +114,7 @@ export default class CSSFactory {
 
 		this.textProperties = [
 			'color', 'textDecoration', 'textAlign', 'fontFamily',
-			'fontSize', 'fontStyle', 'fontWeight', 'letterSpacing', 'lineHeight'
+			'fontSize', 'fontStyle', 'fontWeight', 'letterSpacing', 'lineHeight', 'lineHeightPX'
 		]
 
 		this.isPixel = {
@@ -134,7 +135,8 @@ export default class CSSFactory {
 
 			"fontSize": true,
 
-			"letterSpacing": true
+			"letterSpacing": true,
+			"lineHeightPX": true
 		}
 
 

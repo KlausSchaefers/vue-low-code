@@ -65,6 +65,7 @@ export default {
           varientComponentHoverKey: 'Mouse=Hover',
           varientComponentDefaultKey: 'Mouse=Default'
         },
+        loadFonts: true,
         css: {
           grid: true,
           justifyContentInWrapper: false,
@@ -118,6 +119,9 @@ export default {
         }
         if (c.responsive) {
             this.mergedConfig.responsive = c.responsive
+        }
+        if (c.loadFonts !== undefined) {
+            this.mergedConfig.loadFonts = c.loadFonts
         }
         if (c.figma) {
           this.mergedConfig.figma = Util.mixin(this.mergedConfig.figma, c.figma)

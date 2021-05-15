@@ -54,6 +54,7 @@ import CSSOptimizer from './core/CSSOptimizer'
 import CSSFactory from './core/CSSFactory'
 import CSSWriter from './core/CSSWriter'
 import ActionEngine from './actions/ActionEngine'
+import FontWriter from './core/FontWriter'
 
 import Vue from 'vue'
 
@@ -157,6 +158,7 @@ export default {
               let transformer = new ModelTransformer(model, this.mergedConfig, this.selected)
               let tree = transformer.transform()
               this.setGlobalCSS(tree, this.selected)
+              this.setGlobalFonts(model, this.mergedConfig)
               return tree
           }
           return {
@@ -234,6 +236,9 @@ export default {
 
         }
         return model
+    },
+    setGlobalFonts (model, config) {
+        FontWriter.write(model, config)
     },
     setGlobalCSS (tree) {
         let compressed = new CSSOptimizer(this.mergedConfig).runTree(tree)

@@ -12,6 +12,7 @@ class Config {
 				logLevel: 0,
 			},
 			designletPrefix:'',
+			loadFonts: true,
 			css: {
 				grid: true,
 				justifyContentInWrapper: false,
@@ -70,11 +71,12 @@ class Config {
 		if (overwrites.designletPrefix) {
 			config.designletPrefix = overwrites.designletPrefix
 		}
-
+		if (overwrites.loadFonts !== undefined) {
+			config.loadFonts = overwrites.loadFonts
+		}
 		if (overwrites.responsive) {
 			config.responsive = overwrites.responsive
 		}
-
     return config
   }
 
