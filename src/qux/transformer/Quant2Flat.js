@@ -147,11 +147,12 @@ function addDefaultDataBinding(model) {
 			children.forEach((widgetId) => {
 				let widget = model.widgets[widgetId]
 				if (widget && widget.props) {
+
 					if (!widget.props.databinding || Object.values(widget.props.databinding) === 0) {
 						widget.props.databinding = {
 							default: getDefaultDataBinding(screen, widget),
 						}
-						Logger.log(4, "Quant2Flat.addDefaultDataBinding() > ", widget.props.databinding)
+						Logger.log(2, "Quant2Flat.addDefaultDataBinding() > ", widget.props.databinding)
 					}
 				}
 			})
@@ -160,7 +161,7 @@ function addDefaultDataBinding(model) {
 	return model
 }
 
-function getDefaultDataBinding(screen, widget) {
+export function getDefaultDataBinding(screen, widget) {
 	/**
 	 * RadioBoxes need some special handling. We create a binding for the group if specified
 	 */

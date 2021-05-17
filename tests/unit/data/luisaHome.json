@@ -1,0 +1,7530 @@
+{
+  "version": 2.1,
+  "figmaId": "7crJt0IdDaYi6oW51hamJY",
+  "name": "luisa.cloud (Copy)",
+  "description": "",
+  "screenSize": {
+    "w": 1440,
+    "h": 3697
+  },
+  "type": "smartphone",
+  "screens": {
+    "s10000": {
+      "id": "s10000",
+      "figmaId": "504:674",
+      "pageName": "Desktop",
+      "name": "Start",
+      "type": "Screen",
+      "x": 902,
+      "y": -1928,
+      "w": 1440,
+      "h": 3697,
+      "props": {
+        "start": true
+      },
+      "children": [
+        "w10001",
+        "w10002",
+        "w10003",
+        "w10004",
+        "w10005",
+        "w10006",
+        "w10007",
+        "w10009",
+        "w10010",
+        "w10012",
+        "w10013",
+        "w10014",
+        "w10015",
+        "w10016",
+        "w10017",
+        "w10018",
+        "w10019",
+        "w10020",
+        "w10021",
+        "w10022",
+        "w10023",
+        "w10024",
+        "w10025",
+        "w10026",
+        "w10027",
+        "w10028",
+        "w10029",
+        "w10030",
+        "w10031",
+        "w10032",
+        "w10033",
+        "w10034",
+        "w10035",
+        "w10036",
+        "w10037",
+        "w10038",
+        "w10039",
+        "w10040",
+        "w10041",
+        "w10042",
+        "w10043",
+        "w10044",
+        "w10045",
+        "w10046",
+        "w10047",
+        "w10048",
+        "w10049",
+        "w10050",
+        "w10051",
+        "w10052",
+        "w10053",
+        "w10054",
+        "w10055",
+        "w10056",
+        "w10057",
+        "w10058",
+        "w10059",
+        "w10060",
+        "w10061",
+        "w10062",
+        "w10063",
+        "w10064",
+        "w10065",
+        "w10066",
+        "w10067",
+        "w10068",
+        "w10069",
+        "w10070",
+        "w10071",
+        "w10072",
+        "w10073",
+        "w10074",
+        "w10075",
+        "w10076",
+        "w10077",
+        "w10078",
+        "w10079",
+        "w10080",
+        "w10081",
+        "w10082",
+        "w10083",
+        "w10084"
+      ],
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(255, 255, 255, 1)"
+      }
+    },
+    "s10085": {
+      "id": "s10085",
+      "figmaId": "513:0",
+      "pageName": "Desktop",
+      "name": "About",
+      "type": "Screen",
+      "x": 2745,
+      "y": -1928,
+      "w": 1440,
+      "h": 1946,
+      "props": {
+        "start": true
+      },
+      "children": [
+        "w10086",
+        "w10087",
+        "w10088",
+        "w10089",
+        "w10090",
+        "w10092",
+        "w10094",
+        "w10095",
+        "w10096",
+        "w10098",
+        "w10099",
+        "w10100",
+        "w10101",
+        "w10102",
+        "w10103",
+        "w10104",
+        "w10105",
+        "w10106",
+        "w10107"
+      ],
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(255, 255, 255, 1)"
+      }
+    },
+    "s10108": {
+      "id": "s10108",
+      "figmaId": "513:102",
+      "pageName": "Desktop",
+      "name": "Contact",
+      "type": "Screen",
+      "x": 4433,
+      "y": -1928,
+      "w": 1440,
+      "h": 1946,
+      "props": {
+        "start": true
+      },
+      "children": [
+        "w10109",
+        "w10110",
+        "w10111",
+        "w10112",
+        "w10113",
+        "w10115",
+        "w10117",
+        "w10119",
+        "w10120",
+        "w10121",
+        "w10122",
+        "w10123",
+        "w10124",
+        "w10125",
+        "w10126",
+        "w10127",
+        "w10128",
+        "w10129",
+        "w10130",
+        "w10131",
+        "w10132",
+        "w10133",
+        "w10134",
+        "w10135",
+        "w10136",
+        "w10137",
+        "w10138",
+        "w10139",
+        "w10140",
+        "w10141",
+        "w10142",
+        "w10143",
+        "w10144"
+      ],
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(255, 255, 255, 1)"
+      }
+    },
+    "s10145": {
+      "id": "s10145",
+      "figmaId": "506:5",
+      "pageName": "Handy",
+      "name": "Start",
+      "type": "Screen",
+      "x": -188,
+      "y": -334,
+      "w": 367,
+      "h": 739,
+      "props": {
+        "start": true
+      },
+      "children": [
+        "w10146",
+        "w10147",
+        "w10148",
+        "w10149"
+      ],
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(255, 101, 117, 1)"
+      }
+    }
+  },
+  "widgets": {
+    "w10001": {
+      "id": "w10001",
+      "parentId": "s10000",
+      "name": "header",
+      "type": "Button",
+      "figmaId": "504:675",
+      "figmaType": "FRAME",
+      "x": 1062,
+      "y": -1928,
+      "w": 1120,
+      "h": 56,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "space-between",
+        "alignItems": "center",
+        "itemSpacing": 32,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 8,
+        "paddingBottom": 8
+      },
+      "z": 2,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderBottomLeftRadius": 6,
+        "borderTopLeftRadius": 6,
+        "borderBottomRightRadius": 6,
+        "borderTopRightRadius": 6
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10002": {
+      "id": "w10002",
+      "parentId": "w10001",
+      "name": "nav-left",
+      "type": "Button",
+      "figmaId": "504:676",
+      "figmaType": "FRAME",
+      "x": 1078,
+      "y": -1916,
+      "w": 211,
+      "h": 32,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "flex-start",
+        "alignItems": "center",
+        "itemSpacing": 32,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 3,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10003": {
+      "id": "w10003",
+      "parentId": "w10002",
+      "name": "nav-brand",
+      "type": "Button",
+      "figmaId": "504:677",
+      "figmaType": "FRAME",
+      "x": 1078,
+      "y": -1916,
+      "w": 118,
+      "h": 32,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "flex-start",
+        "alignItems": "center",
+        "itemSpacing": 8,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 4,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10004": {
+      "id": "w10004",
+      "parentId": "w10003",
+      "name": "LogoCntr",
+      "type": "Button",
+      "figmaId": "504:678",
+      "figmaType": "FRAME",
+      "x": 1078,
+      "y": -1916,
+      "w": 32,
+      "h": 32,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 5,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": ""
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10005": {
+      "id": "w10005",
+      "parentId": "w10004",
+      "name": "Logo",
+      "type": "Vector",
+      "figmaId": "504:882",
+      "figmaType": "VECTOR",
+      "x": 1078,
+      "y": -1915,
+      "w": 32,
+      "h": 22,
+      "layout": {
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 6,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(255, 101, 117, 1)",
+        "backgroundImage": {
+          "sourceUrl": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/3fa7/8e09/e23aec5720c0a6243a71fe52cf638b85",
+          "url": "w10005_1621098410952.png"
+        }
+      },
+      "props": {
+        "paths": [],
+        "relativeTransform": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0.761962890625
+          ]
+        ],
+        "isVector": true,
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        },
+        "figmaImage": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/3fa7/8e09/e23aec5720c0a6243a71fe52cf638b85"
+      },
+      "has": {}
+    },
+    "w10006": {
+      "id": "w10006",
+      "parentId": "w10003",
+      "name": "Luisa.cloud",
+      "type": "Label",
+      "figmaId": "504:682",
+      "figmaType": "TEXT",
+      "x": 1118,
+      "y": -1912,
+      "w": 78,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 7,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 101, 117, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Luisa.cloud",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10007": {
+      "id": "w10007",
+      "parentId": "w10002",
+      "name": "About us",
+      "type": "Label",
+      "figmaId": "504:685",
+      "figmaType": "TEXT",
+      "fimgaTransitionNodeID": "513:0",
+      "x": 1228,
+      "y": -1912,
+      "w": 61,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 8,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "About us",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10009": {
+      "id": "w10009",
+      "parentId": "w10001",
+      "name": "nav-right",
+      "type": "Button",
+      "figmaId": "504:686",
+      "figmaType": "FRAME",
+      "x": 1942,
+      "y": -1920,
+      "w": 224,
+      "h": 40,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "flex-end",
+        "alignItems": "center",
+        "itemSpacing": 16,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 9,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10010": {
+      "id": "w10010",
+      "parentId": "w10009",
+      "name": "Contact",
+      "type": "Label",
+      "figmaId": "504:687",
+      "figmaType": "TEXT",
+      "fimgaTransitionNodeID": "513:102",
+      "x": 1942,
+      "y": -1912,
+      "w": 55,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 10,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Contact",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10012": {
+      "id": "w10012",
+      "parentId": "w10009",
+      "name": "cta-button",
+      "type": "Button",
+      "figmaId": "504:688",
+      "figmaType": "INSTANCE",
+      "figmaComponentId": "124:348",
+      "x": 2013,
+      "y": -1920,
+      "w": 99,
+      "h": 40,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "itemSpacing": 8,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 24,
+        "paddingRight": 24,
+        "paddingTop": 8,
+        "paddingBottom": 8
+      },
+      "z": 11,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(255, 101, 117, 1)",
+        "borderBottomLeftRadius": 8,
+        "borderTopLeftRadius": 8,
+        "borderBottomRightRadius": 8,
+        "borderTopRightRadius": 8
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        },
+        "callbacks": {
+          "click": "showLogin"
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      },
+      "hover": {
+        "background": "rgba(255, 110, 102, 1)"
+      }
+    },
+    "w10013": {
+      "id": "w10013",
+      "parentId": "w10012",
+      "name": "Sign up",
+      "type": "Label",
+      "figmaId": "I504:688;124:201",
+      "figmaType": "TEXT",
+      "figmaComponentId": "124:201",
+      "x": 2037,
+      "y": -1912,
+      "w": 51,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 12,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "middle"
+      },
+      "props": {
+        "label": "Sign up",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10014": {
+      "id": "w10014",
+      "parentId": "w10009",
+      "name": "Login",
+      "type": "Label",
+      "figmaId": "504:689",
+      "figmaType": "TEXT",
+      "x": 2128,
+      "y": -1912,
+      "w": 38,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 13,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Login",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        },
+        "callbacks": {
+          "click": "showLogin"
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10015": {
+      "id": "w10015",
+      "parentId": "s10000",
+      "name": "hero",
+      "type": "Button",
+      "figmaId": "504:690",
+      "figmaType": "FRAME",
+      "x": 1159,
+      "y": -1792,
+      "w": 927,
+      "h": 686,
+      "layout": {
+        "type": "auto-vertical",
+        "justifyContent": "flex-start",
+        "alignItems": "center",
+        "itemSpacing": 16,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 48,
+        "paddingRight": 48,
+        "paddingTop": 37,
+        "paddingBottom": 37
+      },
+      "z": 14,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10016": {
+      "id": "w10016",
+      "parentId": "w10015",
+      "name": "Call2Action",
+      "type": "Label",
+      "figmaId": "504:691",
+      "figmaType": "TEXT",
+      "x": 1207,
+      "y": -1755,
+      "w": 831,
+      "h": 540,
+      "layout": {
+        "align": "STRETCH",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 15,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(0, 0, 0, 1)",
+        "fontSize": 144,
+        "fontWeight": 900,
+        "lineHeightPX": 180,
+        "letterSpacing": 0,
+        "textAlign": "center",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Design \nConnect \nShip",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10017": {
+      "id": "w10017",
+      "parentId": "w10015",
+      "name": "HeroDescription",
+      "type": "Label",
+      "figmaId": "504:692",
+      "figmaType": "TEXT",
+      "x": 1291,
+      "y": -1199,
+      "w": 662,
+      "h": 56,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 16,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(98, 88, 88, 1)",
+        "fontSize": 20,
+        "fontWeight": 400,
+        "lineHeightPX": 28,
+        "letterSpacing": 0,
+        "textAlign": "center",
+        "verticalAlign": "middle"
+      },
+      "props": {
+        "label": "Combine Figma with your favorite CMS and \nship websites in 5 minutes.",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10018": {
+      "id": "w10018",
+      "parentId": "s10000",
+      "name": "Step1",
+      "type": "Button",
+      "figmaId": "504:773",
+      "figmaType": "FRAME",
+      "x": 1158,
+      "y": -1026,
+      "w": 928,
+      "h": 787,
+      "layout": {
+        "type": "auto-vertical",
+        "justifyContent": "flex-start",
+        "alignItems": "center",
+        "itemSpacing": 32,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 17,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": ""
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10019": {
+      "id": "w10019",
+      "parentId": "w10018",
+      "name": "Step1Line",
+      "type": "Vector",
+      "figmaId": "506:1",
+      "figmaType": "VECTOR",
+      "x": 1622,
+      "y": -1026,
+      "w": 1,
+      "h": 199,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 18,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundImage": {
+          "sourceUrl": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/fdff/a92e/8def73a9ec864508e1e7efa7a82e16f2",
+          "url": "w10019_1621098410952.png"
+        }
+      },
+      "props": {
+        "paths": [
+          {
+            "path": "M0.500006 -0.00251253L-0.499994 198.997L0.499994 199.003L1.49999 0.00251253L0.500006 -0.00251253Z",
+            "windingRule": "NONZERO"
+          }
+        ],
+        "relativeTransform": [
+          [
+            1,
+            0,
+            463.5
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "isVector": true,
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        },
+        "figmaImage": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/fdff/a92e/8def73a9ec864508e1e7efa7a82e16f2"
+      },
+      "has": {}
+    },
+    "w10020": {
+      "id": "w10020",
+      "parentId": "w10018",
+      "name": "Step1Bumber",
+      "type": "Button",
+      "figmaId": "504:706",
+      "figmaType": "FRAME",
+      "x": 1583,
+      "y": -795,
+      "w": 79,
+      "h": 80,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 19,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(255, 101, 117, 1)",
+        "borderBottomLeftRadius": 16,
+        "borderTopLeftRadius": 16,
+        "borderBottomRightRadius": 16,
+        "borderTopRightRadius": 16
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10021": {
+      "id": "w10021",
+      "parentId": "w10020",
+      "name": "1",
+      "type": "Label",
+      "figmaId": "504:707",
+      "figmaType": "TEXT",
+      "x": 1610,
+      "y": -783,
+      "w": 25,
+      "h": 56,
+      "layout": {
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 20,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 48,
+        "fontWeight": 900,
+        "lineHeightPX": 56,
+        "letterSpacing": 0,
+        "textAlign": "center",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "1",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10022": {
+      "id": "w10022",
+      "parentId": "w10018",
+      "name": "Step1Headline",
+      "type": "Label",
+      "figmaId": "504:712",
+      "figmaType": "TEXT",
+      "x": 1446,
+      "y": -683,
+      "w": 352,
+      "h": 64,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 21,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 56,
+        "fontWeight": 900,
+        "lineHeightPX": 64,
+        "letterSpacing": 0,
+        "textAlign": "center",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Design",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10023": {
+      "id": "w10023",
+      "parentId": "w10018",
+      "name": "Step1Action",
+      "type": "Label",
+      "figmaId": "504:715",
+      "figmaType": "TEXT",
+      "x": 1350,
+      "y": -587,
+      "w": 544,
+      "h": 48,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 22,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 16,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "center",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Simply design your blog or website with your favorite tool. Don’t think about coding!",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10024": {
+      "id": "w10024",
+      "parentId": "w10018",
+      "name": "Step1Details",
+      "type": "Button",
+      "figmaId": "504:718",
+      "figmaType": "FRAME",
+      "x": 1158,
+      "y": -507,
+      "w": 928,
+      "h": 268,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "flex-start",
+        "alignItems": "center",
+        "itemSpacing": 32,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 23,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10025": {
+      "id": "w10025",
+      "parentId": "w10024",
+      "name": "ImgCntr",
+      "type": "Button",
+      "figmaId": "510:6",
+      "figmaType": "FRAME",
+      "x": 1158,
+      "y": -497,
+      "w": 448,
+      "h": 248,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "itemSpacing": 10,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 24,
+        "paddingRight": 24,
+        "paddingTop": 24,
+        "paddingBottom": 24
+      },
+      "z": 24,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": ""
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10026": {
+      "id": "w10026",
+      "parentId": "w10025",
+      "name": "FigmaLogo",
+      "type": "Vector",
+      "figmaId": "510:1",
+      "figmaType": "RECTANGLE",
+      "x": 1315,
+      "y": -473,
+      "w": 134,
+      "h": 200,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 25,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundImage": {
+          "sourceUrl": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/9c5e/c624/3a90de738bfe6a1201127e05eec1d407",
+          "url": "w10026_1621098410952.png"
+        }
+      },
+      "props": {
+        "paths": [],
+        "relativeTransform": [
+          [
+            1,
+            0,
+            157.11257934570312
+          ],
+          [
+            0,
+            1,
+            24
+          ]
+        ],
+        "isVector": true,
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        },
+        "figmaImage": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/9c5e/c624/3a90de738bfe6a1201127e05eec1d407"
+      },
+      "has": {}
+    },
+    "w10027": {
+      "id": "w10027",
+      "parentId": "w10024",
+      "name": "Frame 4",
+      "type": "Button",
+      "figmaId": "504:720",
+      "figmaType": "FRAME",
+      "x": 1638,
+      "y": -507,
+      "w": 448,
+      "h": 268,
+      "layout": {
+        "type": "auto-vertical",
+        "justifyContent": "flex-start",
+        "alignItems": "flex-start",
+        "itemSpacing": 32,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 26,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10028": {
+      "id": "w10028",
+      "parentId": "w10027",
+      "name": "feature-box",
+      "type": "Button",
+      "figmaId": "504:721",
+      "figmaType": "INSTANCE",
+      "figmaComponentId": "126:3",
+      "x": 1638,
+      "y": -507,
+      "w": 448,
+      "h": 76,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "flex-start",
+        "alignItems": "flex-start",
+        "itemSpacing": 8,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 27,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10029": {
+      "id": "w10029",
+      "parentId": "w10028",
+      "name": "feature-description",
+      "type": "Button",
+      "figmaId": "I504:721;126:0",
+      "figmaType": "FRAME",
+      "figmaComponentId": "126:0",
+      "x": 1638,
+      "y": -507,
+      "w": 448,
+      "h": 76,
+      "layout": {
+        "type": "auto-vertical",
+        "justifyContent": "flex-start",
+        "alignItems": "flex-start",
+        "align": "INHERIT",
+        "grow": 1,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 28,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10030": {
+      "id": "w10030",
+      "parentId": "w10029",
+      "name": "Design",
+      "type": "Label",
+      "figmaId": "I504:721;124:365",
+      "figmaType": "TEXT",
+      "figmaComponentId": "124:365",
+      "x": 1638,
+      "y": -507,
+      "w": 448,
+      "h": 28,
+      "layout": {
+        "align": "STRETCH",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 29,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 20,
+        "fontWeight": 400,
+        "lineHeightPX": 28,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Design",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10031": {
+      "id": "w10031",
+      "parentId": "w10029",
+      "name": "w10031",
+      "type": "Label",
+      "figmaId": "I504:721;124:366",
+      "figmaType": "TEXT",
+      "figmaComponentId": "124:366",
+      "x": 1638,
+      "y": -479,
+      "w": 448,
+      "h": 48,
+      "layout": {
+        "align": "STRETCH",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 30,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 16,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Use the full power of Figma or Quant-UX to express your creativity.",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10032": {
+      "id": "w10032",
+      "parentId": "w10027",
+      "name": "feature-box",
+      "type": "Button",
+      "figmaId": "504:722",
+      "figmaType": "INSTANCE",
+      "figmaComponentId": "126:3",
+      "x": 1638,
+      "y": -399,
+      "w": 448,
+      "h": 76,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "flex-start",
+        "alignItems": "flex-start",
+        "itemSpacing": 8,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 31,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10033": {
+      "id": "w10033",
+      "parentId": "w10032",
+      "name": "feature-description",
+      "type": "Button",
+      "figmaId": "I504:722;126:0",
+      "figmaType": "FRAME",
+      "figmaComponentId": "126:0",
+      "x": 1638,
+      "y": -399,
+      "w": 448,
+      "h": 76,
+      "layout": {
+        "type": "auto-vertical",
+        "justifyContent": "flex-start",
+        "alignItems": "flex-start",
+        "align": "INHERIT",
+        "grow": 1,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 32,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10034": {
+      "id": "w10034",
+      "parentId": "w10033",
+      "name": "Feature Heading Title",
+      "type": "Label",
+      "figmaId": "I504:722;124:365",
+      "figmaType": "TEXT",
+      "figmaComponentId": "124:365",
+      "x": 1638,
+      "y": -399,
+      "w": 448,
+      "h": 28,
+      "layout": {
+        "align": "STRETCH",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 33,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 20,
+        "fontWeight": 400,
+        "lineHeightPX": 28,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "How?",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10035": {
+      "id": "w10035",
+      "parentId": "w10033",
+      "name": "w10035",
+      "type": "Label",
+      "figmaId": "I504:722;124:366",
+      "figmaType": "TEXT",
+      "figmaComponentId": "124:366",
+      "x": 1638,
+      "y": -371,
+      "w": 448,
+      "h": 48,
+      "layout": {
+        "align": "STRETCH",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 34,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 16,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Define method and data bindings in the Figma-Low-Code plugin.",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10036": {
+      "id": "w10036",
+      "parentId": "w10027",
+      "name": "feature-box",
+      "type": "Button",
+      "figmaId": "504:723",
+      "figmaType": "INSTANCE",
+      "figmaComponentId": "126:3",
+      "x": 1638,
+      "y": -291,
+      "w": 448,
+      "h": 52,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "flex-start",
+        "alignItems": "flex-start",
+        "itemSpacing": 8,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 35,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10037": {
+      "id": "w10037",
+      "parentId": "w10036",
+      "name": "feature-description",
+      "type": "Button",
+      "figmaId": "I504:723;126:0",
+      "figmaType": "FRAME",
+      "figmaComponentId": "126:0",
+      "x": 1638,
+      "y": -291,
+      "w": 448,
+      "h": 52,
+      "layout": {
+        "type": "auto-vertical",
+        "justifyContent": "flex-start",
+        "alignItems": "flex-start",
+        "align": "INHERIT",
+        "grow": 1,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 36,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10038": {
+      "id": "w10038",
+      "parentId": "w10037",
+      "name": "Feature Heading Title",
+      "type": "Label",
+      "figmaId": "I504:723;124:365",
+      "figmaType": "TEXT",
+      "figmaComponentId": "124:365",
+      "x": 1638,
+      "y": -291,
+      "w": 448,
+      "h": 28,
+      "layout": {
+        "align": "STRETCH",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 37,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 20,
+        "fontWeight": 400,
+        "lineHeightPX": 28,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Responsive",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10039": {
+      "id": "w10039",
+      "parentId": "w10037",
+      "name": "w10039",
+      "type": "Label",
+      "figmaId": "I504:723;124:366",
+      "figmaType": "TEXT",
+      "figmaComponentId": "124:366",
+      "x": 1638,
+      "y": -263,
+      "w": 448,
+      "h": 24,
+      "layout": {
+        "align": "STRETCH",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 38,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 16,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Define a perfect design for each device size.",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10040": {
+      "id": "w10040",
+      "parentId": "s10000",
+      "name": "Step2",
+      "type": "Button",
+      "figmaId": "504:774",
+      "figmaType": "FRAME",
+      "x": 1158,
+      "y": -159,
+      "w": 928,
+      "h": 767,
+      "layout": {
+        "type": "auto-vertical",
+        "justifyContent": "flex-start",
+        "alignItems": "center",
+        "itemSpacing": 32,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 39,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": ""
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10041": {
+      "id": "w10041",
+      "parentId": "w10040",
+      "name": "Step3Line",
+      "type": "Vector",
+      "figmaId": "506:0",
+      "figmaType": "VECTOR",
+      "x": 1622,
+      "y": -159,
+      "w": 1,
+      "h": 199,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 40,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundImage": {
+          "sourceUrl": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/fdff/a92e/8def73a9ec864508e1e7efa7a82e16f2",
+          "url": "w10041_1621098410952.png"
+        }
+      },
+      "props": {
+        "paths": [
+          {
+            "path": "M0.500006 -0.00251253L-0.499994 198.997L0.499994 199.003L1.49999 0.00251253L0.500006 -0.00251253Z",
+            "windingRule": "NONZERO"
+          }
+        ],
+        "relativeTransform": [
+          [
+            1,
+            0,
+            463.5
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "isVector": true,
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        },
+        "figmaImage": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/fdff/a92e/8def73a9ec864508e1e7efa7a82e16f2"
+      },
+      "has": {}
+    },
+    "w10042": {
+      "id": "w10042",
+      "parentId": "w10040",
+      "name": "Step3Button",
+      "type": "Button",
+      "figmaId": "504:708",
+      "figmaType": "FRAME",
+      "x": 1583,
+      "y": 72,
+      "w": 79,
+      "h": 80,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 41,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(255, 101, 117, 1)",
+        "borderBottomLeftRadius": 16,
+        "borderTopLeftRadius": 16,
+        "borderBottomRightRadius": 16,
+        "borderTopRightRadius": 16
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10043": {
+      "id": "w10043",
+      "parentId": "w10042",
+      "name": "2",
+      "type": "Label",
+      "figmaId": "504:709",
+      "figmaType": "TEXT",
+      "x": 1606,
+      "y": 84,
+      "w": 32,
+      "h": 56,
+      "layout": {
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 42,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "boxShadow": {
+          "v": 1,
+          "h": 0,
+          "b": 1,
+          "s": 0,
+          "i": false,
+          "c": "rgba(18, 29, 48, 0.10000000149011612)"
+        },
+        "fontSize": 48,
+        "fontWeight": 900,
+        "lineHeightPX": 56,
+        "letterSpacing": 0,
+        "textAlign": "center",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "2",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10044": {
+      "id": "w10044",
+      "parentId": "w10040",
+      "name": "Step3Header",
+      "type": "Label",
+      "figmaId": "504:713",
+      "figmaType": "TEXT",
+      "x": 1446,
+      "y": 184,
+      "w": 352,
+      "h": 64,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 43,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 56,
+        "fontWeight": 900,
+        "lineHeightPX": 64,
+        "letterSpacing": 0,
+        "textAlign": "center",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Connect",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10045": {
+      "id": "w10045",
+      "parentId": "w10040",
+      "name": "Step3Action",
+      "type": "Label",
+      "figmaId": "504:716",
+      "figmaType": "TEXT",
+      "x": 1350,
+      "y": 280,
+      "w": 544,
+      "h": 48,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 44,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 16,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "center",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Add data and smart actions to your app. Connect to any backend service you like.",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10046": {
+      "id": "w10046",
+      "parentId": "w10040",
+      "name": "Step3Details",
+      "type": "Button",
+      "figmaId": "504:732",
+      "figmaType": "FRAME",
+      "x": 1158,
+      "y": 360,
+      "w": 928,
+      "h": 248,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "flex-start",
+        "alignItems": "center",
+        "itemSpacing": 32,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 45,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10047": {
+      "id": "w10047",
+      "parentId": "w10046",
+      "name": "Frame 5",
+      "type": "Button",
+      "figmaId": "510:7",
+      "figmaType": "FRAME",
+      "x": 1158,
+      "y": 360,
+      "w": 448,
+      "h": 248,
+      "layout": {
+        "type": "auto-vertical",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 24,
+        "paddingRight": 24,
+        "paddingTop": 24,
+        "paddingBottom": 24
+      },
+      "z": 46,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": ""
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10048": {
+      "id": "w10048",
+      "parentId": "w10047",
+      "name": "ContentfulLogo",
+      "type": "Vector",
+      "figmaId": "510:3",
+      "figmaType": "RECTANGLE",
+      "x": 1293,
+      "y": 384,
+      "w": 178,
+      "h": 200,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 47,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundImage": {
+          "sourceUrl": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/4881/e721/9598570100da36e4751d2115bd65e3d5",
+          "url": "w10048_1621098410952.png"
+        }
+      },
+      "props": {
+        "paths": [],
+        "relativeTransform": [
+          [
+            1,
+            0,
+            135.2280731201172
+          ],
+          [
+            0,
+            1,
+            24
+          ]
+        ],
+        "isVector": true,
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        },
+        "figmaImage": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/4881/e721/9598570100da36e4751d2115bd65e3d5"
+      },
+      "has": {}
+    },
+    "w10049": {
+      "id": "w10049",
+      "parentId": "w10046",
+      "name": "Frame 4",
+      "type": "Button",
+      "figmaId": "504:733",
+      "figmaType": "FRAME",
+      "x": 1638,
+      "y": 392,
+      "w": 448,
+      "h": 184,
+      "layout": {
+        "type": "auto-vertical",
+        "justifyContent": "flex-start",
+        "alignItems": "flex-start",
+        "itemSpacing": 32,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 48,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10050": {
+      "id": "w10050",
+      "parentId": "w10049",
+      "name": "feature-box",
+      "type": "Button",
+      "figmaId": "504:734",
+      "figmaType": "INSTANCE",
+      "figmaComponentId": "126:3",
+      "x": 1638,
+      "y": 392,
+      "w": 448,
+      "h": 76,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "flex-start",
+        "alignItems": "flex-start",
+        "itemSpacing": 8,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 49,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10051": {
+      "id": "w10051",
+      "parentId": "w10050",
+      "name": "feature-description",
+      "type": "Button",
+      "figmaId": "I504:734;126:0",
+      "figmaType": "FRAME",
+      "figmaComponentId": "126:0",
+      "x": 1638,
+      "y": 392,
+      "w": 448,
+      "h": 76,
+      "layout": {
+        "type": "auto-vertical",
+        "justifyContent": "flex-start",
+        "alignItems": "flex-start",
+        "align": "INHERIT",
+        "grow": 1,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 50,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10052": {
+      "id": "w10052",
+      "parentId": "w10051",
+      "name": "Feature Heading Title",
+      "type": "Label",
+      "figmaId": "I504:734;124:365",
+      "figmaType": "TEXT",
+      "figmaComponentId": "124:365",
+      "x": 1638,
+      "y": 392,
+      "w": 448,
+      "h": 28,
+      "layout": {
+        "align": "STRETCH",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 51,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 20,
+        "fontWeight": 400,
+        "lineHeightPX": 28,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "CMS",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10053": {
+      "id": "w10053",
+      "parentId": "w10051",
+      "name": "w10053",
+      "type": "Label",
+      "figmaId": "I504:734;124:366",
+      "figmaType": "TEXT",
+      "figmaComponentId": "124:366",
+      "x": 1638,
+      "y": 420,
+      "w": 448,
+      "h": 48,
+      "layout": {
+        "align": "STRETCH",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 52,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 16,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Luisa.cloud comes with build in connectors for many popular CMS, such as Contentful.com.",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10054": {
+      "id": "w10054",
+      "parentId": "w10049",
+      "name": "feature-box",
+      "type": "Button",
+      "figmaId": "504:735",
+      "figmaType": "INSTANCE",
+      "figmaComponentId": "126:3",
+      "x": 1638,
+      "y": 500,
+      "w": 448,
+      "h": 76,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "flex-start",
+        "alignItems": "flex-start",
+        "itemSpacing": 8,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 53,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10055": {
+      "id": "w10055",
+      "parentId": "w10054",
+      "name": "feature-description",
+      "type": "Button",
+      "figmaId": "I504:735;126:0",
+      "figmaType": "FRAME",
+      "figmaComponentId": "126:0",
+      "x": 1638,
+      "y": 500,
+      "w": 448,
+      "h": 76,
+      "layout": {
+        "type": "auto-vertical",
+        "justifyContent": "flex-start",
+        "alignItems": "flex-start",
+        "align": "INHERIT",
+        "grow": 1,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 54,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10056": {
+      "id": "w10056",
+      "parentId": "w10055",
+      "name": "Feature Heading Title",
+      "type": "Label",
+      "figmaId": "I504:735;124:365",
+      "figmaType": "TEXT",
+      "figmaComponentId": "124:365",
+      "x": 1638,
+      "y": 500,
+      "w": 448,
+      "h": 28,
+      "layout": {
+        "align": "STRETCH",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 55,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 20,
+        "fontWeight": 400,
+        "lineHeightPX": 28,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Actions",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10057": {
+      "id": "w10057",
+      "parentId": "w10055",
+      "name": "w10057",
+      "type": "Label",
+      "figmaId": "I504:735;124:366",
+      "figmaType": "TEXT",
+      "figmaComponentId": "124:366",
+      "x": 1638,
+      "y": 528,
+      "w": 448,
+      "h": 48,
+      "layout": {
+        "align": "STRETCH",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 56,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 16,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Allow your users to sign-up for newsletters, send mails or data over APIs.",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10058": {
+      "id": "w10058",
+      "parentId": "s10000",
+      "name": "Step3",
+      "type": "Button",
+      "figmaId": "504:775",
+      "figmaType": "FRAME",
+      "x": 1158,
+      "y": 688,
+      "w": 928,
+      "h": 763,
+      "layout": {
+        "type": "auto-vertical",
+        "justifyContent": "flex-start",
+        "alignItems": "center",
+        "itemSpacing": 32,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 57,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": ""
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10059": {
+      "id": "w10059",
+      "parentId": "w10058",
+      "name": "Step3Line",
+      "type": "Vector",
+      "figmaId": "506:2",
+      "figmaType": "VECTOR",
+      "x": 1622,
+      "y": 688,
+      "w": 1,
+      "h": 199,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 58,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundImage": {
+          "sourceUrl": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/0a42/ac93/0dfdad89ac5cfeefea2a11e99e2840c3",
+          "url": "w10059_1621098410952.png"
+        }
+      },
+      "props": {
+        "paths": [
+          {
+            "path": "M1.26053e-05 -0.00502506L-0.999987 198.995L0.999987 199.005L1.99999 0.00502506L1.26053e-05 -0.00502506Z",
+            "windingRule": "NONZERO"
+          }
+        ],
+        "relativeTransform": [
+          [
+            1,
+            0,
+            463.5
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "isVector": true,
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        },
+        "figmaImage": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/0a42/ac93/0dfdad89ac5cfeefea2a11e99e2840c3"
+      },
+      "has": {}
+    },
+    "w10060": {
+      "id": "w10060",
+      "parentId": "w10058",
+      "name": "Step3Number",
+      "type": "Button",
+      "figmaId": "504:710",
+      "figmaType": "FRAME",
+      "x": 1583,
+      "y": 919,
+      "w": 79,
+      "h": 80,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 59,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(255, 101, 117, 1)",
+        "borderBottomLeftRadius": 16,
+        "borderTopLeftRadius": 16,
+        "borderBottomRightRadius": 16,
+        "borderTopRightRadius": 16
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10061": {
+      "id": "w10061",
+      "parentId": "w10060",
+      "name": "3",
+      "type": "Label",
+      "figmaId": "504:711",
+      "figmaType": "TEXT",
+      "x": 1606,
+      "y": 931,
+      "w": 33,
+      "h": 56,
+      "layout": {
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 60,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "boxShadow": {
+          "v": 1,
+          "h": 0,
+          "b": 1,
+          "s": 0,
+          "i": false,
+          "c": "rgba(18, 29, 48, 0.10000000149011612)"
+        },
+        "fontSize": 48,
+        "fontWeight": 900,
+        "lineHeightPX": 56,
+        "letterSpacing": 0,
+        "textAlign": "center",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "3",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10062": {
+      "id": "w10062",
+      "parentId": "w10058",
+      "name": "Step3Headline",
+      "type": "Label",
+      "figmaId": "504:714",
+      "figmaType": "TEXT",
+      "x": 1446,
+      "y": 1031,
+      "w": 352,
+      "h": 64,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 61,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 56,
+        "fontWeight": 900,
+        "lineHeightPX": 64,
+        "letterSpacing": 0,
+        "textAlign": "center",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Ship",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10063": {
+      "id": "w10063",
+      "parentId": "w10058",
+      "name": "Step3Action",
+      "type": "Label",
+      "figmaId": "504:717",
+      "figmaType": "TEXT",
+      "x": 1350,
+      "y": 1127,
+      "w": 544,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 62,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 16,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "center",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Ship your application without writing a single line of code!",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10064": {
+      "id": "w10064",
+      "parentId": "w10058",
+      "name": "Step3Details",
+      "type": "Button",
+      "figmaId": "504:724",
+      "figmaType": "FRAME",
+      "x": 1158,
+      "y": 1183,
+      "w": 928,
+      "h": 268,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "flex-start",
+        "alignItems": "center",
+        "itemSpacing": 32,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 63,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10065": {
+      "id": "w10065",
+      "parentId": "w10064",
+      "name": "Frame 6",
+      "type": "Button",
+      "figmaId": "510:8",
+      "figmaType": "FRAME",
+      "x": 1158,
+      "y": 1194,
+      "w": 448,
+      "h": 246,
+      "layout": {
+        "type": "auto-vertical",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 24,
+        "paddingRight": 24,
+        "paddingTop": 24,
+        "paddingBottom": 24
+      },
+      "z": 64,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": ""
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10066": {
+      "id": "w10066",
+      "parentId": "w10065",
+      "name": "VueLogo",
+      "type": "Vector",
+      "figmaId": "510:10",
+      "figmaType": "RECTANGLE",
+      "x": 1282,
+      "y": 1218,
+      "w": 200,
+      "h": 198,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 65,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundImage": {
+          "sourceUrl": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/cb6a/8ea4/7c25da50a156a87c3704ca2ebf51fe8d",
+          "url": "w10066_1621098410952.png"
+        }
+      },
+      "props": {
+        "paths": [],
+        "relativeTransform": [
+          [
+            1,
+            0,
+            124
+          ],
+          [
+            0,
+            1,
+            24
+          ]
+        ],
+        "isVector": true,
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        },
+        "figmaImage": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/cb6a/8ea4/7c25da50a156a87c3704ca2ebf51fe8d"
+      },
+      "has": {}
+    },
+    "w10067": {
+      "id": "w10067",
+      "parentId": "w10064",
+      "name": "Frame 4",
+      "type": "Button",
+      "figmaId": "504:728",
+      "figmaType": "FRAME",
+      "x": 1638,
+      "y": 1183,
+      "w": 448,
+      "h": 268,
+      "layout": {
+        "type": "auto-vertical",
+        "justifyContent": "flex-start",
+        "alignItems": "flex-start",
+        "itemSpacing": 32,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 66,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10068": {
+      "id": "w10068",
+      "parentId": "w10067",
+      "name": "feature-box",
+      "type": "Button",
+      "figmaId": "504:729",
+      "figmaType": "INSTANCE",
+      "figmaComponentId": "126:3",
+      "x": 1638,
+      "y": 1183,
+      "w": 448,
+      "h": 52,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "flex-start",
+        "alignItems": "flex-start",
+        "itemSpacing": 8,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 67,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10069": {
+      "id": "w10069",
+      "parentId": "w10068",
+      "name": "feature-description",
+      "type": "Button",
+      "figmaId": "I504:729;126:0",
+      "figmaType": "FRAME",
+      "figmaComponentId": "126:0",
+      "x": 1638,
+      "y": 1183,
+      "w": 448,
+      "h": 52,
+      "layout": {
+        "type": "auto-vertical",
+        "justifyContent": "flex-start",
+        "alignItems": "flex-start",
+        "align": "INHERIT",
+        "grow": 1,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 68,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10070": {
+      "id": "w10070",
+      "parentId": "w10069",
+      "name": "Feature Heading Title",
+      "type": "Label",
+      "figmaId": "I504:729;124:365",
+      "figmaType": "TEXT",
+      "figmaComponentId": "124:365",
+      "x": 1638,
+      "y": 1183,
+      "w": 448,
+      "h": 28,
+      "layout": {
+        "align": "STRETCH",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 69,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 20,
+        "fontWeight": 400,
+        "lineHeightPX": 28,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Luisa.cloud",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10071": {
+      "id": "w10071",
+      "parentId": "w10069",
+      "name": "w10071",
+      "type": "Label",
+      "figmaId": "I504:729;124:366",
+      "figmaType": "TEXT",
+      "figmaComponentId": "124:366",
+      "x": 1638,
+      "y": 1211,
+      "w": 448,
+      "h": 24,
+      "layout": {
+        "align": "STRETCH",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 70,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 16,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Host your app with one click at luisa.cloud.",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10072": {
+      "id": "w10072",
+      "parentId": "w10067",
+      "name": "feature-box",
+      "type": "Button",
+      "figmaId": "504:730",
+      "figmaType": "INSTANCE",
+      "figmaComponentId": "126:3",
+      "x": 1638,
+      "y": 1267,
+      "w": 448,
+      "h": 76,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "flex-start",
+        "alignItems": "flex-start",
+        "itemSpacing": 8,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 71,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10073": {
+      "id": "w10073",
+      "parentId": "w10072",
+      "name": "feature-description",
+      "type": "Button",
+      "figmaId": "I504:730;126:0",
+      "figmaType": "FRAME",
+      "figmaComponentId": "126:0",
+      "x": 1638,
+      "y": 1267,
+      "w": 448,
+      "h": 76,
+      "layout": {
+        "type": "auto-vertical",
+        "justifyContent": "flex-start",
+        "alignItems": "flex-start",
+        "align": "INHERIT",
+        "grow": 1,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 72,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10074": {
+      "id": "w10074",
+      "parentId": "w10073",
+      "name": "Feature Heading Title",
+      "type": "Label",
+      "figmaId": "I504:730;124:365",
+      "figmaType": "TEXT",
+      "figmaComponentId": "124:365",
+      "x": 1638,
+      "y": 1267,
+      "w": 448,
+      "h": 28,
+      "layout": {
+        "align": "STRETCH",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 73,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 20,
+        "fontWeight": 400,
+        "lineHeightPX": 28,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Vercel",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10075": {
+      "id": "w10075",
+      "parentId": "w10073",
+      "name": "w10075",
+      "type": "Label",
+      "figmaId": "I504:730;124:366",
+      "figmaType": "TEXT",
+      "figmaComponentId": "124:366",
+      "x": 1638,
+      "y": 1295,
+      "w": 448,
+      "h": 48,
+      "layout": {
+        "align": "STRETCH",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 74,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 16,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Use Vercel.com to deploy your app and take full advantage of their infrastructure",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10076": {
+      "id": "w10076",
+      "parentId": "w10067",
+      "name": "feature-box",
+      "type": "Button",
+      "figmaId": "504:731",
+      "figmaType": "INSTANCE",
+      "figmaComponentId": "126:3",
+      "x": 1638,
+      "y": 1375,
+      "w": 448,
+      "h": 76,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "flex-start",
+        "alignItems": "flex-start",
+        "itemSpacing": 8,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 75,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10077": {
+      "id": "w10077",
+      "parentId": "w10076",
+      "name": "feature-description",
+      "type": "Button",
+      "figmaId": "I504:731;126:0",
+      "figmaType": "FRAME",
+      "figmaComponentId": "126:0",
+      "x": 1638,
+      "y": 1375,
+      "w": 448,
+      "h": 76,
+      "layout": {
+        "type": "auto-vertical",
+        "justifyContent": "flex-start",
+        "alignItems": "flex-start",
+        "align": "INHERIT",
+        "grow": 1,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 76,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10078": {
+      "id": "w10078",
+      "parentId": "w10077",
+      "name": "Feature Heading Title",
+      "type": "Label",
+      "figmaId": "I504:731;124:365",
+      "figmaType": "TEXT",
+      "figmaComponentId": "124:365",
+      "x": 1638,
+      "y": 1375,
+      "w": 448,
+      "h": 28,
+      "layout": {
+        "align": "STRETCH",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 77,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 20,
+        "fontWeight": 400,
+        "lineHeightPX": 28,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Download",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10079": {
+      "id": "w10079",
+      "parentId": "w10077",
+      "name": "w10079",
+      "type": "Label",
+      "figmaId": "I504:731;124:366",
+      "figmaType": "TEXT",
+      "figmaComponentId": "124:366",
+      "x": 1638,
+      "y": 1403,
+      "w": 448,
+      "h": 48,
+      "layout": {
+        "align": "STRETCH",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 78,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 16,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Download your Figma design as a Vue app and run where you want.",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10080": {
+      "id": "w10080",
+      "parentId": "s10000",
+      "name": "footer",
+      "type": "Button",
+      "figmaId": "504:699",
+      "figmaType": "FRAME",
+      "x": 902,
+      "y": 1531,
+      "w": 1440,
+      "h": 238,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "center",
+        "alignItems": "flex-start",
+        "itemSpacing": 32,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 50,
+        "paddingRight": 50,
+        "paddingTop": 50,
+        "paddingBottom": 50
+      },
+      "z": 79,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(18, 29, 48, 1)"
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10081": {
+      "id": "w10081",
+      "parentId": "w10080",
+      "name": "Imprint",
+      "type": "Label",
+      "figmaId": "504:700",
+      "figmaType": "TEXT",
+      "x": 1468,
+      "y": 1581,
+      "w": 47,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 80,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Imprint",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10082": {
+      "id": "w10082",
+      "parentId": "w10080",
+      "name": "Privacy",
+      "type": "Label",
+      "figmaId": "504:701",
+      "figmaType": "TEXT",
+      "x": 1547,
+      "y": 1581,
+      "w": 49,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 81,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Privacy",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10083": {
+      "id": "w10083",
+      "parentId": "w10080",
+      "name": "Terms of use",
+      "type": "Label",
+      "figmaId": "504:702",
+      "figmaType": "TEXT",
+      "x": 1628,
+      "y": 1581,
+      "w": 86,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 82,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Terms of use",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10084": {
+      "id": "w10084",
+      "parentId": "w10080",
+      "name": "Help",
+      "type": "Label",
+      "figmaId": "504:703",
+      "figmaType": "TEXT",
+      "x": 1746,
+      "y": 1581,
+      "w": 31,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 83,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Help",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10086": {
+      "id": "w10086",
+      "parentId": "s10085",
+      "name": "header",
+      "type": "Button",
+      "figmaId": "513:1",
+      "figmaType": "FRAME",
+      "x": 2905,
+      "y": -1928,
+      "w": 1120,
+      "h": 56,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "space-between",
+        "alignItems": "center",
+        "itemSpacing": 32,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 8,
+        "paddingBottom": 8
+      },
+      "z": 84,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderBottomLeftRadius": 6,
+        "borderTopLeftRadius": 6,
+        "borderBottomRightRadius": 6,
+        "borderTopRightRadius": 6
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10087": {
+      "id": "w10087",
+      "parentId": "w10086",
+      "name": "nav-left",
+      "type": "Button",
+      "figmaId": "513:2",
+      "figmaType": "FRAME",
+      "x": 2921,
+      "y": -1916,
+      "w": 211,
+      "h": 32,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "flex-start",
+        "alignItems": "center",
+        "itemSpacing": 32,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 85,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10088": {
+      "id": "w10088",
+      "parentId": "w10087",
+      "name": "nav-brand",
+      "type": "Button",
+      "figmaId": "513:3",
+      "figmaType": "FRAME",
+      "x": 2921,
+      "y": -1916,
+      "w": 118,
+      "h": 32,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "flex-start",
+        "alignItems": "center",
+        "itemSpacing": 8,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 86,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10089": {
+      "id": "w10089",
+      "parentId": "w10088",
+      "name": "LogoCntr",
+      "type": "Button",
+      "figmaId": "513:4",
+      "figmaType": "FRAME",
+      "fimgaTransitionNodeID": "504:674",
+      "x": 2921,
+      "y": -1916,
+      "w": 32,
+      "h": 32,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 87,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": ""
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10090": {
+      "id": "w10090",
+      "parentId": "w10089",
+      "name": "Logo",
+      "type": "Vector",
+      "figmaId": "513:5",
+      "figmaType": "VECTOR",
+      "x": 2921,
+      "y": -1915,
+      "w": 32,
+      "h": 22,
+      "layout": {
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 88,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(255, 101, 117, 1)",
+        "backgroundImage": {
+          "sourceUrl": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/3fa7/8e09/e23aec5720c0a6243a71fe52cf638b85",
+          "url": "w10090_1621098410952.png"
+        }
+      },
+      "props": {
+        "paths": [],
+        "relativeTransform": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0.761962890625
+          ]
+        ],
+        "isVector": true,
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        },
+        "figmaImage": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/3fa7/8e09/e23aec5720c0a6243a71fe52cf638b85"
+      },
+      "has": {}
+    },
+    "w10092": {
+      "id": "w10092",
+      "parentId": "w10088",
+      "name": "Luisa.cloud",
+      "type": "Label",
+      "figmaId": "513:6",
+      "figmaType": "TEXT",
+      "fimgaTransitionNodeID": "504:674",
+      "x": 2961,
+      "y": -1912,
+      "w": 78,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 89,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Luisa.cloud",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10094": {
+      "id": "w10094",
+      "parentId": "w10087",
+      "name": "About us",
+      "type": "Label",
+      "figmaId": "513:9",
+      "figmaType": "TEXT",
+      "x": 3071,
+      "y": -1912,
+      "w": 61,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 90,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 101, 117, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "About us",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10095": {
+      "id": "w10095",
+      "parentId": "w10086",
+      "name": "nav-right",
+      "type": "Button",
+      "figmaId": "513:10",
+      "figmaType": "FRAME",
+      "x": 3785,
+      "y": -1920,
+      "w": 224,
+      "h": 40,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "flex-end",
+        "alignItems": "center",
+        "itemSpacing": 16,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 91,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10096": {
+      "id": "w10096",
+      "parentId": "w10095",
+      "name": "Contact",
+      "type": "Label",
+      "figmaId": "513:11",
+      "figmaType": "TEXT",
+      "fimgaTransitionNodeID": "513:102",
+      "x": 3785,
+      "y": -1912,
+      "w": 55,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 92,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Contact",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10098": {
+      "id": "w10098",
+      "parentId": "w10095",
+      "name": "cta-button",
+      "type": "Button",
+      "figmaId": "513:12",
+      "figmaType": "INSTANCE",
+      "figmaComponentId": "124:348",
+      "x": 3856,
+      "y": -1920,
+      "w": 99,
+      "h": 40,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "itemSpacing": 8,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 24,
+        "paddingRight": 24,
+        "paddingTop": 8,
+        "paddingBottom": 8
+      },
+      "z": 93,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(255, 101, 117, 1)",
+        "borderBottomLeftRadius": 8,
+        "borderTopLeftRadius": 8,
+        "borderBottomRightRadius": 8,
+        "borderTopRightRadius": 8
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        },
+        "callbacks": {
+          "click": "showLogin"
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      },
+      "hover": {
+        "background": "rgba(255, 110, 102, 1)"
+      }
+    },
+    "w10099": {
+      "id": "w10099",
+      "parentId": "w10098",
+      "name": "Sign up",
+      "type": "Label",
+      "figmaId": "I513:12;124:201",
+      "figmaType": "TEXT",
+      "figmaComponentId": "124:201",
+      "x": 3880,
+      "y": -1912,
+      "w": 51,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 94,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "middle"
+      },
+      "props": {
+        "label": "Sign up",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10100": {
+      "id": "w10100",
+      "parentId": "w10095",
+      "name": "Login",
+      "type": "Label",
+      "figmaId": "513:13",
+      "figmaType": "TEXT",
+      "x": 3971,
+      "y": -1912,
+      "w": 38,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 95,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Login",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10101": {
+      "id": "w10101",
+      "parentId": "s10085",
+      "name": "hero",
+      "type": "Button",
+      "figmaId": "513:14",
+      "figmaType": "FRAME",
+      "x": 2905,
+      "y": -1752,
+      "w": 1120,
+      "h": 1412,
+      "layout": {
+        "type": "auto-vertical",
+        "justifyContent": "flex-start",
+        "alignItems": "flex-start",
+        "itemSpacing": 16,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+        "paddingBottom": 16
+      },
+      "z": 96,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10102": {
+      "id": "w10102",
+      "parentId": "w10101",
+      "name": "HeroDescription",
+      "type": "Label",
+      "figmaId": "513:16",
+      "figmaType": "TEXT",
+      "x": 2921,
+      "y": -1736,
+      "w": 1088,
+      "h": 28,
+      "layout": {
+        "align": "STRETCH",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 97,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(98, 88, 88, 1)",
+        "fontSize": 20,
+        "fontWeight": 400,
+        "lineHeightPX": 28,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "middle"
+      },
+      "props": {
+        "label": "This website was designed in Figma. More info to come....",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10103": {
+      "id": "w10103",
+      "parentId": "s10085",
+      "name": "footer",
+      "type": "Button",
+      "figmaId": "513:61",
+      "figmaType": "FRAME",
+      "x": 2745,
+      "y": -220,
+      "w": 1440,
+      "h": 238,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "center",
+        "alignItems": "flex-start",
+        "itemSpacing": 32,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 50,
+        "paddingRight": 50,
+        "paddingTop": 50,
+        "paddingBottom": 50
+      },
+      "z": 98,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(18, 29, 48, 1)"
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10104": {
+      "id": "w10104",
+      "parentId": "w10103",
+      "name": "Imprint",
+      "type": "Label",
+      "figmaId": "513:62",
+      "figmaType": "TEXT",
+      "x": 3311,
+      "y": -170,
+      "w": 47,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 99,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Imprint",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10105": {
+      "id": "w10105",
+      "parentId": "w10103",
+      "name": "Privacy",
+      "type": "Label",
+      "figmaId": "513:63",
+      "figmaType": "TEXT",
+      "x": 3390,
+      "y": -170,
+      "w": 49,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 100,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Privacy",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10106": {
+      "id": "w10106",
+      "parentId": "w10103",
+      "name": "Terms of use",
+      "type": "Label",
+      "figmaId": "513:64",
+      "figmaType": "TEXT",
+      "x": 3471,
+      "y": -170,
+      "w": 86,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 101,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Terms of use",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10107": {
+      "id": "w10107",
+      "parentId": "w10103",
+      "name": "Help",
+      "type": "Label",
+      "figmaId": "513:65",
+      "figmaType": "TEXT",
+      "x": 3589,
+      "y": -170,
+      "w": 31,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 102,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Help",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10109": {
+      "id": "w10109",
+      "parentId": "s10108",
+      "name": "header",
+      "type": "Button",
+      "figmaId": "513:103",
+      "figmaType": "FRAME",
+      "x": 4593,
+      "y": -1928,
+      "w": 1120,
+      "h": 56,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "space-between",
+        "alignItems": "center",
+        "itemSpacing": 32,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 8,
+        "paddingBottom": 8
+      },
+      "z": 103,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderBottomLeftRadius": 6,
+        "borderTopLeftRadius": 6,
+        "borderBottomRightRadius": 6,
+        "borderTopRightRadius": 6
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10110": {
+      "id": "w10110",
+      "parentId": "w10109",
+      "name": "nav-left",
+      "type": "Button",
+      "figmaId": "513:104",
+      "figmaType": "FRAME",
+      "x": 4609,
+      "y": -1916,
+      "w": 211,
+      "h": 32,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "flex-start",
+        "alignItems": "center",
+        "itemSpacing": 32,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 104,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10111": {
+      "id": "w10111",
+      "parentId": "w10110",
+      "name": "nav-brand",
+      "type": "Button",
+      "figmaId": "513:105",
+      "figmaType": "FRAME",
+      "x": 4609,
+      "y": -1916,
+      "w": 118,
+      "h": 32,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "flex-start",
+        "alignItems": "center",
+        "itemSpacing": 8,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 105,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10112": {
+      "id": "w10112",
+      "parentId": "w10111",
+      "name": "LogoCntr",
+      "type": "Button",
+      "figmaId": "513:106",
+      "figmaType": "FRAME",
+      "fimgaTransitionNodeID": "504:674",
+      "x": 4609,
+      "y": -1916,
+      "w": 32,
+      "h": 32,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 106,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": ""
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10113": {
+      "id": "w10113",
+      "parentId": "w10112",
+      "name": "Logo",
+      "type": "Vector",
+      "figmaId": "513:107",
+      "figmaType": "VECTOR",
+      "x": 4609,
+      "y": -1915,
+      "w": 32,
+      "h": 22,
+      "layout": {
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 107,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(255, 101, 117, 1)",
+        "backgroundImage": {
+          "sourceUrl": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/3fa7/8e09/e23aec5720c0a6243a71fe52cf638b85",
+          "url": "w10113_1621098410952.png"
+        }
+      },
+      "props": {
+        "paths": [],
+        "relativeTransform": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0.761962890625
+          ]
+        ],
+        "isVector": true,
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        },
+        "figmaImage": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/3fa7/8e09/e23aec5720c0a6243a71fe52cf638b85"
+      },
+      "has": {}
+    },
+    "w10115": {
+      "id": "w10115",
+      "parentId": "w10111",
+      "name": "Luisa.cloud",
+      "type": "Label",
+      "figmaId": "513:108",
+      "figmaType": "TEXT",
+      "fimgaTransitionNodeID": "504:674",
+      "x": 4649,
+      "y": -1912,
+      "w": 78,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 108,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Luisa.cloud",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10117": {
+      "id": "w10117",
+      "parentId": "w10110",
+      "name": "About us",
+      "type": "Label",
+      "figmaId": "513:111",
+      "figmaType": "TEXT",
+      "fimgaTransitionNodeID": "513:0",
+      "x": 4759,
+      "y": -1912,
+      "w": 61,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 109,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "About us",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10119": {
+      "id": "w10119",
+      "parentId": "w10109",
+      "name": "nav-right",
+      "type": "Button",
+      "figmaId": "513:112",
+      "figmaType": "FRAME",
+      "x": 5473,
+      "y": -1920,
+      "w": 224,
+      "h": 40,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "flex-end",
+        "alignItems": "center",
+        "itemSpacing": 16,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 110,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10120": {
+      "id": "w10120",
+      "parentId": "w10119",
+      "name": "Contact",
+      "type": "Label",
+      "figmaId": "513:113",
+      "figmaType": "TEXT",
+      "x": 5473,
+      "y": -1912,
+      "w": 55,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 111,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 101, 117, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Contact",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10121": {
+      "id": "w10121",
+      "parentId": "w10119",
+      "name": "cta-button",
+      "type": "Button",
+      "figmaId": "513:114",
+      "figmaType": "INSTANCE",
+      "figmaComponentId": "124:348",
+      "x": 5544,
+      "y": -1920,
+      "w": 99,
+      "h": 40,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "itemSpacing": 8,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 24,
+        "paddingRight": 24,
+        "paddingTop": 8,
+        "paddingBottom": 8
+      },
+      "z": 112,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(255, 101, 117, 1)",
+        "borderBottomLeftRadius": 8,
+        "borderTopLeftRadius": 8,
+        "borderBottomRightRadius": 8,
+        "borderTopRightRadius": 8
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        },
+        "callbacks": {
+          "click": "showLogin"
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      },
+      "hover": {
+        "background": "rgba(255, 110, 102, 1)"
+      }
+    },
+    "w10122": {
+      "id": "w10122",
+      "parentId": "w10121",
+      "name": "Sign up",
+      "type": "Label",
+      "figmaId": "I513:114;124:201",
+      "figmaType": "TEXT",
+      "figmaComponentId": "124:201",
+      "x": 5568,
+      "y": -1912,
+      "w": 51,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 113,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "middle"
+      },
+      "props": {
+        "label": "Sign up",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10123": {
+      "id": "w10123",
+      "parentId": "w10119",
+      "name": "Login",
+      "type": "Label",
+      "figmaId": "513:115",
+      "figmaType": "TEXT",
+      "x": 5659,
+      "y": -1912,
+      "w": 38,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 114,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(18, 29, 48, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Login",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10124": {
+      "id": "w10124",
+      "parentId": "s10108",
+      "name": "hero",
+      "type": "Button",
+      "figmaId": "513:116",
+      "figmaType": "FRAME",
+      "x": 4593,
+      "y": -1752,
+      "w": 1120,
+      "h": 1412,
+      "layout": {
+        "type": "auto-vertical",
+        "justifyContent": "flex-start",
+        "alignItems": "flex-start",
+        "itemSpacing": 40,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 115,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10125": {
+      "id": "w10125",
+      "parentId": "w10124",
+      "name": "Contact",
+      "type": "Label",
+      "figmaId": "513:117",
+      "figmaType": "TEXT",
+      "x": 4593,
+      "y": -1752,
+      "w": 1120,
+      "h": 28,
+      "layout": {
+        "align": "STRETCH",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 116,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(98, 88, 88, 1)",
+        "fontSize": 20,
+        "fontWeight": 400,
+        "lineHeightPX": 28,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "middle"
+      },
+      "props": {
+        "label": "Drop a message. This textfield were created with the Figma-Low-Code plugin",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10126": {
+      "id": "w10126",
+      "parentId": "w10124",
+      "name": "InputRowName",
+      "type": "Button",
+      "figmaId": "513:134",
+      "figmaType": "FRAME",
+      "x": 4593,
+      "y": -1684,
+      "w": 1120,
+      "h": 78,
+      "layout": {
+        "type": "auto-vertical",
+        "justifyContent": "flex-start",
+        "alignItems": "flex-start",
+        "itemSpacing": 10,
+        "align": "STRETCH",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 117,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10127": {
+      "id": "w10127",
+      "parentId": "w10126",
+      "name": "Name",
+      "type": "Label",
+      "figmaId": "513:135",
+      "figmaType": "TEXT",
+      "x": 4593,
+      "y": -1684,
+      "w": 1120,
+      "h": 28,
+      "layout": {
+        "align": "STRETCH",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 118,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(98, 88, 88, 1)",
+        "fontSize": 20,
+        "fontWeight": 400,
+        "lineHeightPX": 28,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "middle"
+      },
+      "props": {
+        "label": "Name",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10128": {
+      "id": "w10128",
+      "parentId": "w10126",
+      "name": "InputCntr",
+      "type": "Button",
+      "figmaId": "515:637",
+      "figmaType": "FRAME",
+      "x": 4593,
+      "y": -1646,
+      "w": 700,
+      "h": 40,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "flex-start",
+        "alignItems": "center",
+        "itemSpacing": 10,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 9,
+        "paddingRight": 9,
+        "paddingTop": 9,
+        "paddingBottom": 9
+      },
+      "z": 119,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 1,
+        "borderTopWidth": 1,
+        "borderLeftWidth": 1,
+        "borderRightWidth": 1,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderBottomLeftRadius": 4,
+        "borderTopLeftRadius": 4,
+        "borderBottomRightRadius": 4,
+        "borderTopRightRadius": 4,
+        "borderBottomColor": "rgba(178, 178, 178, 1)",
+        "borderTopColor": "rgba(178, 178, 178, 1)",
+        "borderLeftColor": "rgba(178, 178, 178, 1)",
+        "borderRightColor": "rgba(178, 178, 178, 1)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10129": {
+      "id": "w10129",
+      "parentId": "w10128",
+      "name": "NameBox",
+      "type": "TextBox",
+      "figmaId": "515:638",
+      "figmaType": "TEXT",
+      "x": 4603,
+      "y": -1638,
+      "w": 680,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 1,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 120,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(0, 0, 0, 1)",
+        "fontSize": 20,
+        "fontWeight": 400,
+        "lineHeightPX": 28,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "middle"
+      },
+      "props": {
+        "label": "Enter your name",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        },
+        "placeholder": true,
+        "databinding": {
+          "default": "contact.name"
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10130": {
+      "id": "w10130",
+      "parentId": "w10124",
+      "name": "InputRowEmail",
+      "type": "Button",
+      "figmaId": "513:131",
+      "figmaType": "FRAME",
+      "x": 4593,
+      "y": -1566,
+      "w": 1120,
+      "h": 78,
+      "layout": {
+        "type": "auto-vertical",
+        "justifyContent": "flex-start",
+        "alignItems": "flex-start",
+        "itemSpacing": 10,
+        "align": "STRETCH",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 121,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10131": {
+      "id": "w10131",
+      "parentId": "w10130",
+      "name": "Email",
+      "type": "Label",
+      "figmaId": "513:132",
+      "figmaType": "TEXT",
+      "x": 4593,
+      "y": -1566,
+      "w": 1120,
+      "h": 28,
+      "layout": {
+        "align": "STRETCH",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 122,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(98, 88, 88, 1)",
+        "fontSize": 20,
+        "fontWeight": 400,
+        "lineHeightPX": 28,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "middle"
+      },
+      "props": {
+        "label": "Email",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10132": {
+      "id": "w10132",
+      "parentId": "w10130",
+      "name": "InputCntr",
+      "type": "Button",
+      "figmaId": "515:635",
+      "figmaType": "FRAME",
+      "x": 4593,
+      "y": -1528,
+      "w": 700,
+      "h": 40,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "flex-start",
+        "alignItems": "center",
+        "itemSpacing": 10,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 9,
+        "paddingRight": 9,
+        "paddingTop": 9,
+        "paddingBottom": 9
+      },
+      "z": 123,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 1,
+        "borderTopWidth": 1,
+        "borderLeftWidth": 1,
+        "borderRightWidth": 1,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderBottomLeftRadius": 4,
+        "borderTopLeftRadius": 4,
+        "borderBottomRightRadius": 4,
+        "borderTopRightRadius": 4,
+        "borderBottomColor": "rgba(178, 178, 178, 1)",
+        "borderTopColor": "rgba(178, 178, 178, 1)",
+        "borderLeftColor": "rgba(178, 178, 178, 1)",
+        "borderRightColor": "rgba(178, 178, 178, 1)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10133": {
+      "id": "w10133",
+      "parentId": "w10132",
+      "name": "EmailBox",
+      "type": "TextBox",
+      "figmaId": "515:636",
+      "figmaType": "TEXT",
+      "x": 4603,
+      "y": -1520,
+      "w": 680,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 1,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 124,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(0, 0, 0, 1)",
+        "fontSize": 20,
+        "fontWeight": 400,
+        "lineHeightPX": 28,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "middle"
+      },
+      "props": {
+        "label": "How can we reach you?",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        },
+        "placeholder": true,
+        "databinding": {
+          "default": "contact.email"
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10134": {
+      "id": "w10134",
+      "parentId": "w10124",
+      "name": "InputRowMSD",
+      "type": "Button",
+      "figmaId": "513:128",
+      "figmaType": "FRAME",
+      "x": 4593,
+      "y": -1448,
+      "w": 1120,
+      "h": 438,
+      "layout": {
+        "type": "auto-vertical",
+        "justifyContent": "flex-start",
+        "alignItems": "flex-start",
+        "itemSpacing": 10,
+        "align": "STRETCH",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 125,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10135": {
+      "id": "w10135",
+      "parentId": "w10134",
+      "name": "Message",
+      "type": "Label",
+      "figmaId": "513:130",
+      "figmaType": "TEXT",
+      "x": 4593,
+      "y": -1448,
+      "w": 1120,
+      "h": 28,
+      "layout": {
+        "align": "STRETCH",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 126,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(98, 88, 88, 1)",
+        "fontSize": 20,
+        "fontWeight": 400,
+        "lineHeightPX": 28,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "middle"
+      },
+      "props": {
+        "label": "Message",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10136": {
+      "id": "w10136",
+      "parentId": "w10134",
+      "name": "InputCntr",
+      "type": "Button",
+      "figmaId": "515:632",
+      "figmaType": "FRAME",
+      "x": 4593,
+      "y": -1410,
+      "w": 700,
+      "h": 400,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "flex-start",
+        "alignItems": "center",
+        "itemSpacing": 10,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 9,
+        "paddingRight": 9,
+        "paddingTop": 9,
+        "paddingBottom": 9
+      },
+      "z": 127,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 1,
+        "borderTopWidth": 1,
+        "borderLeftWidth": 1,
+        "borderRightWidth": 1,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "borderBottomLeftRadius": 4,
+        "borderTopLeftRadius": 4,
+        "borderBottomRightRadius": 4,
+        "borderTopRightRadius": 4,
+        "borderBottomColor": "rgba(178, 178, 178, 1)",
+        "borderTopColor": "rgba(178, 178, 178, 1)",
+        "borderLeftColor": "rgba(178, 178, 178, 1)",
+        "borderRightColor": "rgba(178, 178, 178, 1)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10137": {
+      "id": "w10137",
+      "parentId": "w10136",
+      "name": "MessageBox",
+      "type": "TextArea",
+      "figmaId": "515:634",
+      "figmaType": "TEXT",
+      "x": 4603,
+      "y": -1400,
+      "w": 680,
+      "h": 380,
+      "layout": {
+        "align": "STRETCH",
+        "grow": 1,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 128,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(0, 0, 0, 1)",
+        "fontSize": 20,
+        "fontWeight": 400,
+        "lineHeightPX": 28,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "What do you want to tell us?",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        },
+        "placeholder": true,
+        "databinding": {
+          "default": "contact.message"
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10138": {
+      "id": "w10138",
+      "parentId": "w10124",
+      "name": "cta-button",
+      "type": "Button",
+      "figmaId": "513:137",
+      "figmaType": "INSTANCE",
+      "figmaComponentId": "124:348",
+      "x": 4593,
+      "y": -970,
+      "w": 83,
+      "h": 40,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "itemSpacing": 8,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 24,
+        "paddingRight": 24,
+        "paddingTop": 8,
+        "paddingBottom": 8
+      },
+      "z": 129,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(255, 101, 117, 1)",
+        "borderBottomLeftRadius": 8,
+        "borderTopLeftRadius": 8,
+        "borderBottomRightRadius": 8,
+        "borderTopRightRadius": 8
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        },
+        "callbacks": {
+          "click": "sendContact"
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      },
+      "hover": {
+        "background": "rgba(255, 110, 102, 1)"
+      }
+    },
+    "w10139": {
+      "id": "w10139",
+      "parentId": "w10138",
+      "name": "Sign up",
+      "type": "Label",
+      "figmaId": "I513:137;124:201",
+      "figmaType": "TEXT",
+      "figmaComponentId": "124:201",
+      "x": 4617,
+      "y": -962,
+      "w": 35,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 130,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "middle"
+      },
+      "props": {
+        "label": "Send",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10140": {
+      "id": "w10140",
+      "parentId": "s10108",
+      "name": "footer",
+      "type": "Button",
+      "figmaId": "513:118",
+      "figmaType": "FRAME",
+      "x": 4433,
+      "y": -220,
+      "w": 1440,
+      "h": 238,
+      "layout": {
+        "type": "auto-horizontal",
+        "justifyContent": "center",
+        "alignItems": "flex-start",
+        "itemSpacing": 32,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 50,
+        "paddingRight": 50,
+        "paddingTop": 50,
+        "paddingBottom": 50
+      },
+      "z": 131,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(18, 29, 48, 1)"
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10141": {
+      "id": "w10141",
+      "parentId": "w10140",
+      "name": "Imprint",
+      "type": "Label",
+      "figmaId": "513:119",
+      "figmaType": "TEXT",
+      "x": 4999,
+      "y": -170,
+      "w": 47,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 132,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Imprint",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10142": {
+      "id": "w10142",
+      "parentId": "w10140",
+      "name": "Privacy",
+      "type": "Label",
+      "figmaId": "513:120",
+      "figmaType": "TEXT",
+      "x": 5078,
+      "y": -170,
+      "w": 49,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 133,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Privacy",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10143": {
+      "id": "w10143",
+      "parentId": "w10140",
+      "name": "Terms of use",
+      "type": "Label",
+      "figmaId": "513:121",
+      "figmaType": "TEXT",
+      "x": 5159,
+      "y": -170,
+      "w": 86,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 134,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Terms of use",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10144": {
+      "id": "w10144",
+      "parentId": "w10140",
+      "name": "Help",
+      "type": "Label",
+      "figmaId": "513:122",
+      "figmaType": "TEXT",
+      "x": 5277,
+      "y": -170,
+      "w": 31,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 135,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Help",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10146": {
+      "id": "w10146",
+      "parentId": "s10145",
+      "name": "hero",
+      "type": "Button",
+      "figmaId": "506:7",
+      "figmaType": "FRAME",
+      "x": -171,
+      "y": -265,
+      "w": 334,
+      "h": 433,
+      "layout": {
+        "type": "auto-vertical",
+        "justifyContent": "flex-start",
+        "alignItems": "center",
+        "itemSpacing": 8,
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 48,
+        "paddingRight": 48,
+        "paddingTop": 37,
+        "paddingBottom": 37
+      },
+      "z": 136,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10147": {
+      "id": "w10147",
+      "parentId": "w10146",
+      "name": "Call2Action",
+      "type": "Label",
+      "figmaId": "506:8",
+      "figmaType": "TEXT",
+      "x": -153,
+      "y": -228,
+      "w": 297,
+      "h": 268,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 137,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 64,
+        "fontWeight": 900,
+        "lineHeightPX": 88,
+        "letterSpacing": 0,
+        "textAlign": "center",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Design \nConnect \nShip",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10148": {
+      "id": "w10148",
+      "parentId": "w10146",
+      "name": "HeroDescription",
+      "type": "Label",
+      "figmaId": "506:9",
+      "figmaType": "TEXT",
+      "x": -135,
+      "y": 48,
+      "w": 261,
+      "h": 85,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 138,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 0.6299999952316284)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "center",
+        "verticalAlign": "middle"
+      },
+      "props": {
+        "label": "Combine Figma with your CMS to \nship low websites in 5 minutes",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10149": {
+      "id": "w10149",
+      "parentId": "s10145",
+      "name": "Luisa.cloud",
+      "type": "Label",
+      "figmaId": "506:6",
+      "figmaType": "TEXT",
+      "x": -43,
+      "y": 211,
+      "w": 78,
+      "h": 24,
+      "layout": {
+        "align": "INHERIT",
+        "grow": 0,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 0,
+        "paddingBottom": 0
+      },
+      "z": 139,
+      "style": {
+        "fontFamily": "Inter",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "lineHeightPX": 24,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "middle"
+      },
+      "props": {
+        "label": "Luisa.cloud",
+        "resize": {
+          "right": false,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    }
+  },
+  "lines": {
+    "l10008": {
+      "id": "l10008",
+      "from": "w10007",
+      "to": "s10085",
+      "figmaFrom": "504:685",
+      "figmaTo": "513:0",
+      "points": [],
+      "event": "click",
+      "animation": "",
+      "duration": 300
+    },
+    "l10011": {
+      "id": "l10011",
+      "from": "w10010",
+      "to": "s10108",
+      "figmaFrom": "504:687",
+      "figmaTo": "513:102",
+      "points": [],
+      "event": "click",
+      "animation": "",
+      "duration": 300
+    },
+    "l10091": {
+      "id": "l10091",
+      "from": "w10089",
+      "to": "s10000",
+      "figmaFrom": "513:4",
+      "figmaTo": "504:674",
+      "points": [],
+      "event": "click",
+      "animation": "",
+      "duration": 300
+    },
+    "l10093": {
+      "id": "l10093",
+      "from": "w10092",
+      "to": "s10000",
+      "figmaFrom": "513:6",
+      "figmaTo": "504:674",
+      "points": [],
+      "event": "click",
+      "animation": "",
+      "duration": 300
+    },
+    "l10097": {
+      "id": "l10097",
+      "from": "w10096",
+      "to": "s10108",
+      "figmaFrom": "513:11",
+      "figmaTo": "513:102",
+      "points": [],
+      "event": "click",
+      "animation": "",
+      "duration": 300
+    },
+    "l10114": {
+      "id": "l10114",
+      "from": "w10112",
+      "to": "s10000",
+      "figmaFrom": "513:106",
+      "figmaTo": "504:674",
+      "points": [],
+      "event": "click",
+      "animation": "",
+      "duration": 300
+    },
+    "l10116": {
+      "id": "l10116",
+      "from": "w10115",
+      "to": "s10000",
+      "figmaFrom": "513:108",
+      "figmaTo": "504:674",
+      "points": [],
+      "event": "click",
+      "animation": "",
+      "duration": 300
+    },
+    "l10118": {
+      "id": "l10118",
+      "from": "w10117",
+      "to": "s10085",
+      "figmaFrom": "513:111",
+      "figmaTo": "513:0",
+      "points": [],
+      "event": "click",
+      "animation": "",
+      "duration": 300
+    }
+  },
+  "groups": {},
+  "lastUUID": 10150,
+  "lastZ": 139,
+  "lastUpdate": 0,
+  "created": 0,
+  "startScreen": "",
+  "grid": {
+    "w": 8,
+    "h": 8,
+    "style": "line",
+    "color": "#cecece",
+    "visible": false,
+    "enabled": false
+  }
+}

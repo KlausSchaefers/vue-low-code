@@ -69,7 +69,7 @@ export default {
             if (Array.isArray(value)) {
                 return value
             } else {
-              Logger.warn('Repeater.rows() > Value is no array: > ' + path, value)
+              Logger.warn('Repeater.rows() > Value is no array: > ' + path, this.value)
             }
         } else {
             return this.getRowsFromTable(this.element)

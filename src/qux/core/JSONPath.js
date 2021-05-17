@@ -20,6 +20,7 @@ class JSONPath {
     }
 
     set (data, path, value) {
+        //console.debug('JSONPath.set()', path, '>' + value + '<')
         let elements = this.getJsonPath(path)
         let current = elements.shift()
         let node = data
@@ -70,6 +71,7 @@ class JSONPath {
     }
 
     has (data, path) {
+        //console.debug('JSONPath.has()', path, data)
         if (data != null && data != undefined) {
             if (data[path] != null && data[path] != null) {
                 return true
@@ -82,10 +84,12 @@ class JSONPath {
                     current = elements.shift()
                     value = value[current]
                 }
+
                 return value !== undefined && value !== null
             }
             return false
         }
+        return false
     }
 
 }

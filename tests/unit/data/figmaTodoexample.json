@@ -1,0 +1,2254 @@
+{
+  "version": 2.1,
+  "figmaId": "5zTcZwe1mxHlR7hmOltcAk",
+  "name": "Low Code ToDo - Blank",
+  "description": "",
+  "screenSize": {
+    "w": 375,
+    "h": 667
+  },
+  "type": "smartphone",
+  "screens": {
+    "s10000": {
+      "id": "s10000",
+      "figmaId": "2:15",
+      "name": "Home",
+      "type": "Screen",
+      "x": 226,
+      "y": -429,
+      "w": 375,
+      "h": 667,
+      "props": {
+        "callbacks": {
+          "load": "onHomeLoad"
+        },
+        "start": true
+      },
+      "children": [
+        "w10001",
+        "w10002",
+        "w10003",
+        "w10004",
+        "w10005",
+        "w10006",
+        "w10007",
+        "w10008",
+        "w10009",
+        "w10010",
+        "w10011",
+        "w10012",
+        "w10013",
+        "w10014",
+        "w10015",
+        "w10016",
+        "w10018",
+        "w10019"
+      ],
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(255, 255, 255, 1)"
+      }
+    },
+    "s10021": {
+      "id": "s10021",
+      "figmaId": "52:1",
+      "name": "NewTodo",
+      "type": "Screen",
+      "x": 717,
+      "y": -429,
+      "w": 375,
+      "h": 667,
+      "props": {},
+      "children": [
+        "w10022",
+        "w10023",
+        "w10024",
+        "w10025",
+        "w10027",
+        "w10028",
+        "w10029",
+        "w10030",
+        "w10031",
+        "w10032",
+        "w10033",
+        "w10034",
+        "w10035"
+      ],
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(255, 255, 255, 1)"
+      }
+    },
+    "s10036": {
+      "id": "s10036",
+      "figmaId": "55:2",
+      "name": "EditTodo",
+      "type": "Screen",
+      "x": 1132,
+      "y": -429,
+      "w": 375,
+      "h": 667,
+      "props": {},
+      "children": [
+        "w10037",
+        "w10038",
+        "w10039",
+        "w10041",
+        "w10042",
+        "w10043",
+        "w10044",
+        "w10045",
+        "w10046",
+        "w10047",
+        "w10048",
+        "w10049",
+        "w10050",
+        "w10051",
+        "w10052"
+      ],
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(255, 255, 255, 1)"
+      }
+    },
+    "s10053": {
+      "id": "s10053",
+      "figmaId": "96:5",
+      "name": "HeaderFooter",
+      "type": "Screen",
+      "x": 1132,
+      "y": -354,
+      "w": 375,
+      "h": 26,
+      "props": {},
+      "children": [],
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "borderTopLeftRadius": 50,
+        "borderTopRightRadius": 50,
+        "borderBottomRightRadius": 0,
+        "borderBottomLeftRadius": 0
+      }
+    },
+    "s10054": {
+      "id": "s10054",
+      "figmaId": "60:4",
+      "name": "Rectangle 1",
+      "type": "Screen",
+      "x": -538,
+      "y": -251,
+      "w": 136,
+      "h": 39,
+      "props": {},
+      "children": [],
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(61, 169, 252, 0.46000000834465027)"
+      }
+    }
+  },
+  "widgets": {
+    "w10001": {
+      "id": "w10001",
+      "figmaId": "2:17",
+      "name": "Header",
+      "type": "Button",
+      "figmaType": "RECTANGLE",
+      "x": 226,
+      "y": -429,
+      "w": 375,
+      "h": 154,
+      "z": 2,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(61, 169, 252, 1)"
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10002": {
+      "id": "w10002",
+      "figmaId": "96:3",
+      "name": "HeaderFooter",
+      "type": "Button",
+      "figmaType": "RECTANGLE",
+      "x": 226,
+      "y": -301,
+      "w": 375,
+      "h": 26,
+      "z": 3,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "borderTopLeftRadius": 50,
+        "borderTopRightRadius": 50,
+        "borderBottomRightRadius": 0,
+        "borderBottomLeftRadius": 0
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10003": {
+      "id": "w10003",
+      "figmaId": "3:6",
+      "name": "Header Title",
+      "type": "Label",
+      "figmaType": "TEXT",
+      "x": 355,
+      "y": -405,
+      "w": 117,
+      "h": 28,
+      "z": 4,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 24,
+        "fontWeight": 400,
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textAlign": "center",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "TodoRama",
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10004": {
+      "id": "w10004",
+      "figmaId": "33:2",
+      "name": "SearchCntr",
+      "type": "Button",
+      "figmaType": "GROUP",
+      "x": 239,
+      "y": -363,
+      "w": 350,
+      "h": 40,
+      "z": 5,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10005": {
+      "id": "w10005",
+      "figmaId": "2:29",
+      "name": "SearchBox",
+      "type": "TextBox",
+      "figmaType": "RECTANGLE",
+      "x": 239,
+      "y": -363,
+      "w": 250,
+      "h": 40,
+      "z": 6,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(255, 255, 255, 0.2199999988079071)",
+        "borderBottomLeftRadius": 50,
+        "borderTopLeftRadius": 50,
+        "borderBottomRightRadius": 0,
+        "borderTopRightRadius": 0
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        },
+        "placeholder": true,
+        "databinding": {
+          "default": "searchFilter"
+        },
+        "callbacks": {
+          "change": "filterTodo"
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10006": {
+      "id": "w10006",
+      "figmaId": "2:33",
+      "name": "SearchBtn",
+      "type": "Button",
+      "figmaType": "RECTANGLE",
+      "x": 489,
+      "y": -363,
+      "w": 100,
+      "h": 40,
+      "z": 7,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "borderBottomLeftRadius": 0,
+        "borderTopLeftRadius": 0,
+        "borderBottomRightRadius": 50,
+        "borderTopRightRadius": 50
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        },
+        "callbacks": {
+          "click": "filterTodo"
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10007": {
+      "id": "w10007",
+      "figmaId": "2:34",
+      "name": "Search",
+      "type": "Label",
+      "figmaType": "TEXT",
+      "x": 502,
+      "y": -353,
+      "w": 73,
+      "h": 21,
+      "z": 8,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(61, 169, 252, 1)",
+        "fontSize": 18,
+        "fontWeight": 400,
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "middle"
+      },
+      "props": {
+        "label": "Search",
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10008": {
+      "id": "w10008",
+      "figmaId": "17:0",
+      "name": "SearchPlaceholder",
+      "type": "Label",
+      "figmaType": "TEXT",
+      "x": 269,
+      "y": -357,
+      "w": 172,
+      "h": 28,
+      "z": 9,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 24,
+        "fontWeight": 400,
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Search",
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10009": {
+      "id": "w10009",
+      "figmaId": "52:0",
+      "name": "Repeater",
+      "type": "Repeater",
+      "figmaType": "FRAME",
+      "x": 226,
+      "y": -275,
+      "w": 375,
+      "h": 492,
+      "z": 10,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": ""
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        },
+        "placeholder": true,
+        "databinding": {
+          "default": "todos",
+          "output": "selectedTodo"
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10010": {
+      "id": "w10010",
+      "figmaId": "2:53",
+      "name": "Item",
+      "type": "Button",
+      "figmaType": "FRAME",
+      "x": 238,
+      "y": -275,
+      "w": 350,
+      "h": 100,
+      "z": 11,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": ""
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10011": {
+      "id": "w10011",
+      "figmaId": "2:45",
+      "name": "Title",
+      "type": "Label",
+      "figmaType": "TEXT",
+      "x": 335,
+      "y": -253,
+      "w": 197,
+      "h": 23,
+      "z": 12,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(9, 64, 103, 1)",
+        "fontSize": 20,
+        "fontWeight": 400,
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Shopping",
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        },
+        "databinding": {
+          "default": "name"
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10012": {
+      "id": "w10012",
+      "figmaId": "2:46",
+      "name": "Details",
+      "type": "Label",
+      "figmaType": "TEXT",
+      "x": 335,
+      "y": -221,
+      "w": 225,
+      "h": 24,
+      "z": 13,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(9, 64, 103, 0.4699999988079071)",
+        "fontSize": 16,
+        "fontWeight": 400,
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Milk, Eggs, Juice, ...",
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        },
+        "databinding": {
+          "default": "details"
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10013": {
+      "id": "w10013",
+      "figmaId": "3:4",
+      "name": "CheckBoxRound",
+      "type": "Box",
+      "figmaType": "FRAME",
+      "x": 247,
+      "y": -253,
+      "w": 59,
+      "h": 59,
+      "z": 14,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "",
+        "borderTopLeftRadius": 50,
+        "borderTopRightRadius": 50,
+        "borderBottomRightRadius": 50,
+        "borderBottomLeftRadius": 50
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": false
+        },
+        "placeholder": true
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10014": {
+      "id": "w10014",
+      "figmaId": "2:54",
+      "name": "CheckBoxBorder",
+      "type": "ChildrenToggle",
+      "figmaType": "ELLIPSE",
+      "x": 247,
+      "y": -253,
+      "w": 59,
+      "h": 59,
+      "z": 15,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "backgroundImage": {
+          "url": "w10014.png"
+        }
+      },
+      "props": {
+        "paths": [
+          {
+            "path": "M58 29.5C58 45.2401 45.2401 58 29.5 58L29.5 60C46.3447 60 60 46.3447 60 29.5L58 29.5ZM29.5 58C13.7599 58 1 45.2401 1 29.5L-1 29.5C-1 46.3447 12.6553 60 29.5 60L29.5 58ZM1 29.5C1 13.7599 13.7599 1 29.5 1L29.5 -1C12.6553 -1 -1 12.6553 -1 29.5L1 29.5ZM29.5 1C45.2401 1 58 13.7599 58 29.5L60 29.5C60 12.6553 46.3447 -1 29.5 -1L29.5 1Z",
+            "windingRule": "NONZERO"
+          }
+        ],
+        "relativeTransform": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "isVector": true,
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        },
+        "placeholder": true,
+        "databinding": {
+          "default": "isDone"
+        },
+        "figmaImage": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/a76d/673a/8a79f38fae1f003e27e56135c45d0c78"
+      },
+      "has": {}
+    },
+    "w10015": {
+      "id": "w10015",
+      "figmaId": "3:5",
+      "name": "Hook",
+      "type": "Vector",
+      "figmaType": "BOOLEAN_OPERATION",
+      "x": 260,
+      "y": -236,
+      "w": 33,
+      "h": 26,
+      "z": 16,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundImage": {
+          "url": "w10015.png"
+        }
+      },
+      "props": {
+        "paths": [],
+        "relativeTransform": [
+          [
+            1,
+            0,
+            13
+          ],
+          [
+            0,
+            1,
+            17
+          ]
+        ],
+        "isVector": true,
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        },
+        "figmaImage": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/3817/b024/7d3cb3126a5a1522b18d3d393ed593e9"
+      },
+      "has": {}
+    },
+    "w10016": {
+      "id": "w10016",
+      "figmaId": "14:1",
+      "name": "Border",
+      "type": "Button",
+      "figmaType": "RECTANGLE",
+      "x": 238,
+      "y": -176,
+      "w": 350,
+      "h": 1,
+      "z": 17,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(144, 180, 206, 1)"
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10018": {
+      "id": "w10018",
+      "figmaId": "2:127",
+      "name": "ButtonNew",
+      "type": "Button",
+      "figmaType": "FRAME",
+      "x": 528,
+      "y": 147,
+      "w": 60,
+      "h": 60,
+      "z": 18,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(61, 169, 252, 1)",
+        "fixed": true,
+        "borderBottomLeftRadius": 50,
+        "borderTopLeftRadius": 50,
+        "borderBottomRightRadius": 50,
+        "borderTopRightRadius": 50,
+        "boxShadow": {
+          "v": 4,
+          "h": 0,
+          "b": 4,
+          "s": 0,
+          "i": false,
+          "c": "rgba(9, 64, 103, 0.4699999988079071)"
+        }
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": false,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": true,
+          "fixedVertical": true
+        },
+        "callbacks": {
+          "click": "onNew"
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      },
+      "hover": {
+        "background": "rgba(9, 64, 103, 1)"
+      }
+    },
+    "w10019": {
+      "id": "w10019",
+      "figmaId": "2:128",
+      "name": "ButtonLabel",
+      "type": "Label",
+      "figmaType": "TEXT",
+      "x": 543,
+      "y": 152,
+      "w": 30,
+      "h": 38,
+      "z": 19,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "fixed": true,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 48,
+        "fontWeight": 400,
+        "lineHeight": 0.8533333587646484,
+        "letterSpacing": 0,
+        "textAlign": "center",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "+",
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10022": {
+      "id": "w10022",
+      "figmaId": "52:4",
+      "name": "Header",
+      "type": "Button",
+      "figmaType": "RECTANGLE",
+      "x": 717,
+      "y": -429,
+      "w": 375,
+      "h": 100,
+      "z": 20,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(61, 169, 252, 1)"
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10023": {
+      "id": "w10023",
+      "figmaId": "96:4",
+      "name": "HeaderFooter",
+      "type": "Button",
+      "figmaType": "RECTANGLE",
+      "x": 717,
+      "y": -355,
+      "w": 375,
+      "h": 26,
+      "z": 21,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "borderTopLeftRadius": 50,
+        "borderTopRightRadius": 50,
+        "borderBottomRightRadius": 0,
+        "borderBottomLeftRadius": 0
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10024": {
+      "id": "w10024",
+      "figmaId": "52:5",
+      "name": "Header Title",
+      "type": "Label",
+      "figmaType": "TEXT",
+      "x": 846,
+      "y": -405,
+      "w": 117,
+      "h": 28,
+      "z": 22,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 24,
+        "fontWeight": 400,
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textAlign": "center",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "TodoRama",
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10025": {
+      "id": "w10025",
+      "figmaId": "52:8",
+      "name": "BackIcon",
+      "type": "Vector",
+      "figmaType": "BOOLEAN_OPERATION",
+      "x": 734,
+      "y": -404,
+      "w": 21,
+      "h": 26,
+      "z": 23,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "backgroundImage": {
+          "url": "w10025.png"
+        }
+      },
+      "props": {
+        "paths": [],
+        "relativeTransform": [
+          [
+            1,
+            0,
+            17
+          ],
+          [
+            0,
+            1,
+            25
+          ]
+        ],
+        "isVector": true,
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        },
+        "figmaImage": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/b72a/ef63/7f560b72a083f646a373d5e727c0b1d1"
+      },
+      "has": {}
+    },
+    "w10027": {
+      "id": "w10027",
+      "figmaId": "52:10",
+      "name": "SearchBox",
+      "type": "TextBox",
+      "figmaType": "RECTANGLE",
+      "x": 744,
+      "y": -250,
+      "w": 328,
+      "h": 40,
+      "z": 24,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 1,
+        "borderTopWidth": 1,
+        "borderLeftWidth": 1,
+        "borderRightWidth": 1,
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "borderBottomLeftRadius": 5,
+        "borderTopLeftRadius": 5,
+        "borderBottomRightRadius": 5,
+        "borderTopRightRadius": 5,
+        "borderBottomColor": "rgba(9, 64, 103, 1)",
+        "borderTopColor": "rgba(9, 64, 103, 1)",
+        "borderLeftColor": "rgba(9, 64, 103, 1)",
+        "borderRightColor": "rgba(9, 64, 103, 1)"
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        },
+        "placeholder": true,
+        "databinding": {
+          "default": "newTodo.name"
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      },
+      "hover": {
+        "borderColor": "rgba(61, 169, 252, 1)"
+      },
+      "focus": {
+        "borderColor": "rgba(61, 169, 252, 1)"
+      }
+    },
+    "w10028": {
+      "id": "w10028",
+      "figmaId": "52:11",
+      "name": "Name",
+      "type": "Label",
+      "figmaType": "TEXT",
+      "x": 744,
+      "y": -287,
+      "w": 100,
+      "h": 22,
+      "z": 25,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(9, 64, 103, 1)",
+        "fontSize": 24,
+        "fontWeight": 400,
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Name",
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10029": {
+      "id": "w10029",
+      "figmaId": "52:12",
+      "name": "DetailTextArea",
+      "type": "TextArea",
+      "figmaType": "RECTANGLE",
+      "x": 744,
+      "y": -138,
+      "w": 328,
+      "h": 229,
+      "z": 26,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 1,
+        "borderTopWidth": 1,
+        "borderLeftWidth": 1,
+        "borderRightWidth": 1,
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "borderBottomLeftRadius": 5,
+        "borderTopLeftRadius": 5,
+        "borderBottomRightRadius": 5,
+        "borderTopRightRadius": 5,
+        "borderBottomColor": "rgba(9, 64, 103, 1)",
+        "borderTopColor": "rgba(9, 64, 103, 1)",
+        "borderLeftColor": "rgba(9, 64, 103, 1)",
+        "borderRightColor": "rgba(9, 64, 103, 1)"
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        },
+        "placeholder": true,
+        "databinding": {
+          "default": "newTodo.details"
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      },
+      "hover": {
+        "borderColor": "rgba(61, 169, 252, 1)"
+      },
+      "focus": {
+        "borderColor": "rgba(61, 169, 252, 1)"
+      }
+    },
+    "w10030": {
+      "id": "w10030",
+      "figmaId": "52:13",
+      "name": "Details",
+      "type": "Label",
+      "figmaType": "TEXT",
+      "x": 744,
+      "y": -175,
+      "w": 100,
+      "h": 22,
+      "z": 27,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(9, 64, 103, 1)",
+        "fontSize": 24,
+        "fontWeight": 400,
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Details",
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10031": {
+      "id": "w10031",
+      "figmaId": "55:16",
+      "name": "SaveButton",
+      "type": "Button",
+      "figmaType": "FRAME",
+      "x": 744,
+      "y": 126,
+      "w": 328,
+      "h": 60,
+      "z": 28,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": ""
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        },
+        "callbacks": {
+          "click": "createNewTodo"
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      },
+      "hover": {
+        "background": "rgba(9, 64, 103, 1)",
+        "borderColor": "rgba(9, 64, 103, 1)",
+        "color": "rgba(255, 255, 255, 1)"
+      }
+    },
+    "w10032": {
+      "id": "w10032",
+      "figmaId": "55:0",
+      "name": "SaveBackground",
+      "type": "Button",
+      "figmaType": "RECTANGLE",
+      "x": 744,
+      "y": 126,
+      "w": 328,
+      "h": 60,
+      "z": 29,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(61, 169, 252, 1)",
+        "borderBottomLeftRadius": 5,
+        "borderTopLeftRadius": 5,
+        "borderBottomRightRadius": 5,
+        "borderTopRightRadius": 5
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      },
+      "hover": {
+        "background": "rgba(9, 64, 103, 1)",
+        "borderColor": "rgba(9, 64, 103, 1)"
+      }
+    },
+    "w10033": {
+      "id": "w10033",
+      "figmaId": "55:1",
+      "name": "Save",
+      "type": "Label",
+      "figmaType": "TEXT",
+      "x": 829,
+      "y": 140,
+      "w": 151,
+      "h": 31,
+      "z": 30,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 24,
+        "fontWeight": 700,
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textAlign": "center",
+        "verticalAlign": "middle"
+      },
+      "props": {
+        "label": "Save",
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10034": {
+      "id": "w10034",
+      "figmaId": "103:4",
+      "name": "Enter the details",
+      "type": "Label",
+      "figmaType": "TEXT",
+      "x": 751,
+      "y": -131,
+      "w": 312,
+      "h": 210,
+      "z": 31,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(0, 0, 0, 1)",
+        "fontSize": 18,
+        "fontWeight": 400,
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Enter the details",
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10035": {
+      "id": "w10035",
+      "figmaId": "103:5",
+      "name": "Enter the name",
+      "type": "Label",
+      "figmaType": "TEXT",
+      "x": 751,
+      "y": -245,
+      "w": 312,
+      "h": 28,
+      "z": 32,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(0, 0, 0, 1)",
+        "fontSize": 18,
+        "fontWeight": 400,
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "middle"
+      },
+      "props": {
+        "label": "Enter the name",
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10037": {
+      "id": "w10037",
+      "figmaId": "55:3",
+      "name": "Header",
+      "type": "Button",
+      "figmaType": "RECTANGLE",
+      "x": 1132,
+      "y": -429,
+      "w": 375,
+      "h": 100,
+      "z": 33,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(61, 169, 252, 1)"
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10038": {
+      "id": "w10038",
+      "figmaId": "55:4",
+      "name": "Header Title",
+      "type": "Label",
+      "figmaType": "TEXT",
+      "x": 1261,
+      "y": -405,
+      "w": 117,
+      "h": 28,
+      "z": 34,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 24,
+        "fontWeight": 400,
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textAlign": "center",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "TodoRama",
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10039": {
+      "id": "w10039",
+      "figmaId": "55:5",
+      "name": "BackIcon",
+      "type": "Vector",
+      "figmaType": "BOOLEAN_OPERATION",
+      "x": 1149,
+      "y": -404,
+      "w": 21,
+      "h": 26,
+      "z": 35,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "backgroundImage": {
+          "url": "w10039.png"
+        }
+      },
+      "props": {
+        "paths": [],
+        "relativeTransform": [
+          [
+            1,
+            0,
+            17
+          ],
+          [
+            0,
+            1,
+            25
+          ]
+        ],
+        "isVector": true,
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        },
+        "figmaImage": "https://s3-us-west-2.amazonaws.com/figma-alpha-api/img/b72a/ef63/7f560b72a083f646a373d5e727c0b1d1"
+      },
+      "has": {}
+    },
+    "w10041": {
+      "id": "w10041",
+      "figmaId": "55:8",
+      "name": "SearchBox",
+      "type": "TextBox",
+      "figmaType": "RECTANGLE",
+      "x": 1159,
+      "y": -250,
+      "w": 328,
+      "h": 40,
+      "z": 36,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 1,
+        "borderTopWidth": 1,
+        "borderLeftWidth": 1,
+        "borderRightWidth": 1,
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "borderBottomLeftRadius": 5,
+        "borderTopLeftRadius": 5,
+        "borderBottomRightRadius": 5,
+        "borderTopRightRadius": 5,
+        "borderBottomColor": "rgba(9, 64, 103, 1)",
+        "borderTopColor": "rgba(9, 64, 103, 1)",
+        "borderLeftColor": "rgba(9, 64, 103, 1)",
+        "borderRightColor": "rgba(9, 64, 103, 1)"
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        },
+        "placeholder": true,
+        "databinding": {
+          "default": "selectedTodo.name"
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      },
+      "hover": {
+        "borderColor": "rgba(61, 169, 252, 1)"
+      },
+      "focus": {
+        "borderColor": "rgba(61, 169, 252, 1)"
+      }
+    },
+    "w10042": {
+      "id": "w10042",
+      "figmaId": "55:9",
+      "name": "Name",
+      "type": "Label",
+      "figmaType": "TEXT",
+      "x": 1159,
+      "y": -287,
+      "w": 100,
+      "h": 22,
+      "z": 37,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(9, 64, 103, 1)",
+        "fontSize": 24,
+        "fontWeight": 400,
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Name",
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10043": {
+      "id": "w10043",
+      "figmaId": "55:10",
+      "name": "SearchBox",
+      "type": "TextArea",
+      "figmaType": "RECTANGLE",
+      "x": 1159,
+      "y": -138,
+      "w": 328,
+      "h": 229,
+      "z": 38,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 1,
+        "borderTopWidth": 1,
+        "borderLeftWidth": 1,
+        "borderRightWidth": 1,
+        "backgroundColor": "rgba(255, 255, 255, 1)",
+        "borderBottomLeftRadius": 5,
+        "borderTopLeftRadius": 5,
+        "borderBottomRightRadius": 5,
+        "borderTopRightRadius": 5,
+        "borderBottomColor": "rgba(9, 64, 103, 1)",
+        "borderTopColor": "rgba(9, 64, 103, 1)",
+        "borderLeftColor": "rgba(9, 64, 103, 1)",
+        "borderRightColor": "rgba(9, 64, 103, 1)"
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        },
+        "placeholder": true,
+        "databinding": {
+          "default": "selectedTodo.details"
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      },
+      "hover": {
+        "borderColor": "rgba(61, 169, 252, 1)"
+      },
+      "focus": {
+        "borderColor": "rgba(61, 169, 252, 1)"
+      }
+    },
+    "w10044": {
+      "id": "w10044",
+      "figmaId": "55:11",
+      "name": "Details",
+      "type": "Label",
+      "figmaType": "TEXT",
+      "x": 1159,
+      "y": -175,
+      "w": 100,
+      "h": 22,
+      "z": 39,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(9, 64, 103, 1)",
+        "fontSize": 24,
+        "fontWeight": 400,
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Details",
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10045": {
+      "id": "w10045",
+      "figmaId": "55:17",
+      "name": "SaveButton",
+      "type": "Button",
+      "figmaType": "FRAME",
+      "x": 1159,
+      "y": 126,
+      "w": 153,
+      "h": 60,
+      "z": 40,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": ""
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        },
+        "callbacks": {
+          "click": "updateTodo"
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10046": {
+      "id": "w10046",
+      "figmaId": "55:12",
+      "name": "SaveBackground",
+      "type": "Button",
+      "figmaType": "RECTANGLE",
+      "x": 1159,
+      "y": 126,
+      "w": 153,
+      "h": 60,
+      "z": 41,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(61, 169, 252, 1)",
+        "borderBottomLeftRadius": 5,
+        "borderTopLeftRadius": 5,
+        "borderBottomRightRadius": 5,
+        "borderTopRightRadius": 5
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      },
+      "hover": {
+        "background": "rgba(9, 64, 103, 1)",
+        "borderColor": "rgba(9, 64, 103, 1)"
+      }
+    },
+    "w10047": {
+      "id": "w10047",
+      "figmaId": "55:13",
+      "name": "Save",
+      "type": "Label",
+      "figmaType": "TEXT",
+      "x": 1187,
+      "y": 140,
+      "w": 97,
+      "h": 31,
+      "z": 42,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 24,
+        "fontWeight": 700,
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textAlign": "center",
+        "verticalAlign": "middle"
+      },
+      "props": {
+        "label": "Save",
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10048": {
+      "id": "w10048",
+      "figmaId": "55:18",
+      "name": "DeleteButton",
+      "type": "Button",
+      "figmaType": "FRAME",
+      "x": 1334,
+      "y": 126,
+      "w": 153,
+      "h": 60,
+      "z": 43,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": ""
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        },
+        "callbacks": {
+          "click": "deleteTodo"
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10049": {
+      "id": "w10049",
+      "figmaId": "55:19",
+      "name": "DeleteBackground",
+      "type": "Button",
+      "figmaType": "RECTANGLE",
+      "x": 1334,
+      "y": 126,
+      "w": 153,
+      "h": 60,
+      "z": 44,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "backgroundColor": "rgba(239, 69, 101, 1)",
+        "borderBottomLeftRadius": 5,
+        "borderTopLeftRadius": 5,
+        "borderBottomRightRadius": 5,
+        "borderTopRightRadius": 5
+      },
+      "props": {
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "backgroundColor": true,
+        "border": true,
+        "onclick": true,
+        "padding": true
+      }
+    },
+    "w10050": {
+      "id": "w10050",
+      "figmaId": "55:20",
+      "name": "Delete",
+      "type": "Label",
+      "figmaType": "TEXT",
+      "x": 1362,
+      "y": 140,
+      "w": 97,
+      "h": 31,
+      "z": 45,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(255, 255, 255, 1)",
+        "fontSize": 24,
+        "fontWeight": 700,
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textAlign": "center",
+        "verticalAlign": "middle"
+      },
+      "props": {
+        "label": "Delete",
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10051": {
+      "id": "w10051",
+      "figmaId": "103:10",
+      "name": "Enter the name",
+      "type": "Label",
+      "figmaType": "TEXT",
+      "x": 1170,
+      "y": -244,
+      "w": 312,
+      "h": 28,
+      "z": 46,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(0, 0, 0, 1)",
+        "fontSize": 18,
+        "fontWeight": 400,
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "middle"
+      },
+      "props": {
+        "label": "Enter the name",
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    },
+    "w10052": {
+      "id": "w10052",
+      "figmaId": "103:11",
+      "name": "Enter the details",
+      "type": "Label",
+      "figmaType": "TEXT",
+      "x": 1167,
+      "y": -129,
+      "w": 312,
+      "h": 210,
+      "z": 47,
+      "style": {
+        "fontFamily": "Helvetica Neue,Helvetica,Arial,sans-serif",
+        "borderBottomWidth": 0,
+        "borderTopWidth": 0,
+        "borderLeftWidth": 0,
+        "borderRightWidth": 0,
+        "color": "rgba(0, 0, 0, 1)",
+        "fontSize": 18,
+        "fontWeight": 400,
+        "lineHeight": 1,
+        "letterSpacing": 0,
+        "textAlign": "left",
+        "verticalAlign": "top"
+      },
+      "props": {
+        "label": "Enter the details",
+        "resize": {
+          "right": true,
+          "left": true,
+          "up": false,
+          "down": false,
+          "fixedHorizontal": false,
+          "fixedVertical": false
+        }
+      },
+      "has": {
+        "label": true,
+        "padding": true,
+        "advancedText": true
+      }
+    }
+  },
+  "lines": {
+    "l10017": {
+      "id": "l10017",
+      "from": "w10010",
+      "to": "s10036",
+      "figmaFrom": "2:53",
+      "figmaTo": "55:2",
+      "points": [],
+      "event": "click",
+      "animation": "",
+      "duration": 300
+    },
+    "l10020": {
+      "id": "l10020",
+      "from": "w10018",
+      "to": "s10021",
+      "figmaFrom": "2:127",
+      "figmaTo": "52:1",
+      "points": [],
+      "event": "click",
+      "animation": "",
+      "duration": 300
+    },
+    "l10026": {
+      "id": "l10026",
+      "from": "w10025",
+      "to": "s10000",
+      "figmaFrom": "52:8",
+      "figmaTo": "2:15",
+      "points": [],
+      "event": "click",
+      "animation": "",
+      "duration": 300
+    },
+    "l10040": {
+      "id": "l10040",
+      "from": "w10039",
+      "to": "s10000",
+      "figmaFrom": "55:5",
+      "figmaTo": "2:15",
+      "points": [],
+      "event": "click",
+      "animation": "",
+      "duration": 300
+    }
+  },
+  "groups": {},
+  "lastUUID": 10055,
+  "lastZ": 47,
+  "lastUpdate": 0,
+  "created": 0,
+  "startScreen": "",
+  "grid": {
+    "w": 8,
+    "h": 8,
+    "style": "line",
+    "color": "#cecece",
+    "visible": false,
+    "enabled": false
+  }
+}

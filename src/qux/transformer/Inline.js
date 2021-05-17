@@ -6,12 +6,10 @@ export function transform(treeModel, config) {
 	Logger.log(3, "Inline.transform () > enter", config)
 
 	let elements = getTreeElements(treeModel)
-	Logger.log(-1,  "Inline.transform () > elements", Object.keys(elements).length)
-
 	for (let id in elements) {
 		let element = elements[id]
 		if (element.type === 'DynamicContainer' && element.props.dynamicChildren) {
-			Logger.log(-1,  "Inline.transform () > inline", element.name, element.figmaComponentId)
+			Logger.log(4,  "Inline.transform () > inline", element.name, element.figmaComponentId)
 
 			/**
 			 * We have to set here the component class

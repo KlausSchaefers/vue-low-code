@@ -438,7 +438,7 @@ export default {
         Vue.component('qDynamicContainer', DynamicContainer)
     },
     initViewModel () {
-        Logger.log(5, 'QUX.initViewModel > enter')
+        Logger.log(3, 'QUX.initViewModel > enter')
         if (this.value && this.model) {
             /**
              * Fix screen names
@@ -469,7 +469,7 @@ export default {
                  */
                 let has = JSONPath.has(this.value, databinding)
                 if (!has) {
-                    Logger.log(4, 'QUX.initViewModel > Missing data in view model', databinding)
+                    Logger.log(-1, 'QUX.initViewModel > Missing data in view model', databinding)
                     JSONPath.set(this.value, databinding, value)
                 }
             })

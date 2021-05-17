@@ -36,7 +36,8 @@ class FontWriter {
             Logger.warn('Vue-Low-Code: Please add the following font imports:')
         }
         for (let font in fonts) {
-            let name = font.replace(/\s+/g, "+")
+            let name = font.replace(', sans-serif', "")
+            name = font.replace(/\s+/g, "+")
             Logger.warn(`   <style>@import url('https://fonts.googleapis.com/css2?family=${name}&display=swap');</style>`)
         }
     }
@@ -52,7 +53,8 @@ class FontWriter {
                 Logger.log(5, 'FontWriter.write() > Clean up old')
                 head.removeChild(this.fontElement[font])
             }
-            let name = font.replace(/\s+/g, "+")
+            let name = font.replace(', sans-serif', "")
+            name = name.replace(/\s+/g, "+")
             let css = `@import url('https://fonts.googleapis.com/css2?family=${name}&display=swap');`
             let style = document.createElement('style');
             style.type = 'text/css';
@@ -73,7 +75,7 @@ class FontWriter {
     }
 
     getCustomFonts (model) {
-        Logger.log(-1, 'FontWriter.write() > enter')
+        Logger.log(3, 'FontWriter.getCustomFonts() > enter')
 
         let fonts = {}
         Object.values(model.widgets).forEach(w => {

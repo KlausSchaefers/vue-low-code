@@ -55,7 +55,7 @@ const supportedWidgetTypes = [
 	"DynamicContainer"
 ]
 
-const textProperties = ["color", "textDecoration", "textAlign", "fontFamily", "fontSize", "fontStyle", "fontWeight", "letterSpacing", "lineHeight"]
+const textProperties = ["color", "textDecoration", "textAlign", "fontFamily", "fontSize", "fontStyle", "fontWeight", "letterSpacing", "lineHeight", "lineHeightPX"]
 
 export function transform(model, config) {
 	Logger.log(3, "Falt2Tree.transform () > enter", config)
@@ -346,7 +346,7 @@ function getWidgetType(element) {
 		if (supportedWidgetTypes.indexOf(element.type) >= 0) {
 			return `q${element.type}`
 		}
-		Logger.warn("Falt2Tree.getWidgetType() > Not supported widget type: " + element.type)
+		Logger.warn("Falt2Tree.getWidgetType() > Not supported widget type: " + element.type, element)
 		return "qBox"
 	}
 }
@@ -385,7 +385,7 @@ function attachSingleLabelsInNodes(model, node, allowedTypes) {
 		 */
 		let lines = Util.getLines(child, model)
 		if (child.type === "Label" && lines.length === 0) {
-			//Logger.log(-1, "Falt2Tree.attachSingleLabelsInNodes()", node, child)
+			Logger.log(7, "Falt2Tree.attachSingleLabelsInNodes()", child.name , node.name)
 
 			node.props.label = child.props.label
 			node.children = []
@@ -415,7 +415,11 @@ function attachSingleLabelsInNodes(model, node, allowedTypes) {
 
 			node.style = Util.fixAutos(node.style, child)
 
-			if (child.props.databinding) {
+			/**
+			 * Merge in the databinding of the child, if there is no data binding of the parent
+			 */
+			if (child.props.databinding && !node.props.databinding) {
+				Logger.log(-1, "Falt2Tree.attachSingleLabelsInNodes() copy data binding", child.name, node.name)
 				node.props.databinding = child.props.databinding
 			}
 
