@@ -17,6 +17,7 @@ export default class FigmaService {
     this.throttleRequestTimeout = 1000
     this.pinnRight = false
     this.errors = []
+    this.autoLineHeightAsNormal = true
 
     if (config.figma) {
       if (config.figma.throttleRequestThreshold) {
@@ -34,11 +35,11 @@ export default class FigmaService {
         this.pinnRight = config.figma.pinnRight
       }
     }
-    /**
-     * TODO: update with config
-     */
-    this.varientComponentHoverKey = 'hover'
-    this.varientComponentFocusKey = 'focus'
+
+    if (config.css && config.css.autoLineHeightAsNormal === false) {
+      Logger.log(-1, 'FigmaService.constructor () > Auto Line === 150%')
+      this.autoLineHeightAsNormal = false
+    }
 
     this.figmaAlignMapping = {
       MIN: 'flex-start',
@@ -1290,11 +1291,15 @@ export default class FigmaService {
     }
 
     /**
-     * we might have 'auto', which seems 150%. We set as pixel, because
+     * we might have 'normal', which seems 150%. We set as pixel, because
      * Figma inspect gives the same values.
      */
     if (fStyle.lineHeightUnit === 'INTRINSIC_%' && fStyle.lineHeightPercent) {
-      style.lineHeightPX = Math.round(style.fontSize * 1.5)
+      if (this.autoLineHeightAsNormal) {
+        style.lineHeight = 'normal'
+      } else {
+        style.lineHeightPX = Math.round(style.fontSize * 1.5)
+      }
       return
     }
 
