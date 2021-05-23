@@ -16,19 +16,6 @@ export default class RichTextCSS {
         result += this.cssFactory.getRawStyle(style, widget);
         result += '}\n\n'
 
-
-        if (style.textAlign === 'right') {
-          result += selector + ' .qux-common-label {\n'
-          result += '  justify-content:flex-end;\n'
-          result += '}\n\n'
-        }
-
-        if (style.textAlign === 'center') {
-          result += selector + ' .qux-common-label {\n'
-          result += '  justify-content:center;\n'
-          result += '}\n\n'
-        }
-
         if (widget.props && widget.props.richTextLabel) {
           let richText = widget.props.richTextLabel
           richText.forEach((child, i) => {

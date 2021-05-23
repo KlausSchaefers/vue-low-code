@@ -3,10 +3,6 @@ import FigmaService from '../../src/qux/figma/FigmaService'
 import figmaRichText from './data/figmaRichText.json'
 import * as TestUtil from './TestUtil'
 
-import * as Util from '../../src/qux/core/ExportUtil'
-import CSSOptimizer from '../../src/qux/core/CSSOptimizer'
-import CSSFactory from '../../src/qux/core/CSSFactory'
-
 test('Test RichText', async () => {
 
   /**
@@ -50,16 +46,6 @@ test('Test RichText', async () => {
   expect(richTextLabel[1].style.color).toBe('rgba(255, 7, 7, 1)')
   expect(richTextLabel[1].style.fontWeight).toBe(700)
   expect(richTextLabel[2].label).toBe(' here')
-
-
-  let compressed = new CSSOptimizer().runTree(model)
-  let classes = new CSSFactory().generate(compressed)
-
-  let boldCenterRightCSS = TestUtil.findCSSBySelector(classes, '.BoldCenterRight')[0]
-  expect(boldCenterRightCSS.code.indexOf('justify-content:flex-end;')).toBeGreaterThan(0)
-
-  let boldCenterCenter = TestUtil.findCSSBySelector(classes, '.BoldCenterCenter')[0]
-  expect(boldCenterCenter.code.indexOf('justify-content:center;')).toBeGreaterThan(0)
 
 });
 

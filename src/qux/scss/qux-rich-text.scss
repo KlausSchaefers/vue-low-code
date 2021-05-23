@@ -1,14 +1,11 @@
 .qux-rich-text{
   display: inline-block;
-  outline: 1px darkblue dashed;
 
   .qux-common-label{
     width: 100%;
-    display: flex;
 
     span{
       display: inline;
-      white-space: pre;
     }
   }
 }
