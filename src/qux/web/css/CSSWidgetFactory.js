@@ -16,6 +16,7 @@ import UploadPreviewCSS from './UploadPreviewCSS'
 import ComponentSetCSS from './ComponentSetCSS'
 import SpinnerCSS from './SpinnerCSS'
 import DynamicContainerCSS from './DynamicContainerCSS'
+import RichTextCSS from './RichTextCSS'
 
 export default class CSSWidgetFactory {
 
@@ -37,8 +38,15 @@ export default class CSSWidgetFactory {
       'UploadPreview': new UploadPreviewCSS(cssFactory),
       'ComponentSet': new ComponentSetCSS(cssFactory),
       'Spinner': new SpinnerCSS(cssFactory),
-      'DynamicContainer': new DynamicContainerCSS(cssFactory)
+      'DynamicContainer': new DynamicContainerCSS(cssFactory),
+      'RichText': new RichTextCSS(cssFactory)
     }
+  }
+
+
+  getCSS_RichText(selector, style, widget) {
+    Logger.log(5, 'getCSS_RichText', widget)
+    return this.factories.RichText.run(selector, style, widget)
   }
 
   getCSS_DynamicContainer(selector, style, widget) {

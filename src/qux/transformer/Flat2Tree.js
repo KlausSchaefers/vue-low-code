@@ -52,7 +52,8 @@ const supportedWidgetTypes = [
 	"Camera",
 	"UploadPreview",
 	"Spinner",
-	"DynamicContainer"
+	"DynamicContainer",
+	"RichText"
 ]
 
 const textProperties = ["color", "textDecoration", "textAlign", "fontFamily", "fontSize", "fontStyle", "fontWeight", "letterSpacing", "lineHeight", "lineHeightPX"]

@@ -31,7 +31,7 @@ test('Test Figma Warp', async () => {
 
   let screen = model.screens[0]
 
-  console.debug(TestUtil.print(screen))
+  //console.debug(TestUtil.print(screen))
 
   let cntr = TestUtil.findElementsByName(screen, 'WrapCntr')[0]
   expect(Util.isFixedHorizontal(cntr)).toBe(true)

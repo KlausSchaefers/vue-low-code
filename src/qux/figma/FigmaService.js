@@ -872,12 +872,16 @@ export default class FigmaService {
       props.relativeTransform = element.relativeTransform
       props.isVector = true
     }
-    if (widget.type === 'Label') {
+    if (this.isLabel(widget)) {
       if (element.characters) {
         props.label = element.characters
       } else {
         props.label = element.name
       }
+    }
+
+    if (widget.type === 'RichText') {
+      props.richTextLabel = this.getRichText(element, props.label)
     }
 
     /**
@@ -911,6 +915,47 @@ export default class FigmaService {
     this.setContraints(element, props)
 
     return props
+  }
+
+  getRichText (fElement, label)  {
+    Logger.log(2, 'FigmaService.getRichText() >', fElement.name, label)
+
+    let children = []
+    let characterStyleOverrides = fElement.characterStyleOverrides
+    let currentChild = {}
+    let lastOverride = -1
+    for (let i=0; i < label.length; i++) {
+      // ending zeros are not added
+      let override = characterStyleOverrides[i] !== undefined ? characterStyleOverrides[i] : 0 +''
+      if (override !== lastOverride) {
+        currentChild = {
+          label: '',
+          style: this.getRichTextStyle(fElement.styleOverrideTable[override])
+        }
+        children.push(currentChild)
+      }
+      currentChild.label += label[i]
+      lastOverride = override
+    }
+
+    return children
+  }
+
+  getRichTextStyle (fStyle) {
+    if (fStyle) {
+      let result = {}
+      if (fStyle.fills) {
+        if (fStyle.fills.length === 1) {
+          let fill = fStyle.fills[0]
+          if (fill.type === 'SOLID') {
+            result.color = this.getColor(fill.color, fill)
+          }
+        }
+      }
+      this.setTextStyle(fStyle, result)
+      return result
+    }
+    return undefined
   }
 
   getLayout (fElement, qElement) {
@@ -1036,7 +1081,7 @@ export default class FigmaService {
   }
 
   isLabel (widget) {
-    return widget && widget.type === 'Label'
+    return widget && (widget.type === 'Label' || widget.type === 'RichText')
   }
 
   /**
@@ -1222,46 +1267,7 @@ export default class FigmaService {
       }
 
       if (element.style) {
-        let fStyle = element.style
-        style.fontFamily = fStyle.fontFamily
-        style.fontSize = fStyle.fontSize
-        style.fontWeight = fStyle.fontWeight
-
-        // this has a different weird formular! https://help.figma.com/text/line-height
-        this.setLineHeight(style, fStyle)
-
-        style.letterSpacing = fStyle.letterSpacing
-
-        if (fStyle.textCase === 'UPPER') {
-          style.textTransform = 'uppercase'
-        }
-        if (fStyle.textCase === 'LOWER') {
-          style.textTransform = 'lowercase'
-        }
-        if (fStyle.textCase === 'TITLE') {
-          style.textTransform = 'capitalize'
-        }
-
-
-        if (fStyle.textAlignHorizontal) {
-          style.textAlign = fStyle.textAlignHorizontal.toLowerCase()
-        }
-        if (fStyle.textAlignVertical) {
-          const textAlignVertical = fStyle.textAlignVertical
-          switch (textAlignVertical) {
-            case 'CENTER':
-              style.verticalAlign = 'middle'
-              break;
-            case 'TOP':
-                style.verticalAlign = 'top'
-                break;
-            case 'BOTTOM':
-                style.verticalAlign = 'bottom'
-                break;
-              default:
-                break;
-          }
-        }
+        this.setTextStyle(element.style, style)
       }
     }
 
@@ -1278,6 +1284,47 @@ export default class FigmaService {
     }
 
     return style
+  }
+
+  setTextStyle (fStyle, style) {
+
+    style.fontFamily = fStyle.fontFamily
+    style.fontSize = fStyle.fontSize
+    style.fontWeight = fStyle.fontWeight
+
+    this.setLineHeight(style, fStyle)
+
+    style.letterSpacing = fStyle.letterSpacing
+
+    if (fStyle.textCase === 'UPPER') {
+      style.textTransform = 'uppercase'
+    }
+    if (fStyle.textCase === 'LOWER') {
+      style.textTransform = 'lowercase'
+    }
+    if (fStyle.textCase === 'TITLE') {
+      style.textTransform = 'capitalize'
+    }
+
+    if (fStyle.textAlignHorizontal) {
+      style.textAlign = fStyle.textAlignHorizontal.toLowerCase()
+    }
+    if (fStyle.textAlignVertical) {
+      const textAlignVertical = fStyle.textAlignVertical
+      switch (textAlignVertical) {
+        case 'CENTER':
+          style.verticalAlign = 'middle'
+          break;
+        case 'TOP':
+            style.verticalAlign = 'top'
+            break;
+        case 'BOTTOM':
+            style.verticalAlign = 'bottom'
+            break;
+          default:
+            break;
+      }
+    }
   }
 
 
@@ -1332,6 +1379,9 @@ export default class FigmaService {
       return 'Vector'
     }
     if (element.type === 'TEXT') {
+      if (element.characterStyleOverrides && element.characterStyleOverrides.length > 0 && element.styleOverrideTable) {
+        return 'RichText'
+      }
       return 'Label'
     }
     return 'Button'

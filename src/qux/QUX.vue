@@ -92,6 +92,7 @@ import UploadPreview from './web/UploadPreview.vue'
 import ChildrenToggle from './web/ChildrenToggle.vue'
 import Spinner from './web/Spinner.vue'
 import DynamicContainer from './web/DynamicContainer.vue'
+import RichText from './web/RichText.vue'
 
 import Logic from './mixins/Logic.vue'
 import Event from './mixins/Event.vue'
@@ -436,6 +437,7 @@ export default {
         Vue.component('qUploadPreview', UploadPreview)
         Vue.component('qSpinner', Spinner)
         Vue.component('qDynamicContainer', DynamicContainer)
+        Vue.component('qRichText', RichText)
     },
     initViewModel () {
         Logger.log(3, 'QUX.initViewModel > enter')
