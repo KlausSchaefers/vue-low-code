@@ -1170,6 +1170,7 @@ export default class FigmaService {
         if (fill.type === 'SOLID') {
           if (this.isLabel(widget)) {
             style.color = this.getColor(fill.color, fill)
+            style.backgroundColor = 'transparent'
           } else {
             style.backgroundColor = this.getColor(fill.color, fill)
           }
