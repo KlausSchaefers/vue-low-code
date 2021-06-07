@@ -36,6 +36,11 @@ export default {
         type: Boolean
       }
   },
+  data: function () {
+      return {
+        hasLabelInOptions: true
+      }
+  },
   computed: {
       isDesignSystemRoot () {
         return this.element && this.element.isDesignSystemRoot
@@ -239,7 +244,11 @@ export default {
             return dataBindingOptions
         }
         if (this.element && this.element.props && this.element.props.options){
-          return this.element.props.options
+          let options = this.element.props.options
+          if (this.element.props.label && this.hasLabelInOptions) {
+            options.unshift(this.element.props.label)
+          }
+          return options
         }
         return []
       }

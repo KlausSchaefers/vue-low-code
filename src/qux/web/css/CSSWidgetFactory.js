@@ -416,11 +416,14 @@ export default class CSSWidgetFactory {
 
     result += selector + ':not(.qux-dropdown-mobile) .qux-dropdown-popup {\n'
     result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.borderProperties)
+    if (style.popupBorder) {
+      result += `  border-color:${style.popupBorder};\n`
+    }
     result += '}\n\n'
 
     result += selector + ':not(.qux-dropdown-mobile) .qux-dropdown-item {\n'
-    result += `  background:${style.popupBackground};\n`
-    result += `  color:${style.popupColor};\n`
+    result += `  background:${style.popupBackground ? style.popupBackground : style.backgroundColor};\n`
+    result += `  color:${style.popupColor ? style.popupColor : style.color};\n`
     result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.paddingProperties)
     result += '}\n\n'
 
@@ -430,6 +433,7 @@ export default class CSSWidgetFactory {
     result += `  color:${style.selectedOptionColor};\n`
     result += '}\n\n'
 
+    // in QUX we have focus
     if (widget.focus) {
       result += selector + ':hover {\n'
       result += this.cssFactory.getRawStyle(widget.focus, widget);
@@ -438,6 +442,18 @@ export default class CSSWidgetFactory {
 
       result += selector + ':hover .qux-dropdown-popup {\n'
       result += this.cssFactory.getStyleByKey(widget.focus, widget, this.cssFactory.borderProperties)
+      result += '}\n\n'
+    }
+
+    // in Figma we have hover
+    if (widget.hover) {
+      result += selector + ':hover {\n'
+      result += this.cssFactory.getRawStyle(widget.hover, widget);
+      result += '}\n\n'
+      result += this._addCaret(selector + ':hover', widget, widget.focus)
+
+      result += selector + ':hover .qux-dropdown-popup {\n'
+      result += this.cssFactory.getStyleByKey(widget.hover, widget, this.cssFactory.borderProperties)
       result += '}\n\n'
     }
 

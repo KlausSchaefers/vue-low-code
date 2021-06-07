@@ -6,8 +6,6 @@
     cursor: pointer;
 
     .qux-dropdown-label {
-        display: flex;
-        flex-direction: row;
         height: 100%;
         width: 100%;
         align-items: center;
@@ -41,13 +39,15 @@
 
     .qux-dropdown-popup{
         position: absolute;
-        top: calc(100% + 1px);
+        top: calc(100%);
         left: 0px;
         display: none;
         border:1px solid #333;
         width: 100%;
         z-index: 1000;
         background: #fff;
+        max-height: 300px;
+        overflow: auto;
     }
 
     .qux-dropdown-item {

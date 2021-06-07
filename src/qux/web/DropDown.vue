@@ -30,7 +30,8 @@ export default {
   data: function () {
       return {
         isOpen: false,
-        selected: null
+        selected: null,
+        hasLabelInOptions: true
       }
   },
   computed: {

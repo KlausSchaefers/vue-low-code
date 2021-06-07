@@ -48,6 +48,18 @@ export default class FigmaService {
       SPACE_BETWEEN: 'space-between'
     }
 
+    // https://www.figma.com/plugin-docs/api/Trigger/
+    this.figmaAnimationTypeMapping = {
+      'ON_CLICK': 'click',
+      'ON_HOVER': 'hover',
+      'MOUSE_LEAVE': 'mouseleave',
+      'MOUSE_ENTER': 'mouseenter',
+      "MOUSE_UP": 'mouseup',
+      "MOUSE_DOWN": "mousedown"
+    }
+
+    this.figmaAnimationEasingMapping = {
+    }
   }
 
   setImageScaleFactor(factor) {
@@ -257,7 +269,9 @@ export default class FigmaService {
         if (target && target._parent) {
           let parent = target._parent
           if (parent.type === 'COMPONENT_SET' && parent.children) {
-            qWidget.type = "DynamicContainer"
+
+
+            qWidget.type = this.getDynamicType(parent)
             qWidget.props.dynamicChildren = []
             qWidget.props.dynamicLines = []
 
@@ -269,22 +283,42 @@ export default class FigmaService {
              * Check if the children are all the same, so we can set the animation type to transform...
              */
 
-            parent.children.forEach(child => {
-              let childId = fModel._elementsToWidgets[child.id]
+            parent.children.forEach(fChild => {
+              let childId = fModel._elementsToWidgets[fChild.id]
               if (childId) {
+                let qChild = qModel.widgets[childId]
                 qWidget.props.dynamicChildren.push(childId)
-                if (child.id === qWidget.figmaComponentId) {
+                if (fChild.id === qWidget.figmaComponentId) {
                   qWidget.props.dynamicStart = childId
                 }
 
-                if (child.transitionNodeID) {
-                  let targetId = fModel._elementsToWidgets[child.transitionNodeID]
+                let figmaLines = this.parseFigmaAnitions(qChild.props.figmaAnimation)
+
+                if (figmaLines && figmaLines.length > 0) {
+                  figmaLines.forEach(fLine => {
+                    let targetId = fModel._elementsToWidgets[fLine.figmaTo]
+                    if (targetId) {
+                      console.debug('dynamic line', fLine.event, fLine.animation )
+                      qWidget.props.dynamicLines.push({
+                        from: childId,
+                        to: targetId,
+                        duration: fLine.duration,
+                        animation: fLine.animation,
+                        event: fLine.event
+                      })
+                    }
+
+                  })
+
+
+                } else if (fChild.transitionNodeID) {
+                  let targetId = fModel._elementsToWidgets[fChild.transitionNodeID]
                   qWidget.props.dynamicLines.push({
                     from: childId,
                     to: targetId,
-                    duration: child.transitionDuration,
-                    animation: "none",
-                    event: "click"
+                    duration: fChild.transitionDuration,
+                    animation: 'none',
+                    event: 'click'
                   })
                 }
               }
@@ -298,6 +332,51 @@ export default class FigmaService {
       }
     })
 
+  }
+
+  parseFigmaAnitions (figmaAnimations) {
+    if (figmaAnimations) {
+      let lines = figmaAnimations.map(anim => {
+
+        let line = {}
+        line.animation = 'none'
+        line.duration = 200
+        if (anim.trigger && anim.action) {
+          let trigger = anim.trigger.type
+          let action = anim.action
+          if (this.figmaAnimationTypeMapping[trigger]) {
+            line.event = this.figmaAnimationTypeMapping[trigger]
+          }
+
+          line.figmaTo = action.destinationId
+          line.figmaFrom = ''
+
+          if (action.transition) {
+            let transition = action.transition
+            if (transition.type === 'SMART_ANIMATE') {
+              line.animation = 'transform'
+            }
+
+            if (transition.easing && this.figmaAnimationEasingMapping[transition.easing]) {
+              line.easing = this.figmaAnimationEasingMapping[transition.easing]
+            }
+
+            line.duration = Math.round(transition.duration * 1000)
+
+          }
+          //console.debug(JSON.stringify(anim), JSON.stringify(line))
+          return line
+        }
+      })
+      return lines
+    }
+
+    return null
+  }
+
+  getDynamicType (fComponentSet) {
+    Logger.log(3, 'FigmaService.getDynamicType()', fComponentSet.name)
+    return 'DynamicContainer'
   }
 
 
@@ -592,7 +671,7 @@ export default class FigmaService {
       }
     }
 
-    this.addTempLine(element, model)
+    this.addTempLine(element, model, widget)
     return widget
   }
 
@@ -621,22 +700,27 @@ export default class FigmaService {
     return name.replace(/#/g, '').replace(/\//g, '-').replace(/&/g, '').replace(/,/g, '-')
   }
 
-  addTempLine (element,  model) {
-    Logger.log(4, 'FigmaService.addLine() > enter', element.name, 'transition :' + element.transitionNodeID, element)
+  addTempLine (fElement,  model, widget) {
+    Logger.log(4, 'FigmaService.addLine() > enter', fElement.name, 'transition :' + fElement.transitionNodeID, fElement)
 
-    if (element.transitionNodeID) {
-      let clickChild = this.getFirstNoIgnoredChild(element)
-      Logger.log(6, 'addLine() >  : ', element.name, clickChild)
+
+    if (fElement.transitionNodeID) {
+      let clickChild = this.getFirstNoIgnoredChild(fElement)
+      Logger.log(6, 'addLine() >  : ', fElement.name, clickChild)
       let line = {
         id: 'l' + this.getUUID(model),
         from : null,
         to: null,
         figmaFrom: clickChild.id,
-        figmaTo: element.transitionNodeID,
+        figmaTo: fElement.transitionNodeID,
         points : [ ],
         event: "click",
         animation: "",
-        duration : element.transitionDuration
+        duration : fElement.transitionDuration
+      }
+
+      if (widget && widget.props.figmaAnimation) {
+        // add animation stuff and easing...
       }
       model.lines[line.id] = line
     }
@@ -675,6 +759,7 @@ export default class FigmaService {
           widget.type = 'UploadPreview'
         }
 
+
       }
 
       if (pluginData.quxDataValue) {
@@ -685,6 +770,15 @@ export default class FigmaService {
       if (pluginData.quxTypeCustom) {
         Logger.log(3, 'FigmaService.getPluginData() > quxTypeCustom: ', pluginData.quxOnChangeCallback, element.name)
         widget.props.customComponent = pluginData.quxTypeCustom
+      }
+
+      if (pluginData.quxAnimationProps) {
+        Logger.log(3, 'FigmaService.getPluginData() > quxAnimationProps: ', pluginData.quxAnimationProps, element.name)
+        try {
+          widget.props.figmaAnimation = JSON.parse(pluginData.quxAnimationProps)
+        } catch (err) {
+          Logger.error('FigmaService.getPluginData() > quxAnimationProps Could not parse ', pluginData.quxAnimationProps)
+        }
       }
 
       if (pluginData.quxDataBindingDefault) {
@@ -701,6 +795,14 @@ export default class FigmaService {
         }
         widget.props.databinding['output'] = pluginData.quxDataBindingOutput
       }
+      if (pluginData.quxDataBindingOptions) {
+        Logger.log(3, 'FigmaService.getPluginData() > quxDataBindingOptions : ', pluginData.quxDataBindingOptions, element.name)
+        if (!widget.props.databinding) {
+          widget.props.databinding = {}
+        }
+        widget.props.databinding['options'] = pluginData.quxDataBindingOptions
+      }
+
       if (pluginData.quxOnClickCallback) {
         Logger.log(3, 'FigmaService.getPluginData() > quxOnClickCallback: ', pluginData.quxOnClickCallback, element.name)
         if (!widget.props.callbacks) {
@@ -723,6 +825,12 @@ export default class FigmaService {
         widget.props.callbacks.change = pluginData.quxOnChangeCallback
       }
 
+      if (pluginData.quxOptions) {
+        Logger.log(3, 'FigmaService.getPluginData() > quxOptions: ', pluginData.quxOptions, element.name)
+        widget.props.options = pluginData.quxOptions.split(';')
+      }
+
+
       /**
        * Hover
        */
@@ -736,6 +844,21 @@ export default class FigmaService {
 
       if (pluginData.quxStyleHoverColor) {
         this.addDynamicStyle(widget, 'hover', 'color', pluginData.quxStyleHoverColor)
+      }
+
+      /**
+       * DropDown
+       */
+      if (pluginData.quxStyleDropDownColor) {
+        this.addDynamicStyle(widget, 'style', 'popupColor', pluginData.quxStyleDropDownColor)
+      }
+
+      if (pluginData.quxStyleDropDownBackground) {
+        this.addDynamicStyle(widget, 'style', 'popupBackground', pluginData.quxStyleDropDownBackground)
+      }
+
+      if (pluginData.quxStyleDropDownBorder) {
+        this.addDynamicStyle(widget, 'style', 'popupBorder', pluginData.quxStyleDropDownBorder)
       }
 
       /**

@@ -72,7 +72,7 @@ export function transform(model, config) {
 	/**
 	 * IN QUX we want to attach label nodes. In Figma this causes issues. with attachLabels we control for which elements we should use this
 	 */
-	let nodesWithLabelAttachment = config.css && config.css.attachLabels === true ? ["TextBox", "Password", "TextArea", "Box", "Button"] : ["TextBox", "Password", "TextArea"]
+	let nodesWithLabelAttachment = config.css && config.css.attachLabels === true ? ["TextBox", "Password", "TextArea", "Box", "Button", "DropDown"] : ["TextBox", "Password", "TextArea", "DropDown"]
 	let hasRows = config.css && config.css.grid !== true
 
 	for (let screenID in model.screens) {
@@ -376,7 +376,7 @@ function attachSingleLabelsInNodes(model, node, allowedTypes) {
 	 * only one child of type label, we merge this in.
 	 */
 	let type = node.type
-
+	//Logger.log(-7, "Falt2Tree.attachSingleLabelsInNodes()", node.name , node.children.length, allowedTypes.indexOf(type) >= 0, )
 	if (!node.props.label && node.children.length === 1 && (allowedTypes === null || allowedTypes.indexOf(type) >= 0)) {
 
 		let child = node.children[0]

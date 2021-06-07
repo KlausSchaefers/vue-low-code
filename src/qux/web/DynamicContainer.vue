@@ -1,6 +1,6 @@
 
 <template>
-  <div :class="['qux-dynamic-container', cssClass + ' ' + cssComponentClasses]">
+  <div :class="['qux-dynamic-container', cssClass + ' ' + cssComponentClasses]" @mouseenter="onMouseHover" @mouseleave="onMouseOut">
 
       <template v-if="selectedChild">
         <component
@@ -17,7 +17,7 @@
           @qKeyPress="forwardKeyPress"
           @qFocus="forwardFocus"
           @qBlur="forwardBlur"
-          @qMouseOver="forwardMouseOver"
+          @qMouseOver="onMouseOver"
           @qMouseOut="forwardMouseOut"
           />
       </template>
@@ -66,19 +66,36 @@ export default {
   },
   methods: {
     onClick (element, e, value) {
-      let fromLine = this.dynamicLines.find(line => line.from === element.id)
-      if (fromLine) {
-        if (this.element && this.element.children) {
-          let toIndex = this.element.children.findIndex(c => c.id === fromLine.to)
-          if (toIndex >= 0) {
-            Logger.log(-1, 'DynamicContainer.onClick() > select ', fromLine.to, toIndex )
-            this.selectedChildIndex = toIndex
-            this.emitDynamicDataBinding(toIndex)
-            return
-          }
+      let fromLine = this.dynamicLines.find(line => line.from === element.id && line.event === 'click')
+      Logger.log(1, 'DynamicContainer.onClick() > ', fromLine)
+      this.executeDynamicLine(fromLine)
+      this.$emit('qClick', element, e, value);
+    },
+    onMouseHover () {
+      let element = this.selectedChild
+      let fromLine = this.dynamicLines.find(line => line.from === element.id && line.event === 'hover')
+      if (!fromLine) {
+        fromLine = this.dynamicLines.find(line => line.from === element.id && line.event === 'mouseenter')
+      }
+      Logger.log(1, 'DynamicContainer.onMouseOver() > ', fromLine)
+      this.executeDynamicLine(fromLine)
+    },
+    onMouseOut () {
+      let element = this.selectedChild
+      let fromLine = this.dynamicLines.find(line => line.from === element.id && line.event === 'mouseleave')
+      Logger.log(-1, 'DynamicContainer.onMouseOut() > ', fromLine)
+      this.executeDynamicLine(fromLine)
+    },
+    executeDynamicLine (fromLine) {
+      if (this.element && this.element.children && fromLine) {
+        let toIndex = this.element.children.findIndex(c => c.id === fromLine.to)
+        if (toIndex >= 0) {
+          Logger.log(1, 'DynamicContainer.executeDynamicLine() > select ', fromLine.to, toIndex )
+          this.selectedChildIndex = toIndex
+          this.emitDynamicDataBinding(toIndex)
+          return
         }
       }
-      this.$emit('qClick', element, e, value);
     },
     emitDynamicDataBinding (index) {
       let value = this.dynamicChildValues[index]

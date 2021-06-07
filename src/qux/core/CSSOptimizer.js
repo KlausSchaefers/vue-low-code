@@ -78,6 +78,14 @@ export default class CSSOptimizer {
     }
 
     compress (style, element, replaceVerticalWithPadding = false) {
+        /**
+         * Dynamic componets have children taht will be already compressed as part
+         * of the component wrapper screen. We do not want this.
+         */
+        if (style._isCompressed) {
+            return style
+        }
+        style._isCompressed = true
 
         if (replaceVerticalWithPadding) {
            style = this.removeVAlign(style, element)

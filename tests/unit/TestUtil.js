@@ -1,26 +1,28 @@
 
 
-export function print(screen, grid = false) {
+export function print(screen, fct = false) {
     let res = []
-    printElement(res, screen, '', grid)
+    printElement(res, screen, '', fct)
     if (screen.fixedChildren && screen.fixedChildren.length > 0) {
         res.push('--------------')
         screen.fixedChildren.forEach(c => {
-            printElement(res, c, '*  ', grid)
+            printElement(res, c, '*  ', fct)
         })
     }
     return res.join('\n')
 }
 
-function printElement(res, e, space='', grid) {
+function printElement(res, e, space='', fct) {
     let actions =''
+    if (fct) {
+        actions = fct(e)
+    }
     //let parent = e.parent ? e.parent.name + ' '  + e.parent._id :  "null"
-    let pos = grid ? ` > col: ${e.gridColumnStart} - ${e.gridColumnEnd} > row: ${e.gridRowStart} - ${e.gridRowEnd}` : ''
     let l = e.layout ? e.layout.type : '?'
-    res.push(`${space}${e.name} - (${l})  ${pos} ${actions} `)
+    res.push(`${space}${e.name} - (${l}) ${actions} `)
     if (e.children) {
         e.children.forEach(c => {
-            printElement(res, c, space + '  ', grid)
+            printElement(res, c, space + '  ', fct)
         });
     }
 }

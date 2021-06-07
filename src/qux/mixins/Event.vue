@@ -105,7 +105,9 @@ export default {
                 this.executeLogic(box, line)
                 return
             } else {
-                Logger.warn('QUX.executeLine() > Not supported line target', box)
+                if (!line.isComponentLine) {
+                    Logger.warn('QUX.executeLine() > Not supported line target', box)
+                }
             }
         } else {
             Logger.error('QUX.executeLine() > ERROR. Null passed', line)

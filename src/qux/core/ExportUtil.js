@@ -74,12 +74,12 @@ export function canHaveChildren (element) {
 
 export function isInputElement (element) {
     const type = element.type
-    return type === 'TextBox' || type === 'TextArea' || type === 'Password'
+    return type === 'TextBox' || type === 'TextArea' || type === 'Password' || type === 'DropDown'
 }
 
 export function isContainerElement (element) {
     const type = element.type
-    return type === 'Box' || type === 'Button' || type === 'Image' || type === 'ChildrenToggle' || type === 'Repeater' || type === 'DynamicContainer'
+    return type === 'Box' || type === 'Button' || type === 'Image' || type === 'ChildrenToggle' || type === 'Repeater' || type === 'DynamicContainer' || type === 'ContainerDropDown'
 }
 
 /**
