@@ -152,10 +152,7 @@ export default {
   computed: {
       treeModel () {
           if (this.model) {
-              let model = this.model
-              if (this.mergedConfig.responsive) {
-                model = this.getResponsiveModel(model, this.mergedConfig.responsive)
-              }
+              let model = this.responsiveModel
               let transformer = new ModelTransformer(model, this.mergedConfig, this.selected)
               let tree = transformer.transform()
               this.setGlobalCSS(tree, this.selected)
@@ -165,6 +162,13 @@ export default {
           return {
             screens: []
           }
+      },
+      responsiveModel () {
+        let model = this.model
+        if (this.mergedConfig.responsive) {
+            model = this.getResponsiveModel(model, this.mergedConfig.responsive)
+        }
+        return model
       },
       currentScreen () {
         if (this.selectedScreenId) {
@@ -212,17 +216,17 @@ export default {
   },
   methods: {
     getResponsiveModel (model, responsive) {
+        Logger.log(-1, 'QUX.getResponsiveModel() > enter >', responsive)
         let pagesWithTypes = responsive.filter(t => t.types.length > 0)
 
         /**
          * Makre sure we have some configuration
          */
         if (pagesWithTypes.length > 0) {
-
             this.setDeviceType()
             model = Util.clone(model)
             let pages = this.mergedConfig.responsive.filter(t => t.types.indexOf(this.deviceType) > -1).map(t => t.page)
-            Logger.log(-1, 'QUX.getResponsiveModel() > Pages >' + this.deviceType, pages.join(','))
+            Logger.log(2, 'QUX.getResponsiveModel() > Pages >' + this.deviceType, pages.join(','))
             let filteredScreens = {}
             Object.values(model.screens).forEach(s => {
                 if (pages.indexOf(s.pageName) > -1) {
@@ -233,6 +237,7 @@ export default {
             if (Object.values(filteredScreens).length > 0) {
                 Logger.log(-1, 'QUX.getResponsiveModel() > exit :', this.deviceType)
                 model.screens = filteredScreens
+                return model
             }
 
         }
@@ -328,7 +333,9 @@ export default {
             /**
              * FIXME: Use here tree model
              */
-            let screen = Object.values(this.model.screens).find(s => s.name === name)
+            let model = this.responsiveModel
+            let screen = Object.values(model.screens).find(s => s.name === name)
+            Logger.log(-1, 'QUX.loadScreen() > Found ', screen)
             if (screen) {
                 // make here somethink like: use router? and updat ethe url as well?
                 this.selectedScreenId = screen.id
@@ -478,10 +485,15 @@ export default {
         }
     },
     initReziseListener () {
-        window.addEventListener("resize", this.setDeviceType);
+        window.addEventListener("resize", this.onScreenSizeChange);
+    },
+    onScreenSizeChange () {
+        Logger.log(-1, 'QUX.onScreenSizeChange > enter')
+        this.setDeviceType()
+        this.setScreenByRouter()
     },
     setDeviceType () {
-        Logger.log(3, 'QUX.setDeviceType > enter')
+        Logger.log(1, 'QUX.setDeviceType > enter')
         let w = window.outerWidth
         let breakpoints = this.mergedConfig.breakpoints
         if (breakpoints) {
