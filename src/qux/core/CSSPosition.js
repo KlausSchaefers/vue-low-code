@@ -59,7 +59,7 @@ export default class CSSPosition {
 
 
 		/**
-		 * Special handling for deisgn systems and fixed stuff
+		 * Special handling for design systems and fixed stuff
 		 */
 		if (Util.isDesignSystemRoot(widget)) {
 			return this.getDesignSystemPosition(widget)
@@ -124,7 +124,7 @@ export default class CSSPosition {
 	getChildPosition(widget) {
 
 		if (!Util.hasChildren(widget)) {
-			return ''
+			return '/* no children */'
 		}
 		if (Util.isRepeater(widget)) {
 			return this.setChildrenRepeater(widget)
@@ -154,6 +154,7 @@ export default class CSSPosition {
 	}
 
 	getParentDefault(widget) {
+		Logger.log(5, "CSSPosition.getParentDefault() >" + widget.name)
 		let result = ''
 		if (this.isForceGrid && Util.isScreen(widget)) {
 			result += `  min-height: ${widget.h}px;\n`
@@ -174,7 +175,7 @@ export default class CSSPosition {
 	 *********************************************************************/
 
 	getChildrenAutoHorizontal (widget) {
-		Logger.log(5, "CSSPosition.getChildrenAutoHorizontal()" + widget.name)
+		Logger.log(5, "CSSPosition.getChildrenAutoHorizontal() >" + widget.name)
 		let result = ''
 
 		let l = widget.layout
@@ -199,7 +200,7 @@ export default class CSSPosition {
 	}
 
 	getParentAutoHorizontal (widget) {
-		Logger.log(5, "CSSPosition.getParentAutoHorizontal()" + widget.name)
+		Logger.log(5, "CSSPosition.getParentAutoHorizontal() > " + widget.name)
 		let result = ''
 
 		result += `  height: ${this.getCorrectedHeight(widget, true)};\n`

@@ -582,10 +582,13 @@ export default class FigmaService {
       h: pos.h,
       props: {},
       children: [],
+      layout: {},
       style: this.getStyle(fScreen)
     }
+    qScreen = this.getLayout(fScreen, qScreen)
 
     this.getPluginData(fScreen, qScreen, fModel)
+
 
     if (fScreen.children) {
       fScreen.children.forEach(child => {

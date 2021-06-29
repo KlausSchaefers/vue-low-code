@@ -20,7 +20,7 @@ export default class ModelTransformer {
     }
 
     transform () {
-      Logger.log(0, 'ModelTransformer.transform()', this.selected)
+      Logger.log(0, 'ModelTransformer.transform() > selected: ', this.selected)
       let model = this.model
 
       // 1) Make a flat model, e.g. merge in master screens

@@ -347,7 +347,10 @@ function getWidgetType(element) {
 		if (supportedWidgetTypes.indexOf(element.type) >= 0) {
 			return `q${element.type}`
 		}
-		Logger.warn("Falt2Tree.getWidgetType() > Not supported widget type: " + element.type, element)
+		/**
+		 * There is a raw ase were fixed children might cause an issue
+		 */
+		Logger.warn("Falt2Tree.getWidgetType() > Not supported widget type: " + element.type)
 		return "qBox"
 	}
 }

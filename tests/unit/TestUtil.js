@@ -1,3 +1,11 @@
+import CSSOptimizer from '../../src/qux/core/CSSOptimizer'
+import CSSFactory from '../../src/qux/core/CSSFactory'
+
+export function generateCSS (model) {
+    let compressed = new CSSOptimizer().runTree(model)
+    let classes = new CSSFactory().generate(compressed)
+    return classes
+}
 
 
 export function print(screen, fct = false) {
@@ -66,6 +74,12 @@ export function findOneElementsByName (e, name, result = []) {
 
 export function findCSSBySelector (classes, selector) {
     return Object.values(classes).flatMap(c => c).filter(c => c.css.indexOf(selector) >=0)
+}
+
+export function hasCSSBySelector (classes, selector, code) {
+    let matches = Object.values(classes).flatMap(c => c).filter(c => c.css.indexOf(selector) >=0)
+    let found = matches.filter(match => match.code.indexOf(code) >= 0)
+    return found.length > 0
 }
 
 export function findOneElementsByProp(e, value, prop, result = []) {
