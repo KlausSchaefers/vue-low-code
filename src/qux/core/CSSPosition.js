@@ -189,7 +189,10 @@ export default class CSSPosition {
 			result += "  flex-wrap: wrap;\n"
 		}
 
-		result += `  gap: ${l.itemSpacing}px;\n`
+		if (!Util.isAutoLayoutSpaceBetween(widget)) {
+			result += `  gap: ${l.itemSpacing}px;\n`
+		}
+
 		result += `  padding-left: ${l.paddingLeft}px;\n`
 		result += `  padding-right: ${l.paddingRight}px;\n`
 		result += `  padding-top: ${l.paddingTop}px;\n`

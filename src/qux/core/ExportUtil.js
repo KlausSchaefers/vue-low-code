@@ -138,6 +138,10 @@ export function isWrappedContainer(e) {
     return e.style.wrap || e.style.layout === 'Wrap'
 }
 
+export function isAutoLayoutSpaceBetween(e) {
+    return e.layout && e.layout.justifyContent === 'space-between'
+}
+
 
 export function isGridContainer(e) {
     return e.style.grid

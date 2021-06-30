@@ -1,6 +1,6 @@
 {
   "name": "vue-low-code",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "Vue Low Code - VUE Renderer for FIGMA designs. Turn your Figma or Quant-UX design into VUE, or create re-usable designlets",
   "main": "./dist/index.js",
   "scripts": {

@@ -74,7 +74,7 @@ test('Test Horizontal', async () => {
   // test css a little
   let cssAutoSpaceBetween = TestUtil.findCSSBySelector(classes, '.AutoHorSpaceSpaceBetween')[0]
   assertCSS(cssAutoSpaceBetween, 'justify-content: space-between;')
-  assertCSS(cssAutoSpaceBetween, 'gap: 10px;')
+  assertNotCSS(cssAutoSpaceBetween, 'gap: 10px;')
 });
 
 
@@ -151,4 +151,8 @@ function assertLayout(screen, name, type) {
 
 function assertCSS (file, statementToFind) {
   expect(file.code.indexOf(statementToFind)).toBeGreaterThanOrEqual(0)
+}
+
+function assertNotCSS (file, statementToFind) {
+  expect(file.code.indexOf(statementToFind)).toBe(-1)
 }
