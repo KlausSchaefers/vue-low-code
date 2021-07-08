@@ -258,8 +258,14 @@ export default class CSSPosition {
 			result += `  height: ${this.getCorrectedHeight(widget, true)};\n`
 		}
 
-		result += `  width: ${this.getFixedWidth(widget)};\n`
-
+		/**
+		 * In a vertical layout we might have a strech property. This translates to width 100%
+		 */
+		if (Util.isFixedHorizontal(widget)) {
+			result += `  width: ${this.getFixedWidth(widget)};\n`
+		} else {
+			result += `  width: 100%;\n`
+		}
 
 		return result
 	}

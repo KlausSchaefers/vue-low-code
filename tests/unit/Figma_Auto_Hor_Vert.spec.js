@@ -77,8 +77,6 @@ test('Test Horizontal', async () => {
   assertNotCSS(cssAutoSpaceBetween, 'gap: 10px;')
 });
 
-
-
 test('Test Vertical', async () => {
 
   /**

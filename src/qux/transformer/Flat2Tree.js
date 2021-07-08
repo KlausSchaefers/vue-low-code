@@ -164,17 +164,16 @@ function addLayoutType (element) {
 	 * 3) Grid -> Default
 	 */
 
-	/**
-		* FIXME: This might override Figma grow stuff.
-	  */
+
 	let grow = 0
 	if (element.layout && element.layout.grow !== undefined) {
 		grow = element.layout.grow
 	}
+
 	if (!Util.isLayoutAuto(element)) {
 
 		/**
-		 * For Fima Autos, the wrap will be ignored!
+		 * For Figma Autos, the wrap will be ignored!
 		 */
 		if (Util.isWrappedContainer(element)) {
 

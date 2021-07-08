@@ -1103,9 +1103,6 @@ export default class FigmaService {
       qElement.layout.itemSpacing = fElement.itemSpacing
     }
 
-    if (fElement.layoutAlign !== undefined) {
-      qElement.layout.align = fElement.layoutAlign
-    }
 
     /**
      * FXIME: This fucks up the reponsive ness
@@ -1116,6 +1113,14 @@ export default class FigmaService {
 
     if (fElement.layoutGrow === 1) {
       this.setFixedHozontal(qElement, false)
+    }
+
+
+    if (fElement.layoutAlign !== undefined) {
+      if (fElement.layoutAlign === 'STRETCH') {
+        this.setFixedHozontal(qElement, false)
+      }
+      qElement.layout.align = fElement.layoutAlign
     }
 
     qElement.layout.grow = fElement.layoutGrow
