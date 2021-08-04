@@ -33,6 +33,9 @@ export default {
       if (file && file.url) {
         return `url(${file.url})`
       }
+      if (file && file.indexOf && file.indexOf('http') === 0) {
+        return `url(${file})`
+      }
       return this.placeholder
     }
   },

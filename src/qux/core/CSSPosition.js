@@ -264,8 +264,14 @@ export default class CSSPosition {
 		if (Util.isFixedHorizontal(widget)) {
 			result += `  width: ${this.getFixedWidth(widget)};\n`
 		} else {
-			result += `  width: 100%;\n`
+			/**
+			 * FIXME: We have an ugly hack here! We should have clac(100% - paddingLeft + paddingRight)
+			 */
+			result += `  width: 100%;\n` // we have to substract padding
+			result += `  box-sizing: border-box;\n` // we have to substract padding
 		}
+
+
 
 		return result
 	}
@@ -973,8 +979,6 @@ export default class CSSPosition {
 				w -= widget.style[key]
 			}
 		})
-
-
 		return w + "px"
 	}
 
