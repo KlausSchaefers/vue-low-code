@@ -82,7 +82,7 @@ export default {
         Logger.log(4, 'Repeater.getDeepCopy() > exit : > ' + i, row)
         let copy = this.clone(element)
         let path = this.dataBindingInputPath
-        this.updateDataBinding(copy, i, path)
+        this.updateDataBinding(copy, i, path, true)
         return copy
     },
     clone(obj) {
@@ -106,34 +106,53 @@ export default {
         }
         return temp;
     },
-    updateDataBinding (copy, i, parentPath) {
-        Logger.log(5, 'Repeater.updateDataBinding() > exit : > ' + i, copy.name)
-        if (copy.children) {
+    updateDataBinding (copy, i, parentPath, isRoot = false) {
+        Logger.log(5, 'Repeater.updateDataBinding() > enter : > ' + i, copy.name + ' @ ' + parentPath)
+
+        if (copy.children && copy.children.length > 0) {
             copy.children.forEach(child => {
-                if (child && child.props && child.props.databinding) {
-                    let databinding = child.props.databinding
-                    for (let key in databinding) {
-                        let path = databinding[key]
-                        // if we have parent path remove
-                        if (path.indexOf(parentPath) === 0) {
-                           path = path.substring(parentPath.length)
-                        }
-                        // if path starts with array we remove
-                        if (path.indexOf('[0]') === 0) {
-                           path = path.substring(3)
-                        }
-                        if (path.indexOf('.') === 0) {
-                           path = path.substring(1)
-                        }
-                        databinding[key] = `${parentPath}[${i}].${path}`
-                        //Logger.log(0, 'Repeater.updateDataBinding() > exit : > ' + copy.name, databinding[key])
-                        // otherwise add parent
-                    }
-                }
+                /**
+                 * Update the path for each child
+                 */
+                this.updateDataBindingKeys(child, i, parentPath)
+
+                /**
+                 * Go doen recursive
+                 */
                 this.updateDataBinding(child, i, parentPath)
             })
+        } else if (isRoot) {
+          /**
+           * We might have a special case, where the repeater has only one child.
+           */
+          Logger.log(5, 'Repeater.updateDataBinding() > No wrapper children : > ' + i, copy.name + ' @ ' + parentPath)
+          this.updateDataBindingKeys(copy, i, parentPath)
         }
     },
+
+    updateDataBindingKeys (child, i, parentPath) {
+      if (child && child.props && child.props.databinding) {
+          let databinding = child.props.databinding
+
+          for (let key in databinding) {
+              let path = databinding[key]
+              // if we have parent path remove
+              if (path.indexOf(parentPath) === 0) {
+                  path = path.substring(parentPath.length)
+              }
+              // if path starts with array we remove
+              if (path.indexOf('[0]') === 0) {
+                  path = path.substring(3)
+              }
+              if (path.indexOf('.') === 0) {
+                  path = path.substring(1)
+              }
+              databinding[key] = `${parentPath}[${i}].${path}`
+              Logger.log(2, 'Repeater.updateDataBindingKeys() > exit : > ' +databinding[key])
+          }
+      }
+    },
+
     forwardClick (i, element, e) {
       let row = this.dataBindingInputPath ? JSONPath.get(this.value, `${this.dataBindingInputPath}[${i}]`) : null
       if (element.lines && element.lines.length > 0) {
