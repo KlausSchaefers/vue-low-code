@@ -5,9 +5,7 @@
   "main": "./dist/vue-low-code.common.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "vue-cli-service build",
-    "build-package": "vue-cli-service build --target lib --name vue-low-code ./src/index.js",
-    "export": "npx bili --bundle-node-modules"
+    "build-package": "vue-cli-service build --target lib --name vue-low-code ./src/index.js"
   },
   "repository": {
     "type": "git",

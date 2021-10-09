@@ -459,7 +459,7 @@ npm install
 
 Build:
 ```
-npx bili --bundle-node-modules
+npm run build-package
 ```
 
 
