@@ -1,5 +1,4 @@
-import QUX from "./qux/QUX.vue";
-import Figma from "./qux/figma/Figma.vue";
+
 import FigmaService from "./qux/figma/FigmaService";
 import Logger from "./qux/core/Logger";
 
@@ -7,15 +6,14 @@ import ModelTransformer from './qux/core/ModelTransformer'
 import CSSOptimizer from './qux/core/CSSOptimizer'
 import CSSFactory from './qux/core/CSSFactory'
 import CSSWriter from './qux/core/CSSWriter'
+import qux from './qux'
 
 import FigmaDesignSystem from './qux/ds/FigmaDesignSystem'
 import QUXDesignSystem from './qux/ds/QUXDesignSystem'
 
 export default {
- install(Vue) {
-  Vue.component("QUX", QUX);
-  Vue.component("LowCode", QUX);
-  Vue.component("Figma", Figma)
+ install(app) {
+    qux.install(app)
  }
 };
 

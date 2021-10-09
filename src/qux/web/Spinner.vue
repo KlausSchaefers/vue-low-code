@@ -154,7 +154,7 @@ export default {
           this.$emit('qChange', this.element, null, this.selected)
         } else {
           this.$emit('change', this.selected)
-          this.$emit('input', this.selected)
+          this.$emit('update:modelValue', this.selected)
         }
         Logger.log(5, 'qSpinner.onChange() exit > ', this.selected)
       }

@@ -50,7 +50,7 @@ export default {
         } else {
           this.checked = !this.checked
           this.$emit('change', this.checked)
-          this.$emit('input', this.checked)
+          this.$emit('update:modelValue', this.checked)
           Logger.log(5, 'qIconToggle.toggle() >' + this.checked)
         }
       }

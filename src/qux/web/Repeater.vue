@@ -16,7 +16,7 @@
             :element="getDeepCopy(child, row, i)"
             :model="model"
             :config="config"
-            v-model="value"
+            :modelValue="modelValue"
             @qClick="forwardClick(i, $event)"
             @qChange="forwardChange"
             @qKeyPress="forwardKeyPress"

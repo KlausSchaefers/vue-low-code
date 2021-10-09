@@ -48,7 +48,7 @@ export default {
         let requiredDataBindings = RestEngine.getNeededDataBings(rest)
         let data = {}
         requiredDataBindings.forEach(path => {
-            let value = JSONPath.get(this.value, path)
+            let value = JSONPath.get(this.modelValue, path)
             data[path] = value
         })
 
@@ -74,13 +74,13 @@ export default {
         let result = await RestEngine.run(rest, data)
         Logger.log(1, "QUX.executeRest","set data " + rest.output.databinding, result);
         if (rest.output.databinding) {
-            JSONPath.set(this.value, rest.output.databinding, result)
+            JSONPath.set(this.modelValue, rest.output.databinding, result)
         }
         return true
       } catch (e) {
         Logger.error("QUX.executeRest","error", e);
         if (rest.output.databinding) {
-            JSONPath.set(this.value, rest.output.databinding, 'Error')
+            JSONPath.set(this.modelValue, rest.output.databinding, 'Error')
         }
       }
       return false
@@ -124,7 +124,7 @@ export default {
     checkDataBindingRule (line) {
         Logger.log(4, 'QUX.checkDataBindingRule() > enter', line.rule.databinding);
         let rule = line.rule
-        let value = JSONPath.get(this.value, rule.databinding)
+        let value = JSONPath.get(this.modelValue, rule.databinding)
         var result = this.isValueMatchingRule(value, true, rule);
         if (result) {
           Logger.log(-1, 'QUX.checkDataBindingRule() > match!', line);

@@ -52,7 +52,7 @@ export default {
           this.onValueChange(this.count, 'default')
         } else {
           this.$emit('change', this.count)
-          this.$emit('input', this.count)
+          this.$emit('update:modelValue', this.count)
         }
       }
   },

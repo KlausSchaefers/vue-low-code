@@ -44,7 +44,7 @@ export default {
         } else {
           this.checked = !this.checked
           this.$emit('change', this.checked)
-          this.$emit('input', this.checked)
+          this.$emit('update:modelValues', this.checked)
           Logger.log(5, 'qCheckBox.toggle() >' + this.checked)
         }
       }

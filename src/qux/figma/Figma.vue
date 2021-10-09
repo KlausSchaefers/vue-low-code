@@ -6,7 +6,7 @@
       :showDebug="true"
       :executor="getMethodExcutor()"
       :selected="selected"
-      v-model="value"
+      :value="value"
       ref="qux"
       v-if="app"
       :screen="screen"/>

@@ -93,7 +93,7 @@ export default {
           this.$emit('qChange', this.element, null, this.count)
         } else {
           this.$emit('change', this.count)
-          this.$emit('input', this.count)
+          this.$emit('update:modelValue', this.count)
         }
         Logger.log(5, 'qSlider.onChange() exit > ', this.count)
       }

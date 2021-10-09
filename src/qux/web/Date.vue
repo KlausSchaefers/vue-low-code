@@ -249,7 +249,7 @@ export default {
                 } else {
                    
                     this.$emit('change', this.selected)
-                    this.$emit('input', this.selected)
+                    this.$emit('update:modelValue', this.selected)
                 }
             }
 
@@ -264,7 +264,7 @@ export default {
                     this.onValueChange(this.toIsoString(this.selected), 'default')
                 } else {
                     this.$emit('change', this.selected)
-                    this.$emit('input', this.selected)
+                    this.$emit('update:modelValue', this.selected)
                 }
             } 
           }

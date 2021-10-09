@@ -14,7 +14,7 @@
 
 import _Base from './_Base.vue'
 import Logger from '../core/Logger'
-import Vue from 'vue'
+//import Vue from 'vue'
 
 export default {
   name: 'qStepper',
@@ -73,7 +73,8 @@ export default {
                 if (pos < 0) {
                     input.push(value)
                 } else {
-                    Vue.delete(input, pos)
+                    input = input.filter(item => item !== option)
+                    //Vue.delete(input, pos)
                 }
 
             } else {

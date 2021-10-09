@@ -15,9 +15,9 @@ export default {
         Logger.log(3, 'QUX.onScreenLoaded() > ', screen)
         this.setSystemVariable('screen', screen.name)
         this.$emit('qScreenLoad', {
-            value: this.value,
+            value: this.modelValue,
             element: screen,
-            viewModel: this.value,
+            viewModel: this.modelValue,
             qux: this
         })
         this.dispatchCallback(screen, null, 'load', null)
@@ -35,9 +35,9 @@ export default {
                 let func = executor[e.callback]
                 if (func instanceof Function) {
                     let result = await func({
-                        value: this.value,
+                        value: this.modelValue,
                         element: element,
-                        viewModel: this.value,
+                        viewModel: this.modelValue,
                         qux: this,
                         params: e.params,
                         event: e
@@ -123,7 +123,7 @@ export default {
 
                 if (this.actionEngine && this.actionEngine.hasAction(callback)) {
                     Logger.log(-1, 'QUX.dispatchCallback() > action engine: ', callback)
-                    let result = await this.actionEngine.executeAction(this.app, callback, this.value)
+                    let result = await this.actionEngine.executeAction(this.app, callback, this.modelValue)
                     this.handleCallbackResult(result, callback)
                     return
                 }
@@ -140,7 +140,7 @@ export default {
                             let result = await func({
                                 value: value,
                                 element: element,
-                                viewModel: this.value,
+                                viewModel: this.modelValue,
                                 qux: this,
                                 event: e
                             })
@@ -255,7 +255,7 @@ export default {
     },
 
     setSystemVariable (key, value) {
-        JSONPath.set(this.value, '_qux.' + key, value)
+        JSONPath.set(this.modelValue, '_qux.' + key, value)
     }
   }
 }
