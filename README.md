@@ -1,6 +1,6 @@
 # Vue-Low-Code
 Vue-Low-Code is an open-source project that turns [Figma](https://figma.com) and [Quant-UX](https://quant-ux.com)
-designs into fully functional VUE applications. By ensuring that the
+designs into fully functional *VUE3* applications. By ensuring that the
 design stays the single source of truth, Vue-Low-Code reduces the need for design
 hand-offs and front-end code significantly.
 
@@ -77,7 +77,7 @@ Table of contents
 First, you have to install the QUX-LowCode package via NPM
 
 ```bash
-npm i vue-low-code
+npm i vue-low-code-beta
 ```
 
 
