@@ -1,5 +1,6 @@
 import Logger from '../core/Logger'
 import {Layout} from '../core/Const'
+
 export default class FigmaService {
 
   constructor (key, config = {}) {
@@ -12,7 +13,7 @@ export default class FigmaService {
     this.max_ids = 50
     this.pluginId = '858477504263032980'
     this.downloadVectors = true
-    this.imageScaleFactor = 1
+    this.imageScaleFactor = 2
     this.throttleRequestThreshold = 10
     this.throttleRequestTimeout = 1000
     this.pinnRight = false
@@ -661,7 +662,7 @@ export default class FigmaService {
       /**
        * We do not go down on vector elements and hidden elements.
        */
-      if (!this.isVector(element) && !this.isInvisible(element)) {
+      if (!this.isVector(element) && !this.isInvisible(element) && !this.isCustomVector(element)) {
         element.children.forEach(child => {
           if (child.visible !== false) {
             child._parent = element
@@ -760,6 +761,10 @@ export default class FigmaService {
 
         if (pluginData.quxType === 'Image' && pluginData.quxDataBindingDefault) {
           widget.type = 'UploadPreview'
+        }
+
+        if (pluginData.quxType === 'Vector') {
+          widget.props.isVector = true
         }
 
 
@@ -1117,10 +1122,14 @@ export default class FigmaService {
 
 
     if (fElement.layoutAlign !== undefined) {
-      if (fElement.layoutAlign === 'STRETCH') {
+      if (fElement.layoutAlign === 'STRETCH' ) { // FIXME: here is some werid figma behavior fElement.layoutGrow === 0.0
         this.setFixedHozontal(qElement, false)
       }
       qElement.layout.align = fElement.layoutAlign
+    }
+
+    if (fElement.primaryAxisSizingMode === "FIXED") {
+      //this.setFixedHozontal(qElement, true)
     }
 
     qElement.layout.grow = fElement.layoutGrow
@@ -1210,6 +1219,17 @@ export default class FigmaService {
   isVector (element) {
     return this.allAsVecor || !this.isButton(element)
   }
+
+  isCustomVector (fElement) {
+    if (fElement.pluginData) {
+      let pluginData = fElement.pluginData[this.pluginId]
+      if (pluginData && pluginData.quxType === 'Vector') {
+        return true
+      }
+    }
+    return false
+  }
+
 
   isLabel (widget) {
     return widget && (widget.type === 'Label' || widget.type === 'RichText')
@@ -1510,6 +1530,11 @@ export default class FigmaService {
     if (this.isVector(element)) {
       return 'Vector'
     }
+
+    /**
+     * FIXME: We could have somehow super complex nested shapes that should be handled as a vector...
+     */
+
     if (element.type === 'TEXT') {
       if (element.characterStyleOverrides && element.characterStyleOverrides.length > 0 && element.styleOverrideTable) {
         return 'RichText'
