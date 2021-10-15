@@ -1,0 +1,470 @@
+{
+    "document": {
+        "id": "0:0",
+        "name": "Document",
+        "type": "DOCUMENT",
+        "pluginData": {
+            "858477504263032980": {
+                "quxTargetPlatform": "vue"
+            }
+        },
+        "children": [
+            {
+                "id": "19:91",
+                "name": "Luisa Landing",
+                "type": "CANVAS",
+                "children": [
+                    {
+                        "id": "101:39",
+                        "name": "Home",
+                        "type": "FRAME",
+                        "pluginData": {
+                            "858477504263032980": {
+                                "quxStartScreen": "true"
+                            }
+                        },
+                        "blendMode": "PASS_THROUGH",
+                        "children": [
+                            {
+                                "id": "101:41",
+                                "name": "Header",
+                                "type": "FRAME",
+                                "blendMode": "PASS_THROUGH",
+                                "children": [
+                                    {
+                                        "id": "101:42",
+                                        "name": "NavBar",
+                                        "type": "FRAME",
+                                        "blendMode": "PASS_THROUGH",
+                                        "children": [],
+                                        "absoluteBoundingBox": {
+                                            "x": -1500.0,
+                                            "y": 0.0,
+                                            "width": 1200.0,
+                                            "height": 90.0
+                                        },
+                                        "constraints": {
+                                            "vertical": "TOP",
+                                            "horizontal": "LEFT"
+                                        },
+                                        "relativeTransform": [
+                                            [
+                                                1.0,
+                                                0.0,
+                                                120.0
+                                            ],
+                                            [
+                                                0.0,
+                                                1.0,
+                                                0.0
+                                            ]
+                                        ],
+                                        "size": {
+                                            "x": 1200.0,
+                                            "y": 90.0
+                                        },
+                                        "layoutAlign": "STRETCH",
+                                        "layoutGrow": 0.0,
+                                        "clipsContent": true,
+                                        "background": [
+                                            {
+                                                "blendMode": "NORMAL",
+                                                "type": "SOLID",
+                                                "color": {
+                                                    "r": 0.86250001192092896,
+                                                    "g": 0.37015625834465027,
+                                                    "b": 0.37015625834465027,
+                                                    "a": 1.0
+                                                }
+                                            }
+                                        ],
+                                        "fills": [
+                                            {
+                                                "blendMode": "NORMAL",
+                                                "type": "SOLID",
+                                                "color": {
+                                                    "r": 0.86250001192092896,
+                                                    "g": 0.37015625834465027,
+                                                    "b": 0.37015625834465027,
+                                                    "a": 1.0
+                                                }
+                                            }
+                                        ],
+                                        "strokes": [],
+                                        "strokeWeight": 1.0,
+                                        "strokeAlign": "INSIDE",
+                                        "backgroundColor": {
+                                            "r": 0.86250001192092896,
+                                            "g": 0.37015625834465027,
+                                            "b": 0.37015625834465027,
+                                            "a": 1.0
+                                        },
+                                        "styles": {
+                                            "fills": "101:43"
+                                        },
+                                        "effects": []
+                                    }
+                                ],
+                                "absoluteBoundingBox": {
+                                    "x": -1620.0,
+                                    "y": 0.0,
+                                    "width": 1440.0,
+                                    "height": 90.0
+                                },
+                                "constraints": {
+                                    "vertical": "TOP",
+                                    "horizontal": "LEFT"
+                                },
+                                "relativeTransform": [
+                                    [
+                                        1.0,
+                                        0.0,
+                                        0.0
+                                    ],
+                                    [
+                                        0.0,
+                                        1.0,
+                                        0.0
+                                    ]
+                                ],
+                                "size": {
+                                    "x": 1440.0,
+                                    "y": 90.0
+                                },
+                                "layoutAlign": "STRETCH",
+                                "layoutGrow": 0.0,
+                                "clipsContent": true,
+                                "background": [],
+                                "fills": [],
+                                "strokes": [],
+                                "strokeWeight": 1.0,
+                                "strokeAlign": "INSIDE",
+                                "backgroundColor": {
+                                    "r": 0.0,
+                                    "g": 0.0,
+                                    "b": 0.0,
+                                    "a": 0.0
+                                },
+                                "layoutMode": "HORIZONTAL",
+                                "counterAxisSizingMode": "FIXED",
+                                "primaryAxisSizingMode": "FIXED",
+                                "primaryAxisAlignItems": "CENTER",
+                                "effects": []
+                            },
+                            {
+                                "id": "101:44",
+                                "name": "Body",
+                                "type": "FRAME",
+                                "blendMode": "PASS_THROUGH",
+                                "children": [
+                                    {
+                                        "id": "104:47",
+                                        "name": "Content",
+                                        "type": "FRAME",
+                                        "blendMode": "PASS_THROUGH",
+                                        "children": [],
+                                        "absoluteBoundingBox": {
+                                            "x": -1500.0,
+                                            "y": 90.0,
+                                            "width": 1200.0,
+                                            "height": 934.0
+                                        },
+                                        "constraints": {
+                                            "vertical": "TOP",
+                                            "horizontal": "LEFT"
+                                        },
+                                        "relativeTransform": [
+                                            [
+                                                1.0,
+                                                0.0,
+                                                120.0
+                                            ],
+                                            [
+                                                0.0,
+                                                1.0,
+                                                0.0
+                                            ]
+                                        ],
+                                        "size": {
+                                            "x": 1200.0,
+                                            "y": 934.0
+                                        },
+                                        "layoutAlign": "INHERIT",
+                                        "layoutGrow": 1.0,
+                                        "clipsContent": true,
+                                        "background": [
+                                            {
+                                                "blendMode": "NORMAL",
+                                                "type": "SOLID",
+                                                "color": {
+                                                    "r": 0.95416665077209473,
+                                                    "g": 0.95416665077209473,
+                                                    "b": 0.95416665077209473,
+                                                    "a": 1.0
+                                                }
+                                            }
+                                        ],
+                                        "fills": [
+                                            {
+                                                "blendMode": "NORMAL",
+                                                "type": "SOLID",
+                                                "color": {
+                                                    "r": 0.95416665077209473,
+                                                    "g": 0.95416665077209473,
+                                                    "b": 0.95416665077209473,
+                                                    "a": 1.0
+                                                }
+                                            }
+                                        ],
+                                        "strokes": [],
+                                        "strokeWeight": 1.0,
+                                        "strokeAlign": "INSIDE",
+                                        "backgroundColor": {
+                                            "r": 0.95416665077209473,
+                                            "g": 0.95416665077209473,
+                                            "b": 0.95416665077209473,
+                                            "a": 1.0
+                                        },
+                                        "layoutMode": "HORIZONTAL",
+                                        "counterAxisSizingMode": "FIXED",
+                                        "itemSpacing": 10.0,
+                                        "primaryAxisSizingMode": "FIXED",
+                                        "primaryAxisAlignItems": "CENTER",
+                                        "paddingLeft": 10.0,
+                                        "paddingRight": 10.0,
+                                        "paddingTop": 10.0,
+                                        "paddingBottom": 10.0,
+                                        "effects": []
+                                    }
+                                ],
+                                "absoluteBoundingBox": {
+                                    "x": -1620.0,
+                                    "y": 90.0,
+                                    "width": 1440.0,
+                                    "height": 934.0
+                                },
+                                "constraints": {
+                                    "vertical": "TOP",
+                                    "horizontal": "LEFT"
+                                },
+                                "relativeTransform": [
+                                    [
+                                        1.0,
+                                        0.0,
+                                        0.0
+                                    ],
+                                    [
+                                        0.0,
+                                        1.0,
+                                        90.0
+                                    ]
+                                ],
+                                "size": {
+                                    "x": 1440.0,
+                                    "y": 934.0
+                                },
+                                "layoutAlign": "STRETCH",
+                                "layoutGrow": 1.0,
+                                "clipsContent": true,
+                                "background": [],
+                                "fills": [],
+                                "strokes": [],
+                                "strokeWeight": 1.0,
+                                "strokeAlign": "INSIDE",
+                                "backgroundColor": {
+                                    "r": 0.0,
+                                    "g": 0.0,
+                                    "b": 0.0,
+                                    "a": 0.0
+                                },
+                                "layoutMode": "VERTICAL",
+                                "counterAxisSizingMode": "FIXED",
+                                "primaryAxisSizingMode": "FIXED",
+                                "counterAxisAlignItems": "CENTER",
+                                "effects": []
+                            }
+                        ],
+                        "absoluteBoundingBox": {
+                            "x": -1620.0,
+                            "y": 0.0,
+                            "width": 1440.0,
+                            "height": 1024.0
+                        },
+                        "constraints": {
+                            "vertical": "TOP",
+                            "horizontal": "LEFT"
+                        },
+                        "relativeTransform": [
+                            [
+                                1.0,
+                                0.0,
+                                -1620.0
+                            ],
+                            [
+                                0.0,
+                                1.0,
+                                0.0
+                            ]
+                        ],
+                        "size": {
+                            "x": 1440.0,
+                            "y": 1024.0
+                        },
+                        "clipsContent": true,
+                        "background": [
+                            {
+                                "blendMode": "NORMAL",
+                                "type": "SOLID",
+                                "color": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        ],
+                        "fills": [
+                            {
+                                "blendMode": "NORMAL",
+                                "type": "SOLID",
+                                "color": {
+                                    "r": 1.0,
+                                    "g": 1.0,
+                                    "b": 1.0,
+                                    "a": 1.0
+                                }
+                            }
+                        ],
+                        "strokes": [],
+                        "strokeWeight": 1.0,
+                        "strokeAlign": "INSIDE",
+                        "backgroundColor": {
+                            "r": 1.0,
+                            "g": 1.0,
+                            "b": 1.0,
+                            "a": 1.0
+                        },
+                        "layoutMode": "VERTICAL",
+                        "counterAxisSizingMode": "FIXED",
+                        "primaryAxisSizingMode": "FIXED",
+                        "effects": []
+                    }
+                ],
+                "backgroundColor": {
+                    "r": 0.89803922176361084,
+                    "g": 0.89803922176361084,
+                    "b": 0.89803922176361084,
+                    "a": 1.0
+                },
+                "prototypeStartNodeID": null,
+                "flowStartingPoints": [],
+                "prototypeDevice": {
+                    "type": "NONE",
+                    "rotation": "NONE"
+                }
+            }
+        ]
+    },
+    "components": {
+        "18:33": {
+            "key": "80a48e6caef6cd59c5fc67afd9f32738f1db74f9",
+            "name": "flc-logo",
+            "description": "",
+            "documentationLinks": []
+        },
+        "19:110": {
+            "key": "d442632a4540dd5b0e27363bd51cd3c8e70e3570",
+            "name": "luisa-cloud-logo",
+            "description": "",
+            "documentationLinks": []
+        },
+        "18:31": {
+            "key": "e6565a76c82b05507d119e0ae29f3819f5e5fd38",
+            "name": "figma_logo",
+            "description": "",
+            "documentationLinks": []
+        },
+        "18:32": {
+            "key": "0b35ad8fde3ec9c80d4cd6f1ab1bca0693ab81ea",
+            "name": "vue-logo",
+            "description": "",
+            "documentationLinks": []
+        },
+        "23:144": {
+            "key": "531583ccdf6a91ccbe04500d2bb575e2890605a3",
+            "name": "flc-header-figma",
+            "description": "",
+            "documentationLinks": []
+        }
+    },
+    "componentSets": {},
+    "schemaVersion": 0,
+    "styles": {
+        "18:14": {
+            "key": "85de2d43fe17db0706cbda8262bac2b30deab24f",
+            "name": "yellow",
+            "styleType": "FILL",
+            "description": ""
+        },
+        "18:15": {
+            "key": "c87c5cdb5a3073c06326fe08afa7185ddf4fb288",
+            "name": "blue",
+            "styleType": "FILL",
+            "description": ""
+        },
+        "18:16": {
+            "key": "7f494e689e3c118d33c72fd8774663a130720c3d",
+            "name": "lilac",
+            "styleType": "FILL",
+            "description": ""
+        },
+        "18:17": {
+            "key": "4fe427ac2103276bedb9fc8b9b7398efcfa024e2",
+            "name": "turquoise",
+            "styleType": "FILL",
+            "description": ""
+        },
+        "18:18": {
+            "key": "ed535115d7623f55adac7ced1550c33efd40da0f",
+            "name": "pink",
+            "styleType": "FILL",
+            "description": ""
+        },
+        "18:19": {
+            "key": "82865e172ccc67aca91d9256b147adf47bd6c93b",
+            "name": "dark",
+            "styleType": "FILL",
+            "description": ""
+        },
+        "101:43": {
+            "key": "0fe3d4c340200f691cff5886aa78e81b439a8d0e",
+            "name": "NavBarBackground",
+            "styleType": "FILL",
+            "description": ""
+        },
+        "19:118": {
+            "key": "9b2ac6ec9a46bc031cff96cf6b265332d72e2329",
+            "name": "Grid 1170px",
+            "styleType": "GRID",
+            "description": ""
+        },
+        "19:213": {
+            "key": "c68dd9e72986ada676438c277195032b1b190a7d",
+            "name": "Text / Label",
+            "styleType": "TEXT",
+            "description": ""
+        },
+        "19:191": {
+            "key": "3d5699c055b8f83c18631470922761822131492c",
+            "name": "Heading / H3 Title",
+            "styleType": "TEXT",
+            "description": ""
+        }
+    },
+    "name": "Luisa Landing",
+    "lastModified": "2021-10-09T21:07:16Z",
+    "thumbnailUrl": "https://s3-alpha-sig.figma.com/thumbnails/6UDfn34lxglCFrA9bE4AUr/default?Expires=1634515200&Signature=NXfExn7idEeE90UIZpOWHVafcHXyxtOyYQ0LE5T0R~oPi77wCqgQ6W6DL-NnN1r2Xi2WzEF84Gt1ojQRwfnEwLyNr9UNOA7d4Xh1fKSSo1q0spQYzAZ33ngpwIOBkiCOsZHSLo2J678S~VlgFWN-fCA6pqdiU50aRc2CizzrBy-F0j~N4Bem6iZ2Boe1mBtTpFJ13t8kns9uuhtqE7zi9z-82bXxVkk7Z3G4EQ3HIhTosLurKWaNiEjHQrmc~SDTylaufc4L74C1VdHCdcBtnB6Rs~BsggSnw-Txp4lXaTfnRGywMcTJoHsIktYHJ3R0H4m9DIxCiTIvWH3mH-G9Gg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
+    "version": "1194469817",
+    "role": "editor",
+    "editorType": "figma"
+}

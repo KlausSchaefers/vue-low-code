@@ -12,7 +12,8 @@ class FontWriter {
             'Times New Roman, Times, serif': true,
             'Courier New, Courier, monospace': true,
             '"Palatino Linotype", "Book Antiqua", Palatino, serif': true,
-            'Georgia, serif': true
+            'Georgia, serif': true,
+            'Roboto': true
         }
     }
 

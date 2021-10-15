@@ -69,6 +69,14 @@ export function findOneElementsByName (e, name, result = []) {
             findElementsByName(c, name, result)
         })
     }
+    if (e.fixedChildren) {
+        e.fixedChildren.forEach(c => {
+            if (c.name === name) {
+                result.push(c)
+            }
+            findElementsByName(c, name, result)
+        })
+    }
     return result[0]
 }
 

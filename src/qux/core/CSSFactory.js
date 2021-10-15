@@ -10,6 +10,7 @@ export default class CSSFactory {
 		Logger.log(4, 'CSSFactory.constructor() ', config)
 		this.marginWhiteSpaceCorrect = 0
 		this.imagePrefix = imagePrefix
+		this.hoverEmbeddedLabel = false
 
 		this.responsive = {
 			mobile: {
@@ -32,6 +33,10 @@ export default class CSSFactory {
 
 		if (config.responsive) {
 			this.responsive = config.responsive
+		}
+
+		if (config.css && config.css.hoverEmbeddedLabel) {
+			this.hoverEmbeddedLabel = config.css.hoverEmbeddedLabel
 		}
 
 		this.mapping = {
@@ -319,7 +324,7 @@ export default class CSSFactory {
 				result += selector + ':hover {\n'
 				result += '  transition: all 0.2s;\n'
 				result += this.getRawStyle(widget.hover, widget);
-				result += '}\n\n'
+				result += '}\n\n'		
 			}
 
 			if (widget.focus) {
@@ -379,6 +384,16 @@ export default class CSSFactory {
 				result += '  transition: all 0.2s;\n'
 				result += this.getRawStyle(widget.hover, widget);
 				result += '}\n\n'
+
+				/**
+				 * We want to functionality only for Figma
+				 */		
+				if (this.hoverEmbeddedLabel) {
+					result += selector + ':hover .qux-common-label {\n'
+					result += this.getStyleByKey(widget.hover, widget, this.textProperties)
+					result += '}\n\n'
+				}
+		
 			}
 
 			if (widget.focus) {

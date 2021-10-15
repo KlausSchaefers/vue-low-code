@@ -53,13 +53,14 @@ const supportedWidgetTypes = [
 	"UploadPreview",
 	"Spinner",
 	"DynamicContainer",
-	"RichText"
+	"RichText",
+	"Link"
 ]
 
 const textProperties = ["color", "textDecoration", "textAlign", "fontFamily", "fontSize", "fontStyle", "fontWeight", "letterSpacing", "lineHeight", "lineHeightPX"]
 
 export function transform(model, config) {
-	Logger.log(3, "Falt2Tree.transform () > enter", config)
+	Logger.log(1, "Falt2Tree.transform () > enter", config)
 
 	let result = {
 		id: model.id,
@@ -553,7 +554,7 @@ function setFixedChildrenInElement(element, screen, model, fixBottomNodes = true
 
 				setAllChildrenAsNotFixed(child)
 				if (fixBottomNodes) {
-					setFixedBottom(child, model)
+					setFixedBottom(child, model, screen)
 				}
 				screen.fixedChildren.push(child)
 			} else {
@@ -565,13 +566,13 @@ function setFixedChildrenInElement(element, screen, model, fixBottomNodes = true
 	}
 }
 
-function setFixedBottom(element, model) {
+function setFixedBottom(element, model, screen) {
 
 	/**
 	 * IF we have an pinned bottom
 	 */
 	if (Util.isPinnedDown(element)) {
-		element.bottom = Util.getDistanceFromScreenBottom(element, model)
+		element.bottom = Util.getDistanceFromScreenBottom(element, model, screen)
 	}
 }
 
