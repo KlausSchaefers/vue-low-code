@@ -1,5 +1,6 @@
 import Logger from '../core/Logger'
 import {Layout} from '../core/Const'
+
 export default class FigmaService {
 
   constructor (key, config = {}) {
@@ -12,12 +13,13 @@ export default class FigmaService {
     this.max_ids = 50
     this.pluginId = '858477504263032980'
     this.downloadVectors = true
-    this.imageScaleFactor = 1
+    this.imageScaleFactor = 2
     this.throttleRequestThreshold = 10
     this.throttleRequestTimeout = 1000
     this.pinnRight = false
     this.errors = []
     this.autoLineHeightAsNormal = true
+    this.defaultFontFamily = 'Helvetica Neue,Helvetica,Arial,sans-serif'
 
     if (config.figma) {
       if (config.figma.throttleRequestThreshold) {
@@ -34,12 +36,22 @@ export default class FigmaService {
       if (config.figma.pinnRight) {
         this.pinnRight = config.figma.pinnRight
       }
+
+      if (config.figma.downloadVectors === false) {
+        this.downloadVectors = false
+      }
+
+      if (config.figma.defaultFontFamily !== '') {
+        this.defaultFontFamily = config.figma.defaultFontFamily
+      }
     }
 
     if (config.css && config.css.autoLineHeightAsNormal === false) {
       Logger.log(-1, 'FigmaService.constructor () > Auto Line === 150%')
       this.autoLineHeightAsNormal = false
     }
+
+ 
 
     this.figmaAlignMapping = {
       MIN: 'flex-start',
@@ -661,7 +673,7 @@ export default class FigmaService {
       /**
        * We do not go down on vector elements and hidden elements.
        */
-      if (!this.isVector(element) && !this.isInvisible(element)) {
+      if (!this.isVector(element) && !this.isInvisible(element) && !this.isCustomVector(element)) {
         element.children.forEach(child => {
           if (child.visible !== false) {
             child._parent = element
@@ -744,6 +756,8 @@ export default class FigmaService {
 
     if (element.pluginData && element.pluginData[this.pluginId]) {
       let pluginData = element.pluginData[this.pluginId]
+
+     
       if (pluginData.quxType) {
         Logger.log(-1, 'FigmaService.getPluginData() > quxType : ', pluginData.quxType, element.name)
         widget.type = pluginData.quxType
@@ -762,12 +776,21 @@ export default class FigmaService {
           widget.type = 'UploadPreview'
         }
 
+        if (pluginData.quxType === 'Vector') {
+          widget.props.isVector = true
+        }
+
 
       }
 
       if (pluginData.quxDataValue) {
         Logger.log(3, 'FigmaService.getPluginData() > quxDataValue: ', pluginData.quxDataValue, element.name)
         widget.props.dataValue = pluginData.quxDataValue
+      }
+
+      if (pluginData.quxLinkUrl) {
+        Logger.log(3, 'FigmaService.getPluginData() > quxLinkUrl: ', pluginData.quxLinkUrl, element.name)
+        widget.props.url = pluginData.quxLinkUrl
       }
 
       if (pluginData.quxTypeCustom) {
@@ -975,11 +998,26 @@ export default class FigmaService {
     widget.props.resize.fixedHorizontal = value
   }
 
-  setFixedVertical (widget) {
+  setHugHozontal (widget, value = true) {
     if (!widget.props.resize) {
       widget.props.resize = {}
     }
-    widget.props.resize.fixedVertical = true
+    widget.props.resize.hugHorizontal = value
+  }
+
+
+  setFixedVertical (widget, value = true) {
+    if (!widget.props.resize) {
+      widget.props.resize = {}
+    }
+    widget.props.resize.fixedVertical = value
+  }
+
+  setHugVertical (widget, value = true) {
+    if (!widget.props.resize) {
+      widget.props.resize = {}
+    }
+    widget.props.resize.hugVertical = value
   }
 
   addDynamicStyle (widget, type, key, value) {
@@ -1115,13 +1153,36 @@ export default class FigmaService {
       this.setFixedHozontal(qElement, false)
     }
 
+    /**
+     * We set also hug, as the absense of FIXED in a auto layout parent
+     */
+    if (fElement._parent) {
+      if (fElement._parent.layoutMode === 'HORIZONTAL') {        
+        if (fElement.primaryAxisSizingMode !== "FIXED" && fElement.layoutGrow === 0) { 
+          this.setHugHozontal(qElement, true) 
+        }
+      }
+      if (fElement._parent.layoutMode === 'VERTICAL') {        
+        if (fElement.primaryAxisSizingMode !== "FIXED" && fElement.layoutGrow === 0) { 
+          this.setHugVertical(qElement, true) 
+        }
+      }
+    }
+
 
     if (fElement.layoutAlign !== undefined) {
-      if (fElement.layoutAlign === 'STRETCH') {
+      if (fElement.layoutAlign === 'STRETCH' ) { // FIXME: here is some werid figma behavior fElement.layoutGrow === 0.0
         this.setFixedHozontal(qElement, false)
       }
       qElement.layout.align = fElement.layoutAlign
     }
+
+    /** 
+     * I am not sure what this means
+    if (fElement.primaryAxisSizingMode === "FIXED") {
+      this.setFixedHozontal(qElement, true)
+    }
+    */
 
     qElement.layout.grow = fElement.layoutGrow
 
@@ -1165,16 +1226,39 @@ export default class FigmaService {
           break;
 
         case 'LEFT_RIGHT':
-          Logger.log(-1, 'FigmaService.setContraints() > LEFT_RIGHT', element.name)
+          Logger.log(2, 'FigmaService.setContraints() > LEFT_RIGHT', element.name)
           props.resize.left = true
           props.resize.right = true
           props.resize.fixedHorizontal = false
-          break;
+          break; 
 
         default:
           break;
       }
+
+      let vertical = element.constraints.vertical
+      switch (vertical) {
+        case 'TOP_BOTTOM':
+          Logger.log(2, 'FigmaService.setContraints() > TOP_BOTTOM', element.name)
+          props.resize.up = true
+          props.resize.down = true
+          props.resize.fixedVertical = false
+          break;
+        
+        case 'BOTTOM':
+            Logger.log(2, 'FigmaService.setContraints() > BOTTOM', element.name)
+            props.resize.up = false
+            props.resize.down = true
+            break;
+
+        default:
+          break;
+
+      }
     }
+
+
+   
 
   }
 
@@ -1210,6 +1294,17 @@ export default class FigmaService {
   isVector (element) {
     return this.allAsVecor || !this.isButton(element)
   }
+
+  isCustomVector (fElement) {
+    if (fElement.pluginData) {
+      let pluginData = fElement.pluginData[this.pluginId]
+      if (pluginData && pluginData.quxType === 'Vector') {
+        return true
+      }
+    }
+    return false
+  }
+
 
   isLabel (widget) {
     return widget && (widget.type === 'Label' || widget.type === 'RichText')
@@ -1276,7 +1371,7 @@ export default class FigmaService {
   getStyle (element, widget) {
 
     let style = {
-      fontFamily: 'Helvetica Neue,Helvetica,Arial,sans-serif',
+      fontFamily: this.defaultFontFamily,
       borderBottomWidth: 0,
 			borderTopWidth: 0,
 			borderLeftWidth: 0,
@@ -1510,6 +1605,11 @@ export default class FigmaService {
     if (this.isVector(element)) {
       return 'Vector'
     }
+
+    /**
+     * FIXME: We could have somehow super complex nested shapes that should be handled as a vector...
+     */
+
     if (element.type === 'TEXT') {
       if (element.characterStyleOverrides && element.characterStyleOverrides.length > 0 && element.styleOverrideTable) {
         return 'RichText'

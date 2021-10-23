@@ -33,13 +33,14 @@ import ChildrenToggle from './web/ChildrenToggle.vue'
 import Spinner from './web/Spinner.vue'
 import DynamicContainer from './web/DynamicContainer.vue'
 import RichText from './web/RichText.vue'
-import QUX from './QUX.vue'
-import Figma from './figma/Figma.vue'
+import Link from './web/Link.vue'
+import Luisa from './Luisa.vue'
+//import Figma from './figma/Figma.vue'
 
 export default {
     install: (app) => {
-        app.component('QUX', QUX);
-        app.component('Figma', Figma)
+        app.component('Luisa', Luisa);
+        //app.component('Figma', Figma)
         app.component('qHotSpot', Button);
         app.component('qButton', Button);
         app.component('qBox', Button)
@@ -84,5 +85,6 @@ export default {
         app.component('qSpinner', Spinner)
         app.component('qDynamicContainer', DynamicContainer)
         app.component('qRichText', RichText)
+        app.component('qLink', Link)
     }
 }

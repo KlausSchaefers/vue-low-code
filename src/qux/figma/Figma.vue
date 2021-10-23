@@ -6,7 +6,7 @@
       :showDebug="true"
       :executor="getMethodExcutor()"
       :selected="selected"
-      :value="value"
+      :modelValue="modelValue"
       ref="qux"
       v-if="app"
       :screen="screen"/>
@@ -18,7 +18,7 @@
 
 <script>
 import Logger from '../core/Logger'
-import QUX from '../QUX.vue'
+import QUX from '../Luisa.vue'
 import FigmaService from './FigmaService'
 import * as Util from '../core/ExportUtil'
 
@@ -39,7 +39,7 @@ export default {
       'executor': {
           type: Object
       },
-      'value': {
+      'modelValue': {
           type: Object,
           default: function () {
             return {
@@ -53,8 +53,8 @@ export default {
             }
         }
       },
-      'page': {
-        type: String
+      'pages': {
+        type: Array
       }
   },
   data: function () {
@@ -72,7 +72,9 @@ export default {
           pinnedLeft: false,
           pinnedRight: false,
           fixedHorizontal: false,
-          attachLabels: false
+          attachLabels: false,
+          huggedCanResize: true,
+          hoverEmbeddedLabel: true
         }
       }
     }
@@ -84,10 +86,10 @@ export default {
   },
   methods: {
     async setFigma (figma) {
-       Logger.log(-1, 'Figma.setFigma()', this.page)
+       Logger.log(1, 'Figma.setFigma()', this.pages)
        if (figma.figmaFile && figma.figmaAccessKey) {
           let figmaService = new FigmaService(figma.figmaAccessKey, this.mergedConfig)
-          let selectedPages = this.page ? [this.page] : []
+          let selectedPages = this.pages ? this.pages : []
           let app = await figmaService.get(figma.figmaFile, true, false, selectedPages)
           app = figmaService.setBackgroundImages(app)
           this.app = app
@@ -98,7 +100,7 @@ export default {
     /**
      * Keep in sync with QUX
      */
-    setConfig (c) {
+    setConfig (c) {   
         if (c.css) {
             this.mergedConfig.css = Util.mixin(this.mergedConfig.css, c.css)
         }
@@ -138,7 +140,7 @@ export default {
   },
   mounted () {
     if (this.config) {
-          this.setConfig(this.config)
+        this.setConfig(this.config)
     }
     if (this.figma) {
       this.setFigma(this.figma)

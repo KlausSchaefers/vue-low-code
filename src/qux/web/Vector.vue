@@ -21,7 +21,7 @@ export default {
    * FIXME: add here some stuff for image uploads
    */
   mounted () {
-     Logger.log(4, 'qVector.mounted()')
+     Logger.log(4, 'qVector.mounted()', this.element)
   }
 }
 </script>

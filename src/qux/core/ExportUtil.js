@@ -255,6 +255,14 @@ export function isFixedHorizontal(e) {
     return e.props && e.props.resize && e.props.resize.fixedHorizontal
 }
 
+export function isHugHorizontal(e) {
+    return e.props && e.props.resize && e.props.resize.hugHorizontal === true
+}
+
+export function isHugVerticall(e) {
+    return e.props && e.props.resize && e.props.resize.hugVertical === true
+}
+
 export function isFixedVertical(e) {
     if (e.type === 'Box' || e.type === 'Button' || e.type === 'Label' ||
         e.type === 'Container' || e.type === 'Repeater' ||
@@ -294,6 +302,7 @@ export function isSingleChildInRow() {
     return false
 }
 
+/*
 export function isAtBottom(element, model, threshold = 10) {
     if (element && model.screenSize) {
         let dif = getDistanceFromScreenBottom(element, model)
@@ -301,10 +310,12 @@ export function isAtBottom(element, model, threshold = 10) {
     }
     return false
 }
+*/
 
-export function getDistanceFromScreenBottom(element, model) {
-    if (element && model.screenSize) {
-        let dif = model.screenSize.h - (element.y + element.h)
+export function getDistanceFromScreenBottom(element, model, parentScreen) {
+    if (element && model.screenSize && parentScreen) {
+        let h = Math.min(parentScreen.h, model.screenSize.h)
+        let dif = h - (element.y + element.h)
         return dif;
     }
     return 0

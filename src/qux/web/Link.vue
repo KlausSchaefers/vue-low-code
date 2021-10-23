@@ -1,5 +1,5 @@
 <template>
-  <router-link :class="['qux-label', cssClass]" @click="onClick"  v-if="hasLink" :to="link" >
+  <a :class="['qux-label', cssClass]" @click="onClick" :href="linkURL" >
     <span class="qux-richtext" v-if="dataBindingLabel && dataBindingLabel.type === 'richtext'" v-html="dataBindingLabel.value">
     </span>
      <span class="qux-common-label" v-else-if="dataBindingLabel && !hasSlot">
@@ -8,33 +8,29 @@
     <span class="qux-common-label" v-if="hasSlot">
       <slot></slot>
     </span>
-  </router-link>
-  <label :class="['qux-label', cssClass]" @click="onClick" v-else>
-    <span class="qux-richtext" v-if="isRichText" v-html="dataBindingLabel.value">
-    </span>
-     <span class="qux-common-label" v-else-if="dataBindingLabel && !hasSlot">
-      {{dataBindingLabel}}
-    </span>
-    <span class="qux-common-label" v-if="hasSlot">
-      <slot></slot>
-    </span>
-  </label>
+  </a>
 </template>
 <style lang="scss">
-    @import '../scss/qux-label.scss';
+    @import '../scss/qux-link.scss';
 </style>
 <script>
 
 import _Base from './_Base.vue'
 
 export default {
-  name: 'qLabel',
+  name: 'qLink',
   mixins: [_Base],
   data: function () {
       return {
       }
   },
   computed: {
+    linkURL () {
+        if (this.element && this.element.props && this.element.props.url) {
+            return this.element.props.url
+        }
+        return ''
+    },
     isRichText () {
       let label = this.dataBindingLabel
       if (label && label.type === 'richtext') {

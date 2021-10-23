@@ -57,7 +57,6 @@ export default {
         if (v === false || v === true) {
           this.checked = v
         }
-        this.value = v
     }
   },
   mounted () {

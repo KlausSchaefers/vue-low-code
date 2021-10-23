@@ -53,13 +53,14 @@ const supportedWidgetTypes = [
 	"UploadPreview",
 	"Spinner",
 	"DynamicContainer",
-	"RichText"
+	"RichText",
+	"Link"
 ]
 
 const textProperties = ["color", "textDecoration", "textAlign", "fontFamily", "fontSize", "fontStyle", "fontWeight", "letterSpacing", "lineHeight", "lineHeightPX"]
 
 export function transform(model, config) {
-	Logger.log(3, "Falt2Tree.transform () > enter", config)
+	Logger.log(1, "Falt2Tree.transform () > enter", config)
 
 	let result = {
 		id: model.id,
@@ -73,7 +74,7 @@ export function transform(model, config) {
 	 * IN QUX we want to attach label nodes. In Figma this causes issues. with attachLabels we control for which elements we should use this
 	 */
 	let nodesWithLabelAttachment = config.css && config.css.attachLabels === true ? ["TextBox", "Password", "TextArea", "Box", "Button", "DropDown"] : ["TextBox", "Password", "TextArea", "DropDown"]
-	let hasRows = config.css && config.css.grid !== true
+	let hasRows = config.css && config.css.grid !== true	
 
 	for (let screenID in model.screens) {
 		let screen = model.screens[screenID]
@@ -553,7 +554,7 @@ function setFixedChildrenInElement(element, screen, model, fixBottomNodes = true
 
 				setAllChildrenAsNotFixed(child)
 				if (fixBottomNodes) {
-					setFixedBottom(child, model)
+					setFixedBottom(child, model, screen)
 				}
 				screen.fixedChildren.push(child)
 			} else {
@@ -565,13 +566,13 @@ function setFixedChildrenInElement(element, screen, model, fixBottomNodes = true
 	}
 }
 
-function setFixedBottom(element, model) {
+function setFixedBottom(element, model, screen) {
 
 	/**
 	 * IF we have an pinned bottom
 	 */
 	if (Util.isPinnedDown(element)) {
-		element.bottom = Util.getDistanceFromScreenBottom(element, model)
+		element.bottom = Util.getDistanceFromScreenBottom(element, model, screen)
 	}
 }
 

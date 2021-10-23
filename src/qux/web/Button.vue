@@ -1,12 +1,12 @@
 <template>
-  <a :class="['qux-button', cssClass]" v-if="hasLink" :href="link" @click="onClick">
+  <router-link :class="['qux-button', cssClass]" v-if="hasLink" :to="link" @click="onClick">
     <span class="qux-common-label" v-if="dataBindingLabel && !hasSlot">
       {{dataBindingLabel}}
     </span>
     <span class="qux-common-label" v-if="hasSlot">
       <slot></slot>
     </span>
-  </a>
+  </router-link>
   <div :class="['qux-button', cssClass]" v-else @click="onClick">
     <span class="qux-common-label" v-if="dataBindingLabel && !hasSlot">
       {{dataBindingLabel}}

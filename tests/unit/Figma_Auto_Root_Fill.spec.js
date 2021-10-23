@@ -42,7 +42,8 @@ test('Test Auto Root Fill Width', async () => {
   let cssRecFill = TestUtil.findCSSBySelector(classes, '.AutoScreen .RecFill')[0]
   console.debug(cssRecFill.code)
   assertCSS(cssRecFill, 'width: 100%')
-  assertCSS(cssRecFill, 'box-sizing: border-box') // this should be assertNotCSS
+  assertNotCSS(cssRecFill, 'box-sizing: border-box') // this should be assertNotCSS
+  // assertCSS(cssRecFill, 'calc(100%') could have been minus 0
 
   let cssRecFill2 = TestUtil.findCSSBySelector(classes, '.AbsScreen .RecFill')[0]
   assertCSS(cssRecFill2, 'width: 100%')
