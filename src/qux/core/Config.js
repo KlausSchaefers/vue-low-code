@@ -6,6 +6,20 @@ class Config {
 
 	}
 
+	getFigmaCSS () {
+		return {
+			isFigma: true,
+			grid: true,
+			justifyContentInWrapper: false,
+			pinnedLeft: false,
+			pinnedRight: false,
+			fixedHorizontal: false,
+			attachLabels: false,
+			huggedCanResize: true,
+			hoverEmbeddedLabel: true
+		}
+	}
+
 	getDefault() {
 		return {
 			debug: {
@@ -13,11 +27,17 @@ class Config {
 			},
 			designletPrefix: '',
 			loadFonts: true,
+			figma: {
+				varientComponentHoverKey: 'Mouse=Hover',
+				varientComponentDefaultKey: 'Mouse=Default',
+				downloadVectors: true,
+			},
 			css: {
 				grid: true,
 				justifyContentInWrapper: false,
 				attachLabels: true,
 				huggedCanResize: true,
+				hoverEmbeddedLabel: false
 			},
 			router: {
 				key: "screenName",
@@ -45,7 +65,6 @@ class Config {
 			addDefaultDatabinding: true
 		}
 	}
-
 
 	merge(config, overwrites) {
 		if (overwrites.addDefaultDatabinding !== undefined) {
@@ -77,6 +96,9 @@ class Config {
 		}
 		if (overwrites.responsive) {
 			config.responsive = overwrites.responsive
+		}
+		if (overwrites.figma) {
+			config.figma = Util.mixin(config.figma, overwrites.figma)
 		}
 		return config
 	}

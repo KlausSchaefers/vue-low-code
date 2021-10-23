@@ -1,6 +1,6 @@
 <template>
   <div class="qux-figma">
-    <QUX
+    <Luisa
       :app="app"
       :config="mergedConfig"
       :showDebug="true"
@@ -18,7 +18,7 @@
 
 <script>
 import Logger from '../core/Logger'
-import QUX from '../QUX.vue'
+import Luisa from '../Luisa.vue'
 import FigmaService from './FigmaService'
 import * as Util from '../core/ExportUtil'
 
@@ -80,7 +80,7 @@ export default {
   computed:{
   },
   components: {
-    'QUX': QUX
+    'Luisa': Luisa
   },
   methods: {
     async setFigma (figma) {
@@ -137,6 +137,7 @@ export default {
     },
   },
   mounted () {
+    Logger.error(3, 'Figma.mounted: DEPRECATED!!! >> Use <Luisa>  instead ')
     if (this.config) {
           this.setConfig(this.config)
     }

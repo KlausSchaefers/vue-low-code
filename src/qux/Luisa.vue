@@ -55,6 +55,7 @@ import CSSFactory from './core/CSSFactory'
 import CSSWriter from './core/CSSWriter'
 import ActionEngine from './actions/ActionEngine'
 import FontWriter from './core/FontWriter'
+import FigmaService from './figma/FigmaService'
 
 import Vue from 'vue'
 
@@ -100,9 +101,12 @@ import JSONPath from './core/JSONPath'
 
 export default {
   mixins:[Event, Logic],
-  name: 'QUX',
+  name: 'Luisa',
   props: {
       'app': {
+          default: false
+      },
+      'design': {
       },
       'screen': {
           type: String
@@ -216,7 +220,7 @@ export default {
   },
   methods: {
     getResponsiveModel (model, responsive) {
-        Logger.log(-1, 'QUX.getResponsiveModel() > enter >', responsive)
+        Logger.log(-1, 'Luisa.getResponsiveModel() > enter >', responsive)
         let pagesWithTypes = responsive.filter(t => t.types.length > 0)
 
         /**
@@ -226,7 +230,7 @@ export default {
             this.setDeviceType()
             model = Util.clone(model)
             let pages = this.mergedConfig.responsive.filter(t => t.types.indexOf(this.deviceType) > -1).map(t => t.page)
-            Logger.log(2, 'QUX.getResponsiveModel() > Pages >' + this.deviceType, pages.join(','))
+            Logger.log(2, 'Luisa.getResponsiveModel() > Pages >' + this.deviceType, pages.join(','))
             let filteredScreens = {}
             Object.values(model.screens).forEach(s => {
                 if (pages.indexOf(s.pageName) > -1) {
@@ -235,7 +239,7 @@ export default {
             })
 
             if (Object.values(filteredScreens).length > 0) {
-                Logger.log(-1, 'QUX.getResponsiveModel() > exit :', this.deviceType)
+                Logger.log(-1, 'Luisa.getResponsiveModel() > exit :', this.deviceType)
                 model.screens = filteredScreens
                 return model
             }
@@ -258,13 +262,54 @@ export default {
         css = css.join('\n')
         CSSWriter.write(css, tree.id)
     },
+     async setFigma (figma) {
+       Logger.log(-1, 'Luisa.setFigma()', this.pages)
+        const figmaService = new FigmaService(figma.figmaAccessKey, this.mergedConfig)
+        const selectedPages = this.pages ? this.pages : []
+        let app = await figmaService.get(figma.figmaFile, true, false, selectedPages)
+        app = figmaService.setBackgroundImages(app)
+        return app
+    },
+    async setDesign(design) {
+        Logger.log(-1, 'Luisa.setApp() > setDesign', design)
+
+        if (this.config) {
+          this.setConfig(this.config, design)
+        }
+        if (design.figmaFile && design.figmaAccessKey) {
+            const app = await this.setFigma(design)
+            this.setQUX(app)
+        } else {
+            this.setQUX(design)
+        }
+    },
+    setConfig (c, design) {
+        if (design.figmaId || design.figmaFile && design.figmaAccessKey) {
+            Logger.log(1, 'Luisa.setConfig() > Set Figma')
+            this.mergedConfig.css = Config.getFigmaCSS()
+        }
+        this.mergedConfig = Config.merge(this.mergedConfig, c)
+        this.initCustomComponents(this.mergedConfig.components)
+        Logger.setLogLevel(this.mergedConfig.debug.logLevel)
+        //Logger.log(5, 'Luisa.setConfig()', JSON.stringify(this.mergedConfig, null, 2))
+    },
+    async setQUX (app) {
+        if (app.substring) {
+            let model = await this.loadAppByKey(app)
+            this.model = model
+            this.hash = app
+        } else {
+            this.model = app
+        }
+        this.initViewModel()
+    },
     async setApp (app) {
         if (app.substring) {
             let model = await this.loadAppByKey(app)
             this.model = model
             this.hash = app
         } else if (app.mobile || app.desktop) {
-            Logger.error('DEPRECTAED: QUX.setApp() > reponsive', app)
+            Logger.error('DEPRECTAED: Luisa.setApp() > reponsive', app)
             if (app.mobile) {
                 if (app.mobile.substring) {
                     this.mobileModel = await this.loadAppByKey(app.mobile)
@@ -293,20 +338,20 @@ export default {
         this.initViewModel()
     },
     async loadAppByKey (key) {
-        Logger.log(3, 'QUX.loadAppByKey() > enter', key)
+        Logger.log(3, 'Luisa.loadAppByKey() > enter', key)
         let url = `${this.server}/rest/invitation/${key}/app.json`
         let start = new Date().getTime()
         const response = await fetch(url);
         if (response.status === 200) {
             let app = await response.json();
-            Logger.log(-1, 'QUX.loadAppByKey() > exit', new Date().getTime() - start)
+            Logger.log(-1, 'Luisa.loadAppByKey() > exit', new Date().getTime() - start)
             return app
         } else {
             this.msg = 'The debug id is wrong!'
         }
     },
     setScreen (screenName, query) {
-        Logger.log(-1, 'QUX.setScreen() > ', screenName, query)
+        Logger.log(-1, 'Luisa.setScreen() > ', screenName, query)
         // Update url, which will trigger watcher, which will call setScreenByRouter() which will call loadScreen()
         let prefix = ''
         if (this.config && this.config.router && this.config.router.prefix) {
@@ -327,7 +372,7 @@ export default {
 
     },
     loadScreen (name) {
-        Logger.log(2 , 'QUX.loadScreen() >', name)
+        Logger.log(2 , 'Luisa.loadScreen() >', name)
         this.closeAllOverlays()
         if (this.model) {
             /**
@@ -335,13 +380,13 @@ export default {
              */
             let model = this.responsiveModel
             let screen = Object.values(model.screens).find(s => s.name === name)
-            Logger.log(-1, 'QUX.loadScreen() > Found ', screen)
+            Logger.log(-1, 'Luisa.loadScreen() > Found ', screen)
             if (screen) {
                 // make here somethink like: use router? and updat ethe url as well?
                 this.selectedScreenId = screen.id
                 this.onScreenLoaded(screen)
             } else {
-                Logger.warn('QUX.loadScreen() > No screen with name', name)
+                Logger.warn('Luisa.loadScreen() > No screen with name', name)
                 let startScreen = this.getDefaultScreen()
                 if (startScreen) {
                     this.selectedScreenId = startScreen.id
@@ -351,11 +396,11 @@ export default {
                 }
             }
         } else {
-            Logger.warn('QUX.loadScreen() > No Model')
+            Logger.warn('Luisa.loadScreen() > No Model')
         }
     },
     getDefaultScreen () {
-        Logger.log(2, 'QUX.getDefaultScreen() > enter')
+        Logger.log(2, 'Luisa.getDefaultScreen() > enter')
         let screen = this.treeModel.screens.filter(screen => screen.isComponentScreen !== true).find(screen => screen.props.start === true)
         if (!screen) {
             screen = this.treeModel.screens.filter(screen => screen.isComponentScreen !== true)[0]
@@ -363,7 +408,7 @@ export default {
         return screen
     },
     setStartScreen () {
-        Logger.log(5, 'QUX.setStartScreen() > enter ')
+        Logger.log(5, 'Luisa.setStartScreen() > enter ')
         let startScreen = this.getDefaultScreen()
         if (startScreen) {
             this.selectedScreenId = startScreen.id
@@ -373,28 +418,22 @@ export default {
         }
     },
     setScreenByRouter () {
-        Logger.log(5, 'QUX.setScreenByRoute() > enter ', this.$route)
+        Logger.log(5, 'Luisa.setScreenByRoute() > enter ', this.$route)
         let key = 'screenName'
         if (this.config && this.config.router && this.config.router.key) {
             key = this.config.router.key
         }
         let screenName = this.$route.params[key]
         if (screenName) {
-            Logger.log(-1, 'QUX.setScreenByRoute() > exit ', screenName, `(${key})`)
+            Logger.log(-1, 'Luisa.setScreenByRoute() > exit ', screenName, `(${key})`)
             this.loadScreen(screenName)
         } else {
-            Logger.log(-1, 'QUX.setScreenByRoute() > exit > set start')
+            Logger.log(-1, 'Luisa.setScreenByRoute() > exit > set start')
             this.setStartScreen()
         }
     },
-    setConfig (c) {
-        this.mergedConfig = Config.merge(this.mergedConfig, c)
-        this.initCustomComponents(this.mergedConfig.components)
-        Logger.setLogLevel(this.mergedConfig.debug.logLevel)
-        Logger.log(5, 'QUX.setConfig()', JSON.stringify(this.mergedConfig))
-    },
     initCustomComponents (components) {
-        Logger.log(1, 'QUX.initCustomComponents()')
+        Logger.log(1, 'Luisa.initCustomComponents()')
         for (let key in components) {
             let c = components[key]
             Vue.component(key, c);
@@ -447,7 +486,7 @@ export default {
         Vue.component('qRichText', RichText)
     },
     initViewModel () {
-        Logger.log(3, 'QUX.initViewModel > enter')
+        Logger.log(3, 'Luisa.initViewModel > enter')
         if (this.value && this.model) {
             /**
              * Fix screen names
@@ -478,7 +517,7 @@ export default {
                  */
                 let has = JSONPath.has(this.value, databinding)
                 if (!has) {
-                    Logger.log(-1, 'QUX.initViewModel > Missing data in view model', databinding)
+                    Logger.log(-1, 'Luisa.initViewModel > Missing data in view model', databinding)
                     JSONPath.set(this.value, databinding, value)
                 }
             })
@@ -488,33 +527,33 @@ export default {
         window.addEventListener("resize", this.onScreenSizeChange);
     },
     onScreenSizeChange () {
-        Logger.log(-1, 'QUX.onScreenSizeChange > enter')
+        Logger.log(-1, 'Luisa.onScreenSizeChange > enter')
         this.setDeviceType()
         this.setScreenByRouter()
     },
     setDeviceType () {
-        Logger.log(1, 'QUX.setDeviceType > enter')
+        Logger.log(1, 'Luisa.setDeviceType > enter')
         let w = window.outerWidth
         let breakpoints = this.mergedConfig.breakpoints
         if (breakpoints) {
             if (w < breakpoints.mobile.max) {
-                Logger.log(-1, 'QUX.setDeviceType > exit mobile', w)
+                Logger.log(-1, 'Luisa.setDeviceType > exit mobile', w)
                 this.deviceType = 'mobile'
                 return
             }
             if (w < breakpoints.tablet.max) {
-                Logger.log(-1, 'QUX.setDeviceType > exit tablet', w)
+                Logger.log(-1, 'Luisa.setDeviceType > exit tablet', w)
                 this.deviceType = 'tablet'
                 return
             }
 
-            Logger.log(-1, 'QUX.setDeviceType > exit desktop', w)
+            Logger.log(-1, 'Luisa.setDeviceType > exit desktop', w)
             this.deviceType = 'desktop'
             return
         }
     },
     getMethodExcutor () {
-        Logger.log(3, 'QUX.getMethodExcutor() > ')
+        Logger.log(3, 'Luisa.getMethodExcutor() > ')
         if (this.executor) {
             return this.executor
         }
@@ -523,35 +562,36 @@ export default {
   },
   watch: {
     '$route' () {
-        Logger.log(3, 'QUX.watch(router) > enter')
+        Logger.log(3, 'Luisa.watch(router) > enter')
         this.setScreenByRouter()
     },
     'screen' (v) {
-        Logger.log(3, 'QUX.watch(screen) > enter')
+        Logger.log(3, 'Luisa.watch(screen) > enter')
         this.setScreen(v)
     },
     'value' (v) {
-        Logger.log(3, 'QUX.watch(value) > enter', v)
+        Logger.log(3, 'Luisa.watch(value) > enter', v)
         this.value = v
         this.initViewModel()
     },
     'app' (v) {
-        Logger.log(3, 'QUX.watch(app) > enter', v)
+        Logger.log(3, 'Luisa.watch(app) > enter', v)
         this.app = v
         this.setApp(this.app)
     }
   },
   async mounted () {
-      Logger.log(0, 'QUX.mounted()', this.value)
+      Logger.log(0, 'Luisa.mounted()', this.value)
       this.initComponents()
-      if (this.config) {
-          this.setConfig(this.config)
-      }
       if (this.actions && this.actions.length > 0) {
         this.actionEngine = new ActionEngine(this.actions)
       }
+      if (this.design) {
+          await this.setDesign(this.design)
+      }
       if (this.app) {
-          await this.setApp(this.app)
+          Logger.error('Luisa.mounted () > APP is depcreated')
+          await this.setDesign(this.app)
       }
       if (this.debug) {
           console.warn('QUX > debug property is decrecated. Use "app" instead.')
@@ -564,11 +604,11 @@ export default {
             this.setScreenByRouter()
         }
       } else {
-          Logger.log(-1, 'QUX.mounted() > Selected:', this.selected, this.app)
+          Logger.log(-1, 'Luisa.mounted() > Selected:', this.selected, this.app)
       }
 
       if (this.$router && this.$router.mode === 'history') {
-        Logger.log(-1, 'QUX.mounted() > Launch router with history', this.$router)
+        Logger.log(-1, 'Luisa.mounted() > Launch router with history', this.$router)
       }
 
       this.initReziseListener()

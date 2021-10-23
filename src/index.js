@@ -1,4 +1,4 @@
-import QUX from "./qux/QUX.vue";
+import Luisa from "./qux/Luisa.vue";
 import Figma from "./qux/figma/Figma.vue";
 import FigmaService from "./qux/figma/FigmaService";
 import Logger from "./qux/core/Logger";
@@ -13,8 +13,8 @@ import QUXDesignSystem from './qux/ds/QUXDesignSystem'
 
 export default {
  install(Vue) {
-  Vue.component("QUX", QUX);
-  Vue.component("LowCode", QUX);
+  Vue.component("Luisa", Luisa);
+  Vue.component("LowCode", Luisa);
   Vue.component("Figma", Figma)
  }
 };
