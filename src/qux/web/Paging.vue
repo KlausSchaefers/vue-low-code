@@ -128,7 +128,7 @@ export default {
         // keep in szyn
         let elementWidth = style.fontSize * 2
         let numberofVisibleElements = Math.round((width * 0.9) / elementWidth) - 1
-        numberofVisibleElements = Math.min(numberofVisibleElements, model.props.max);
+        numberofVisibleElements = Math.min(numberofVisibleElements, this.maxValue);
         if (model.props.maxVisisble > 1) {
             numberofVisibleElements = Math.min(numberofVisibleElements, model.props.maxVisisble);
         }

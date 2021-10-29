@@ -16,6 +16,7 @@ export default class PaginCSS {
 
         result += selector + ' .qux-paging-item {\n'
         result += `  width:${style.fontSize * 2}px;\n`
+        result += `  height: 100%;\n`
         result += `  background:${style.background};\n`
         result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.textProperties)
         result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.borderProperties)

@@ -14,6 +14,7 @@ import QUXDesignSystem from './qux/ds/QUXDesignSystem'
 export default {
  install(Vue) {
   Vue.component("Luisa", Luisa);
+  Vue.component("QUX", Luisa);
   Vue.component("LowCode", Luisa);
   Vue.component("Figma", Figma)
  }
