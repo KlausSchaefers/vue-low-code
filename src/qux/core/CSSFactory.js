@@ -223,7 +223,7 @@ export default class CSSFactory {
 
 	getGlobalStyles () {
 		let result = ''
-		result += `body {\n  margin:0px;\n  font-family:'Source Sans Pro', 'Helvetica Neue', 'Helvetica', sans-serif;\n}\n\n`
+		result += `body {\n  margin:0px;\n  font-family: 'Helvetica Neue', 'Helvetica', sans-serif;\n}\n\n`
 		result += `div {\n  margin:0px;\n}\n\n`
 		return result
 	}

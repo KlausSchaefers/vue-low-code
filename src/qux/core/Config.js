@@ -62,6 +62,7 @@ class Config {
 					max: 1000000,
 				},
 			},
+			meta: {},
 			addDefaultDatabinding: true
 		}
 	}
@@ -99,6 +100,9 @@ class Config {
 		}
 		if (overwrites.figma) {
 			config.figma = Util.mixin(config.figma, overwrites.figma)
+		}
+		if (overwrites.meta) {
+			config.meta = Util.mixin(config.meta, overwrites.meta)
 		}
 		return config
 	}
