@@ -7,6 +7,7 @@
           </span>
       </span>
 
+ 
       <span :class="['qux-paging-item', {'qux-paging-item-active': isChecked(page)}, valign]" v-for="page in pages" :key="page.value" @click="onSelect(page)">
           <span :class="'qux-common-label '">
                 {{page.label}}
@@ -53,7 +54,7 @@ export default {
       maxValue () {
         let dataBindig = this.dataBinding
         if (dataBindig && dataBindig.elements) {
-            return JSONPath.get(this.value, dataBindig.elements)
+            return JSONPath.get(this.viewModel, dataBindig.elements)
         }
         if (this.element) {
             return this.element.props.max
@@ -128,7 +129,7 @@ export default {
         // keep in szyn
         let elementWidth = style.fontSize * 2
         let numberofVisibleElements = Math.round((width * 0.9) / elementWidth) - 1
-        numberofVisibleElements = Math.min(numberofVisibleElements, model.props.max);
+        numberofVisibleElements = Math.min(numberofVisibleElements, this.maxValue);
         if (model.props.maxVisisble > 1) {
             numberofVisibleElements = Math.min(numberofVisibleElements, model.props.maxVisisble);
         }

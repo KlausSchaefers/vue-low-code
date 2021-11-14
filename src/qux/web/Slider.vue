@@ -65,6 +65,7 @@ export default {
             if (!isNaN(count)) {
                 return count
             }
+            return 0
         }
         return this.count
       }

@@ -12,13 +12,13 @@ export default {
   methods: {
 
     onScreenLoaded (screen) {
-        Logger.log(3, 'QUX.onScreenLoaded() > ', screen)
+        Logger.log(3, 'Luisa.onScreenLoaded() > ', screen)
         this.setSystemVariable('screen', screen.name)
         this.$emit('qScreenLoad', {
             value: this.modelValue,
             element: screen,
             viewModel: this.modelValue,
-            qux: this
+            luisa: this
         })
         this.dispatchCallback(screen, null, 'load', null)
     },
@@ -28,17 +28,17 @@ export default {
      * contains the callback and the data of the row as 'params'.
      */
     async onCallback (element, e) {
-        Logger.log(5, 'QUX.onCallback() > ' + element.name, e.callback)
+        Logger.log(1, 'Luisa.onCallback() > ' + element.name, e.callback)
         let executor = this.getMethodExcutor()
         if (executor) {
             if (executor[e.callback]) {
                 let func = executor[e.callback]
                 if (func instanceof Function) {
                     let result = await func({
-                        value: this.modelValue,
+                        value: null,
                         element: element,
                         viewModel: this.modelValue,
-                        qux: this,
+                        luisa: this,
                         params: e.params,
                         event: e
                     })
@@ -49,18 +49,18 @@ export default {
                    this.handleCallbackResult(result, e.callback)
                     return;
                 } else {
-                    console.warn('QUX.onCallback() > Callback is not method ', e.callback)
+                    console.warn('Luisa.onCallback() > Callback is not method ', e.callback)
                 }
             } else {
-                console.warn('QUX.onCallback() > no method in executor with name ', e.callback)
+                console.warn('Luisa.onCallback() > no method in executor with name ', e.callback)
             }
         }
     },
 
     onClick (element, e, value) {
-        Logger.log(4, 'QUX.onClick() > enter', element)
+        Logger.log(4, 'Luisa.onClick() > enter', element)
         if (Logger.logLevel > 10) {
-            Logger.log(10, 'QUX.onClick()', e.target)
+            Logger.log(10, 'Luisa.onClick()', e.target)
         }
         if (element.lines) {
             let line = Util.getClickLine(element)
@@ -72,7 +72,7 @@ export default {
 
         if (element.action) {
             if (element.action.type === 'back') {
-                Logger.log(0, 'QUX.onClick() > Go back')
+                Logger.log(1, 'Luisa.onClick() > Go back')
                 this.stopEvent(e)
                 if (this.overlayScreenIds.length > 0) {
                     this.removeLastOverlay()
@@ -92,7 +92,7 @@ export default {
     },
 
     executeLine(line, value) {
-        Logger.log(-1, 'QUX.executeLine() > enter', line, value)
+        Logger.log(-1, 'Luisa.executeLine() > enter', line, value)
         if (line) {
             let box = Util.getBoxById(line.to, this.model)
             if (box.type === 'Screen') {
@@ -106,23 +106,23 @@ export default {
                 return
             } else {
                 if (!line.isComponentLine) {
-                    Logger.warn('QUX.executeLine() > Not supported line target', box)
+                    Logger.warn('Luisa.executeLine() > Not supported line target', box)
                 }
             }
         } else {
-            Logger.error('QUX.executeLine() > ERROR. Null passed', line)
+            Logger.error('Luisa.executeLine() > ERROR. Null passed', line)
         }
     },
 
     async dispatchCallback (element, e, type, value) {
-        Logger.log(4, 'QUX.dispatchCallback() > enter > ' + type, element,)
+        Logger.log(4, 'Luisa.dispatchCallback() > enter > ' + type, element,)
          if (element.props && element.props.callbacks) {
             let callback = element.props.callbacks[type]
             if (callback) {
-                Logger.log(2, 'QUX.dispatchCallback() > callback > ' + type, callback)
+                Logger.log(2, 'Luisa.dispatchCallback() > callback > ' + type, callback)
 
                 if (this.actionEngine && this.actionEngine.hasAction(callback)) {
-                    Logger.log(-1, 'QUX.dispatchCallback() > action engine: ', callback)
+                    Logger.log(-1, 'Luisa.dispatchCallback() > action engine: ', callback)
                     let result = await this.actionEngine.executeAction(this.app, callback, this.modelValue)
                     this.handleCallbackResult(result, callback)
                     return
@@ -141,17 +141,17 @@ export default {
                                 value: value,
                                 element: element,
                                 viewModel: this.modelValue,
-                                qux: this,
+                                luisa: this,
                                 event: e
                             })
 
                             this.handleCallbackResult(result, callback)
                             return;
                         } else {
-                            console.warn('QUX.dispatchCallback() > Callback is not method ', callback)
+                            console.warn('Luisa.dispatchCallback() > Callback is not method ', callback)
                         }
                     } else {
-                        console.warn('QUX.dispatchCallback() > no method in $parent with name ', callback)
+                        console.warn('Luisa.dispatchCallback() > no method in $parent with name ', callback)
                     }
                 }
             }
@@ -163,13 +163,13 @@ export default {
          * Since 0.4 we check if we can dispatch the result to a screen.
          */
         if (result) {
-            Logger.log(-1, 'QUX.handleCallbackResult() > callback > ' + callback, result)
+            Logger.log(-1, 'Luisa.handleCallbackResult() > callback > ' + callback, result)
             let nextScreen = Object.values(this.model.screens).find(s => s.name === result)
             if (nextScreen) {
                 this.setScreen(result)
                 this.scrollToTop()
             } else {
-                Logger.warn('QUX.handleCallbackResult() > no screen with name > ' + result)
+                Logger.warn('Luisa.handleCallbackResult() > no screen with name > ' + result)
             }
         }
     },

@@ -1,11 +1,11 @@
 {
-  "name": "luisa-vue3",
-  "version": "3.0.0",
-  "description": "Vue Low Code - VUE Renderer for FIGMA designs. Turn your Figma or Quant-UX design into VUE, or create re-usable designlets",
-  "main": "./dist/vue-low-code.common.js",
+  "name": "luisa-vue",
+  "version": "3.0.3",
+  "description": "Luisa - VUE Renderer for FIGMA designs. Turn your Figma or Quant-UX design into VUE, or create re-usable designlets",
+  "main": "./dist/luisa-vue3.common.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-package": "vue-cli-service build --target lib --name vue-low-code ./src/index.js"
+    "build-package": "vue-cli-service build --target lib --name luisa-vue3 ./src/index.js"
   },
   "repository": {
     "type": "git",

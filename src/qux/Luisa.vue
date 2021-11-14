@@ -53,7 +53,7 @@ import ModelTransformer from './core/ModelTransformer'
 import CSSOptimizer from './core/CSSOptimizer'
 import CSSFactory from './core/CSSFactory'
 import CSSWriter from './core/CSSWriter'
-import ActionEngine from './actions/ActionEngine'
+//import ActionEngine from './actions/ActionEngine'
 import FontWriter from './core/FontWriter'
 import FigmaService from './figma/FigmaService'
 
@@ -247,9 +247,9 @@ export default {
         }
         if (design.figmaFile && design.figmaAccessKey) {
             const app = await this.setFigma(design)
-            this.setQUX(app)
+            await this.setQUX(app)
         } else {
-            this.setQUX(design)
+            await this.setQUX(design)
         }
     },
     setConfig (c, design) {
@@ -287,6 +287,12 @@ export default {
     },
     setScreen (screenName, query) {
         Logger.log(-1, 'Luisa.setScreen() > ', screenName, query)
+        
+        if (this.mergedConfig.router.disabled === true) {
+            this.loadScreen(screenName)
+            Logger.log(-1, 'Luisa.setScreen() > router disabled', screenName)
+            return
+        }
         // Update url, which will trigger watcher, which will call setScreenByRouter() which will call loadScreen()
         let prefix = ''
         if (this.config && this.config.router && this.config.router.prefix) {
@@ -348,12 +354,13 @@ export default {
         }
     },
     setScreenByRouter () {
-        Logger.log(5, 'Luisa.setScreenByRoute() > enter ', this.$route)
+        Logger.log(2, 'Luisa.setScreenByRoute() > enter ', this.$route)
         let key = 'screenName'
         if (this.config && this.config.router && this.config.router.key) {
             key = this.config.router.key
         }
         let screenName = this.$route.params[key]
+        console.debug('setScreenByRouter', screenName, this.model.name)
         if (screenName) {
             Logger.log(-1, 'Luisa.setScreenByRoute() > exit ', screenName, `(${key})`)
             this.loadScreen(screenName)
@@ -448,7 +455,12 @@ export default {
   watch: {
     '$route' () {
         Logger.log(3, 'Luisa.watch(router) > enter')
+        if (this.mergedConfig.router.disabled === true) {
+            Logger.log(-1, 'Luisa.watch(router) > Diabled')
+            return
+        }
         this.setScreenByRouter()
+        this.scrollToTop()
     },
     'screen' (v) {
         Logger.log(3, 'Luisa.watch(screen) > enter')
@@ -470,9 +482,6 @@ export default {
   async mounted () {
       Logger.log(0, 'Luisa.mounted()', this.value)
 
-      if (this.actions && this.actions.length > 0) {
-        this.actionEngine = new ActionEngine(this.actions)
-      }
       if (this.design) {
           await this.setDesign(this.design)
       }

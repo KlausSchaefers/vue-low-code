@@ -5,14 +5,14 @@ class CSSWriter {
         this.styleElement = {}
     }
 
-    write (css, id = 'default') {
+    write (css, id = 'default') {       
         let head = document.head || document.getElementsByTagName('head')[0];
         if (this.styleElement[id]) {
             /**
              * This can lead to errors when the hash is changed.
              * This is edge case for development (I hope)
              */
-            Logger.log(5, 'CSSWriter.write() > Clean up old')
+            Logger.log(5, 'CSSWriter.write() > Clean up old', id)
             head.removeChild(this.styleElement[id])
         }
 

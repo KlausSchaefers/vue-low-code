@@ -323,7 +323,7 @@ function getWidgetType(element) {
 	 * We check here different component overrides
 	 */
 	if (element.props.customComponent) {
-		Logger.log(-1, "Falt2Tree.getWidgetType() > Use customComponent", element)
+		Logger.log(1, "Falt2Tree.getWidgetType() > Use customComponent", element)
 		return element.props.customComponent
 	}
 

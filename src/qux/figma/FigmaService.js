@@ -1715,6 +1715,7 @@ export default class FigmaService {
   createApp (id, data) {
     return {
       version: 2.1,
+      id: id,
       figmaId: id,
 			name: data.name,
 			description: '',

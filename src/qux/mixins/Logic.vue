@@ -13,7 +13,7 @@ export default {
   methods: {
 
     executeLogic (widget, line) {
-        Logger.log(0, 'QUX.executeLogic() > enter', widget.props, line)
+        Logger.log(0, 'Luisa.executeLogic() > enter', widget.props, line)
 
         let lines = ExportUtil.getLines(widget, this.model)
 				var nextLine = null;
@@ -21,7 +21,7 @@ export default {
 				if (widget.props && widget.props.isRandom){
 						var random = Math.random()
 						var pos = Math.floor(random * lines.length);
-						Logger.log(0,"QUX.executeLogic","enter >  do AB:" + widget.id + " >> " + random + " >> " + pos);
+						Logger.log(0,"Luisa.executeLogic","enter >  do AB:" + widget.id + " >> " + random + " >> " + pos);
 						nextLine = lines[pos]
 				} else {
 						nextLine = this.getRuleMatchingLine(lines)
@@ -33,12 +33,12 @@ export default {
           /**
            * THis can happs as a modelling error!
            */
-          Logger.warn('QUX.executeLogic() > NO RULE matching',lines)
+          Logger.warn('Luisa.executeLogic() > NO RULE matching',lines)
         }
     },
 
     async executeRest (widget) {
-        Logger.log(0, 'QUX.executeRest() > enter', widget.props.rest)
+        Logger.log(0, 'Luisa.executeRest() > enter', widget.props.rest)
 
         let rest = widget.props.rest
 
@@ -65,20 +65,20 @@ export default {
         if (nextLine) {
           this.executeLine(nextLine)
         }  else {
-          Logger.warn('QUX.executeRest() > NO RULE matching',lines)
+          Logger.warn('Luisa.executeRest() > NO RULE matching',lines)
         }
     },
 
     async runRestEngine (rest, data) {
       try {
         let result = await RestEngine.run(rest, data)
-        Logger.log(1, "QUX.executeRest","set data " + rest.output.databinding, result);
+        Logger.log(1, "Luisa.executeRest","set data " + rest.output.databinding, result);
         if (rest.output.databinding) {
             JSONPath.set(this.modelValue, rest.output.databinding, result)
         }
         return true
       } catch (e) {
-        Logger.error("QUX.executeRest","error", e);
+        Logger.error("Luisa.executeRest","error", e);
         if (rest.output.databinding) {
             JSONPath.set(this.modelValue, rest.output.databinding, 'Error')
         }
@@ -91,9 +91,9 @@ export default {
         for(var i=0; i< lines.length; i++){
             var line = lines[i];
             if (line.rule){
-                Logger.log(4, 'QUX.getRuleMatchingLine() > check', i, line.rule)
+                Logger.log(4, 'Luisa.getRuleMatchingLine() > check', i, line.rule)
                 if (line.rule.type === 'widget') {
-                    Logger.error('QUX.getRuleMatchingLine() > widget rules not supported in low code')
+                    Logger.error('Luisa.getRuleMatchingLine() > widget rules not supported in low code')
                 }
                 if (line.rule.type === 'databinding') {
                     matchedLine = this.checkDataBindingRule(line)
@@ -122,18 +122,18 @@ export default {
     },
 
     checkDataBindingRule (line) {
-        Logger.log(4, 'QUX.checkDataBindingRule() > enter', line.rule.databinding);
+        Logger.log(4, 'Luisa.checkDataBindingRule() > enter', line.rule.databinding);
         let rule = line.rule
         let value = JSONPath.get(this.modelValue, rule.databinding)
         var result = this.isValueMatchingRule(value, true, rule);
         if (result) {
-          Logger.log(-1, 'QUX.checkDataBindingRule() > match!', line);
+          Logger.log(-1, 'Luisa.checkDataBindingRule() > match!', line);
           return line
         }
     },
 
 		isValueMatchingRule (value, valid, rule) {
-			Logger.log(3, 'QUX.isValueMatchingRule() > enter > ' + rule.value + ' ' + rule.operator + ' >' + value + '< / ' + valid);
+			Logger.log(3, 'Luisa.isValueMatchingRule() > enter > ' + rule.value + ' ' + rule.operator + ' >' + value + '< / ' + valid);
 
       var operator = rule.operator;
       /**
@@ -201,7 +201,7 @@ export default {
           break;
 
         default:
-          Logger.warn('QUX.isValueMatchingRule() Not supported operator')
+          Logger.warn('Luisa.isValueMatchingRule() Not supported operator')
       }
       return result;
 		}

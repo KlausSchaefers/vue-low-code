@@ -245,7 +245,7 @@ function fixNames(model) {
 }
 
 function fixElementName (str) {
-	return str.replace(/[^0-9a-z-]/gi, '')
+	return str.toLowerCase().replace(/[^0-9a-z-]/gi, '')
 }
 
 function addGroupWrapper(screen, model) {
