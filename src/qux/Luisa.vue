@@ -243,9 +243,9 @@ export default {
         }
         if (design.figmaFile && design.figmaAccessKey) {
             const app = await this.setFigma(design)
-            this.setQUX(app)
+            await this.setQUX(app)
         } else {
-            this.setQUX(design)
+            await this.setQUX(design)
         }
     },
     setConfig (c, design) {

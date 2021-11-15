@@ -92,7 +92,7 @@ export function hasCSSBySelector (classes, selector, code) {
 
 export function findOneElementsByProp(e, value, prop, result = []) {
     if (e.children) {
-        e.children.forEach(c => {
+        e.children.forEach(c => {     
             if (c[prop] === value) {
                 result.push(c)
             }

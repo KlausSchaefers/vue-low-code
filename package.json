@@ -1,7 +1,7 @@
 {
-  "name": "vue-low-code",
-  "version": "1.0.34",
-  "description": "Vue-Low-Code - VUE Renderer for FIGMA & Quant-UX designs. Turn your Figma or Quant-UX design into VUE, or create re-usable designlets",
+  "name": "luisa-vue",
+  "version": "2.0.7",
+  "description": "Luisa - The VUE LowCode Framework. Renderer FIGMA & Quant-UX designs in VUE applications. Turn your Figma or Quant-UX design into VUE, or create re-usable designlets",
   "main": "./dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

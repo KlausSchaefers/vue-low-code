@@ -11,7 +11,7 @@ export default class CSSFactory {
 		this.marginWhiteSpaceCorrect = 0
 		this.imagePrefix = imagePrefix
 		this.hoverEmbeddedLabel = false
-
+	
 		this.responsive = {
 			mobile: {
 				min: 0,
@@ -29,6 +29,12 @@ export default class CSSFactory {
 
 		if (config.css) {
 			this.prefix = config.css.prefix ? config.css.prefix : ''
+		}
+
+
+		if (config.css && config.css.selectorPrefix) {
+			this.selectorPrefix = config.css.selectorPrefix ? config.css.selectorPrefix : ''
+			Logger.log(-1, 'CSSFactory.constructor() > selectorPrefix ', config.css.selectorPrefix)
 		}
 
 		if (config.responsive) {
@@ -289,6 +295,9 @@ export default class CSSFactory {
 	}
 
 	getSelector(widget) {
+		if (this.selectorPrefix) {
+			return this.selectorPrefix + ' '+ widget.cssSelector
+		}
 		return widget.cssSelector
 	}
 

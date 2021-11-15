@@ -27,6 +27,7 @@ class Config {
 			},
 			designletPrefix: '',
 			loadFonts: true,
+			scrollToTopAfterNavigation: true,
 			figma: {
 				varientComponentHoverKey: 'Mouse=Hover',
 				varientComponentDefaultKey: 'Mouse=Default',
