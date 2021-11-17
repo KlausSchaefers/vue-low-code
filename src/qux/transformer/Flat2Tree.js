@@ -74,7 +74,7 @@ export function transform(model, config) {
 	 * IN QUX we want to attach label nodes. In Figma this causes issues. with attachLabels we control for which elements we should use this
 	 */
 	let nodesWithLabelAttachment = config.css && config.css.attachLabels === true ? ["TextBox", "Password", "TextArea", "Box", "Button", "DropDown"] : ["TextBox", "Password", "TextArea", "DropDown"]
-	let hasRows = config.css && config.css.grid !== true
+	let hasRows = config.css && config.css.grid !== true	
 
 	for (let screenID in model.screens) {
 		let screen = model.screens[screenID]
@@ -323,7 +323,7 @@ function getWidgetType(element) {
 	 * We check here different component overrides
 	 */
 	if (element.props.customComponent) {
-		Logger.log(-1, "Falt2Tree.getWidgetType() > Use customComponent", element)
+		Logger.log(1, "Falt2Tree.getWidgetType() > Use customComponent", element)
 		return element.props.customComponent
 	}
 

@@ -1,5 +1,6 @@
 import Logger from '../core/Logger'
 import {Layout} from '../core/Const'
+import {getAutoPaddingHorizontal, isFixedHorizontal, isLayoutAutovertical} from '../core/ExportUtil'
 
 export default class FigmaService {
 
@@ -19,6 +20,7 @@ export default class FigmaService {
     this.pinnRight = false
     this.errors = []
     this.autoLineHeightAsNormal = true
+    this.fixed2Fill = true
     this.defaultFontFamily = 'Helvetica Neue,Helvetica,Arial,sans-serif'
 
     if (config.figma) {
@@ -39,6 +41,10 @@ export default class FigmaService {
 
       if (config.figma.downloadVectors === false) {
         this.downloadVectors = false
+      }
+
+      if (config.figma.fixed2Fill === false) {
+        this.fixed2Fill = false
       }
 
       if (config.figma.defaultFontFamily !== '') {
@@ -620,7 +626,7 @@ export default class FigmaService {
     return qScreen
   }
 
-  parseElement (element, qScreen, fScreen, model, fModel, qParentId) {
+  parseElement (element, qScreen, fScreen, model, fModel, qParentId, qParent) {
     Logger.log(5, 'FigmaService.parseElement() > enter: ' + element.name, element.type)
 
     let widget = null
@@ -648,7 +654,7 @@ export default class FigmaService {
       widget.props = this.getProps(element, widget)
       widget.has = this.getHas(element, widget)
       widget = this.getPluginData(element, widget, fModel)
-      widget = this.getLayout(element, widget)
+      widget = this.getLayout(element, widget, qParent)
 
       fModel._elementsById[element.id] = element
       fModel._elementsToWidgets[element.id] = qID
@@ -659,6 +665,7 @@ export default class FigmaService {
        * Update the parent id, so we can have the correct hierachy
        */
       qParentId = widget.id
+      qParent = widget
     } else {
       Logger.log(4, 'FigmaService.parseElement() >Ignore: ' + element.name, element.type)
       /**
@@ -678,7 +685,7 @@ export default class FigmaService {
           if (child.visible !== false) {
             child._parent = element
             Logger.log(3, 'FigmaService.parseElement() > go recursive', element)
-            this.parseElement(child, qScreen, fScreen, model, fModel, qParentId)
+            this.parseElement(child, qScreen, fScreen, model, fModel, qParentId, qParent)
           }
         })
       } else {
@@ -781,6 +788,22 @@ export default class FigmaService {
         }
 
 
+      }
+
+      if (pluginData.quxMetaDescription) {
+        Logger.log(3, 'FigmaService.getPluginData() > quxMetaDescription: ', pluginData.quxMetaDescription, element.name)
+        if (!widget.meta) {
+          widget.meta = {}
+        }
+        widget.meta.description = pluginData.quxMetaDescription
+      }
+
+      if (pluginData.quxMetaKeyWords) {
+        Logger.log(3, 'FigmaService.getPluginData() > quxMetaKeyWords: ', pluginData.quxMetaKeyWords, element.name)
+        if (!widget.meta) {
+          widget.meta = {}
+        }
+        widget.meta.keywords = pluginData.quxMetaKeyWords
       }
 
       if (pluginData.quxDataValue) {
@@ -1025,7 +1048,6 @@ export default class FigmaService {
       widget[type] = {}
     }
     widget[type][key] = value
-
   }
 
   getProps (element, widget) {
@@ -1122,7 +1144,7 @@ export default class FigmaService {
     return undefined
   }
 
-  getLayout (fElement, qElement) {
+  getLayout (fElement, qElement, qParentElement) {
 
     if (fElement.layoutMode === 'HORIZONTAL') {
       qElement.layout.type = Layout.AutoHorizontal
@@ -1194,8 +1216,26 @@ export default class FigmaService {
     qElement.layout.paddingTop = this.mapPadding(fElement.paddingTop, qElement.style.borderTopWidth)
     qElement.layout.paddingBottom = this.mapPadding(fElement.paddingBottom, qElement.style.borderBottomWidth)
 
+    if (this.isFixedChildInAutoParentWithSameWidth(qElement, qParentElement)) {	
+      this.setFixedHozontal(qElement, false)
+    }
+
     return qElement
   }
+
+  isFixedChildInAutoParentWithSameWidth (qElement, qParentElement) {
+		if (this.fixed2Fill && qParentElement && isFixedHorizontal(qElement) && isLayoutAutovertical(qParentElement)) {
+			let parentPaddingHorizontal = getAutoPaddingHorizontal(qParentElement)	
+			let dif = Math.abs(qParentElement.w - parentPaddingHorizontal) - qElement.w
+			if (dif < 1) {
+				Logger.log(-1, "FigmaService.isFixedChildInAutoParentWithSameWidth() > fix " + qElement.name, dif)
+				return true
+			}
+		}
+		return false
+	}
+
+
 
   mapPadding(padding, border) {
     let p = padding ? padding : 0

@@ -27,7 +27,9 @@ class FontWriter {
         if (config.loadFonts) {
             this.writeImportStatements(fonts)
         } else {
-            this.showImportWarning(fonts)
+            if (config.loadFontsWarning !== false) {
+                this.showImportWarning(fonts)
+            } 
         }
 
     }

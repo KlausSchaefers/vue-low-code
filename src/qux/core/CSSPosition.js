@@ -7,11 +7,12 @@ export default class CSSPosition {
 		this.cssFacotory = f
 
 		this.gridAutoErrorThreshold = 5
-
 		this.huggedCanResize = false
-
+		this.autoFixThreshold = 3
+		
 		if (config.css) {
 			this.isForceGrid = config.css.grid
+			this.autoFixThreshold = config.css.autoFixThreshold
 			this.huggedCanResize = config.css.huggedCanResize
 			this.justifyContentInWrapper = config.css.justifyContentInWrapper
 			this.prefix = config.css.prefix ? config.css.prefix : ''
@@ -273,27 +274,28 @@ export default class CSSPosition {
 		/**
 		 * In a vertical layout we might have a strech property. This translates to width 100%
 		 */
-		if (Util.isFixedHorizontal(widget)) {
-			result += `  width: ${this.getFixedWidth(widget)};\n`
+		if (Util.isFixedHorizontal(widget)) {		
+			result += `  width: ${this.getFixedWidth(widget)};\n`				
 		} else {
 			/**
-			 * If we have an auto alout, we use calc.
+			 * If we have an fill layout, we use calc.
 			 */
-			if (widget.layout && widget.layout.paddingLeft >= 0 &&  widget.layout.paddingRight >= 0) {
-				let l = widget.layout
-				let paddingHorizontal = l.paddingLeft + l.paddingRight
-				result += `  width: calc(100% - ${paddingHorizontal}px);\n`
-			} else {
-				result += `  width: 100%;\n`
-				// result += `  box-sizing: border-box;\n` //  FIXME: this can also have some effect rows
-			}
-			
+			result += this.getParentAutoHorizontalWidth(widget)				
 		}
-
-
 
 		return result
 	}
+
+	getParentAutoHorizontalWidth (widget) {
+		let paddingHorizontal = Util.getAutoPaddingHorizontal(widget)
+		if (paddingHorizontal > 0) {
+			return `  width: calc(100% - ${paddingHorizontal}px);\n`
+		} else {
+			return `  width: 100%;\n`		
+		}
+	}
+
+
 
 	/*********************************************************************
 	 * Grid

@@ -16,7 +16,8 @@ class Config {
 			fixedHorizontal: false,
 			attachLabels: false,
 			huggedCanResize: true,
-			hoverEmbeddedLabel: true
+			hoverEmbeddedLabel: true,
+			autoFixThreshold: 1
 		}
 	}
 
@@ -26,8 +27,9 @@ class Config {
 				logLevel: 0,
 			},
 			designletPrefix: '',
-			loadFonts: true,
 			scrollToTopAfterNavigation: true,
+			loadFonts: true,
+			loadFontsWarning: true,
 			figma: {
 				varientComponentHoverKey: 'Mouse=Hover',
 				varientComponentDefaultKey: 'Mouse=Default',
@@ -38,7 +40,8 @@ class Config {
 				justifyContentInWrapper: false,
 				attachLabels: true,
 				huggedCanResize: true,
-				hoverEmbeddedLabel: false
+				hoverEmbeddedLabel: false,
+				autoFixThreshold: -1
 			},
 			router: {
 				key: "screenName",
@@ -52,10 +55,10 @@ class Config {
 			breakpoints: {
 				mobile: {
 					min: 0,
-					max: 400,
+					max: 500,
 				},
 				tablet: {
-					min: 401,
+					min: 501,
 					max: 1200,
 				},
 				desktop: {
@@ -68,9 +71,12 @@ class Config {
 		}
 	}
 
-	merge(config, overwrites) {
+	merge(config, overwrites) {		
 		if (overwrites.addDefaultDatabinding !== undefined) {
 			config.addDefaultDatabinding = overwrites.addDefaultDatabinding
+		}
+		if (overwrites.scrollToTopAfterNavigation !== undefined) {
+			config.scrollToTopAfterNavigation = overwrites.scrollToTopAfterNavigation
 		}
 		if (overwrites.css) {
 			config.css = Util.mixin(config.css, overwrites.css)
@@ -96,6 +102,9 @@ class Config {
 		if (overwrites.loadFonts !== undefined) {
 			config.loadFonts = overwrites.loadFonts
 		}
+		if (overwrites.loadFontsWarning !== undefined) {
+			config.loadFontsWarning = overwrites.loadFontsWarning
+		}		
 		if (overwrites.responsive) {
 			config.responsive = overwrites.responsive
 		}

@@ -1,9 +1,9 @@
 import CSSOptimizer from '../../src/qux/core/CSSOptimizer'
 import CSSFactory from '../../src/qux/core/CSSFactory'
 
-export function generateCSS (model) {
+export function generateCSS (model, config = {}) {
     let compressed = new CSSOptimizer().runTree(model)
-    let classes = new CSSFactory().generate(compressed)
+    let classes = new CSSFactory(config).generate(compressed)
     return classes
 }
 

@@ -6,6 +6,7 @@
 import Logger from '../core/Logger'
 import * as Util from '../core/ExportUtil'
 import JSONPath from '../core/JSONPath'
+import MetaWriter from '../core/MetaWriter'
 
 export default {
   name: 'Event',
@@ -21,6 +22,7 @@ export default {
             qux: this
         })
         this.dispatchCallback(screen, null, 'load', null)
+        MetaWriter.write(screen)
     },
 
     /**

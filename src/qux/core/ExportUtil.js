@@ -1305,3 +1305,11 @@ export function stringToType (value) {
     }
     return value
 }
+
+export function getAutoPaddingHorizontal (widget) {
+    if (widget.layout && widget.layout.paddingLeft >= 0 &&  widget.layout.paddingRight >= 0) {
+        let l = widget.layout
+        return l.paddingLeft + l.paddingRight
+    }
+    return 0
+}
