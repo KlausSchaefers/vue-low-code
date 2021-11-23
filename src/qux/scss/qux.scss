@@ -26,31 +26,25 @@
     }
 }
 
-/* This could be better with a grid, but then
-   the row layot of labels would break, and
-   we would not take full space */
 .qux-valign-middle {
-    position: relative;
-
+    display: flex;
+    align-items: center;
+    align-content: center;
+ 
     .qux-common-label {
-        width: 100%;
-        position: absolute;
-        top:50%;
-        left: 0px;
-        transform: translateY(-50%);
+         width: 100%;      
     }
-}
-
-.qux-valign-bottom  {
-    position: relative;
-
-    .qux-common-label{
-        width: 100%;
-        position: absolute;
-        bottom:0px;
-        left: 0px;
-    }
-}
+ }
+ 
+ .qux-valign-bottom  {
+     display: flex;
+     align-items: flex-end;
+     align-content: flex-end;
+ 
+     .qux-common-label{
+         width: 100%;
+     }
+ }
 
 .qux-overlay-wrapper{
     width: 100%;
