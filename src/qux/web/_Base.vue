@@ -259,7 +259,7 @@ export default {
   },
   methods: {
     stopEvent (e) {
-      Logger.warn('_Base.stopEvent()')
+      Logger.log(1, '_Base.stopEvent()')
       if (e) {
         e.stopPropagation()
       }

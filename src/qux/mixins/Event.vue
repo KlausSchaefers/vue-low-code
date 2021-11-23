@@ -6,6 +6,7 @@
 import Logger from '../core/Logger'
 import * as Util from '../core/ExportUtil'
 import JSONPath from '../core/JSONPath'
+import MetaWriter from '../core/MetaWriter'
 
 export default {
   name: 'Event',
@@ -19,8 +20,9 @@ export default {
             element: screen,
             viewModel: this.modelValue,
             luisa: this
-        })
+        })      
         this.dispatchCallback(screen, null, 'load', null)
+        MetaWriter.write(screen)
     },
 
     /**
@@ -198,7 +200,10 @@ export default {
     },
 
     scrollToTop () {
-        Logger.log(4, 'Qux(Event).scrollToTop()')
+        Logger.log(-1, 'Qux(Event).scrollToTop()', this.mergedConfig.scrollToTopAfterNavigation)
+        if (this.mergedConfig.scrollToTopAfterNavigation) {
+            window.scrollTo(0, 0)
+        }
         this.$emit('qScrollTop', {})
     },
 

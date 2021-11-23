@@ -360,12 +360,11 @@ export default {
             key = this.config.router.key
         }
         let screenName = this.$route.params[key]
-        console.debug('setScreenByRouter', screenName, this.model.name)
         if (screenName) {
-            Logger.log(-1, 'Luisa.setScreenByRoute() > exit ', screenName, `(${key})`)
+            Logger.log(1, 'Luisa.setScreenByRoute() > exit ', screenName, `(${key})`)
             this.loadScreen(screenName)
         } else {
-            Logger.log(-1, 'Luisa.setScreenByRoute() > exit > set start')
+            Logger.log(1, 'Luisa.setScreenByRoute() > exit > set start')
             this.setStartScreen()
         }
     },

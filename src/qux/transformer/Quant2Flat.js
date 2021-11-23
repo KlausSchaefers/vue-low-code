@@ -209,11 +209,16 @@ function fixNames(model) {
 
 			widgets.forEach((w, i) => {
 				w.name = fixElementName(w.name)
-				let others = widgets.filter((o) => o.name === w.name)
-				if (others.length > 1) {
-					Logger.log(3, "Quant2Flat.fixNames() > Fix double widget name: " + w.name + " in screen " + screen.name)
+				if (w.name === screen.name) {
+					Logger.log(3, "Quant2Flat.fixNames() > Fix widget == screen name: " + w.name + " in screen " + screen.name)
 					w.name += "_" + i
-				}
+				} else {
+					let others = widgets.filter((o) => o.name === w.name)
+					if (others.length > 1) {
+						Logger.log(3, "Quant2Flat.fixNames() > Fix double widget name: " + w.name + " in screen " + screen.name)
+						w.name += "_" + i
+					}
+				}				
 			})
 		}
 	})
@@ -223,12 +228,17 @@ function fixNames(model) {
 			t.name = fixElementName(t.name)
 		})
 	}
+	
+	
+	return model
+}
 
-	/**
-	 * DEPREACTED SHOULD NEVER BE CALLED: We should fix doubles names. With mastre screens
-	 * we could have overwites! We could rename them, but this
-	 * would have to be consistant in all screens!
-	 */
+/**
+ * DEPREACTED SHOULD NEVER BE CALLED: We should fix doubles names. With mastre screens
+ * we could have overwites! We could rename them, but this
+ * would have to be consistant in all screens!
+ */
+export function validateNoDoubelNames (model) {
 	for (let screenID in model.screens) {
 		let screen = model.screens[screenID]
 		let children = screen.children
@@ -241,11 +251,13 @@ function fixNames(model) {
 			count[n] = true
 		})
 	}
-	return model
 }
 
 function fixElementName (str) {
-	return str.toLowerCase().replace(/[^0-9a-z-]/gi, '')
+	/**
+	 * This should be lowerCase!!!
+	 */
+	return str.replace(/[^0-9a-z-]/gi, '')
 }
 
 function addGroupWrapper(screen, model) {

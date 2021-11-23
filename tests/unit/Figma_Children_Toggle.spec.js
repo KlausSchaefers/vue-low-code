@@ -28,7 +28,6 @@ test('Test Wrong Nesting', async () => {
 
   let screen = model.screens[0]
 
-  console.debug(TestUtil.print(screen))
 
   expect(screen.children.length).toBe(2)
 

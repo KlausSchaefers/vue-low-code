@@ -115,7 +115,7 @@ export default {
     }
   },
   mounted () {
-    Logger.log(-1, 'qChildrenToggle.mounted() enter', this.value)
+    Logger.log(4, 'qChildrenToggle.mounted() enter', this.value)
     if (this.value === true || this.value === true) {
       this.active = this.value
     }
