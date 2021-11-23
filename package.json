@@ -1,12 +1,11 @@
 {
-  "name": "vue-low-code",
-  "version": "1.0.27",
-  "description": "Vue Low Code - VUE Renderer for FIGMA designs. Turn your Figma or Quant-UX design into VUE, or create re-usable designlets",
-  "main": "./dist/index.js",
+  "name": "luisa-vue",
+  "version": "3.0.5",
+  "description": "Luisa - VUE Renderer for FIGMA designs. Turn your Figma or Quant-UX design into VUE, or create re-usable designlets",
+  "main": "./dist/luisa-vue3.common.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "bili --name index --plugin vue --vue.css false",
-    "export": "npx bili --bundle-node-modules"
+    "export": "vue-cli-service build --target lib --name luisa-vue3 ./src/index.js"
   },
   "repository": {
     "type": "git",
@@ -26,23 +25,28 @@
   },
   "homepage": "https://github.com/KlausSchaefers/vue-low-code#readme",
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.5.6",
+    "@vue/cli-plugin-babel": "^4.5.13",
     "@vue/cli-plugin-eslint": "^4.5.6",
-    "@vue/cli-plugin-unit-jest": "^4.5.6",
+    "@vue/cli-plugin-router": "^4.5.13",
+    "@vue/cli-plugin-unit-jest": "~4.5.0",
     "@vue/cli-service": "^4.5.6",
-    "@vue/test-utils": "1.0.0-beta.29",
+    "@vue/compiler-sfc": "^3.2.19",
+    "@vue/test-utils": "^2.0.0-0",
     "babel-eslint": "^10.1.0",
     "bili": "^5.0.5",
-    "chalk": "^4.1.0",
-    "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.0.0",
-    "node-sass": "^4.14.1",
+    "chalk": "^4.1.2",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^7.0.0",
+    "node-sass": "^4.12.0",
     "rollup-plugin-vue": "^5.1.9",
     "sass-loader": "^8.0.2",
-    "vue-template-compiler": "^2.6.12"
+    "typescript": "~3.9.3",
+    "vue-jest": "^5.0.0-0"
   },
   "dependencies": {
-    "@mdi/font": "^4.9.95"
+    "core-js": "^3.18.2",
+    "vue": "^3.2.20",
+    "vue-loader": "^16.8.1"
   },
   "files": [
     "dist/*"

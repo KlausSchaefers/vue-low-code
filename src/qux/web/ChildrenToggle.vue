@@ -73,7 +73,7 @@ export default {
         } else {
           this.active = !this.active
           this.$emit('change', this.active)
-          this.$emit('input', this.active)
+          this.$emit('update:modelValue', this.active)
           Logger.log(5, 'qChildrenToggle.toggle() >' + this.active)
         }
       },
@@ -115,7 +115,7 @@ export default {
     }
   },
   mounted () {
-    Logger.log(-1, 'qChildrenToggle.mounted() enter', this.value)
+    Logger.log(4, 'qChildrenToggle.mounted() enter', this.value)
     if (this.value === true || this.value === true) {
       this.active = this.value
     }

@@ -1,6 +1,5 @@
 <template>
   <div :class="['qux-container', cssClass]" @click="onClick">
-
       <template v-if="element">
         <component v-for="child in element.children"
           :is="child.qtype"
@@ -8,7 +7,6 @@
           :element="child"
           :model="model"
           :config="config"
-          v-model="value"
           @qDesignSystemCallback="forwardDesignSystemCallback"
           @qCallback="forwardCallback"
           @qClick="forwardClick"
@@ -27,7 +25,6 @@
             :element="child"
             :model="model"
             :config="config"
-            v-model="value"
             @qDesignSystemCallback="forwardDesignSystemCallback"
             @qCallback="forwardCallback"
             @qClick="forwardClick"

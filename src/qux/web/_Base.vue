@@ -10,7 +10,8 @@ import JSONPath from '../core/JSONPath'
 import Logger from '../core/Logger'
 
 export default {
-  name: 'Base',
+  name: '_Base',
+  emits: ['update:modelValue', 'qClick', 'click', 'qChange', 'change', 'qKeyPress', 'qFocus', 'qBlur', 'qDesignSystemCallback', 'qScrollTop'],
   props: {
       'model': {
         type: Object
@@ -36,6 +37,7 @@ export default {
         type: Boolean
       }
   },
+  inject: ['viewModel'],
   data: function () {
       return {
         hasLabelInOptions: true
@@ -63,8 +65,8 @@ export default {
         }
         return false
       },
-      hasHistoryRouter () {
-        return this.$router && this.$router.mode === 'history'
+      hasHistoryRouter () {    
+        return this.config.isHistoryRouter === true
       },
       link () {
         if (this.url) {
@@ -80,9 +82,9 @@ export default {
                 prefix = this.config.router.prefix + '/'
               }
               if (this.hasHistoryRouter) {
-                return `/${prefix}${box.name}.html`
+                //return `/${prefix}${box.name}.html`
               }
-              return `#/${prefix}${box.name}.html`
+              return `/${prefix}${box.name}.html`
             }
           }
         }
@@ -158,7 +160,7 @@ export default {
         if (this.element && this.element.props && this.element.props.databinding) {
           let path =  this.element.props.databinding.default
           if (path) {
-            let value = JSONPath.get(this.value, path)
+            let value = JSONPath.get(this.viewModel, path)
             Logger.log(5, '_Base.dataBindingInput() > ' + path, `"${value}"`)
             return value
           }
@@ -169,7 +171,7 @@ export default {
         if (this.element && this.element.props && this.element.props.databinding) {
           let path =  this.element.props.databinding.options
           if (path) {
-            let value = JSONPath.get(this.value, path)
+            let value = JSONPath.get(this.viewModel, path)
             Logger.log(5, '_Base.dataBindingOptions() > ' + path, `"${value}"`)
             return value
           }
@@ -253,15 +255,11 @@ export default {
         return []
       }
   },
-  watch: {
-    value (v) {
-      Logger.log(3, '_Base.watch(value) > enter', v)
-      this.value = v
-    }
+  watch: {   
   },
   methods: {
     stopEvent (e) {
-      Logger.warn('_Base.stopEvent()')
+      Logger.log(1, '_Base.stopEvent()')
       if (e) {
         e.stopPropagation()
       }
@@ -315,7 +313,7 @@ export default {
       this.checkDesignSystemCallback(e, 'change')
       this.fireParentDomEvent('keyPress', e)
     },
-    onFocus (e) {
+    onFocus (e) { 
       this.$emit('qFocus', this.element, e)
       this.fireParentDomEvent('focus', e)
     },
@@ -351,12 +349,12 @@ export default {
 
     emitDesignSystemCallback (element, e, type, callback) {
       if (this.element.isDesignSystemRoot && this.$parent) {
-        Logger.log(1, '_Base.emitDesignSystemCallback() > : ' + this.element.name, callback, this.value)
+        Logger.log(1, '_Base.emitDesignSystemCallback() > : ' + this.element.name, callback, this.viewModel)
         /**
          * We have to call on parent, because
          * we have this virtual wrapper around.
          */
-        this.$parent.$emit(callback, this.value, e)
+        this.$parent.$emit(callback, this.viewModel, e)
       }
     },
     /**
@@ -373,12 +371,12 @@ export default {
       Logger.log(3, '_Base.onValueChange() > change : ' + this.element.name, value)
       if (this.element && this.element.props && this.element.props.databinding) {
         let path =  this.element.props.databinding[key]
-        if (path && this.value != undefined && this.value !== true && this.value !== false) {
+        if (path && this.viewModel != undefined && this.viewModel !== true && this.viewModel !== false) {
           try {
             Logger.log(4, '_Base.onValueChange() > change : ' + path, value)
-            JSONPath.set(this.value, path, value)
+            JSONPath.set(this.viewModel, path, value)
           } catch (ex) {
-            Logger.error('_Base.onValueChange() > Could not set value in path' + path, this.value)
+            Logger.error('_Base.onValueChange() > Could not set value in path' + path, this.viewModel)
           }
           //Logger.log(-1, '_Base.onValueChange() > exit : ', JSON.stringify(this.value, null, 2))
         }
@@ -392,7 +390,7 @@ export default {
        * For design system roots, we also fire event
        */
       if (this.element.isDesignSystemRoot && this.$parent) {
-        this.$parent.$emit('input', value)
+        this.$parent.$emit('update:modelValue', value)
         this.$parent.$emit('change', value)
       }
     }

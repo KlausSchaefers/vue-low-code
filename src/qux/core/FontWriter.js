@@ -12,7 +12,8 @@ class FontWriter {
             'Times New Roman, Times, serif': true,
             'Courier New, Courier, monospace': true,
             '"Palatino Linotype", "Book Antiqua", Palatino, serif': true,
-            'Georgia, serif': true
+            'Georgia, serif': true,
+            'Roboto': true
         }
     }
 
@@ -20,13 +21,15 @@ class FontWriter {
      * https://developers.google.com/fonts/docs/getting_started
      */
     write (model, config) {
-        Logger.log(-1, 'FontWriter.write() > enter')
+        Logger.log(1, 'FontWriter.write() > enter')
 
         let fonts = this.getCustomFonts(model)
         if (config.loadFonts) {
             this.writeImportStatements(fonts)
         } else {
-            this.showImportWarning(fonts)
+            if (config.loadFontsWarning !== false) {
+                this.showImportWarning(fonts)
+            } 
         }
 
     }

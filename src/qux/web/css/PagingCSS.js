@@ -11,11 +11,29 @@ export default class PaginCSS {
         let result = ''
         result += selector + ' {\n'
         result += this.cssFactory.getPosition(widget);
+        switch (widget.props.justifyContent) {
+            case 'left':
+            result += `  justify-content: flex-start;\n`
+            break;
+
+            case 'right':
+            result += `  justify-content: flex-end;\n`
+            break
+
+            case 'center':
+            result += `  justify-content: center;\n`
+            break
+
+            default:
+            result += `  justify-content: space-between;\n`
+            break
+        }
         result += '}\n\n'
 
 
         result += selector + ' .qux-paging-item {\n'
         result += `  width:${style.fontSize * 2}px;\n`
+        result += `  height:100%;\n`
         result += `  background:${style.background};\n`
         result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.textProperties)
         result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.borderProperties)

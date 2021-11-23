@@ -119,7 +119,7 @@ export default {
         } else {
           this.selected = selected
           this.$emit('change', this.selected)
-          this.$emit('input', this.selected)
+          this.$emit('update:modelValue', this.selected)
           Logger.log(5, 'qDatePicker.select() >',  this.selected)
         }
         setTimeout(this.close, 250)
@@ -133,7 +133,7 @@ export default {
   },
   watch: {
   },
-  destroyed () {
+  unmounted () {
       this.close()
   },
   mounted () {

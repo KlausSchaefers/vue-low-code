@@ -1,9 +1,9 @@
 <template>
-  <a :class="['qux-rich-text', cssClass]" @click="onClick"  v-if="hasLink" :href="link" >
+  <router-link :class="['qux-rich-text', cssClass]" @click="onClick"  v-if="hasLink" :to="link" >
      <span class="qux-common-label">
       <span v-for="(child,i) in children" :key="i" :class="'qux-rich-text-child-' + i">{{child}}</span>
     </span>
-  </a>
+  </router-link>
   <label :class="['qux-rich-text', cssClass]" @click="onClick" v-else>
      <span class="qux-common-label">
       <span v-for="(child,i) in children" :key="i" :class="'qux-rich-text-child-' + i">{{child}}</span>

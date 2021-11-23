@@ -4,19 +4,44 @@ class Config {
 
 	constructor() {
 
-  }
+	}
 
-  getDefault () {
-    return {
+	getFigmaCSS () {
+		return {
+			isFigma: true,
+			grid: true,
+			justifyContentInWrapper: false,
+			pinnedLeft: false,
+			pinnedRight: false,
+			fixedHorizontal: false,
+			attachLabels: false,
+			huggedCanResize: true,
+			hoverEmbeddedLabel: true,
+			autoFixThreshold: 1
+		}
+	}
+
+	getDefault() {
+		return {
 			debug: {
 				logLevel: 0,
 			},
-			designletPrefix:'',
+			designletPrefix: '',
+			scrollToTopAfterNavigation: true,
 			loadFonts: true,
+			loadFontsWarning: true,
+			figma: {
+				varientComponentHoverKey: 'Mouse=Hover',
+				varientComponentDefaultKey: 'Mouse=Default',
+				downloadVectors: true,
+			},
 			css: {
 				grid: true,
 				justifyContentInWrapper: false,
 				attachLabels: true,
+				huggedCanResize: true,
+				hoverEmbeddedLabel: false,
+				autoFixThreshold: -1
 			},
 			router: {
 				key: "screenName",
@@ -25,15 +50,15 @@ class Config {
 			databinding: {
 				default: "",
 			},
-      imageFolder: "/img",
-      components: {},
+			imageFolder: "/img",
+			components: {},
 			breakpoints: {
 				mobile: {
 					min: 0,
-					max: 400,
+					max: 500,
 				},
 				tablet: {
-					min: 401,
+					min: 501,
 					max: 1200,
 				},
 				desktop: {
@@ -41,32 +66,35 @@ class Config {
 					max: 1000000,
 				},
 			},
+			meta: {},
 			addDefaultDatabinding: true
-    }
-  }
+		}
+	}
 
-
-  merge (config, overwrites) {
+	merge(config, overwrites) {		
 		if (overwrites.addDefaultDatabinding !== undefined) {
 			config.addDefaultDatabinding = overwrites.addDefaultDatabinding
 		}
-    if (overwrites.css) {
-      config.css = Util.mixin(config.css, overwrites.css)
-    }
-    if (overwrites.router) {
-      config.router = Util.mixin(config.router, overwrites.router)
-    }
-    if (overwrites.databinding) {
-      config.databinding = Util.mixin(config.databinding, overwrites.databinding)
-    }
-    if (overwrites.components) {
-      config.components = overwrites.components
-    }
-    if (overwrites.imageFolder) {
-      config.imageFolder = overwrites.imageFolder
-    }
-    if (overwrites.debug) {
-      config.debug = Util.mixin(config.debug, overwrites.debug)
+		if (overwrites.scrollToTopAfterNavigation !== undefined) {
+			config.scrollToTopAfterNavigation = overwrites.scrollToTopAfterNavigation
+		}
+		if (overwrites.css) {
+			config.css = Util.mixin(config.css, overwrites.css)
+		}
+		if (overwrites.router) {
+			config.router = Util.mixin(config.router, overwrites.router)
+		}
+		if (overwrites.databinding) {
+			config.databinding = Util.mixin(config.databinding, overwrites.databinding)
+		}
+		if (overwrites.components) {
+			config.components = overwrites.components
+		}
+		if (overwrites.imageFolder) {
+			config.imageFolder = overwrites.imageFolder
+		}
+		if (overwrites.debug) {
+			config.debug = Util.mixin(config.debug, overwrites.debug)
 		}
 		if (overwrites.designletPrefix) {
 			config.designletPrefix = overwrites.designletPrefix
@@ -74,11 +102,20 @@ class Config {
 		if (overwrites.loadFonts !== undefined) {
 			config.loadFonts = overwrites.loadFonts
 		}
+		if (overwrites.loadFontsWarning !== undefined) {
+			config.loadFontsWarning = overwrites.loadFontsWarning
+		}		
 		if (overwrites.responsive) {
 			config.responsive = overwrites.responsive
 		}
-    return config
-  }
+		if (overwrites.figma) {
+			config.figma = Util.mixin(config.figma, overwrites.figma)
+		}
+		if (overwrites.meta) {
+			config.meta = Util.mixin(config.meta, overwrites.meta)
+		}
+		return config
+	}
 
 
 }

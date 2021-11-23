@@ -8,7 +8,6 @@
           :element="selectedChild"
           :model="model"
           :config="config"
-          v-model="value"
           @qDesignSystemCallback="forwardDesignSystemCallback"
           @qCallback="forwardCallback"
           @qClick="forwardClick"
@@ -51,10 +50,10 @@ export default {
         /**
          * If no v-model is passed, we take the checked
          */
-        if (this.value === undefined ) {
+        if (this.modelValue === undefined ) {
           return this.checked
         }
-        return this.value
+        return this.modelValue
       }
       if (this.element) {
         let input = this.dataBindingInput
@@ -110,7 +109,7 @@ export default {
       } else {
         this.checked = !this.checked
         this.$emit('change', this.checked)
-        this.$emit('input', this.checked)
+        this.$emit('update:modelValue', this.checked)
         Logger.log(5, 'qComponentSet.toggle() >' + this.checked)
       }
       /**

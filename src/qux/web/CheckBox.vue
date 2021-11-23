@@ -44,8 +44,8 @@ export default {
         } else {
           this.checked = !this.checked
           this.$emit('change', this.checked)
-          this.$emit('input', this.checked)
-          Logger.log(5, 'qCheckBox.toggle() >' + this.checked)
+          this.$emit('update:modelValue', this.checked)
+          Logger.log(-1, 'qCheckBox.toggle() >' + this.checked)
         }
       }
   },
@@ -55,7 +55,6 @@ export default {
       if (v === false || v === true) {
         this.checked = v
       }
-      this.value = v
     }
   },
   mounted () {

@@ -10,7 +10,8 @@ export default class CSSFactory {
 		Logger.log(4, 'CSSFactory.constructor() ', config)
 		this.marginWhiteSpaceCorrect = 0
 		this.imagePrefix = imagePrefix
-
+		this.hoverEmbeddedLabel = false
+	
 		this.responsive = {
 			mobile: {
 				min: 0,
@@ -30,8 +31,18 @@ export default class CSSFactory {
 			this.prefix = config.css.prefix ? config.css.prefix : ''
 		}
 
+
+		if (config.css && config.css.selectorPrefix) {
+			this.selectorPrefix = config.css.selectorPrefix ? config.css.selectorPrefix : ''
+			Logger.log(-1, 'CSSFactory.constructor() > selectorPrefix ', config.css.selectorPrefix)
+		}
+
 		if (config.responsive) {
 			this.responsive = config.responsive
+		}
+
+		if (config.css && config.css.hoverEmbeddedLabel) {
+			this.hoverEmbeddedLabel = config.css.hoverEmbeddedLabel
 		}
 
 		this.mapping = {
@@ -218,7 +229,7 @@ export default class CSSFactory {
 
 	getGlobalStyles () {
 		let result = ''
-		result += `body {\n  margin:0px;\n  font-family:'Source Sans Pro', 'Helvetica Neue', 'Helvetica', sans-serif;\n}\n\n`
+		result += `body {\n  margin:0px;\n  font-family: 'Helvetica Neue', 'Helvetica', sans-serif;\n}\n\n`
 		result += `div {\n  margin:0px;\n}\n\n`
 		return result
 	}
@@ -284,6 +295,9 @@ export default class CSSFactory {
 	}
 
 	getSelector(widget) {
+		if (this.selectorPrefix) {
+			return this.selectorPrefix + ' '+ widget.cssSelector
+		}
 		return widget.cssSelector
 	}
 
@@ -319,7 +333,7 @@ export default class CSSFactory {
 				result += selector + ':hover {\n'
 				result += '  transition: all 0.2s;\n'
 				result += this.getRawStyle(widget.hover, widget);
-				result += '}\n\n'
+				result += '}\n\n'		
 			}
 
 			if (widget.focus) {
@@ -379,6 +393,16 @@ export default class CSSFactory {
 				result += '  transition: all 0.2s;\n'
 				result += this.getRawStyle(widget.hover, widget);
 				result += '}\n\n'
+
+				/**
+				 * We want to functionality only for Figma
+				 */		
+				if (this.hoverEmbeddedLabel) {
+					result += selector + ':hover .qux-common-label {\n'
+					result += this.getStyleByKey(widget.hover, widget, this.textProperties)
+					result += '}\n\n'
+				}
+		
 			}
 
 			if (widget.focus) {

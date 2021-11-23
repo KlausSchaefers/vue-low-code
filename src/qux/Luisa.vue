@@ -14,14 +14,14 @@
             @qFocus="onFocus"
             @qBlur="onBlur"
             @qMouseOver="onMouseOver"
-            @qMouseOut="onMouseOut"
-            v-model="value"/>
+            @qMouseOut="onMouseOut"  
+            />
       <div v-else>
           {{msg}}
       </div>
 
       <div v-if="hasOverlay" :class="['qux-overlay-wrapper', {'qux-overlay-wrapper-fixed': isFixedOverlay}]" @mousedown="popOverlay" ref="overlayWrapper">
-        <qContainer
+            <qContainer
                 ref="overlayCntr"
                 v-if="currentOverlay"
                 :element="currentOverlay"
@@ -36,7 +36,7 @@
                 @qBlur="onBlur"
                 @qMouseOver="onMouseOver"
                 @qMouseOut="onMouseOut"
-                v-model="value"/>
+            />
       </div>
 
   </div>
@@ -53,56 +53,24 @@ import ModelTransformer from './core/ModelTransformer'
 import CSSOptimizer from './core/CSSOptimizer'
 import CSSFactory from './core/CSSFactory'
 import CSSWriter from './core/CSSWriter'
-import ActionEngine from './actions/ActionEngine'
+//import ActionEngine from './actions/ActionEngine'
 import FontWriter from './core/FontWriter'
-
-import Vue from 'vue'
-
-import Button from './web/Button.vue'
-import Label from './web/Label.vue'
-import Icon from './web/Icon.vue'
-import TextBox from './web/TextBox.vue'
-import Container from './web/Container.vue'
-import Repeater from './web/Repeater.vue'
-import Image from './web/Image.vue'
-import CheckBox from './web/CheckBox.vue'
-import CheckBoxGroup from './web/CheckBoxGroup.vue'
-import RadioBox from './web/RadioBox.vue'
-import RadioGroup from './web/RadioGroup.vue'
-import Toggle from './web/Toggle.vue'
-import Switch from './web/Switch.vue'
-import DropDown from './web/DropDown.vue'
-import TextArea from './web/TextArea.vue'
-import Stepper from './web/Stepper.vue'
-import Slider from './web/Slider.vue'
-import qDate from './web/Date.vue'
-import qDatePicker from './web/DatePicker.vue'
-import Segment from './web/Segment.vue'
-import Rating from './web/Rating.vue'
-import IconToggle from './web/IconToggle.vue'
-import Combo from './web/Combo.vue'
-import Table from './web/Table.vue'
-import Paging from './web/Paging.vue'
-import Chart from './web/Chart.vue'
-import Vector from './web/Vector.vue'
-import Timeline from './web/Timeline.vue'
-import Upload from './web/Upload.vue'
-import Camera from './web/Camera.vue'
-import UploadPreview from './web/UploadPreview.vue'
-import ChildrenToggle from './web/ChildrenToggle.vue'
-import Spinner from './web/Spinner.vue'
-import DynamicContainer from './web/DynamicContainer.vue'
-import RichText from './web/RichText.vue'
+import FigmaService from './figma/FigmaService'
 
 import Logic from './mixins/Logic.vue'
 import Event from './mixins/Event.vue'
+
 import JSONPath from './core/JSONPath'
 
 export default {
   mixins:[Event, Logic],
-  name: 'QUX',
+  name: 'Luisa',
+  emits: ['update:modelValue', 'qScreenLoad', 'qClick', 'click', 'qChange', 'change', 'qKeyPress', 'qFocus', 'qBlur', 'qDesignSystemCallback', 'qScrollTop'],
   props: {
       'app': {
+          default: false
+      },
+      'design': {
       },
       'screen': {
           type: String
@@ -113,7 +81,7 @@ export default {
       'debug': {
           type: String
       },
-      'value': {
+      'modelValue': {
           type: Object,
           default: function () {
             return {
@@ -133,6 +101,11 @@ export default {
       'actions': {
         type: Array
       }
+  },
+  provide() {
+    return {
+      viewModel: this.modelValue
+    }
   },
   data: function () {
       return {
@@ -216,7 +189,7 @@ export default {
   },
   methods: {
     getResponsiveModel (model, responsive) {
-        Logger.log(-1, 'QUX.getResponsiveModel() > enter >', responsive)
+        Logger.log(-1, 'Luisa.getResponsiveModel() > enter >', responsive)
         let pagesWithTypes = responsive.filter(t => t.types.length > 0)
 
         /**
@@ -226,7 +199,7 @@ export default {
             this.setDeviceType()
             model = Util.clone(model)
             let pages = this.mergedConfig.responsive.filter(t => t.types.indexOf(this.deviceType) > -1).map(t => t.page)
-            Logger.log(2, 'QUX.getResponsiveModel() > Pages >' + this.deviceType, pages.join(','))
+            Logger.log(2, 'Luisa.getResponsiveModel() > Pages >' + this.deviceType, pages.join(','))
             let filteredScreens = {}
             Object.values(model.screens).forEach(s => {
                 if (pages.indexOf(s.pageName) > -1) {
@@ -235,7 +208,7 @@ export default {
             })
 
             if (Object.values(filteredScreens).length > 0) {
-                Logger.log(-1, 'QUX.getResponsiveModel() > exit :', this.deviceType)
+                Logger.log(-1, 'Luisa.getResponsiveModel() > exit :', this.deviceType)
                 model.screens = filteredScreens
                 return model
             }
@@ -258,55 +231,68 @@ export default {
         css = css.join('\n')
         CSSWriter.write(css, tree.id)
     },
-    async setApp (app) {
+    async setFigma (figma) {
+       Logger.log(-1, 'Luisa.setFigma()', this.pages)
+        const figmaService = new FigmaService(figma.figmaAccessKey, this.mergedConfig)
+        const selectedPages = this.pages ? this.pages : []
+        let app = await figmaService.get(figma.figmaFile, true, false, selectedPages)
+        app = figmaService.setBackgroundImages(app)
+        return app
+    },
+    async setDesign(design) {
+        Logger.log(-1, 'Luisa.setApp() > setDesign', design)
+
+        if (this.config) {
+          this.setConfig(this.config, design)
+        }
+        if (design.figmaFile && design.figmaAccessKey) {
+            const app = await this.setFigma(design)
+            await this.setQUX(app)
+        } else {
+            await this.setQUX(design)
+        }
+    },
+    setConfig (c, design) {
+        if (design.figmaId || design.figmaFile && design.figmaAccessKey) {
+            Logger.log(1, 'Luisa.setConfig() > Set Figma')
+            this.mergedConfig.css = Config.getFigmaCSS()
+        }
+        this.mergedConfig = Config.merge(this.mergedConfig, c)
+        this.initCustomComponents(this.mergedConfig.components)
+        Logger.setLogLevel(this.mergedConfig.debug.logLevel)
+        //Logger.log(5, 'Luisa.setConfig()', JSON.stringify(this.mergedConfig, null, 2))
+    },
+    async setQUX (app) {
         if (app.substring) {
             let model = await this.loadAppByKey(app)
             this.model = model
             this.hash = app
-        } else if (app.mobile || app.desktop) {
-            Logger.error('DEPRECTAED: QUX.setApp() > reponsive', app)
-            if (app.mobile) {
-                if (app.mobile.substring) {
-                    this.mobileModel = await this.loadAppByKey(app.mobile)
-                } else {
-                    this.mobileModel = app.mobile
-                }
-            }
-            if (app.tablet) {
-                if (app.tablet.substring) {
-                    this.tabletModel = await this.loadAppByKey(app.tablet)
-                } else {
-                    this.tabletModel = app.tablet
-                }
-            }
-            if (app.desktop) {
-                if (app.desktop.substring) {
-                    this.desktoModel = await this.loadAppByKey(app.desktop)
-                } else {
-                    this.desktoModel = app.desktop
-                }
-            }
-            this.onResize()
         } else {
             this.model = app
         }
         this.initViewModel()
     },
     async loadAppByKey (key) {
-        Logger.log(3, 'QUX.loadAppByKey() > enter', key)
+        Logger.log(3, 'Luisa.loadAppByKey() > enter', key)
         let url = `${this.server}/rest/invitation/${key}/app.json`
         let start = new Date().getTime()
         const response = await fetch(url);
         if (response.status === 200) {
             let app = await response.json();
-            Logger.log(-1, 'QUX.loadAppByKey() > exit', new Date().getTime() - start)
+            Logger.log(-1, 'Luisa.loadAppByKey() > exit', new Date().getTime() - start)
             return app
         } else {
             this.msg = 'The debug id is wrong!'
         }
     },
     setScreen (screenName, query) {
-        Logger.log(-1, 'QUX.setScreen() > ', screenName, query)
+        Logger.log(-1, 'Luisa.setScreen() > ', screenName, query)
+        
+        if (this.mergedConfig.router.disabled === true) {
+            this.loadScreen(screenName)
+            Logger.log(-1, 'Luisa.setScreen() > router disabled', screenName)
+            return
+        }
         // Update url, which will trigger watcher, which will call setScreenByRouter() which will call loadScreen()
         let prefix = ''
         if (this.config && this.config.router && this.config.router.prefix) {
@@ -318,16 +304,11 @@ export default {
         }
         /**
          * In history mode we have to set the entire URL
-         */
-        if (this.$router && this.$router.mode === 'history'){
-            location = url
-        } else {
-            location.hash = '#' + url
-        }
-
+         */        
+        this.$router.push(url)
     },
     loadScreen (name) {
-        Logger.log(2 , 'QUX.loadScreen() >', name)
+        Logger.log(2 , 'Luisa.loadScreen() >', name)
         this.closeAllOverlays()
         if (this.model) {
             /**
@@ -335,13 +316,13 @@ export default {
              */
             let model = this.responsiveModel
             let screen = Object.values(model.screens).find(s => s.name === name)
-            Logger.log(-1, 'QUX.loadScreen() > Found ', screen)
+            Logger.log(-1, 'Luisa.loadScreen() > Found ', screen)
             if (screen) {
                 // make here somethink like: use router? and updat ethe url as well?
                 this.selectedScreenId = screen.id
                 this.onScreenLoaded(screen)
             } else {
-                Logger.warn('QUX.loadScreen() > No screen with name', name)
+                Logger.warn('Luisa.loadScreen() > No screen with name', name)
                 let startScreen = this.getDefaultScreen()
                 if (startScreen) {
                     this.selectedScreenId = startScreen.id
@@ -351,11 +332,11 @@ export default {
                 }
             }
         } else {
-            Logger.warn('QUX.loadScreen() > No Model')
+            Logger.warn('Luisa.loadScreen() > No Model')
         }
     },
     getDefaultScreen () {
-        Logger.log(2, 'QUX.getDefaultScreen() > enter')
+        Logger.log(1, 'Luisa.getDefaultScreen() > enter') 
         let screen = this.treeModel.screens.filter(screen => screen.isComponentScreen !== true).find(screen => screen.props.start === true)
         if (!screen) {
             screen = this.treeModel.screens.filter(screen => screen.isComponentScreen !== true)[0]
@@ -363,7 +344,7 @@ export default {
         return screen
     },
     setStartScreen () {
-        Logger.log(5, 'QUX.setStartScreen() > enter ')
+        Logger.log(5, 'Luisa.setStartScreen() > enter ')
         let startScreen = this.getDefaultScreen()
         if (startScreen) {
             this.selectedScreenId = startScreen.id
@@ -373,82 +354,31 @@ export default {
         }
     },
     setScreenByRouter () {
-        Logger.log(5, 'QUX.setScreenByRoute() > enter ', this.$route)
+        Logger.log(2, 'Luisa.setScreenByRoute() > enter ', this.$route)
         let key = 'screenName'
         if (this.config && this.config.router && this.config.router.key) {
             key = this.config.router.key
         }
         let screenName = this.$route.params[key]
         if (screenName) {
-            Logger.log(-1, 'QUX.setScreenByRoute() > exit ', screenName, `(${key})`)
+            Logger.log(1, 'Luisa.setScreenByRoute() > exit ', screenName, `(${key})`)
             this.loadScreen(screenName)
         } else {
-            Logger.log(-1, 'QUX.setScreenByRoute() > exit > set start')
+            Logger.log(1, 'Luisa.setScreenByRoute() > exit > set start')
             this.setStartScreen()
         }
     },
-    setConfig (c) {
-        this.mergedConfig = Config.merge(this.mergedConfig, c)
-        this.initCustomComponents(this.mergedConfig.components)
-        Logger.setLogLevel(this.mergedConfig.debug.logLevel)
-        Logger.log(5, 'QUX.setConfig()', JSON.stringify(this.mergedConfig))
-    },
+   
     initCustomComponents (components) {
-        Logger.log(1, 'QUX.initCustomComponents()')
-        for (let key in components) {
-            let c = components[key]
-            Vue.component(key, c);
-        }
-    },
-    initComponents () {
-        Vue.component('qHotSpot', Button);
-        Vue.component('qButton', Button);
-        Vue.component('qBox', Button)
-        Vue.component('qLabel', Label);
-        Vue.component('qContainer', Container)
-        Vue.component('qIcon', Icon)
-        Vue.component('qTextBox', TextBox)
-        Vue.component('qPassword', TextBox)
-        Vue.component('qTextArea', TextArea)
-        Vue.component('qRepeater', Repeater)
-        Vue.component('qImage', Image)
-        Vue.component('qCheckBox', CheckBox)
-        Vue.component('qRadioBox', RadioBox)
-        Vue.component('qRadioBox2', RadioBox)
-        Vue.component('qRadioGroup', RadioGroup)
-        Vue.component('qCheckBoxGroup', CheckBoxGroup)
-        Vue.component('qToggleButton', Toggle)
-        Vue.component('qSwitch', Switch)
-        Vue.component('qDropDown', DropDown)
-        Vue.component('qMobileDropDown', DropDown)
-        Vue.component('qStepper', Stepper)
-        Vue.component('qHSlider', Slider)
-        Vue.component('qDate', qDate)
-        Vue.component('qDateDropDown', qDatePicker)
-        Vue.component('qSegmentButton', Segment)
-        Vue.component('qRating', Rating)
-        Vue.component('qIconToggle', IconToggle)
-        Vue.component('qLabeledIconToggle', IconToggle)
-        Vue.component('qTypeAheadTextBox', Combo)
-        Vue.component('qTable', Table)
-        Vue.component('qPaging', Paging)
-        Vue.component('qBarChart', Chart)
-        Vue.component('qPieChart', Chart)
-        Vue.component('qMultiRingChart', Chart)
-        Vue.component('qRingChart', Chart)
-        Vue.component('qVector', Vector)
-        Vue.component('qTimeline', Timeline)
-        Vue.component('qUpload', Upload)
-        Vue.component('qCamera', Camera)
-        Vue.component('qChildrenToggle', ChildrenToggle)
-        Vue.component('qUploadPreview', UploadPreview)
-        Vue.component('qSpinner', Spinner)
-        Vue.component('qDynamicContainer', DynamicContainer)
-        Vue.component('qRichText', RichText)
+        Logger.log(1, 'Luisa.initCustomComponents()', components)
+        //for (let key in components) {
+        //    let c = components[key]
+        //    //Vue.component(key, c);
+        //}
     },
     initViewModel () {
-        Logger.log(3, 'QUX.initViewModel > enter')
-        if (this.value && this.model) {
+        Logger.log(3, 'Luisa.initViewModel > enter')
+        if (this.modelValue && this.model) {
             /**
              * Fix screen names
              */
@@ -476,10 +406,10 @@ export default {
                  *
                  * FIXME: This should be more intelligent and add arrays and so if needed
                  */
-                let has = JSONPath.has(this.value, databinding)
+                let has = JSONPath.has(this.modelValue, databinding)
                 if (!has) {
-                    Logger.log(-1, 'QUX.initViewModel > Missing data in view model', databinding)
-                    JSONPath.set(this.value, databinding, value)
+                    Logger.log(-1, 'Luisa.initViewModel > Missing data in view model', databinding)
+                    JSONPath.set(this.modelValue, databinding, value)
                 }
             })
         }
@@ -488,33 +418,33 @@ export default {
         window.addEventListener("resize", this.onScreenSizeChange);
     },
     onScreenSizeChange () {
-        Logger.log(-1, 'QUX.onScreenSizeChange > enter')
+        Logger.log(-1, 'Luisa.onScreenSizeChange > enter')
         this.setDeviceType()
         this.setScreenByRouter()
     },
     setDeviceType () {
-        Logger.log(1, 'QUX.setDeviceType > enter')
+        Logger.log(1, 'Luisa.setDeviceType > enter')
         let w = window.outerWidth
         let breakpoints = this.mergedConfig.breakpoints
         if (breakpoints) {
             if (w < breakpoints.mobile.max) {
-                Logger.log(-1, 'QUX.setDeviceType > exit mobile', w)
+                Logger.log(-1, 'Luisa.setDeviceType > exit mobile', w)
                 this.deviceType = 'mobile'
                 return
             }
             if (w < breakpoints.tablet.max) {
-                Logger.log(-1, 'QUX.setDeviceType > exit tablet', w)
+                Logger.log(-1, 'Luisa.setDeviceType > exit tablet', w)
                 this.deviceType = 'tablet'
                 return
             }
 
-            Logger.log(-1, 'QUX.setDeviceType > exit desktop', w)
+            Logger.log(-1, 'Luisa.setDeviceType > exit desktop', w)
             this.deviceType = 'desktop'
             return
         }
     },
     getMethodExcutor () {
-        Logger.log(3, 'QUX.getMethodExcutor() > ')
+        Logger.log(3, 'Luisa.getMethodExcutor() > ')
         if (this.executor) {
             return this.executor
         }
@@ -523,35 +453,40 @@ export default {
   },
   watch: {
     '$route' () {
-        Logger.log(3, 'QUX.watch(router) > enter')
+        Logger.log(3, 'Luisa.watch(router) > enter')
+        if (this.mergedConfig.router.disabled === true) {
+            Logger.log(-1, 'Luisa.watch(router) > Diabled')
+            return
+        }
         this.setScreenByRouter()
+        this.scrollToTop()
     },
     'screen' (v) {
-        Logger.log(3, 'QUX.watch(screen) > enter')
+        Logger.log(3, 'Luisa.watch(screen) > enter')
         this.setScreen(v)
     },
     'value' (v) {
-        Logger.log(3, 'QUX.watch(value) > enter', v)
-        this.value = v
-        this.initViewModel()
+        Logger.error('Luisa.watch(value) > enter', v)
+        //this.value = v
+        //this.initViewModel()
     },
-    'app' (v) {
-        Logger.log(3, 'QUX.watch(app) > enter', v)
-        this.app = v
-        this.setApp(this.app)
+    'design' (v) {
+        Logger.error('Luisa.watch(design) > enter', v)
+        //this.app = v
+        //this.setApp(this.app)
     }
   },
+  beforeMount () {
+  },
   async mounted () {
-      Logger.log(0, 'QUX.mounted()', this.value)
-      this.initComponents()
-      if (this.config) {
-          this.setConfig(this.config)
-      }
-      if (this.actions && this.actions.length > 0) {
-        this.actionEngine = new ActionEngine(this.actions)
+      Logger.log(0, 'Luisa.mounted()', this.value)
+
+      if (this.design) {
+          await this.setDesign(this.design)
       }
       if (this.app) {
-          await this.setApp(this.app)
+          Logger.error('Luisa.mounted () > APP is depcreated')
+          await this.setDesign(this.app)
       }
       if (this.debug) {
           console.warn('QUX > debug property is decrecated. Use "app" instead.')
@@ -564,16 +499,16 @@ export default {
             this.setScreenByRouter()
         }
       } else {
-          Logger.log(-1, 'QUX.mounted() > Selected:', this.selected, this.app)
+          Logger.log(-1, 'Luisa.mounted() > Selected:', this.selected, this.app)
       }
 
       if (this.$router && this.$router.mode === 'history') {
-        Logger.log(-1, 'QUX.mounted() > Launch router with history', this.$router)
+        Logger.log(-1, 'Luisa.mounted() > Launch router with history', this.$router)
       }
 
       this.initReziseListener()
   },
-  beforeDestroy () {
+  beforeUnmount () {
       window.removeEventListener("resize", this.onResize);
   }
 }

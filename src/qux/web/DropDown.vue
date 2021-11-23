@@ -104,7 +104,7 @@ export default {
         } else {
           this.selected = option.value
           this.$emit('change', this.selected)
-          this.$emit('input', this.selected)
+          this.$emit('update:modelValue', this.selected)
           Logger.log(5, 'qSwitch.select() >' + this.selected)
         }
         this.close()
@@ -112,7 +112,7 @@ export default {
   },
   watch: {
   },
-  destroyed () {
+  unmounted () {
       this.close()
   },
   mounted () {

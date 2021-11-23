@@ -6,7 +6,7 @@ class RestEngine {
     }
 
     run (request, data) {
-
+  
         if (request.method === "POST" && request.input.type === 'JSON') {
             return this.postOrPut(request, data)
         }
@@ -123,7 +123,7 @@ class RestEngine {
     get (request, values) {
         return new Promise( async (resolve, reject) => {
             let url = await this.buildURL(request, values)
-            let header = this.createDefaultHeader(request)
+            let header = await this.createDefaultHeader(request)
 
             fetch(url, {
                 method: "GET",

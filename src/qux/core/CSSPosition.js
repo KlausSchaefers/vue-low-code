@@ -7,9 +7,13 @@ export default class CSSPosition {
 		this.cssFacotory = f
 
 		this.gridAutoErrorThreshold = 5
-
+		this.huggedCanResize = false
+		this.autoFixThreshold = 3
+		
 		if (config.css) {
 			this.isForceGrid = config.css.grid
+			this.autoFixThreshold = config.css.autoFixThreshold
+			this.huggedCanResize = config.css.huggedCanResize
 			this.justifyContentInWrapper = config.css.justifyContentInWrapper
 			this.prefix = config.css.prefix ? config.css.prefix : ''
 			this.gridAutoErrorThreshold = config.css.gridAutoErrorThreshold ? config.css.gridAutoErrorThreshold : 5
@@ -190,7 +194,8 @@ export default class CSSPosition {
 		}
 
 		if (!Util.isAutoLayoutSpaceBetween(widget)) {
-			result += `  gap: ${l.itemSpacing}px;\n`
+			let gap = l.itemSpacing ? l.itemSpacing : 0
+			result += `  gap: ${gap}px;\n`
 		}
 
 		result += `  padding-left: ${l.paddingLeft}px;\n`
@@ -206,19 +211,26 @@ export default class CSSPosition {
 		Logger.log(5, "CSSPosition.getParentAutoHorizontal() > " + widget.name)
 		let result = ''
 
-		result += `  height: ${this.getCorrectedHeight(widget, true)};\n`
+		if (Util.isFixedVertical(widget)) {
+			result += `  height: ${this.getCorrectedHeight(widget, true)};\n`
+		} else {
+			result += `  min-height: ${this.getCorrectedHeight(widget, true)};\n`
+		}
 
 		if (Util.hasMinMaxWdith(widget)) {
 			result += this.getMinMaxWidth(widget, false)
 			result += `  flex-grow: 1;\n`
 		} else if (Util.isFixedHorizontal(widget)) {
-			result += `  width: ${this.getFixedWidth(widget)};\n`
-		} else {
-			if (Util.isLayoutGrow(widget)) {
-				//result += `  min-width: ${this.getFixedWidth(widget)};\n`
-				//result += `  max-width: 100%;\n`
-				result += `  flex-grow: 1;\n`
+			if (Util.isHugHorizontal(widget)) {
+				//result += `  flex-basis: ${this.getFixedWidth(widget)};\n`
 			} else {
+				result += `  width: ${this.getFixedWidth(widget)};\n`
+			}	
+		} else {			
+			if (Util.isLayoutGrow(widget)) {
+				result += `  flex-basis: ${this.getFixedWidth(widget)}; \n`				
+				result += `  flex-grow: 1;\n`
+			} else {				
 				result += `  width: ${this.getResponsiveWidth(widget)};\n`
 			}
 		}
@@ -237,7 +249,8 @@ export default class CSSPosition {
 		result += "  flex-direction: column;\n"
 		result += `  align-items: ${l.alignItems};\n`
 		result += `  justify-content: ${l.justifyContent};\n`
-		result += `  gap: ${l.itemSpacing}px;\n`
+		let gap = l.itemSpacing ? l.itemSpacing : 0
+		result += `  gap: ${gap}px;\n`
 
 		result += `  padding-left: ${l.paddingLeft}px;\n`
 		result += `  padding-right: ${l.paddingRight}px;\n`
@@ -261,20 +274,28 @@ export default class CSSPosition {
 		/**
 		 * In a vertical layout we might have a strech property. This translates to width 100%
 		 */
-		if (Util.isFixedHorizontal(widget)) {
-			result += `  width: ${this.getFixedWidth(widget)};\n`
+		if (Util.isFixedHorizontal(widget)) {		
+			result += `  width: ${this.getFixedWidth(widget)};\n`				
 		} else {
 			/**
-			 * FIXME: We have an ugly hack here! We should have clac(100% - paddingLeft + paddingRight)
+			 * If we have an fill layout, we use calc.
 			 */
-			result += `  width: 100%;\n` // we have to substract padding
-			result += `  box-sizing: border-box;\n` // we have to substract padding
+			result += this.getParentAutoHorizontalWidth(widget)				
 		}
-
-
 
 		return result
 	}
+
+	getParentAutoHorizontalWidth (widget) {
+		let paddingHorizontal = Util.getAutoPaddingHorizontal(widget)
+		if (paddingHorizontal > 0) {
+			return `  width: calc(100% - ${paddingHorizontal}px);\n`
+		} else {
+			return `  width: 100%;\n`		
+		}
+	}
+
+
 
 	/*********************************************************************
 	 * Grid
@@ -402,12 +423,17 @@ export default class CSSPosition {
 		} else {
 			result += `  left: ${this.getResponsiveLeft(widget)};\n`
 		}
-		if (Util.isPinnedDown(widget)) {
+		if (Util.isPinnedDown(widget) && Util.isPinnedUp(widget)) {		
 			result += `  bottom: ${widget.bottom}px;\n`
+			result += `  top: ${widget.y}px;\n`
+		} else if (Util.isPinnedDown(widget)) {
+			result += `  bottom: ${widget.bottom}px;\n`
+			result += `  height: ${this.getCorrectedHeight(widget)};\n`
 		} else {
 			result += `  top: ${widget.y}px;\n`
+			result += `  height: ${this.getCorrectedHeight(widget)};\n`
 		}
-		result += `  height: ${this.getCorrectedHeight(widget)};\n`
+		
 		return result
 	}
 

@@ -65,6 +65,7 @@ export default {
             if (!isNaN(count)) {
                 return count
             }
+            return 0
         }
         return this.count
       }
@@ -93,7 +94,7 @@ export default {
           this.$emit('qChange', this.element, null, this.count)
         } else {
           this.$emit('change', this.count)
-          this.$emit('input', this.count)
+          this.$emit('update:modelValue', this.count)
         }
         Logger.log(5, 'qSlider.onChange() exit > ', this.count)
       }

@@ -49,7 +49,7 @@ export default {
         } else {
           this.active = !this.active
           this.$emit('change', this.active)
-          this.$emit('input', this.active)
+          this.$emit('update:modelValue', this.active)
           Logger.log(5, 'qSwitch.toggle() >' + this.active)
         }
       }

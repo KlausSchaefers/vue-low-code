@@ -8,15 +8,13 @@
           FIXME: For auto layout we might need a stupid wrapper around that can grow horizontally
           to allow scrolling. In This oculd for now somehow be solved in Figma, so I will ignore this...
       -->
-
       <div v-for="(row, i) in rows" :key="i" class="qux-repeater-child">
         <component v-for="child in element.children"
             :is="child.qtype"
             :key="child.id"
             :element="getDeepCopy(child, row, i)"
             :model="model"
-            :config="config"
-            v-model="value"
+            :config="config"      
             @qClick="forwardClick(i, $event)"
             @qChange="forwardChange"
             @qKeyPress="forwardKeyPress"
@@ -64,12 +62,12 @@ export default {
       rows () {
         if (this.element && this.element.props && this.element.props.databinding) {
             let path =  this.element.props.databinding.default
-            let value = JSONPath.get(this.value, path)
+            let value = JSONPath.get(this.viewModel, path)
             Logger.log(5, 'Repeater.rows() > exit path: > ' + path, value)
             if (Array.isArray(value)) {
                 return value
             } else {
-              Logger.warn('Repeater.rows() > Value is no array: > ' + path, this.value)
+              Logger.warn('Repeater.rows() > Value is no array: > ' + path, this.viewModel)
             }
         } else {
             return this.getRowsFromTable(this.element)
@@ -154,7 +152,7 @@ export default {
     },
 
     forwardClick (i, element, e) {
-      let row = this.dataBindingInputPath ? JSONPath.get(this.value, `${this.dataBindingInputPath}[${i}]`) : null
+      let row = this.dataBindingInputPath ? JSONPath.get(this.viewModel, `${this.dataBindingInputPath}[${i}]`) : null
       if (element.lines && element.lines.length > 0) {
         if (this.dataBindingOutputPath && this.dataBindingInputPath) {
           if (row) {
@@ -162,7 +160,7 @@ export default {
             /**
              * FIXME: Should we do a copy here???
              */
-            JSONPath.set(this.value, this.dataBindingOutputPath, row)
+            JSONPath.set(this.viewModel, this.dataBindingOutputPath, row)
           }
         }
       }

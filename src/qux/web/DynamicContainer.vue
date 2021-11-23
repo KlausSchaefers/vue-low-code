@@ -9,7 +9,6 @@
           :element="selectedChild"
           :model="model"
           :config="config"
-          v-model="value"
           @qDesignSystemCallback="forwardDesignSystemCallback"
           @qCallback="forwardCallback"
           @qClick="onClick"

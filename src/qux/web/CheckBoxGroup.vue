@@ -15,7 +15,7 @@
 import _Base from './_Base.vue'
 import Logger from '../core/Logger'
 import CheckBox from './CheckBox.vue'
-import Vue from 'vue'
+//import Vue from 'vue'
 
 export default {
   name: 'qCheckBoxGroup',
@@ -63,7 +63,8 @@ export default {
                 if (pos < 0) {
                     input.push(option)
                 } else {
-                    Vue.delete(input, pos)
+                    input = input.filter(item => item !== option)
+                    //Vue.delete(input, pos)
                 }
             }
         } else {
