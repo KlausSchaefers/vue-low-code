@@ -4,11 +4,11 @@ designs into fully functional *VUE3* applications. By ensuring that the
 design stays the single source of truth, Vue-Low-Code reduces the need for design
 hand-offs and front-end code significantly.
 
-# Documentation
+## Documentation
 
 You can find the documentation at [Luisa.cloud](https://luisa.cloud/help.html).
 
-# Examples-And-Links
+## Examples-And-Links
 - [Quant-UX](https://quant-ux.com)
 - [Template project VUE2] (https://github.com/KlausSchaefers/luisa-vue2-starter)
 - [Template project VUE3] (https://github.com/KlausSchaefers/luisa-vue2-starter)
@@ -20,15 +20,15 @@ You can find the documentation at [Luisa.cloud](https://luisa.cloud/help.html).
 
 
 
-# Contact-and-Support
+## Contact-and-Support
 
 If you want to reach out please use the [Contact](https://quant-ux.com/#/contact.html) page or [Discord](https://discord.gg/TQBpfAAKmU)
 
 
-# Minimal documentation (Deprecated!)
+## Minimal documentation (Deprecated!)
 
 
-## The handoff problem
+### The handoff problem
 A constant pain point during the development of an application is the hand-off between the design and the development team.
 Often this process is not frictionless. The design team creates a set of graphics and prototypes,
 which serve as the source of truth and specification for the development team.
@@ -37,7 +37,7 @@ includes the translation of the design into front-end code and business logic, a
 the wiring between the two. As the development evolves, the implementation becomes a second source of truth,
 and keeping the design and the code base in sync can be a painful exercise.
 
-## Solution
+### Solution
 
 The core of the solution is the Luisa component which reads the visual design and creates
 the front-end automatically on the fly. As a result, changes in the design are immediately updated in the
@@ -65,7 +65,7 @@ In summary, the Luisaproject provides the following benfefits:
 
 More information can be found [here](https://uxdesign.cc/figma-low-code-a-new-way-to-tackle-design-hand-offs-a72cb109a455)
 
-## Guide
+### Guide
 
 Table of contents
 
@@ -79,7 +79,7 @@ Table of contents
 9. [Contact & Support](#Contact-and-Support)
 
 
-## How to install Luisa
+### How to install Luisa
 
 First, you have to install the Luisa package via NPM
 
@@ -88,7 +88,7 @@ npm i luisa-vue@3
 ```
 
 
-## Register Luisa to Vue
+### Register Luisa to Vue
 In the full mode the <QUX> or <Figma> component are used to render the entire front end. The first step is top register these components in Vue. The following section will use Quant-UX design as an example. For Figma, please check the [Figma-Low-Code](https://github.com/KlausSchaefers/figma-low-code) repo.
 
 
@@ -262,7 +262,7 @@ use several instances if the QUX component in your template.
 ```
 
 
-## MDI Icons
+### MDI Icons
 
 If you are using the Quant-UX icons components, you have to install the mdi-font package.
 
@@ -277,7 +277,7 @@ import '@mdi/font/css/materialdesignicons.css'
 ```
 
 
-## Define data binding and callbacks.
+### Define data binding and callbacks.
 
 You can define the data binding and the callbacks in the normal Quant-UX designer. Before you start,
 you have to enable the Beta features. To do so:
@@ -330,7 +330,7 @@ for production you should download the artifacts.
 
 
 
-## Low Code Workflow
+### Low Code Workflow
 
 We envision the following workflow to enable painless collaboration between designers and developers:
 
@@ -344,7 +344,7 @@ We envision the following workflow to enable painless collaboration between desi
 6. Changes in the design are transparent to the developer, he just reloads the design from Quant-UX.
 
 
-# Dev Setup
+## Dev Setup
 
 For fixes and improvements please clone the repository and submit pull requests.
 
