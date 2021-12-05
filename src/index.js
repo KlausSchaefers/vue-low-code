@@ -43,6 +43,7 @@ import ChildrenToggle from './qux/web/ChildrenToggle.vue'
 import Spinner from './qux/web/Spinner.vue'
 import DynamicContainer from './qux/web/DynamicContainer.vue'
 import RichText from './qux/web/RichText.vue'
+import Link from './qux/web/Link.vue'
 
 import FigmaDesignSystem from './qux/ds/FigmaDesignSystem'
 import QUXDesignSystem from './qux/ds/QUXDesignSystem'
@@ -99,6 +100,7 @@ export default {
   Vue.component('qSpinner', Spinner)
   Vue.component('qDynamicContainer', DynamicContainer)
   Vue.component('qRichText', RichText)
+  Vue.component('qLink', Link)
  }
 };
 

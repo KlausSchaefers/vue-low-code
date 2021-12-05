@@ -59,7 +59,6 @@ import FigmaService from './figma/FigmaService'
 
 import Vue from 'vue'
 
-
 import Logic from './mixins/Logic.vue'
 import Event from './mixins/Event.vue'
 import JSONPath from './core/JSONPath'
