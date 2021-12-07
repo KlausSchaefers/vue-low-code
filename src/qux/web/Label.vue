@@ -1,6 +1,6 @@
 <template>
   <router-link :class="['qux-label', cssClass]" @click="onClick"  v-if="hasLink" :to="link" >
-    <span class="qux-richtext" v-if="dataBindingLabel && dataBindingLabel.type === 'richtext'" v-html="dataBindingLabel.value">
+    <span class="qux-richtext" v-if="isRichText" v-html="richText">
     </span>
      <span class="qux-common-label" v-else-if="dataBindingLabel && !hasSlot">
       {{dataBindingLabel}}
@@ -10,7 +10,7 @@
     </span>
   </router-link>
   <label :class="['qux-label', cssClass]" @click="onClick" v-else>
-    <span class="qux-richtext" v-if="isRichText" v-html="dataBindingLabel.value">
+    <span class="qux-richtext" v-if="isRichText" v-html="richText">
     </span>
      <span class="qux-common-label" v-else-if="dataBindingLabel && !hasSlot">
       {{dataBindingLabel}}
@@ -26,6 +26,7 @@
 <script>
 
 import _Base from './_Base.vue'
+import {cleanInnerHTML} from './WebUtil.js'
 
 export default {
   name: 'qLabel',
@@ -35,6 +36,9 @@ export default {
       }
   },
   computed: {
+    richText () {
+      return cleanInnerHTML(this.dataBindingLabel.value)
+    },
     isRichText () {
       let label = this.dataBindingLabel
       if (label && label.type === 'richtext') {

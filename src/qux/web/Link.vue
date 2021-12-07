@@ -1,5 +1,5 @@
 <template>
-  <a :class="['qux-label', cssClass]" @click="onClick" :href="linkURL" >
+  <a :class="['qux-link', cssClass]" @click="onClick" :href="linkURL" >
     <span class="qux-richtext" v-if="dataBindingLabel && dataBindingLabel.type === 'richtext'" v-html="dataBindingLabel.value">
     </span>
      <span class="qux-common-label" v-else-if="dataBindingLabel && !hasSlot">

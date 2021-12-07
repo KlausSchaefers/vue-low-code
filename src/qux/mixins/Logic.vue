@@ -38,12 +38,13 @@ export default {
     },
 
     async executeRest (widget) {
-        Logger.log(0, 'Luisa.executeRest() > enter', widget.props.rest)
+        Logger.log(-1, 'Luisa.executeRest() > enter', widget.props.rest)
 
         let rest = widget.props.rest
 
         /**
-         * get al the data we need!
+         * get all the data we need from the viewModel and pass
+         * it as a simple flat map, e.g. {'user.name': 'peter'}
          */
         let requiredDataBindings = RestEngine.getNeededDataBings(rest)
         let data = {}
