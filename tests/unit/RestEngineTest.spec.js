@@ -1,4 +1,3 @@
-import { renderSync } from 'node-sass';
 import RestEngine from '../../src/qux/core/RestEngine'
 
 test('Test fillString()', async () => {

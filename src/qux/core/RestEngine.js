@@ -45,29 +45,57 @@ class RestEngine {
         return data;
     }
 
+    fillSimpleString (s, values) {
+        let matches = this.getDataBindingVariables(s)
+        matches.forEach(key => {
+            if (values[key] !== undefined) {
+                let value = this.getValueByKey(values, key)
+                let pattern = "${" + key + "}"
+                s = this.replacePattern(s, pattern, value)
+            }
+        })
+        return s
+    }
+
+    getDataBindingVariables (s) {
+        let matches = []
+        this.parseString(s, matches)
+        return matches
+    }
+   
     async fillString (s, values, encodeFiles = true) {
         for (let key in values) {
-            let value = await this.getStringFilelValue(values[key], encodeFiles)
+            let value = this.getValueByKey(values, key)
+            value = await this.getStringFilelValue(value, encodeFiles)
             let pattern = "${" + key + "}"
-            let i = 0
-            while(s.indexOf(pattern) >= 0 && i < 100) {
-                s = s.replace(pattern, value)
-                i++
-            }
+            s = this.replacePattern(s, pattern, value)
         }
         if (s.indexOf('${') >= 0){
-            Logger.error("buildURL", "exit" ,s)
-            throw new Error("buildURL() > Not all parameters replaced!" + s)
+            Logger.error("fillString", "exit" ,s)
+            throw new Error("fillString() > Not all parameters replaced!" + s)
         }
         return s
     }
 
     getStringFilelValue (value, encodeFiles) {
-        // FIXME: check if we contain ${} to avoid messz stuff
+        // FIXME: check if we contain ${} to avoid messy stuff
         if (value && value.name && value.size && encodeFiles) {
             value = this.readFileAsBase64(value)
         }
         return value
+    }
+
+    getValueByKey (values, key) {        
+        return values[key]
+    }
+
+    replacePattern (s, pattern, value) {
+        let i = 0
+        while (s.indexOf(pattern) >= 0 && i < 100) {
+            s = s.replace(pattern, value)
+            i++
+        }
+        return s
     }
 
     async readFileAsBase64 (file) {
@@ -123,7 +151,7 @@ class RestEngine {
     get (request, values) {
         return new Promise( async (resolve, reject) => {
             let url = await this.buildURL(request, values)
-            let header = await this.createDefaultHeader(request)
+            let header = await this.createDefaultHeader(request, values)
 
             fetch(url, {
                 method: "GET",
@@ -144,7 +172,7 @@ class RestEngine {
     postOrPostImage (request, values) {
         return new Promise( async (resolve, reject) => {
             let url = await this.buildURL(request, values)
-            let header = this.createDefaultHeader(request)
+            let header = this.createDefaultHeader(request, values)
 
             const formData = new FormData()
             for (let key in values) {
@@ -174,7 +202,7 @@ class RestEngine {
 
             let url = await this.buildURL(request, values)
             let data = await this.buildData(request, values)
-            let header = this.createDefaultHeader(request)
+            let header = this.createDefaultHeader(request, values)
 
             fetch(url, {
                 method: request.method,
@@ -197,7 +225,7 @@ class RestEngine {
     delete (request, values) {
         return new Promise( async (resolve, reject) => {
             let url = await this.buildURL(request, values)
-            let header = this.createDefaultHeader(request)
+            let header = this.createDefaultHeader(request, values)
 
             fetch(url, {
                 method: "DELETE",
@@ -233,6 +261,16 @@ class RestEngine {
         if (token) {
             headers['Authorization'] = `${authType} ${token}`
         }
+
+        if (request.headers) {
+            request.headers.forEach(header => {
+                let key = this.fillSimpleString(header.key, values)
+                let value = this.fillSimpleString(header.value, values)
+                headers[key] = value
+            })
+            Logger.log(-1, 'RestEngine.createDefautlHeaders() ', headers)
+        }
+
         return headers
     }
 
@@ -247,6 +285,12 @@ class RestEngine {
             if (rest.input.fileDataBinding) {
                 result.push(rest.input.fileDataBinding)
             }
+        }
+        if (rest.headers) {
+            rest.headers.forEach(header => {
+                this.parseString(header.key, result) 
+                this.parseString(header.value, result) 
+            })
         }
         return result;
     }
