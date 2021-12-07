@@ -1,11 +1,7 @@
 export function cleanInnerHTML(s) {
-    console.debug('cleanInnerHTML', s)
-
     const decoder = document.createElement('div')
     decoder.innerText = s
-    let sanitized = decoder.innerHTML
-    console.debug(sanitized)
-   
+    let sanitized = decoder.innerHTML  
     return replaceAllowedTags(sanitized)
 }
 
