@@ -126,9 +126,12 @@ export default {
           /**
            * FIXME: Move this to CSSFactory
            */
-          if (this.element.style && this.element.style.verticalAlign) {
-            result += `qux-valign-${this.element.style.verticalAlign} `
+          if (this.element.children && this.element.children.length === 0) {
+            if (this.element.style && this.element.style.verticalAlign) {
+              result += `qux-valign-${this.element.style.verticalAlign} `
+            }
           }
+       
           if (this.hasAction) {
             result += `qux-action `
           }
