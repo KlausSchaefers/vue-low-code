@@ -929,13 +929,26 @@ export default class CSSPosition {
 
 	getResponsiveWidth(widget) {
 		if (widget.parent) {
-			/**
-			 * What about border...
-			 */
-			return Math.round((widget.w * 100) / widget.parent.w) + "%"
+			let width = Math.round((widget.w * 100) / widget.parent.w)
+			let horizontalSpacing = this.getPaddingAndBorderHorizontal(widget)
+			if (horizontalSpacing > 0) {
+				return `calc(${width}% - ${horizontalSpacing}px)`
+			} else {
+				return  width + "%"
+			}
 		}
 		Logger.warn("CSSPosition.getResponsiveWidth() > No parent! " + widget.name)
 		return "100%"
+	}
+
+	getPaddingAndBorderHorizontal (widget) {
+		let result = 0
+		this.widthProperties.forEach((key) => {
+			if (widget.style[key]) {
+				result += widget.style[key]
+			}
+		})
+		return result
 	}
 
 	getFixedHeight(widget) {
