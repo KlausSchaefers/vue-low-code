@@ -227,7 +227,7 @@ export default {
         CSSWriter.write(css, tree.id)
     },
      async setFigma (figma) {
-       Logger.log(-1, 'Luisa.setFigma()', this.pages)
+        Logger.log(-1, 'Luisa.setFigma()', this.pages)
         const figmaService = new FigmaService(figma.figmaAccessKey, this.mergedConfig)
         const selectedPages = this.pages ? this.pages : []
         let app = await figmaService.get(figma.figmaFile, true, false, selectedPages)

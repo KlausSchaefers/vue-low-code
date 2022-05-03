@@ -338,6 +338,14 @@ export function getClickLine(element) {
     return null
 }
 
+export function getLineByType(element, type) {
+    if (element.lines) {
+        return element.lines.find(l => l.event === type)
+    }
+    return null
+}
+
+
 
 export function allChildrenAreFixedHorizontal(children) {
     let fixedChildren = children.filter(f => {
