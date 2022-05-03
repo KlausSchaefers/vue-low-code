@@ -18,6 +18,7 @@ export default {
         this.$emit('qScreenLoad', {
             value: this.modelValue,
             element: screen,
+            screen: screen,
             viewModel: this.modelValue,
             luisa: this
         })      
@@ -59,6 +60,18 @@ export default {
         }
     },
 
+    onEnter (element, e, value) {
+        Logger.log(4, 'Luisa.onEnter() > enter', element)
+
+        if (element.lines) {
+            let line = Util.getLineByType(element, 'KeyboardEnter')
+            if (line) {
+                this.executeLine(line, value)
+                this.stopEvent(e)
+            }
+        }
+    },
+
     onClick (element, e, value) {
         Logger.log(4, 'Luisa.onClick() > enter', element)
         if (Logger.logLevel > 10) {
@@ -85,6 +98,7 @@ export default {
             }
         }
         this.dispatchCallback(element, e, 'click', value)
+        this.$emit('qClick', this.getBaseEvent(element, e))
     },
 
     stopEvent (e) {
@@ -204,7 +218,9 @@ export default {
         if (this.mergedConfig.scrollToTopAfterNavigation) {
             window.scrollTo(0, 0)
         }
-        this.$emit('qScrollTop', {})
+        this.$emit('qScrollTop', {
+            screen: this.currentScreen
+        })
     },
 
     popOverlay (e) {
@@ -231,36 +247,49 @@ export default {
 
     onChange (element, e, value) {
         Logger.log(1, 'Qux(Event).onChange() > ', value)
-        this.$emit('qChange', element, e)
+        this.$emit('qChange', this.getBaseEvent(element, e))
         this.dispatchCallback(element, e, 'change', value)
     },
 
     onKeyPress (element, e, value) {
-        Logger.log(2, 'Qux(Event).onKeyPress() > ', value)
-        this.$emit('qKeyPress', element, e)
+        Logger.log(-2, 'Qux(Event).onKeyPress() > ', e.keyCode, value)
+        this.$emit('qKeyPress', this.getBaseEvent(element, e))
         this.dispatchCallback(element, e, 'change', value)
+        if (e.keyCode === 13) {
+            this.onEnter(element, e, value)
+        }
     },
 
     onFocus (element, e, value) {
-        this.$emit('qFocus', element, e)
+        this.$emit('qFocus', this.getBaseEvent(element, e))
         this.dispatchCallback(element, e, 'focus', value)
     },
 
     onBlur (element, e, value) {
-        this.$emit('qBlur', element, e)
+        this.$emit('qBlur', this.getBaseEvent(element, e))
         this.dispatchCallback(element, e, 'blur', value)
     },
 
     onMouseOver (element, e) {
-        this.$emit('qMouseOver', element, e)
+        this.$emit('qMouseOver', this.getBaseEvent(element, e))
     },
 
     onMouseOut (element, e) {
-        this.$emit('qMouseOut', element, e)
+        this.$emit('qMouseOut', this.getBaseEvent(element, e))
     },
 
     setSystemVariable (key, value) {
         JSONPath.set(this.modelValue, '_qux.' + key, value)
+    },
+
+    getBaseEvent (element, e) {
+        return {
+            element: element,
+            event:e,
+            screen: this.currentScreen,
+            viewModel: this.modelValue,
+            luisa: this
+        }
     }
   }
 }
