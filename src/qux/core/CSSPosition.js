@@ -128,7 +128,7 @@ export default class CSSPosition {
 	getChildPosition(widget) {
 
 		if (!Util.hasChildren(widget)) {
-			return '/* no children */'
+			return '  /* no children */\n'
 		}
 		if (Util.isRepeater(widget)) {
 			return this.setChildrenRepeater(widget)
@@ -208,7 +208,7 @@ export default class CSSPosition {
 	}
 
 	getParentAutoHorizontal (widget) {
-		Logger.log(5, "CSSPosition.getParentAutoHorizontal() > " + widget.name)
+		Logger.log(-5, "CSSPosition.getParentAutoHorizontal() > " + widget.name)
 		let result = ''
 
 		if (Util.isFixedVertical(widget)) {
@@ -222,7 +222,7 @@ export default class CSSPosition {
 			result += `  flex-grow: 1;\n`
 		} else if (Util.isFixedHorizontal(widget)) {
 			if (Util.isHugHorizontal(widget)) {
-				//result += `  flex-basis: ${this.getFixedWidth(widget)};\n`
+				result += `  flex-basis: ${this.getFixedWidth(widget)};\n`
 			} else {
 				result += `  width: ${this.getFixedWidth(widget)};\n`
 			}	
@@ -360,6 +360,7 @@ export default class CSSPosition {
 					 * small error margin. Use minmax to prevent blowout
 					 * https://css-tricks.com/preventing-a-grid-blowout/
 					 */
+			
 					if (Math.abs(max - i.l) <= this.gridAutoErrorThreshold) {
 						// max === i.l
 						/**

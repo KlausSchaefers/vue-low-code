@@ -88,6 +88,7 @@ export function isContainerElement (element) {
  * @param {*} parent The parent to receiveo
  */
 export function canBeChild (child, parent) {
+ 
     /**
      * Costum widgets cannot have children
      */

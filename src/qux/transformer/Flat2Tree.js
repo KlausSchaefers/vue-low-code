@@ -487,7 +487,6 @@ function transformScreenToTree(screen, model) {
 		 * otherwise but the element under the screen.
 		 */
 		let parentWidget = getParentWidget(parentWidgets, element, model)
-
 		if (parentWidget && Util.canBeChild(element, parentWidget)) {
 			//  was Util.canHaveChildren(parentWidget)
 			element.x = widget.x - parentWidget.x

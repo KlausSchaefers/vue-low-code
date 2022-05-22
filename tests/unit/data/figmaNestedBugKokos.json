@@ -1,0 +1,973 @@
+{
+    "document": {
+        "id": "0:0",
+        "name": "Document",
+        "type": "DOCUMENT",
+        "children": [
+            {
+                "id": "0:1",
+                "name": "Page 1",
+                "type": "CANVAS",
+                "children": [
+                    {
+                        "id": "0:3",
+                        "name": "EmailRegistration",
+                        "type": "FRAME",
+                        "pluginData": {
+                            "858477504263032980": {
+                                "quxHasOverlayBackground": "true",
+                                "quxStartScreen": "true",
+                                "quxOverlayScreen": "true"
+                            }
+                        },
+                        "blendMode": "PASS_THROUGH",
+                        "children": [
+                            {
+                                "id": "9:3",
+                                "name": "Background",
+                                "type": "FRAME",
+                                "blendMode": "PASS_THROUGH",
+                                "children": [
+                                    {
+                                        "id": "4:4",
+                                        "name": "Background 1",
+                                        "type": "RECTANGLE",
+                                        "blendMode": "PASS_THROUGH",
+                                        "absoluteBoundingBox": {
+                                            "x": -782.0,
+                                            "y": -454.0,
+                                            "width": 1271.0,
+                                            "height": 761.0
+                                        },
+                                        "preserveRatio": true,
+                                        "constraints": {
+                                            "vertical": "SCALE",
+                                            "horizontal": "SCALE"
+                                        },
+                                        "relativeTransform": [
+                                            [
+                                                1.0,
+                                                0.0,
+                                                0.0
+                                            ],
+                                            [
+                                                0.0,
+                                                1.0,
+                                                0.0
+                                            ]
+                                        ],
+                                        "size": {
+                                            "x": 1271.0,
+                                            "y": 761.0
+                                        },
+                                        "fills": [
+                                            {
+                                                "blendMode": "NORMAL",
+                                                "type": "IMAGE",
+                                                "scaleMode": "FILL",
+                                                "imageRef": "78e2aac085638dae1d64a98138b2c56296ee57cd"
+                                            }
+                                        ],
+                                        "fillGeometry": [
+                                            {
+                                                "path": "M0 0L1271 0L1271 761L0 761L0 0Z",
+                                                "windingRule": "NONZERO"
+                                            }
+                                        ],
+                                        "strokes": [],
+                                        "strokeWeight": 1.0,
+                                        "strokeAlign": "INSIDE",
+                                        "strokeGeometry": [],
+                                        "effects": []
+                                    },
+                                    {
+                                        "id": "0:9",
+                                        "name": "EmailBlock",
+                                        "type": "FRAME",
+                                        "pluginData": {
+                                            "858477504263032980": {
+                                                "quxOnClickCallback": "onRegisterNext",
+                                                "quxType": "TextBox",
+                                                "quxDataBindingDefault": "registration.email"
+                                            }
+                                        },
+                                        "blendMode": "PASS_THROUGH",
+                                        "children": [
+                                            {
+                                                "id": "0:10",
+                                                "name": "EmailBlock",
+                                                "type": "RECTANGLE",
+                                                "blendMode": "PASS_THROUGH",
+                                                "absoluteBoundingBox": {
+                                                    "x": -388.0,
+                                                    "y": -217.0,
+                                                    "width": 488.0,
+                                                    "height": 221.0
+                                                },
+                                                "constraints": {
+                                                    "vertical": "TOP",
+                                                    "horizontal": "SCALE"
+                                                },
+                                                "relativeTransform": [
+                                                    [
+                                                        1.0,
+                                                        0.0,
+                                                        0.0
+                                                    ],
+                                                    [
+                                                        0.0,
+                                                        1.0,
+                                                        0.0
+                                                    ]
+                                                ],
+                                                "size": {
+                                                    "x": 488.0,
+                                                    "y": 221.0
+                                                },
+                                                "fills": [
+                                                    {
+                                                        "blendMode": "NORMAL",
+                                                        "type": "SOLID",
+                                                        "color": {
+                                                            "r": 0.93725490570068359,
+                                                            "g": 0.95686274766921997,
+                                                            "b": 0.98823529481887817,
+                                                            "a": 1.0
+                                                        }
+                                                    }
+                                                ],
+                                                "fillGeometry": [
+                                                    {
+                                                        "path": "M0 10C0 4.47715 4.47715 0 10 0L478 0C483.523 0 488 4.47715 488 10L488 211C488 216.523 483.523 221 478 221L9.99999 221C4.47714 221 0 216.523 0 211L0 10Z",
+                                                        "windingRule": "NONZERO"
+                                                    }
+                                                ],
+                                                "strokes": [],
+                                                "strokeWeight": 1.7631578445434570,
+                                                "strokeAlign": "INSIDE",
+                                                "strokeGeometry": [],
+                                                "effects": [
+                                                    {
+                                                        "type": "DROP_SHADOW",
+                                                        "visible": true,
+                                                        "color": {
+                                                            "r": 0.43921568989753723,
+                                                            "g": 0.56470590829849243,
+                                                            "b": 0.69019609689712524,
+                                                            "a": 0.20000000298023224
+                                                        },
+                                                        "blendMode": "NORMAL",
+                                                        "offset": {
+                                                            "x": 0.0,
+                                                            "y": 17.631578445434570
+                                                        },
+                                                        "radius": 28.210525512695312,
+                                                        "showShadowBehindNode": false
+                                                    }
+                                                ],
+                                                "cornerRadius": 10.0
+                                            },
+                                            {
+                                                "id": "0:12",
+                                                "name": "Button",
+                                                "type": "RECTANGLE",
+                                                "pluginData": {
+                                                    "858477504263032980": {
+                                                        "quxOnClickCallback": "onRegisterNext",
+                                                        "quxType": "TextBox"
+                                                    }
+                                                },
+                                                "blendMode": "PASS_THROUGH",
+                                                "absoluteBoundingBox": {
+                                                    "x": -96.0,
+                                                    "y": -80.0,
+                                                    "width": 152.0,
+                                                    "height": 49.0
+                                                },
+                                                "constraints": {
+                                                    "vertical": "TOP",
+                                                    "horizontal": "SCALE"
+                                                },
+                                                "relativeTransform": [
+                                                    [
+                                                        1.0,
+                                                        0.0,
+                                                        292.0
+                                                    ],
+                                                    [
+                                                        0.0,
+                                                        1.0,
+                                                        137.0
+                                                    ]
+                                                ],
+                                                "size": {
+                                                    "x": 152.0,
+                                                    "y": 49.0
+                                                },
+                                                "fills": [
+                                                    {
+                                                        "blendMode": "NORMAL",
+                                                        "type": "SOLID",
+                                                        "color": {
+                                                            "r": 0.35294118523597717,
+                                                            "g": 0.63137257099151611,
+                                                            "b": 0.99215686321258545,
+                                                            "a": 1.0
+                                                        }
+                                                    }
+                                                ],
+                                                "fillGeometry": [
+                                                    {
+                                                        "path": "M0 8C0 3.58172 3.58172 0 8 0L144 0C148.418 0 152 3.58172 152 8L152 41C152 45.4183 148.418 49 144 49L8 49C3.58172 49 0 45.4183 0 41L0 8Z",
+                                                        "windingRule": "NONZERO"
+                                                    }
+                                                ],
+                                                "strokes": [],
+                                                "strokeWeight": 1.0,
+                                                "strokeAlign": "INSIDE",
+                                                "strokeGeometry": [],
+                                                "effects": [],
+                                                "cornerRadius": 8.0
+                                            },
+                                            {
+                                                "id": "4:3",
+                                                "name": "TextField",
+                                                "type": "FRAME",
+                                                "blendMode": "PASS_THROUGH",
+                                                "children": [
+                                                    {
+                                                        "id": "4:2",
+                                                        "name": "TextField",
+                                                        "type": "FRAME",
+                                                        "blendMode": "PASS_THROUGH",
+                                                        "children": [
+                                                            {
+                                                                "id": "0:11",
+                                                                "name": "TextField",
+                                                                "type": "RECTANGLE",
+                                                                "pluginData": {
+                                                                    "858477504263032980": {
+                                                                        "quxType": "TextBox"
+                                                                    }
+                                                                },
+                                                                "blendMode": "PASS_THROUGH",
+                                                                "absoluteBoundingBox": {
+                                                                    "x": -344.0,
+                                                                    "y": -150.0,
+                                                                    "width": 400.0,
+                                                                    "height": 45.0
+                                                                },
+                                                                "constraints": {
+                                                                    "vertical": "TOP",
+                                                                    "horizontal": "SCALE"
+                                                                },
+                                                                "relativeTransform": [
+                                                                    [
+                                                                        1.0,
+                                                                        0.0,
+                                                                        0.0
+                                                                    ],
+                                                                    [
+                                                                        0.0,
+                                                                        1.0,
+                                                                        0.0
+                                                                    ]
+                                                                ],
+                                                                "size": {
+                                                                    "x": 400.0,
+                                                                    "y": 45.0
+                                                                },
+                                                                "fills": [
+                                                                    {
+                                                                        "blendMode": "NORMAL",
+                                                                        "type": "SOLID",
+                                                                        "color": {
+                                                                            "r": 0.99166667461395264,
+                                                                            "g": 0.99166667461395264,
+                                                                            "b": 0.99166667461395264,
+                                                                            "a": 1.0
+                                                                        }
+                                                                    }
+                                                                ],
+                                                                "fillGeometry": [
+                                                                    {
+                                                                        "path": "M0 8C0 3.58172 3.58172 0 8 0L392 0C396.418 0 400 3.58172 400 8L400 37C400 41.4183 396.418 45 392 45L7.99999 45C3.58171 45 0 41.4183 0 37L0 8Z",
+                                                                        "windingRule": "NONZERO"
+                                                                    }
+                                                                ],
+                                                                "strokes": [],
+                                                                "strokeWeight": 1.0,
+                                                                "strokeAlign": "INSIDE",
+                                                                "strokeGeometry": [],
+                                                                "effects": [],
+                                                                "cornerRadius": 8.0
+                                                            },
+                                                            {
+                                                                "id": "0:13",
+                                                                "name": "john.smith@gmail.com",
+                                                                "type": "TEXT",
+                                                                "blendMode": "PASS_THROUGH",
+                                                                "absoluteBoundingBox": {
+                                                                    "x": -329.0,
+                                                                    "y": -141.0,
+                                                                    "width": 374.0,
+                                                                    "height": 27.0
+                                                                },
+                                                                "constraints": {
+                                                                    "vertical": "TOP",
+                                                                    "horizontal": "CENTER"
+                                                                },
+                                                                "relativeTransform": [
+                                                                    [
+                                                                        1.0,
+                                                                        0.0,
+                                                                        15.0
+                                                                    ],
+                                                                    [
+                                                                        0.0,
+                                                                        1.0,
+                                                                        9.0
+                                                                    ]
+                                                                ],
+                                                                "size": {
+                                                                    "x": 374.0,
+                                                                    "y": 27.0
+                                                                },
+                                                                "fills": [
+                                                                    {
+                                                                        "blendMode": "NORMAL",
+                                                                        "type": "SOLID",
+                                                                        "color": {
+                                                                            "r": 0.51249998807907104,
+                                                                            "g": 0.46295830607414246,
+                                                                            "b": 0.46295830607414246,
+                                                                            "a": 1.0
+                                                                        }
+                                                                    }
+                                                                ],
+                                                                "strokes": [],
+                                                                "strokeWeight": 1.2978723049163818,
+                                                                "strokeAlign": "OUTSIDE",
+                                                                "strokeGeometry": [],
+                                                                "effects": [],
+                                                                "characters": "john.smith@gmail.com",
+                                                                "style": {
+                                                                    "fontFamily": "Poppins",
+                                                                    "fontPostScriptName": "Poppins-Regular",
+                                                                    "fontWeight": 400,
+                                                                    "textCase": "SMALL_CAPS_FORCED",
+                                                                    "fontSize": 18.0,
+                                                                    "textAlignHorizontal": "LEFT",
+                                                                    "textAlignVertical": "CENTER",
+                                                                    "letterSpacing": 0.0,
+                                                                    "lineHeightPx": 21.093750,
+                                                                    "lineHeightPercent": 100.0,
+                                                                    "lineHeightUnit": "INTRINSIC_%"
+                                                                },
+                                                                "layoutVersion": 3,
+                                                                "characterStyleOverrides": [],
+                                                                "styleOverrideTable": {},
+                                                                "lineTypes": [
+                                                                    "NONE"
+                                                                ],
+                                                                "lineIndentations": [
+                                                                    0
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "absoluteBoundingBox": {
+                                                            "x": -344.0,
+                                                            "y": -150.0,
+                                                            "width": 400.0,
+                                                            "height": 45.0
+                                                        },
+                                                        "constraints": {
+                                                            "vertical": "TOP",
+                                                            "horizontal": "LEFT"
+                                                        },
+                                                        "relativeTransform": [
+                                                            [
+                                                                1.0,
+                                                                0.0,
+                                                                0.0
+                                                            ],
+                                                            [
+                                                                0.0,
+                                                                1.0,
+                                                                0.0
+                                                            ]
+                                                        ],
+                                                        "size": {
+                                                            "x": 400.0,
+                                                            "y": 45.0
+                                                        },
+                                                        "layoutAlign": "STRETCH",
+                                                        "layoutGrow": 1.0,
+                                                        "clipsContent": false,
+                                                        "background": [],
+                                                        "fills": [],
+                                                        "strokes": [],
+                                                        "strokeWeight": 1.0,
+                                                        "strokeAlign": "INSIDE",
+                                                        "backgroundColor": {
+                                                            "r": 0.0,
+                                                            "g": 0.0,
+                                                            "b": 0.0,
+                                                            "a": 0.0
+                                                        },
+                                                        "effects": []
+                                                    }
+                                                ],
+                                                "absoluteBoundingBox": {
+                                                    "x": -344.0,
+                                                    "y": -150.0,
+                                                    "width": 400.0,
+                                                    "height": 45.0
+                                                },
+                                                "constraints": {
+                                                    "vertical": "TOP",
+                                                    "horizontal": "LEFT"
+                                                },
+                                                "relativeTransform": [
+                                                    [
+                                                        1.0,
+                                                        0.0,
+                                                        44.0
+                                                    ],
+                                                    [
+                                                        0.0,
+                                                        1.0,
+                                                        67.0
+                                                    ]
+                                                ],
+                                                "size": {
+                                                    "x": 400.0,
+                                                    "y": 45.0
+                                                },
+                                                "clipsContent": false,
+                                                "background": [],
+                                                "fills": [],
+                                                "strokes": [],
+                                                "strokeWeight": 1.0,
+                                                "strokeAlign": "INSIDE",
+                                                "backgroundColor": {
+                                                    "r": 0.0,
+                                                    "g": 0.0,
+                                                    "b": 0.0,
+                                                    "a": 0.0
+                                                },
+                                                "layoutMode": "HORIZONTAL",
+                                                "counterAxisSizingMode": "FIXED",
+                                                "primaryAxisSizingMode": "FIXED",
+                                                "counterAxisAlignItems": "CENTER",
+                                                "primaryAxisAlignItems": "CENTER",
+                                                "effects": []
+                                            },
+                                            {
+                                                "id": "0:14",
+                                                "name": "Email:",
+                                                "type": "TEXT",
+                                                "blendMode": "PASS_THROUGH",
+                                                "absoluteBoundingBox": {
+                                                    "x": -344.0,
+                                                    "y": -187.0,
+                                                    "width": 53.0,
+                                                    "height": 27.0
+                                                },
+                                                "constraints": {
+                                                    "vertical": "TOP",
+                                                    "horizontal": "LEFT"
+                                                },
+                                                "relativeTransform": [
+                                                    [
+                                                        1.0,
+                                                        0.0,
+                                                        44.0
+                                                    ],
+                                                    [
+                                                        0.0,
+                                                        1.0,
+                                                        30.0
+                                                    ]
+                                                ],
+                                                "size": {
+                                                    "x": 53.0,
+                                                    "y": 27.0
+                                                },
+                                                "fills": [
+                                                    {
+                                                        "blendMode": "NORMAL",
+                                                        "type": "SOLID",
+                                                        "color": {
+                                                            "r": 0.12549020349979401,
+                                                            "g": 0.11764705926179886,
+                                                            "b": 0.11764705926179886,
+                                                            "a": 1.0
+                                                        }
+                                                    }
+                                                ],
+                                                "strokes": [],
+                                                "strokeWeight": 1.2978723049163818,
+                                                "strokeAlign": "OUTSIDE",
+                                                "strokeGeometry": [],
+                                                "effects": [],
+                                                "characters": "Email:",
+                                                "style": {
+                                                    "fontFamily": "Poppins",
+                                                    "fontPostScriptName": "Poppins-Regular",
+                                                    "fontWeight": 400,
+                                                    "textCase": "SMALL_CAPS_FORCED",
+                                                    "textAutoResize": "WIDTH_AND_HEIGHT",
+                                                    "fontSize": 18.0,
+                                                    "textAlignHorizontal": "LEFT",
+                                                    "textAlignVertical": "CENTER",
+                                                    "letterSpacing": 0.0,
+                                                    "lineHeightPx": 21.093750,
+                                                    "lineHeightPercent": 100.0,
+                                                    "lineHeightUnit": "INTRINSIC_%"
+                                                },
+                                                "layoutVersion": 3,
+                                                "characterStyleOverrides": [],
+                                                "styleOverrideTable": {},
+                                                "lineTypes": [
+                                                    "NONE"
+                                                ],
+                                                "lineIndentations": [
+                                                    0
+                                                ]
+                                            },
+                                            {
+                                                "id": "0:15",
+                                                "name": "Next",
+                                                "type": "TEXT",
+                                                "blendMode": "PASS_THROUGH",
+                                                "absoluteBoundingBox": {
+                                                    "x": -40.0,
+                                                    "y": -70.0,
+                                                    "width": 40.0,
+                                                    "height": 27.0
+                                                },
+                                                "constraints": {
+                                                    "vertical": "TOP",
+                                                    "horizontal": "LEFT"
+                                                },
+                                                "relativeTransform": [
+                                                    [
+                                                        1.0,
+                                                        0.0,
+                                                        348.0
+                                                    ],
+                                                    [
+                                                        0.0,
+                                                        1.0,
+                                                        147.0
+                                                    ]
+                                                ],
+                                                "size": {
+                                                    "x": 40.0,
+                                                    "y": 27.0
+                                                },
+                                                "fills": [
+                                                    {
+                                                        "blendMode": "NORMAL",
+                                                        "type": "SOLID",
+                                                        "color": {
+                                                            "r": 0.99166667461395264,
+                                                            "g": 0.99166667461395264,
+                                                            "b": 0.99166667461395264,
+                                                            "a": 1.0
+                                                        }
+                                                    }
+                                                ],
+                                                "strokes": [],
+                                                "strokeWeight": 1.2978723049163818,
+                                                "strokeAlign": "OUTSIDE",
+                                                "strokeGeometry": [],
+                                                "effects": [],
+                                                "characters": "Next",
+                                                "style": {
+                                                    "fontFamily": "Poppins",
+                                                    "fontPostScriptName": "Poppins-Medium",
+                                                    "fontWeight": 500,
+                                                    "textCase": "SMALL_CAPS_FORCED",
+                                                    "textAutoResize": "WIDTH_AND_HEIGHT",
+                                                    "fontSize": 18.0,
+                                                    "textAlignHorizontal": "CENTER",
+                                                    "textAlignVertical": "CENTER",
+                                                    "letterSpacing": 0.0,
+                                                    "lineHeightPx": 21.093750,
+                                                    "lineHeightPercent": 100.0,
+                                                    "lineHeightUnit": "INTRINSIC_%"
+                                                },
+                                                "layoutVersion": 3,
+                                                "characterStyleOverrides": [],
+                                                "styleOverrideTable": {},
+                                                "lineTypes": [
+                                                    "NONE"
+                                                ],
+                                                "lineIndentations": [
+                                                    0
+                                                ]
+                                            }
+                                        ],
+                                        "absoluteBoundingBox": {
+                                            "x": -388.0,
+                                            "y": -217.0,
+                                            "width": 488.0,
+                                            "height": 221.0
+                                        },
+                                        "constraints": {
+                                            "vertical": "CENTER",
+                                            "horizontal": "CENTER"
+                                        },
+                                        "relativeTransform": [
+                                            [
+                                                1.0,
+                                                0.0,
+                                                394.0
+                                            ],
+                                            [
+                                                0.0,
+                                                1.0,
+                                                237.0
+                                            ]
+                                        ],
+                                        "size": {
+                                            "x": 488.0,
+                                            "y": 221.0
+                                        },
+                                        "clipsContent": false,
+                                        "background": [
+                                            {
+                                                "blendMode": "NORMAL",
+                                                "visible": false,
+                                                "type": "SOLID",
+                                                "color": {
+                                                    "r": 1.0,
+                                                    "g": 1.0,
+                                                    "b": 1.0,
+                                                    "a": 1.0
+                                                }
+                                            }
+                                        ],
+                                        "fills": [
+                                            {
+                                                "blendMode": "NORMAL",
+                                                "visible": false,
+                                                "type": "SOLID",
+                                                "color": {
+                                                    "r": 1.0,
+                                                    "g": 1.0,
+                                                    "b": 1.0,
+                                                    "a": 1.0
+                                                }
+                                            }
+                                        ],
+                                        "strokes": [],
+                                        "strokeWeight": 1.0,
+                                        "strokeAlign": "INSIDE",
+                                        "backgroundColor": {
+                                            "r": 0.0,
+                                            "g": 0.0,
+                                            "b": 0.0,
+                                            "a": 0.0
+                                        },
+                                        "effects": []
+                                    },
+                                    {
+                                        "id": "0:17",
+                                        "name": "Welcome",
+                                        "type": "TEXT",
+                                        "blendMode": "PASS_THROUGH",
+                                        "absoluteBoundingBox": {
+                                            "x": -225.0,
+                                            "y": -377.0,
+                                            "width": 162.0,
+                                            "height": 51.0
+                                        },
+                                        "constraints": {
+                                            "vertical": "CENTER",
+                                            "horizontal": "CENTER"
+                                        },
+                                        "relativeTransform": [
+                                            [
+                                                1.0,
+                                                0.0,
+                                                557.0
+                                            ],
+                                            [
+                                                0.0,
+                                                1.0,
+                                                77.0
+                                            ]
+                                        ],
+                                        "size": {
+                                            "x": 162.0,
+                                            "y": 51.0
+                                        },
+                                        "fills": [
+                                            {
+                                                "blendMode": "NORMAL",
+                                                "type": "SOLID",
+                                                "color": {
+                                                    "r": 0.12549020349979401,
+                                                    "g": 0.11764705926179886,
+                                                    "b": 0.11764705926179886,
+                                                    "a": 1.0
+                                                }
+                                            }
+                                        ],
+                                        "strokes": [],
+                                        "strokeWeight": 1.0,
+                                        "strokeAlign": "OUTSIDE",
+                                        "strokeGeometry": [],
+                                        "effects": [],
+                                        "characters": "Welcome",
+                                        "style": {
+                                            "fontFamily": "Poppins",
+                                            "fontPostScriptName": "Poppins-Regular",
+                                            "fontWeight": 400,
+                                            "textCase": "SMALL_CAPS_FORCED",
+                                            "textAutoResize": "WIDTH_AND_HEIGHT",
+                                            "fontSize": 34.0,
+                                            "textAlignHorizontal": "CENTER",
+                                            "textAlignVertical": "CENTER",
+                                            "letterSpacing": 0.0,
+                                            "lineHeightPx": 39.843750,
+                                            "lineHeightPercent": 100.0,
+                                            "lineHeightUnit": "INTRINSIC_%"
+                                        },
+                                        "layoutVersion": 3,
+                                        "characterStyleOverrides": [],
+                                        "styleOverrideTable": {},
+                                        "lineTypes": [
+                                            "NONE"
+                                        ],
+                                        "lineIndentations": [
+                                            0
+                                        ]
+                                    },
+                                    {
+                                        "id": "0:16",
+                                        "name": "Register",
+                                        "type": "TEXT",
+                                        "blendMode": "PASS_THROUGH",
+                                        "absoluteBoundingBox": {
+                                            "x": -201.0,
+                                            "y": -307.0,
+                                            "width": 113.0,
+                                            "height": 42.0
+                                        },
+                                        "constraints": {
+                                            "vertical": "CENTER",
+                                            "horizontal": "CENTER"
+                                        },
+                                        "relativeTransform": [
+                                            [
+                                                1.0,
+                                                0.0,
+                                                581.0
+                                            ],
+                                            [
+                                                0.0,
+                                                1.0,
+                                                147.0
+                                            ]
+                                        ],
+                                        "size": {
+                                            "x": 113.0,
+                                            "y": 42.0
+                                        },
+                                        "fills": [
+                                            {
+                                                "blendMode": "NORMAL",
+                                                "type": "SOLID",
+                                                "color": {
+                                                    "r": 0.12549020349979401,
+                                                    "g": 0.11764705926179886,
+                                                    "b": 0.11764705926179886,
+                                                    "a": 1.0
+                                                }
+                                            }
+                                        ],
+                                        "strokes": [],
+                                        "strokeWeight": 1.0,
+                                        "strokeAlign": "OUTSIDE",
+                                        "strokeGeometry": [],
+                                        "effects": [],
+                                        "characters": "Register",
+                                        "style": {
+                                            "fontFamily": "Poppins",
+                                            "fontPostScriptName": "Poppins-Regular",
+                                            "fontWeight": 400,
+                                            "textCase": "SMALL_CAPS_FORCED",
+                                            "textAutoResize": "WIDTH_AND_HEIGHT",
+                                            "fontSize": 28.0,
+                                            "textAlignHorizontal": "CENTER",
+                                            "textAlignVertical": "CENTER",
+                                            "letterSpacing": 0.0,
+                                            "lineHeightPx": 32.81250,
+                                            "lineHeightPercent": 100.0,
+                                            "lineHeightUnit": "INTRINSIC_%"
+                                        },
+                                        "layoutVersion": 3,
+                                        "characterStyleOverrides": [],
+                                        "styleOverrideTable": {},
+                                        "lineTypes": [
+                                            "NONE"
+                                        ],
+                                        "lineIndentations": [
+                                            0
+                                        ]
+                                    }
+                                ],
+                                "absoluteBoundingBox": {
+                                    "x": -782.0,
+                                    "y": -454.0,
+                                    "width": 1271.0,
+                                    "height": 761.0
+                                },
+                                "constraints": {
+                                    "vertical": "TOP_BOTTOM",
+                                    "horizontal": "LEFT_RIGHT"
+                                },
+                                "relativeTransform": [
+                                    [
+                                        1.0,
+                                        0.0,
+                                        1.0
+                                    ],
+                                    [
+                                        0.0,
+                                        1.0,
+                                        0.0
+                                    ]
+                                ],
+                                "size": {
+                                    "x": 1271.0,
+                                    "y": 761.0
+                                },
+                                "clipsContent": false,
+                                "background": [
+                                    {
+                                        "blendMode": "NORMAL",
+                                        "visible": false,
+                                        "type": "SOLID",
+                                        "color": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        }
+                                    }
+                                ],
+                                "fills": [
+                                    {
+                                        "blendMode": "NORMAL",
+                                        "visible": false,
+                                        "type": "SOLID",
+                                        "color": {
+                                            "r": 1.0,
+                                            "g": 1.0,
+                                            "b": 1.0,
+                                            "a": 1.0
+                                        }
+                                    }
+                                ],
+                                "strokes": [],
+                                "strokeWeight": 1.0,
+                                "strokeAlign": "INSIDE",
+                                "backgroundColor": {
+                                    "r": 0.0,
+                                    "g": 0.0,
+                                    "b": 0.0,
+                                    "a": 0.0
+                                },
+                                "effects": []
+                            }
+                        ],
+                        "absoluteBoundingBox": {
+                            "x": -783.0,
+                            "y": -454.0,
+                            "width": 1277.0,
+                            "height": 762.0
+                        },
+                        "constraints": {
+                            "vertical": "TOP",
+                            "horizontal": "LEFT"
+                        },
+                        "relativeTransform": [
+                            [
+                                1.0,
+                                0.0,
+                                -783.0
+                            ],
+                            [
+                                0.0,
+                                1.0,
+                                -454.0
+                            ]
+                        ],
+                        "size": {
+                            "x": 1277.0,
+                            "y": 762.0
+                        },
+                        "clipsContent": true,
+                        "background": [],
+                        "fills": [],
+                        "strokes": [],
+                        "strokeWeight": 1.0,
+                        "strokeAlign": "INSIDE",
+                        "backgroundColor": {
+                            "r": 0.0,
+                            "g": 0.0,
+                            "b": 0.0,
+                            "a": 0.0
+                        },
+                        "layoutGrids": [
+                            {
+                                "pattern": "COLUMNS",
+                                "sectionSize": 84.750,
+                                "visible": false,
+                                "color": {
+                                    "r": 1.0,
+                                    "g": 0.0,
+                                    "b": 0.0,
+                                    "a": 0.10000000149011612
+                                },
+                                "alignment": "STRETCH",
+                                "gutterSize": 20.0,
+                                "offset": 20.0,
+                                "count": 12
+                            }
+                        ],
+                        "effects": []
+                    }
+                ],
+                "backgroundColor": {
+                    "r": 0.96078431606292725,
+                    "g": 0.96078431606292725,
+                    "b": 0.96078431606292725,
+                    "a": 1.0
+                },
+                "prototypeStartNodeID": null,
+                "flowStartingPoints": [],
+                "prototypeDevice": {
+                    "type": "NONE",
+                    "rotation": "NONE"
+                }
+            }
+        ]
+    },
+    "components": {},
+    "componentSets": {},
+    "schemaVersion": 0,
+    "styles": {},
+    "name": "Bug_EmailRegistration1",
+    "lastModified": "2022-05-22T17:11:03Z",
+    "thumbnailUrl": "https://s3-alpha-sig.figma.com/thumbnails/edf6cc63-f1bb-481b-9ddc-938361c1f465?Expires=1653868800&Signature=Qn51DPXC1To1etHtXv7XUa9JN6JubXy5Oxl~~Jh1X7CGls9WYkwNmK~ii6KOVMCP4BDlKLs~kkkXDRNpoZkrPa9zKwb6uyIrKamk5zTyXmjI3GSzJBgteWqRTkBNeh3ptFYQOYUNQ3~k6tIM~lhZS0cHdu21cunLkRZNOSEAs5TCMM4DSE8UwSn5HoPz46QU6AtjktRn5MPTwzxeBqOo7zBvR1~p5KsOX9S0Tt7O8q87iSemPPO9xxz0Uc4wJUr4G3XUU0nEi53OTH1V6zRFLKTvIM-RMs5HPFDJfz8qJddDvO7AktEnLdnk-FSaaJJwwGNDNF8bf4Igqh7ssmlQzw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
+    "version": "1898339493",
+    "role": "viewer",
+    "editorType": "figma",
+    "linkAccess": "view"
+}
