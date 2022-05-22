@@ -220,7 +220,7 @@ export default class FigmaService {
     if (fDoc.children) {
       fDoc.children.forEach(page => {
         if (selectedPages.length === 0 || selectedPages.indexOf(page.name) >= 0) {
-          Logger.log(-1, 'FigmaService.parse() > parse page:' + page.name)
+          Logger.log(1, 'FigmaService.parse() > parse page:' + page.name)
           if (page.children) {
             page.children.forEach(child => {
               if (!this.isInvisible(child)){
@@ -766,7 +766,7 @@ export default class FigmaService {
 
      
       if (pluginData.quxType) {
-        Logger.log(-1, 'FigmaService.getPluginData() > quxType : ', pluginData.quxType, element.name)
+        Logger.log(2, 'FigmaService.getPluginData() > quxType : ', pluginData.quxType, element.name)
         widget.type = pluginData.quxType
         widget.props.placeholder = true
 
@@ -1180,12 +1180,13 @@ export default class FigmaService {
      */
     if (fElement._parent) {
       if (fElement._parent.layoutMode === 'HORIZONTAL') {        
-        if (fElement.primaryAxisSizingMode !== "FIXED" && fElement.layoutGrow === 0) { 
+        if (fElement.primaryAxisSizingMode !== "FIXED" && fElement.layoutGrow === 0 && this.hasFigmaChildren(fElement)) {
+          // FIXME: We should set hug only on 
           this.setHugHozontal(qElement, true) 
         }
       }
       if (fElement._parent.layoutMode === 'VERTICAL') {        
-        if (fElement.primaryAxisSizingMode !== "FIXED" && fElement.layoutGrow === 0) { 
+        if (fElement.primaryAxisSizingMode !== "FIXED" && fElement.layoutGrow === 0 && this.hasFigmaChildren(fElement)) { 
           this.setHugVertical(qElement, true) 
         }
       }
@@ -1221,6 +1222,10 @@ export default class FigmaService {
     }
 
     return qElement
+  }
+
+  hasFigmaChildren (fElement) {
+    return fElement.children && fElement.children.length > 0
   }
 
   isFixedChildInAutoParentWithSameWidth (qElement, qParentElement) {
@@ -1500,12 +1505,16 @@ export default class FigmaService {
           style.borderRightWidth = element.strokeWeight
         }
 
+        // FIXME: add here something about stroke geometry to get 
+
         if (element.strokeAlign !== 'INSIDE' && element.strokeWeight) {
           widget.x -= element.strokeWeight
           widget.w += element.strokeWeight * 2
           widget.y -= element.strokeWeight
           widget.h += element.strokeWeight * 2
         }
+
+
       }
 
       if (element.effects) {

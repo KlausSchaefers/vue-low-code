@@ -692,6 +692,7 @@ export default class CSSFactory {
 		}
 
 		if (style.backgroundImage && style.backgroundImage.url) {
+	
 
 			if (style.backgroundImage.url.indexOf('http') === 0) {
 				result += `  background-image: url(${style.backgroundImage.url});\n`

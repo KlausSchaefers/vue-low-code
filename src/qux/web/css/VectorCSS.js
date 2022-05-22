@@ -1,4 +1,5 @@
 import Logger from '../../core/Logger'
+import * as Util from '../../core/ExportUtil'
 
 export default class VectorCSS {
 
@@ -13,9 +14,10 @@ export default class VectorCSS {
         result += selector + ' {\n'
         result += this.cssFactory.getPosition(widget);
 
-        // FIXME: make this smarter?
-        result += `  height:${this.cssFactory.getCorrectedHeight(widget)};\n`
-        result += `  width:${this.cssFactory.getCorrectedWidth(widget)};\n`
+        if (Util.isFixedHorizontal(widget)) {
+          result += `  width:${this.cssFactory.getCorrectedWidth(widget)};\n`
+          result += `  height:${this.cssFactory.getCorrectedHeight(widget)};\n`
+        }
 
         if (style.backgroundImage && style.backgroundImage.url) {
           if (style.backgroundImage.url.indexOf('http') === 0) {
