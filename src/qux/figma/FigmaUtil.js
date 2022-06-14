@@ -7,9 +7,3 @@ export function getAllChildren(fElement, result =[]) {
     }
     return result
 }
-
-export function parseStrokeGeometry(path) {
-    console.debug('parseStrokeGeometry', path)
-    let parts = path.split('Z')
-    
-}
