@@ -1484,6 +1484,8 @@ export default class FigmaService {
       style.borderBottomLeftRadius = element.rectangleCornerRadii[3]
     }
 
+   
+
     /**
      * The border stuff we just do for rects and text
      */
@@ -1515,6 +1517,14 @@ export default class FigmaService {
         }
 
 
+      }
+
+      if (element.individualStrokeWeights) {
+        const individualStrokeWeights = element.individualStrokeWeights
+        style.borderBottomWidth = individualStrokeWeights.bottom
+        style.borderTopWidth = individualStrokeWeights.top
+        style.borderLeftWidth = individualStrokeWeights.left
+        style.borderRightWidth = individualStrokeWeights.right
       }
 
       if (element.effects) {

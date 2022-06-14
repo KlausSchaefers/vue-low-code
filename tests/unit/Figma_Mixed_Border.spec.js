@@ -32,40 +32,18 @@ test('Test Figma Mixed Borders', async () => {
   expect(screen).not.toBeUndefined()
 
   let btn = TestUtil.findOneElementsByName(screen, 'Mixed')
-  //expect(btn.style.borderBottomWidth).toBe(2)
-  //expect(btn.style.borderTopWidth).toBe(5)
-  //expect(btn.style.borderLeftWidth).toBe(4)
-  //expect(btn.style.borderRightWidth).toBe(3)
+  expect(btn.style.borderBottomWidth).toBe(2)
+  expect(btn.style.borderTopWidth).toBe(5)
+  expect(btn.style.borderLeftWidth).toBe(4)
+  expect(btn.style.borderRightWidth).toBe(3)
+
+  let top = TestUtil.findOneElementsByName(screen, 'Top')
+  expect(top.style.borderBottomWidth).toBe(0)
+  expect(top.style.borderTopWidth).toBe(1)
+  expect(top.style.borderLeftWidth).toBe(0)
+  expect(top.style.borderRightWidth).toBe(0)
+
+  
     
 });
 
-
-test('Test FigmaUtil parseStrokeGeometry() > default', async () => { 
-  const size = {
-    "x": 100.0,
-    "y": 64.0
-  }
-  const path = "M0 0L0 -6L-6 -6L-6 0L0 0ZM100 0L106 0L106 -6L100 -6L100 0ZM100 64L100 70L106 70L106 64L100 64ZM0 64L-6 64L-6 70L0 70L0 64ZM0 6L100 6L100 -6L0 -6L0 6ZM94 0L94 64L106 64L106 0L94 0ZM100 58L0 58L0 70L100 70L100 58ZM6 64L6 0L-6 0L-6 64L6 64Z"                        
-  const border = FigmaUtil.parseStrokeGeometry(path)
-  console.debug(border)
-
-  //expect(border.borderBottomWidth).toBe(6)
-  //expect(border.borderTopWidth).toBe(6)
-  //expect(border.borderLeftWidth).toBe(6)
-  //expect(border.borderRightWidth).toBe(6)
-})
-
-test('Test FigmaUtil parseStrokeGeometry() > mixed', async () => { 
-  const size = {
-    "x": 88.0,
-    "y": 91.0
-  }
-  const path =  "M-4 -5L91 -5L85 5L4 5L-4 -5ZM91 93L-4 93L4 89L85 89L91 93ZM-4 93L-4 -5L4 5L4 89L-4 93ZM91 -5L91 93L85 89L85 5L91 -5Z"
-  const border = FigmaUtil.parseStrokeGeometry(path)
-  console.debug(border)
-
-  //expect(border.borderBottomWidth).toBe(2)
-  //expect(border.borderTopWidth).toBe(5)
-  //expect(border.borderLeftWidth).toBe(4)
-  //expect(border.borderRightWidth).toBe(3)
-})

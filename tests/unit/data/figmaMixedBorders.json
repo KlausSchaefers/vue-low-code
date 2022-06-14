@@ -77,6 +77,12 @@
                                     }
                                 ],
                                 "strokeWeight": 1.0,
+                                "individualStrokeWeights": {
+                                    "top": 5.0,
+                                    "right": 3.0,
+                                    "bottom": 2.0,
+                                    "left": 4.0
+                                },
                                 "strokeAlign": "INSIDE",
                                 "strokeGeometry": [
                                     {
@@ -148,6 +154,12 @@
                                     }
                                 ],
                                 "strokeWeight": 1.0,
+                                "individualStrokeWeights": {
+                                    "top": 1.0,
+                                    "right": 0.0,
+                                    "bottom": 0.0,
+                                    "left": 0.0
+                                },
                                 "strokeAlign": "INSIDE",
                                 "strokeGeometry": [
                                     {
@@ -219,6 +231,12 @@
                                     }
                                 ],
                                 "strokeWeight": 1.0,
+                                "individualStrokeWeights": {
+                                    "top": 0.0,
+                                    "right": 0.0,
+                                    "bottom": 0.0,
+                                    "left": 2.0
+                                },
                                 "strokeAlign": "INSIDE",
                                 "strokeGeometry": [
                                     {
@@ -290,6 +308,12 @@
                                     }
                                 ],
                                 "strokeWeight": 1.0,
+                                "individualStrokeWeights": {
+                                    "top": 0.0,
+                                    "right": 3.0,
+                                    "bottom": 0.0,
+                                    "left": 0.0
+                                },
                                 "strokeAlign": "INSIDE",
                                 "strokeGeometry": [
                                     {
@@ -361,6 +385,12 @@
                                     }
                                 ],
                                 "strokeWeight": 1.0,
+                                "individualStrokeWeights": {
+                                    "top": 0.0,
+                                    "right": 0.0,
+                                    "bottom": 4.0,
+                                    "left": 0.0
+                                },
                                 "strokeAlign": "INSIDE",
                                 "strokeGeometry": [
                                     {
@@ -432,13 +462,15 @@
                                     }
                                 ],
                                 "strokeWeight": 6.0,
-                                "strokeAlign": "INSIDE",
+                                "strokeAlign": "OUTSIDE",
                                 "strokeGeometry": [
                                     {
-                                        "path": "M0 0L0 -6L-6 -6L-6 0L0 0ZM100 0L106 0L106 -6L100 -6L100 0ZM100 64L100 70L106 70L106 64L100 64ZM0 64L-6 64L-6 70L0 70L0 64ZM0 6L100 6L100 -6L0 -6L0 6ZM94 0L94 64L106 64L106 0L94 0ZM100 58L0 58L0 70L100 70L100 58ZM6 64L6 0L-6 0L-6 64L6 64Z",
+                                        "path": "M0 0L0 -6C-3.31371 -6 -6 -3.31371 -6 1.33227e-15L0 0ZM100 0L106 0C106 -3.31371 103.314 -6 100 -6L100 0ZM100 64L100 70C103.314 70 106 67.3137 106 64L100 64ZM0 64L-6 64C-6 67.3137 -3.31371 70 1.33227e-15 70L0 64ZM0 6L100 6L100 -6L0 -6L0 6ZM94 0L94 64L106 64L106 0L94 0ZM100 58L0 58L0 70L100 70L100 58ZM6 64L6 0L-6 0L-6 64L6 64Z",
                                         "windingRule": "NONZERO"
                                     }
                                 ],
+                                "strokeJoin": "ROUND",
+                                "strokeMiterAngle": 7.1666436195373535,
                                 "effects": []
                             }
                         ],
@@ -524,9 +556,9 @@
     "componentSets": {},
     "schemaVersion": 0,
     "styles": {},
-    "name": "Untitled",
-    "lastModified": "2022-05-10T17:29:23Z",
-    "thumbnailUrl": "https://s3-alpha-sig.figma.com/thumbnails/f7c166f9-7028-4a20-9f0a-c2611e5e17cb?Expires=1653264000&Signature=ENDFH-VAFGKLv2TFmjElaEzL6oMY-d6~cr70K1xBAvfUshTk1D58akZNDhm~tVKkqnBM3PLhtUEV149fWfWaoLPkNuMLvIc4~Nz5DIxx1Y7iLDuzogX4dy3MSvffIaocxqvGg3VnKADEqv9aRJUyVF4C9MMZtKgXN3uqe9IN~wcydlQlP~HHrh90yeGvcRGXl9-UmrESSG751436D59LPEj9A~lxVsTnjt7lCx2KUBmSHMoZXJjT7U5~HrVru8TNF2sk33DNZvu6ixZysW9BrPGTGfW0Rry6qRQks3y1SU2DAJESyhUv2OHLsjwu8as4VWN9b2957t~ZvuE4ZFZRqA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
+    "name": "Mixed Borders",
+    "lastModified": "2022-05-10T17:49:13Z",
+    "thumbnailUrl": "https://s3-alpha-sig.figma.com/thumbnails/4c1d3e5f-b2df-435a-97b7-576b2ffa8c81?Expires=1656288000&Signature=CBxt4PDwYdsJpH0s4mmPPkoGSQudQzpM8kTRMJBCbEWYF5WTo49LJRFkZwEctOKXMxiJKl9O0fcl8pX0ELCrPyL7BR~kT2ytD11D5WvI~SOrgroUiq~XQYSwL0-aXXicibNZ-38tPxuPdKtaxYMWdbOoyPl7iFpGrjEdn9glKBP-6nVsL9p9qgyerfK60QBfZTbVFGOKVjdqnnxH4y5CrOv0kjnFzRzNZc-yBACGqfYXprDXmMCtXCa4hIll2Gg6OZMW6H0fOVjyAmjsbL5or5cFyyeRf4mO6Qd2Z~uYhFIR62d44r016HVavS0NTMLTjvO95IVc9xOreZQR1NwpjQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA",
     "version": "1853734757",
     "role": "owner",
     "editorType": "figma",
