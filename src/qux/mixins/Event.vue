@@ -248,6 +248,13 @@ export default {
         Logger.log(1, 'Luisa(Event).onChange() > ', value)
         this.$emit('qChange', this.getBaseEvent(element, e))
         this.dispatchCallback(element, e, 'change', value)
+        if (element.lines) {
+            let line = Util.getLineByType(element, 'InputChange')
+            if (line) {
+                this.executeLine(line, value)
+                this.stopEvent(e)
+            }
+        }
     },
 
     onKeyPress (element, e, value) {
