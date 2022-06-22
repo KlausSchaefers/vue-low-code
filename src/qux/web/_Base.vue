@@ -370,7 +370,7 @@ export default {
     /**
      * Method which sets the value accoridng to the dataBing path.
      */
-    onValueChange (value, key = 'default', e) {
+    onValueChange (value, key = 'default', e, triggerChange = true) {
       Logger.log(3, '_Base.onValueChange() > change : ' + this.element.name, value)
       if (this.element && this.element.props && this.element.props.databinding) {
         let path =  this.element.props.databinding[key]
@@ -387,8 +387,10 @@ export default {
       /**
        * We also trigger the change event
        */
-      this.$emit('qChange', this.element, e, value)
-
+      if (triggerChange) {
+        this.$emit('qChange', this.element, e, value)
+      }
+      
       /**
        * For design system roots, we also fire event
        */

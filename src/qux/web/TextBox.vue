@@ -31,6 +31,9 @@ export default {
       if (this.element && this.element.type === 'Password') {
         return 'password'
       }
+      if (this?.element?.props?.validation?.type === 'int') {
+        return 'number'
+      }
       return 'text'
     },
     placeholder () {
@@ -64,7 +67,7 @@ export default {
   methods: {
       onKeyPress (e) {
         let value = e.target.value
-        this.onValueChange(value, 'default')
+        this.onValueChange(value, 'default', e, false)
         this.$emit('qKeyPress', this.element, e, value)
         Logger.log(6, 'qTextBox.onKeyPress() > exit', value)
       },

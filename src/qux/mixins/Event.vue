@@ -249,10 +249,17 @@ export default {
         Logger.log(1, 'Qux(Event).onChange() > ', value)
         this.$emit('qChange', this.getBaseEvent(element, e))
         this.dispatchCallback(element, e, 'change', value)
+        if (element.lines) {
+            let line = Util.getLineByType(element, 'InputChange')
+            if (line) {
+                this.executeLine(line, value)
+                this.stopEvent(e)
+            }
+        }
     },
 
     onKeyPress (element, e, value) {
-        Logger.log(-2, 'Qux(Event).onKeyPress() > ', e.keyCode, value)
+        Logger.log(2, 'Qux(Event).onKeyPress() > ', e.keyCode, value)
         this.$emit('qKeyPress', this.getBaseEvent(element, e))
         this.dispatchCallback(element, e, 'change', value)
         if (e.keyCode === 13) {
