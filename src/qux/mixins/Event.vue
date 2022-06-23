@@ -192,14 +192,17 @@ export default {
 
     navigateToScreen (screen, line, value) {
         if (screen.style && screen.style.overlay === true) {
-            Logger.log(1, 'Qux(Event).navigateToScreen() > Overlay', screen.name)
+            Logger.log(1, 'Luisa(Event).navigateToScreen() > Overlay', screen.name)
             this.overlayScreenIds.push(screen.id)
         } else {
-            Logger.log(1, 'Qux(Event).navigateToScreen() > Link', screen.name)
+            Logger.log(1, 'Luisa(Event).navigateToScreen() > Link', screen.name)
             this.overlayScreenIds = []
             this.setScreen(screen.name, this.getValueQuery(value))
             if (!line || line.scroll !== true) {
                 this.scrollToTop()
+            } else {
+                Logger.log(1, 'Luisa(Event).navigateToScreen() > Do not scroll')
+                this.ignoreNextScroll = true
             }
         }
     },
@@ -214,7 +217,12 @@ export default {
     },
 
     scrollToTop () {
-        Logger.log(-1, 'Qux(Event).scrollToTop()', this.mergedConfig.scrollToTopAfterNavigation)
+        Logger.log(2, 'Luisa(Event).scrollToTop()', this.mergedConfig.scrollToTopAfterNavigation)
+        if (this.ignoreNextScroll) {
+            Logger.log(-1, 'Luisa(Event).scrollToTop() > ignore')
+            delete this.ignoreNextScroll
+            return
+        }
         if (this.mergedConfig.scrollToTopAfterNavigation) {
             window.scrollTo(0, 0)
         }
@@ -228,25 +236,25 @@ export default {
          * Only pop of the screen background was hit.
          */
         if (this.$refs.overlayCntr && e && e.target === this.$refs.overlayCntr.$el) {
-            Logger.log(4, 'Qux(Event).popOverlay()')
+            Logger.log(4, 'Luisa(Event).popOverlay()')
             this.removeLastOverlay()
         }
     },
 
     removeLastOverlay () {
-        Logger.log(4, 'Qux(Event).removeLastOverlay()')
+        Logger.log(4, 'Luisa(Event).removeLastOverlay()')
         if (this.overlayScreenIds.length > 0) {
             this.overlayScreenIds.pop()
         }
     },
 
     closeAllOverlays () {
-        Logger.log(4, 'Qux(Event).closeAllOverlays()')
+        Logger.log(4, 'Luisa(Event).closeAllOverlays()')
         this.overlayScreenIds = []
     },
 
     onChange (element, e, value) {
-        Logger.log(1, 'Qux(Event).onChange() > ', value)
+        Logger.log(1, 'Luisa(Event).onChange() > ', value)
         this.$emit('qChange', this.getBaseEvent(element, e))
         this.dispatchCallback(element, e, 'change', value)
         if (element.lines) {
@@ -259,7 +267,7 @@ export default {
     },
 
     onKeyPress (element, e, value) {
-        Logger.log(2, 'Qux(Event).onKeyPress() > ', e.keyCode, value)
+        Logger.log(2, 'Luisa(Event).onKeyPress() > ', e.keyCode, value)
         this.$emit('qKeyPress', this.getBaseEvent(element, e))
         this.dispatchCallback(element, e, 'change', value)
         if (e.keyCode === 13) {
