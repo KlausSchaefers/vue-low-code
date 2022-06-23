@@ -199,6 +199,9 @@ export default {
             this.setScreen(screen.name, this.getValueQuery(value))
             if (!line || line.scroll !== true) {
                 this.scrollToTop()
+            } else {
+                Logger.log(1, 'Luisa(Event).navigateToScreen() > Do not scroll')
+                this.ignoreNextScroll = true
             }
         }
     },
@@ -214,6 +217,11 @@ export default {
 
     scrollToTop () {
         Logger.log(4, 'Luisa(Event).scrollToTop()')
+        if (this.ignoreNextScroll) {
+            Logger.log(-1, 'Luisa(Event).scrollToTop() > ignore')
+            delete this.ignoreNextScroll
+            return
+        }
         if (this.mergedConfig.scrollToTopAfterNavigation) {
             window.scrollTo(0, 0)
         }

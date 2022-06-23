@@ -74,7 +74,10 @@ export default {
       setFocus () {
         Logger.log(0, 'qTextBox.setFocus() > enter')
         if (this.$el) {
-          this.$el.focus()
+          this.$el.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+          setTimeout(() => {
+            this.$el.focus()
+          }, 200)
         }
       }
   },

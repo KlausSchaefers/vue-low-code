@@ -784,7 +784,7 @@ export function createInheritedModel(model) {
                                     }
                                 }
                             } else {
-                                console.warn("createInheritedModel() > no parent screen child with id > " + parentID + ">" + parentWidget);
+                                //console.warn("createInheritedModel() > no parent screen child with id > " + parentID + ">" + parentWidget);
                             }
                         }
 
@@ -815,7 +815,8 @@ function createInheritedGroups (inScreen, parentScreen, model, inModel) {
         if (inheritedWidget) {
             widgetParentMapping[inheritedWidget.inherited] = widgetID
         } else {
-            console.warn('createInheritedGroups() Could not find widget', widgetID)
+            Logger.log(4, 'ExportUtil.createInheritedGroups() > could not find widget', widgetID)
+            //console.warn('createInheritedGroups() Could not find widget', widgetID)
         }
     })
     parentGroups.forEach(group => {
