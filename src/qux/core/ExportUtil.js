@@ -834,7 +834,7 @@ function createInheritedGroups (inScreen, parentScreen, model, inModel) {
             if (inheritedID) {
                 newGroup.children.push(inheritedID)
             } else {
-                console.warn('createInheritedGroups() Could not find parent widhet', widgetID)
+                Logger.log(4, 'ExportUtil.createInheritedGroups() > could not parent widget', widgetID)
             }
         })
         if (inModel.groups) {

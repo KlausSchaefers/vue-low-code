@@ -1,6 +1,6 @@
 {
   "name": "luisa-vue",
-  "version": "2.0.24",
+  "version": "2.0.25",
   "description": "Luisa - The VUE LowCode Framework. Renderer FIGMA & Quant-UX designs in VUE applications. Turn your Figma or Quant-UX design into VUE, or create re-usable designlets",
   "main": "./dist/index.js",
   "scripts": {
