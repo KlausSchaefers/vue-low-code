@@ -28,6 +28,7 @@ class Config {
 			},
 			designletPrefix: '',
 			scrollToTopAfterNavigation: true,
+			scrollIntoViewOnFocus: false,
 			loadFonts: true,
 			loadFontsWarning: true,
 			figma: {
@@ -77,6 +78,9 @@ class Config {
 		}
 		if (overwrites.scrollToTopAfterNavigation !== undefined) {
 			config.scrollToTopAfterNavigation = overwrites.scrollToTopAfterNavigation
+		}
+		if (overwrites.scrollIntoViewOnFocus !== undefined) {
+			config.scrollIntoViewOnFocus = overwrites.scrollIntoViewOnFocus	
 		}
 		if (overwrites.css) {
 			config.css = Util.mixin(config.css, overwrites.css)

@@ -72,12 +72,16 @@ export default {
         Logger.log(6, 'qTextBox.onKeyPress() > exit', value)
       },
       setFocus () {
-        Logger.log(0, 'qTextBox.setFocus() > enter')
+        Logger.log(-1, 'qTextBox.setFocus() > enter', this?.config?.scrollIntoViewOnFocus)
         if (this.$el) {
-          this.$el.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
-          setTimeout(() => {
-            this.$el.focus()
-          }, 200)
+          if (this?.config?.scrollIntoViewOnFocus === true) {
+            this.$el.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+            setTimeout(() => {
+              this.$el.focus()
+            }, 200)
+          } else {
+             this.$el.focus()
+          }
         }
       }
   },
