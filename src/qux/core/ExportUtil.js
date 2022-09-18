@@ -624,10 +624,10 @@ export function getBoundingBoxByIds (ids, model) {
 
 export function getBoundingBoxByBoxes (boxes) {
 
-    var result = { x: 100000000, y: 100000000, w: 0, h: 0, z: 100000000, props: {resize: {}}, style: {}};
+    const result = { x: 100000000, y: 100000000, w: 0, h: 0, z: 100000000, props: {resize: {}}, style: {}};
 
     for (var i = 0; i < boxes.length; i++) {
-        var box = boxes[i];
+        const box = boxes[i];
         result.x = Math.min(result.x, box.x);
         result.y = Math.min(result.y, box.y);
         result.w = Math.max(result.w, box.x + box.w);
@@ -643,9 +643,6 @@ export function getBoundingBoxByBoxes (boxes) {
 
     result.h -= result.y;
     result.w -= result.x;
-
-
-
     return result;
 }
 

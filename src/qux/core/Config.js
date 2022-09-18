@@ -112,6 +112,9 @@ class Config {
 		if (overwrites.responsive) {
 			config.responsive = overwrites.responsive
 		}
+		if (overwrites.breakpoints) {
+			config.breakpoints = overwrites.breakpoints
+		}
 		if (overwrites.figma) {
 			config.figma = Util.mixin(config.figma, overwrites.figma)
 		}

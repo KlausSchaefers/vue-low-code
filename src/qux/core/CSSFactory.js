@@ -12,18 +12,18 @@ export default class CSSFactory {
 		this.imagePrefix = imagePrefix
 		this.hoverEmbeddedLabel = false
 	
-		this.responsive = {
+		this.breakpoints = {
 			mobile: {
 				min: 0,
 				max: 400
 			},
 			tablet: {
-					min: 401,
-					max: 1000
+				min: 401,
+				max: 1000
 			},
 			desktop: {
-					min: 1201,
-					max: 1000000
+				min: 1201,
+				max: 1000000
 			}
 		}
 
@@ -37,10 +37,12 @@ export default class CSSFactory {
 			Logger.log(-1, 'CSSFactory.constructor() > selectorPrefix ', config.css.selectorPrefix)
 		}
 
-		if (config.responsive) {
-			this.responsive = config.responsive
+		if (config.breakpoints) {
+			this.breakpoints = config.breakpoints
+			Logger.log(-1, 'CSSFactory.constructor() > set breakpoints ', this.breakpoints)
 		}
 
+	
 		if (config.css && config.css.hoverEmbeddedLabel) {
 			this.hoverEmbeddedLabel = config.css.hoverEmbeddedLabel
 		}
@@ -460,15 +462,15 @@ export default class CSSFactory {
 	}
 
 	getBreakpoints (selector, widget) {
+	
 		let result = ''
 		if (widget.props.breakpoints) {
-			Logger.log(-1, 'CSSFactory.getBreakpoints()', widget.name)
 			const breakpoints = widget.props.breakpoints
 			/**
 			 * Assume at leats one is true
 			 */
 			if (!breakpoints.mobile) {
-				result += `@media only screen and (min-width: ${this.responsive.mobile.min}px) and (max-width: ${this.responsive.mobile.max}px) {\n`
+				result += `@media only screen and (min-width: ${this.breakpoints.mobile.min}px) and (max-width: ${this.breakpoints.mobile.max}px) {\n`
 				result += `  ${selector} {\n`
 				result += '    display: none;\n'
 				result += '  }\n'
@@ -476,7 +478,7 @@ export default class CSSFactory {
 			}
 
 			if (!breakpoints.tablet) {
-				result += `@media only screen and (min-width: ${this.responsive.tablet.min}px) and (max-width: ${this.responsive.tablet.max}px) {\n`
+				result += `@media only screen and (min-width: ${this.breakpoints.tablet.min}px) and (max-width: ${this.breakpoints.tablet.max}px) {\n`
 				result += `  ${selector} {\n`
 				result += '    display: none;\n'
 				result += '  }\n'
@@ -484,7 +486,7 @@ export default class CSSFactory {
 			}
 
 			if (!breakpoints.desktop) {
-				result += `@media only screen and (min-width: ${this.responsive.desktop.min}px) and (max-width: ${this.responsive.desktop.max}px) {\n`
+				result += `@media only screen and (min-width: ${this.breakpoints.desktop.min}px) and (max-width: ${this.breakpoints.desktop.max}px) {\n`
 				result += `  ${selector} {\n`
 				result += '    display: none;\n'
 				result += '  }\n'

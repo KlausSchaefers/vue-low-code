@@ -208,7 +208,7 @@ export default class CSSPosition {
 	}
 
 	getParentAutoHorizontal (widget) {
-		Logger.log(-5, "CSSPosition.getParentAutoHorizontal() > " + widget.name)
+		Logger.log(5, "CSSPosition.getParentAutoHorizontal() > " + widget.name)
 		let result = ''
 
 		if (Util.isFixedVertical(widget)) {
