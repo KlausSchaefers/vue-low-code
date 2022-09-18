@@ -23,6 +23,7 @@ export default {
             luisa: this
         })      
         this.dispatchCallback(screen, null, 'load', null)
+        this.dispatchScreenAnimation(screen)
         MetaWriter.write(screen)
     },
 
@@ -130,10 +131,23 @@ export default {
         }
     },
 
+    dispatchScreenAnimation (screen) {
+        // sometimes this is not the tree model!!
+        if (screen.lines) {
+            const line = Util.getLineByType(screen, 'timer')
+            if (line) {
+                Logger.log(-1, 'Luisa.dispatchScreenAnimation() > move to > ', line)
+                setTimeout(() => {
+                    this.executeLine(line)
+                }, line.timer * 1000)
+            }
+        }
+    },
+
     async dispatchCallback (element, e, type, value) {
         Logger.log(4, 'Luisa.dispatchCallback() > enter > ' + type, element,)
-         if (element.props && element.props.callbacks) {
-            let callback = element.props.callbacks[type]
+        if (element.props && element.props.callbacks) {
+            const callback = element.props.callbacks[type]
             if (callback) {
                 Logger.log(2, 'Luisa.dispatchCallback() > callback > ' + type, callback)
 

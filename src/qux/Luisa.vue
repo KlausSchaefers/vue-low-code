@@ -312,13 +312,13 @@ export default {
         this.closeAllOverlays()
         if (this.model) {
             /**
-             * FIXME: Use here tree model
+             * FIXME: Use here tree model.
              */
-            let model = this.responsiveModel
-            let screen = Object.values(model.screens).find(s => s.name === name)
-            Logger.log(-1, 'Luisa.loadScreen() > Found ', screen)
+            const model = this.responsiveModel
+            const screen = Object.values(model.screens).find(s => s.name === name)
+            Logger.log(2, 'Luisa.loadScreen() > Found ', screen)
             if (screen) {
-                // make here somethink like: use router? and updat ethe url as well?
+                // make here somethink like: use router? and update the url as well?
                 this.selectedScreenId = screen.id
                 this.onScreenLoaded(screen)
             } else {
@@ -345,7 +345,7 @@ export default {
     },
     setStartScreen () {
         Logger.log(5, 'Luisa.setStartScreen() > enter ')
-        let startScreen = this.getDefaultScreen()
+        const startScreen = this.getDefaultScreen()
         if (startScreen) {
             this.selectedScreenId = startScreen.id
             this.onScreenLoaded(startScreen)

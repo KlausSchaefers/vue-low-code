@@ -81,10 +81,7 @@ export default {
               if (this.config && this.config.router && this.config.router.prefix) {
                 prefix = this.config.router.prefix + '/'
               }
-              if (this.hasHistoryRouter) {
-                //return `/${prefix}${box.name}.html`
-              }
-              return `/${prefix}${box.name}.html`
+              return `${prefix}${box.name}.html`
             }
           }
         }
