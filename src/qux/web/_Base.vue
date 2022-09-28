@@ -79,6 +79,9 @@ export default {
               if (this.config && this.config.router && this.config.router.prefix) {
                 prefix = this.config.router.prefix + '/'
               }
+              if (this.config && this.config.router && this.config.router.routerLinkPrefix) {
+                prefix = this.config.router.routerLinkPrefix + '/'
+              }
               return `${prefix}${box.name}.html`
             }
           }
