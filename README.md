@@ -11,7 +11,7 @@ You can find the documentation at [Luisa.cloud](https://luisa.cloud/help.html).
 ## Examples-And-Links
 - [Quant-UX](https://quant-ux.com)
 - [Template project VUE2] (https://github.com/KlausSchaefers/luisa-vue2-starter)
-- [Template project VUE3] (https://github.com/KlausSchaefers/luisa-vue2-starter)
+- [Template project VUE3] (https://github.com/KlausSchaefers/luisa-vue3-starter)
 - [Low Code Example](https://github.com/KlausSchaefers/qux-low-code-example)
 - [Figma Plugin](https://www.figma.com/community/plugin/858477504263032980/Figma-Low-Code)
 - [Figma-Low-Code](https://github.com/KlausSchaefers/figma-low-code)
