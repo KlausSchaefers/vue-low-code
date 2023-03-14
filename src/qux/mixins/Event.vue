@@ -15,6 +15,7 @@ export default {
     onScreenLoaded (screen) {
         Logger.log(3, 'Luisa.onScreenLoaded() > ', screen)
         this.setSystemVariable('screen', screen.name)
+        this.purgeValidationErrors()
         this.$emit('qScreenLoad', {
             value: this.modelValue,
             element: screen,
@@ -110,8 +111,16 @@ export default {
 
     executeLine(line, value) {
         Logger.log(-1, 'Luisa.executeLine() > enter', line, value)
+   
         if (line) {
-            let box = Util.getBoxById(line.to, this.model)
+            if (line && line.validation) {
+                this.validateAllWidgets()
+                if (Object.values(this.validationErrors).length > 0) {
+                    Logger.log(-1, 'Luisa.executeLine() > exit because of validation errors', line, value)
+                    return
+                }                
+            }
+            const box = Util.getBoxById(line.to, this.model)
             if (box.type === 'Screen') {
                 this.navigateToScreen(box, line, value)
                 return

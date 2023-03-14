@@ -9,7 +9,7 @@
       <slot></slot>
     </span>
   </router-link>
-  <label :class="['qux-label', cssClass]" @click="onClick" v-else>
+  <label :class="['qux-label', cssClass, cssError]" @click="onClick" v-else>
     <span class="qux-richtext" v-if="isRichText" v-html="richText">
     </span>
      <span class="qux-common-label" v-else-if="dataBindingLabel && !hasSlot">
@@ -36,6 +36,16 @@ export default {
       }
   },
   computed: {
+    cssError () {
+      if (this.element?.props.errorLabelSource) {
+        const sourceId = this.element?.props.errorLabelSource
+        if(this.validationErrors[sourceId]) {
+          return 'qux-error-label-visible'
+        }
+        return 'qux-error-label-hidden'
+      }
+      return ''
+    },
     richText () {
       return cleanInnerHTML(this.dataBindingLabel.value)
     },

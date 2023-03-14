@@ -54,13 +54,37 @@ export function transform(app, config) {
 	setTemplateStyles(model)
 
 	/**
+	 * Set validation labels
+	 */
+	setValidationLabels(model)
+
+	/**
 	 * Add here virtual elements for the groups
 	 */
 	for (let screenID in model.screens) {
-		let screen = model.screens[screenID]
+		const screen = model.screens[screenID]
 		model = addGroupWrapper(screen, model)
 	}
 
+	return model
+}
+
+function setValidationLabels(model) {
+	Logger.log(2, "Quant2Flat.setValidationLabels()")
+
+	Object.values(model.widgets).forEach(w => {
+		if (w?.props?.refs?.errorLabels) {
+			const refs = w.props.refs.errorLabels	
+			refs.forEach(ref => {
+				const label = model.widgets[ref]
+				if (label) {
+					label.props.errorLabelSource = w.id
+				} else {
+					Logger.warn("Quant2Flat.setValidationLabels() > no ref ", ref)
+				}
+			})			
+		}
+	})
 	return model
 }
 

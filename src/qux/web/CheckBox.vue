@@ -36,10 +36,21 @@ export default {
       }
   },
   methods: {
+      validateInput (value) {  
+        const validation = this.element?.props?.validation
+        if (!validation) {
+          return true
+        }  
+        if (validation.required === true && !value) {
+          return false
+        }
+        return true
+      },
       toggle () {
         if (this.element) {
           let value = !this.isChecked
           this.onValueChange(value, 'default')
+          this.isValid()
           Logger.log(-1, 'qCheckBox.toggle() >' + this.dataBindingInputPath, value)
         } else {
           this.checked = !this.checked
@@ -47,6 +58,12 @@ export default {
           this.$emit('update:modelValue', this.checked)
           Logger.log(-1, 'qCheckBox.toggle() >' + this.checked)
         }
+      },
+      getValue() {
+        if (this.element) {
+          return this.isChecked
+        } 
+        return this.checked
       }
   },
   watch: {

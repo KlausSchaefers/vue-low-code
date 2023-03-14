@@ -8,6 +8,7 @@
 import * as Util from '../core/ExportUtil'
 import JSONPath from '../core/JSONPath'
 import Logger from '../core/Logger'
+import Bus from '../core/Bus'
 
 export default {
   name: '_Base',
@@ -37,10 +38,11 @@ export default {
         type: Boolean
       }
   },
-  inject: ['viewModel'],
+  inject: ['viewModel', 'validationErrors'],
   data: function () {
       return {
-        hasLabelInOptions: true
+        hasLabelInOptions: true,
+        hasValidationError: false
       }
   },
   computed: {
@@ -56,6 +58,9 @@ export default {
         }
         if (this.element && (this.element.lines && this.element.lines)) {
           let line = this.element.lines.find(l => this.isClick(l))
+          if (line && line.validation) {
+            return false
+          }
           if (line) {
             let box = Util.getBoxById(line.to, this.model)
             if (box.type === 'Screen' && !box.style.overlay) {
@@ -72,6 +77,7 @@ export default {
         if (this.url) {
           return this.url
         }
+      
         if (this.element && (this.element.lines && this.element.lines.length  === 1)) {
           let line = this.element.lines.find(l => this.isClick(l))
           if (line) {
@@ -79,7 +85,7 @@ export default {
             if (box.type === 'Screen') {
               let prefix = ''
               if (this.config && this.config.router && this.config.router.prefix) {
-                prefix = this.config.router.prefix + '/'
+                prefix = '/' + this.config.router.prefix + '/'
               }
               return `${prefix}${box.name}.html`
             }
@@ -137,7 +143,7 @@ export default {
               let resize = this.element.props.resize
               for (let direction in resize) {
                 if (resize[direction]) {
-                     result += `qux-resize-${direction} `
+                     result += ` qux-resize-${direction} `
                 }
               }
             }
@@ -147,6 +153,9 @@ export default {
             result += this.element.sharedCssClasses.join(' ') + ' '
           }
           result += this.element.cssClass
+        }
+        if (this.hasValidationError) {
+          result += ' qux-validation-error'
         }
         return result
       },
@@ -304,9 +313,13 @@ export default {
       }
     },
     onChange (e) {
-      this.$emit('qChange', this.element, e, this.getValue())
-      this.checkDesignSystemCallback(e, 'change')
-      this.fireParentDomEvent('change', e)
+      if (this.isValid()) {
+        this.$emit('qChange', this.element, e, this.getValue())
+        this.checkDesignSystemCallback(e, 'change')
+        this.fireParentDomEvent('change', e)
+      } else {
+        Logger.log(-1, '_Base.onChange() > Not valid ', this.element)
+      }
     },
     onKeyPress (e) {
       this.$emit('qKeyPress', this.element, e, this.getValue())
@@ -327,7 +340,28 @@ export default {
     onMouseOut (e) {
       this.$emit('qMouseOut', this.element, e)
     },
-
+    isValid () {
+      if (this.element?.props.validation) {
+        const value = this.getValue()
+        const result = this.validateInput(value)
+        if (!result) {
+          this.validationErrors[this.element.id] = true
+          this.hasValidationError = true
+        } else {
+          delete this.validationErrors[this.element.id]
+          this.hasValidationError = false
+        }
+        Logger.log(2, '_Base.isValid() > Not valid input : ' + value,  this.validationErrors)
+      }
+      return true
+    },
+    /**
+     * Should be overwritten by children
+     */
+    validateInput (value) {
+      Logger.log(-1, '_Base.validateInput() > : ', value)
+      return true
+    },
     checkDesignSystemCallback (e, type) {
       Logger.log(4, '_Base.checkDesignSystemCallback() > : ' + type, this.element)
       if (this.element && this.element.props && this.element.props.callbacks) {
@@ -396,8 +430,17 @@ export default {
         this.$parent.$emit('change', value)
       }
     }
-
-
+  },
+  mounted () {
+    this._validationListener = Bus.subscribe(Bus.TOPIC_LUISA_VALIDATION, () => {
+      this.isValid()
+    })
+  },
+  beforeUnmount () {
+    if (this._validationListener) {
+      this._validationListener.remove()
+      delete this._validationListene
+    }
   }
 }
 </script>

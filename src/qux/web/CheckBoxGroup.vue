@@ -53,9 +53,19 @@ export default {
           }
           return false
       },
+      validateInput (value) { 
+  
+        const validation = this.element?.props?.validation
+        if (!validation) {
+          return true
+        }  
+        if (validation.required === true && (!value || value.length === 0)) {
+          return false
+        }
+        return true
+      },
 
       select (option) {
-
         let input = this.dataBindingInput
         if (input) {
             if (Array.isArray(input)) {
@@ -71,6 +81,7 @@ export default {
             input = [option]
         }
         this.onValueChange(input, 'default')
+        this.isValid()
         Logger.log(5, 'qCheckBoxGroup.select() >' + this.dataBindingInputPath, input)
       }
   },

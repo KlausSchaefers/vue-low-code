@@ -257,6 +257,18 @@ export default class CSSWidgetFactory {
       result += '}\n\n'
     }
 
+    if (widget.error) {
+      result += selector + '.qux-validation-error .qux-checkbox-cntr {\n'
+      result += this.cssFactory.getStyleByKey(widget.error, widget, this.cssFactory.borderColorProperties)
+      if(widget.error.background) {
+        result += `  background:${widget.error.background};\n`
+      }
+      if(widget.error.color) {
+        result += `  color:${widget.error.color};\n`
+      }
+      result += '}\n\n'
+    }
+
     return result
   }
 
@@ -317,6 +329,16 @@ export default class CSSWidgetFactory {
       result += this.cssFactory.getStyleByKey(widget.checked, widget, this.cssFactory.borderColorProperties)
       result += '}\n\n'
     }
+
+    if (widget.error) {
+      result += selector + '.qux-validation-error .qux-checkbox-cntr {\n'
+      result += this.cssFactory.getStyleByKey(widget.error, widget, this.cssFactory.borderColorProperties)
+      if(widget.error.background) {
+        result += `  background:${widget.error.background};\n`
+      }
+      result += '}\n\n'
+    }
+
 
     return result
   }
@@ -416,8 +438,17 @@ export default class CSSWidgetFactory {
 
     result += selector + ':not(.qux-dropdown-mobile) .qux-dropdown-popup {\n'
     result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.borderProperties)
+    // ugly hack
+    result += `  left: -${style._borderLeftWidth}px;\n`
     if (style.popupBorder) {
       result += `  border-color:${style.popupBorder};\n`
+    }
+    if (style.popupShadow) {
+      result += this.cssFactory.getBoxShadow(style.popupShadow)
+    }
+    if (widget.props.hideUpperBorder) {
+      result += `  border-top-width: 0px;\n`
+      result += `  border-radius: 0px 0px ${style._borderBottomLeftRadius}px ${style._borderBottomRightRadius}px;\n`
     }
     result += '}\n\n'
 
@@ -454,6 +485,19 @@ export default class CSSWidgetFactory {
 
       result += selector + ':hover .qux-dropdown-popup {\n'
       result += this.cssFactory.getStyleByKey(widget.hover, widget, this.cssFactory.borderProperties)
+      result += '}\n\n'
+    }
+
+
+    if (widget.error) {
+      result += selector + '.qux-validation-error  {\n'
+      result += this.cssFactory.getStyleByKey(widget.error, widget, this.cssFactory.borderColorProperties)
+      if(widget.error.background) {
+        result += `  background:${widget.error.background};\n`
+      }
+      if(widget.error.color) {
+        result += `  color:${widget.error.color};\n`
+      }
       result += '}\n\n'
     }
 

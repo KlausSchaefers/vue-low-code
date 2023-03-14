@@ -1,41 +1,44 @@
-import Button from './web/Button.vue'
-import Label from './web/Label.vue'
-import Icon from './web/Icon.vue'
-import TextBox from './web/TextBox.vue'
-import Container from './web/Container.vue'
-import Repeater from './web/Repeater.vue'
-import Image from './web/Image.vue'
-import CheckBox from './web/CheckBox.vue'
-import CheckBoxGroup from './web/CheckBoxGroup.vue'
-import RadioBox from './web/RadioBox.vue'
-import RadioGroup from './web/RadioGroup.vue'
-import Toggle from './web/Toggle.vue'
-import Switch from './web/Switch.vue'
-import DropDown from './web/DropDown.vue'
-import TextArea from './web/TextArea.vue'
-import Stepper from './web/Stepper.vue'
-import Slider from './web/Slider.vue'
-import qDate from './web/Date.vue'
-import qDatePicker from './web/DatePicker.vue'
-import Segment from './web/Segment.vue'
-import Rating from './web/Rating.vue'
-import IconToggle from './web/IconToggle.vue'
-import Combo from './web/Combo.vue'
-import Table from './web/Table.vue'
-import Paging from './web/Paging.vue'
-import Chart from './web/Chart.vue'
-import Vector from './web/Vector.vue'
-import Timeline from './web/Timeline.vue'
-import Upload from './web/Upload.vue'
-import Camera from './web/Camera.vue'
-import UploadPreview from './web/UploadPreview.vue'
-import ChildrenToggle from './web/ChildrenToggle.vue'
-import Spinner from './web/Spinner.vue'
-import DynamicContainer from './web/DynamicContainer.vue'
+import { defineAsyncComponent } from 'vue';
+
 import RichText from './web/RichText.vue'
 import Link from './web/Link.vue'
 import Luisa from './Luisa.vue'
-//import Figma from './figma/Figma.vue'
+import Container from './web/Container.vue'
+import Repeater from './web/Repeater.vue'
+import Button from './web/Button.vue'
+import Label from './web/Label.vue'
+import Image from './web/Image.vue'
+import DropDown from './web/DropDown.vue'
+import TextArea from './web/TextArea.vue'
+import ChildrenToggle from './web/ChildrenToggle.vue'
+import DynamicContainer from './web/DynamicContainer.vue'
+import TextBox from './web/TextBox.vue'
+import Vector from './web/Vector.vue'
+
+const Icon = defineAsyncComponent(() => import(/* webpackChunkName: "widgets" */ './web/Icon.vue'))
+const IconToggle = defineAsyncComponent(() => import(/* webpackChunkName: "widgets" */ './web/IconToggle.vue'))
+const CheckBox = defineAsyncComponent(() => import(/* webpackChunkName: "widgets" */ './web/CheckBox.vue'))
+const CheckBoxGroup = defineAsyncComponent(() => import(/* webpackChunkName: "widgets" */ './web/CheckBoxGroup.vue'))
+const RadioBox = defineAsyncComponent(() => import(/* webpackChunkName: "widgets" */ './web/RadioBox.vue'))
+const RadioGroup = defineAsyncComponent(() => import(/* webpackChunkName: "widgets" */ './web/RadioGroup.vue'))
+const Toggle = defineAsyncComponent(() => import(/* webpackChunkName: "widgets" */ './web/Toggle.vue'))
+const Switch = defineAsyncComponent(() => import(/* webpackChunkName: "widgets" */ './web/Switch.vue'))
+const Stepper = defineAsyncComponent(() => import(/* webpackChunkName: "widgets" */ './web/Stepper.vue'))
+const Slider = defineAsyncComponent(() => import(/* webpackChunkName: "widgets" */ './web/Slider.vue'))
+const qDate = defineAsyncComponent(() => import(/* webpackChunkName: "widgets" */ './web/Date.vue'))
+const qDatePicker = defineAsyncComponent(() => import(/* webpackChunkName: "widgets" */ './web/DatePicker.vue'))
+const Segment = defineAsyncComponent(() => import(/* webpackChunkName: "widgets" */ './web/Segment.vue'))
+const Rating = defineAsyncComponent(() => import(/* webpackChunkName: "widgets" */ './web/Rating.vue'))
+const Combo = defineAsyncComponent(() => import(/* webpackChunkName: "widgets" */ './web/Combo.vue'))
+const Table = defineAsyncComponent(() => import(/* webpackChunkName: "widgets" */ './web/Table.vue'))
+const Paging = defineAsyncComponent(() => import(/* webpackChunkName: "widgets" */ './web/Paging.vue'))
+const Chart = defineAsyncComponent(() => import(/* webpackChunkName: "widgets" */ './web/Chart.vue'))
+const Timeline = defineAsyncComponent(() => import(/* webpackChunkName: "widgets" */ './web/Timeline.vue'))
+const Upload = defineAsyncComponent(() => import(/* webpackChunkName: "widgets" */ './web/Upload.vue'))
+const Camera = defineAsyncComponent(() => import(/* webpackChunkName: "widgets" */ './web/Camera.vue'))
+const UploadPreview = defineAsyncComponent(() => import(/* webpackChunkName: "widgets" */ './web/UploadPreview.vue'))
+const Spinner = defineAsyncComponent(() => import(/* webpackChunkName: "widgets" */ './web/Spinner.vue'))
+
 
 export default {
     install: (app) => {

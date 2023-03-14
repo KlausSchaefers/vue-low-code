@@ -1,7 +1,7 @@
 //import Vue from 'vue'
 class JSONPath {
 
-    get (data, path) {
+    get (data, path='') {
         if (data != null && data != undefined) {
             if (data[path] !== null && data[path] !== undefined) {
                 return data[path]
@@ -19,7 +19,7 @@ class JSONPath {
         }
     }
 
-    set (data, path, value) {
+    set (data, path='', value) {
         //console.debug('JSONPath.set()', path, '>' + value + '<')
         let elements = this.getJsonPath(path)
         let current = elements.shift()

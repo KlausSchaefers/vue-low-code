@@ -34,12 +34,12 @@ export default class CSSFactory {
 
 		if (config.css && config.css.selectorPrefix) {
 			this.selectorPrefix = config.css.selectorPrefix ? config.css.selectorPrefix : ''
-			Logger.log(-1, 'CSSFactory.constructor() > selectorPrefix ', config.css.selectorPrefix)
+			Logger.log(1, 'CSSFactory.constructor() > selectorPrefix ', config.css.selectorPrefix)
 		}
 
 		if (config.breakpoints) {
 			this.breakpoints = config.breakpoints
-			Logger.log(-1, 'CSSFactory.constructor() > set breakpoints ', this.breakpoints)
+			Logger.log(1, 'CSSFactory.constructor() > set breakpoints ', this.breakpoints)
 		}
 
 	
@@ -345,7 +345,7 @@ export default class CSSFactory {
 			}
 
 			if (widget.error) {
-				result += selector + ':invalid {\n'
+				result += selector + '.qux-validation-error {\n'
 				result += this.getRawStyle(widget.error, widget);
 				result += '}\n\n'
 			}
@@ -366,9 +366,8 @@ export default class CSSFactory {
 	}
 
 	getCSS (widget, screen) {
-		var result = "";
-
-		var style = widget.style;
+		let result = "";
+		let style = widget.style;
 		style = Util.fixAutos(style, widget)
 
 		let selector = this.getSelector(widget, screen);
@@ -414,7 +413,7 @@ export default class CSSFactory {
 			}
 
 			if (widget.error) {
-				result += selector + ':invalid {\n'
+				result += selector + '.qux-validation-error {\n'
 				result += this.getRawStyle(widget.error, widget);
 				result += '}\n\n'
 			}
@@ -726,7 +725,7 @@ export default class CSSFactory {
 	}
 
 	getValue (key, value) {
-		var result = ''
+		let result = ''
 		if (key === 'fontFamily'){
 			result += this.escapeFontFamily(value)
 		} else if (this.isPixel[key]) {
@@ -742,6 +741,14 @@ export default class CSSFactory {
 			result += value
 		}
 		return result;
+	}
+
+	getBoxShadow (value) {
+		let result = '  box-shadow: ' + value.h+"px "+ value.v+"px "+ value.b+"px "+ value.c;
+		if (value.i) {
+			result += 'inset'
+		}
+		return result
 	}
 
 	escapeFontFamily (value) {

@@ -1,13 +1,20 @@
 .qux-dropdown{
-    border:1px solid #333;
+
     transition: all 0.2s;
     display: inline-block;
     position: relative;
     cursor: pointer;
 
+    .qux-dropdown-cntr{
+        height: 100%;
+        width: 100%;
+        border:1px solid #333;
+    }
+
     .qux-dropdown-label {
         height: 100%;
         width: 100%;
+        display: flex;
         align-items: center;
 
         .qux-dropdown-expend {

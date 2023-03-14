@@ -18,6 +18,7 @@
 
 import _Base from './_Base.vue'
 import Logger from '../core/Logger'
+import * as ValidationUtil from '../core/ValidationUtil'
 
 export default {
   name: 'qTestBox',
@@ -65,6 +66,22 @@ export default {
     }
   },
   methods: {
+     
+      onBlur (e) {
+        if (this.isValid()) {
+          this.$emit('qBlur', this.element, e)
+          this.fireParentDomEvent('blur', e)
+        } else {
+          Logger.log(-1, 'TextBox.onBlur() > Not valid ', this.element)
+        }
+      },
+      validateInput (value) {
+        const validation = this.element?.props?.validation
+        if (!validation) {
+          return true
+        }  
+        return ValidationUtil.validateText(validation, value)
+      },
       onKeyPress (e) {
         let value = e.target.value
         this.onValueChange(value, 'default', e, false)

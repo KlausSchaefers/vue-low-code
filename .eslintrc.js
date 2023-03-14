@@ -10,7 +10,8 @@ module.exports = {
   rules: {
     'no-console': 'off',
     'no-debugger': 'off',
-    'no-async-promise-executor': 'off'
+    'no-async-promise-executor': 'off',
+    'no-useless-escape': 'off'
   },
   parserOptions: {
     parser: 'babel-eslint'

@@ -20,14 +20,14 @@ export default class ModelTransformer {
     }
 
     transform () {
-      Logger.log(0, 'ModelTransformer.transform() > selected: ', this.selected)
-      let model = this.model
+      Logger.log(2, 'ModelTransformer.transform() > selected: ', this.selected)
+      const model = this.model
 
       // 1) Make a flat model, e.g. merge in master screens
-      let flatModel = Quant2Flat.transform(model, this.config)
+      const flatModel = Quant2Flat.transform(model, this.config)
 
       // 2) Build a tree and layout everything. This will also layout component sets!
-      let treeModel = Flat2Tree.transform(flatModel, this.config)
+      const treeModel = Flat2Tree.transform(flatModel, this.config)
 
       // 3) For dynamic widgets, inline all children.
       let inlineModel = Inline.transform(treeModel, this.config)
