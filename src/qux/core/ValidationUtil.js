@@ -1,34 +1,46 @@
 export function validateText(validation, value) {
+    /**
+     * If required, the value must be set
+     */
     if (validation.required === true && !value) {
         return false
     }
 
+    /**
+     * If not required, no valu is ok
+     */
+    if (!value) {
+        return true
+    }
+
     const type = validation.type
-    if (type == "int") {
+    const subtype = validation.subtype
+
+    if (type == "int"  || subtype == "int") {
        return validateInt(validation, value)
     }
 
     if (type == "email") {
-        return this.validateEmail(value)
+        return validateEmail(value)
     }
 
     if (type == "phone") {
-        return this.validatePhone(value)
+        return validatePhone(value)
     }
 
     if (type == "date") {
-       return this.validateDate(value)
+       return validateDate(value)
     }
     if (type == "time") {
-        return this.validateTime(value)
+        return validateTime(value)
     }
 
-    if (type == "double") {
-        return this.validaeDouble(validation, value)
+    if (type == "double" || subtype == "double") {
+        return validaeDouble(validation, value)
     }
 
-    if (type == "string") {
-       return this.validateString(validation, value)
+    if (type == "string" || subtype == 'string') {
+       return validateString(validation, value)
     }
 
 
@@ -38,12 +50,13 @@ export function validateText(validation, value) {
 
 export function validateString(validation, value){
     const operator = validation.operator;
-
+    console.debug(value, validation)
     /**
      * if the value is undefined that is fine for me
      */
     if (value) {
         if (operator == "contains" && validation.text) {
+      
             return value.indexOf(validation.text) >= 0;
         }
 
@@ -99,7 +112,8 @@ export function validateDate(value) {
 }
 
 export function validatePhone(value){
-    const re = /^[\+]?([0-9]|[-\s\.])*$/;
+    console.debug('validatePhone')
+    const re = /^[\+]?([0-9]|[-\/\s\.])*$/;
     return re.test(value);
 }
 
