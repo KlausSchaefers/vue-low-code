@@ -646,6 +646,29 @@ export function getBoundingBoxByBoxes (boxes) {
     return result;
 }
 
+export function getBoundingBoxByTreeChildren (children) {
+
+    const result = { x: 100000000, y: 100000000, w: 0, h: 0, z: 100000000, props: {resize: {}}, style: {}};
+
+    for (var i = 0; i < children.length; i++) {
+        const box = children[i];
+        result.x = Math.min(result.x, box._x);
+        result.y = Math.min(result.y, box._y);
+        result.w = Math.max(result.w, box._x + box.w);
+        result.h = Math.max(result.h, box._y + box.h);
+        result.z = Math.max(result.z, box.z);
+        if (isFixedHorizontal(box)) {
+            result.props.resize.fixedHorizontal = true
+        }
+        if (isFixedVertical(box)) {
+            result.props.resize.fixedVertical = true
+        }
+    }
+
+    result.h -= result.y;
+    result.w -= result.x;
+    return result;
+}
 
 export function createInheritedModel(model) {
     /**

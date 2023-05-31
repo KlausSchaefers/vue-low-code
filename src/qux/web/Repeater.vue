@@ -60,10 +60,11 @@ export default {
         return [1,2,3,4,5,6,7]
       },
       rows () {
+        console.debug('Repeater', this.element, this.viewModel)
         if (this.element && this.element.props && this.element.props.databinding) {
             let path =  this.element.props.databinding.default
             let value = JSONPath.get(this.viewModel, path)
-            Logger.log(5, 'Repeater.rows() > exit path: > ' + path, value)
+            Logger.log(-5, 'Repeater.rows() > exit path: > ' + path, value)
             if (Array.isArray(value)) {
                 return value
             } else {

@@ -1,0 +1,794 @@
+{
+    "_id" : "64766bd87001be11c164ed07",
+    "version" : 2.1,
+    "name" : "Luisa - Bug - Repeater",
+    "description" : "",
+    "screenSize" : {
+      "w" : 1280,
+      "h" : 720
+    },
+    "type" : "desktop",
+    "screens" : {
+      "s11911_7864" : {
+        "x" : 2661,
+        "y" : 2912,
+        "h" : 1372,
+        "w" : 1280,
+        "name" : "Test",
+        "type" : "Screen",
+        "style" : {
+          "background" : "#263236"
+        },
+        "min" : {
+          "w" : 1280,
+          "h" : 720
+        },
+        "has" : {
+          "image" : true
+        },
+        "props" : {
+          "start" : true
+        },
+        "children" : [ "w11912_15572", "w12018_58010", "w12019_13389", "w12020_38247", "w12021_74412", "w12022_82579", "w12023_66471", "w12024_64499", "w12025_47263", "w12026_4177", "w12027_89049", "w12030_46989" ],
+        "id" : "s11911_7864",
+        "parents" : [ ],
+        "modified" : 1685482016715
+      }
+    },
+    "widgets" : {
+      "w11891_38015" : {
+        "id" : "w11891_38015",
+        "name" : "Rest",
+        "type" : "Rest",
+        "x" : 2533,
+        "y" : 2148,
+        "w" : 80,
+        "h" : 90,
+        "props" : {
+          "rest" : {
+            "method" : "GET",
+            "url" : "https://nftarena.cc/stargaze/stars1awpflkaj937pkn6ws5f048hhf7jwjg8fc7scfh",
+            "token" : "",
+            "authType" : "Bearer",
+            "input" : {
+              "type" : "JSON",
+              "fileDataBinding" : "",
+              "template" : ""
+            },
+            "output" : {
+              "databinding" : "NFTs",
+              "template" : "",
+              "type" : "JSON",
+              "hints" : {
+                "NFTs[0]" : "Array",
+                "NFTs[0]_collectionAddr" : "Object",
+                "NFTs[0]_tokenId" : "Object",
+                "NFTs[0]_name" : "Object",
+                "NFTs[0]_description" : "Object",
+                "NFTs[0]_imageUrl" : "Object",
+                "NFTs[0]_testImg" : "Object"
+              }
+            },
+            "headers" : [ ]
+          },
+          "trigger" : null
+        },
+        "has" : {
+          "rest" : true
+        },
+        "style" : {
+          "background" : "#777"
+        },
+        "z" : 299,
+        "created" : 1684314705282,
+        "modified" : 1685482103779
+      },
+      "w11912_15572" : {
+        "type" : "Button",
+        "name" : "BG",
+        "x" : 2661,
+        "y" : 3516,
+        "w" : 1280,
+        "h" : 767,
+        "z" : 1,
+        "props" : {
+          "label" : "",
+          "resize" : {
+            "right" : false,
+            "up" : false,
+            "left" : false,
+            "down" : false,
+            "fixedHorizontal" : false,
+            "fixedVertical" : false
+          },
+          "hidden" : false
+        },
+        "has" : {
+          "backgroundColor" : true,
+          "border" : true,
+          "label" : true,
+          "padding" : true,
+          "onclick" : true
+        },
+        "actions" : { },
+        "style" : {
+          "fontSize" : 14,
+          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+          "textAlign" : "left",
+          "letterSpacing" : 0,
+          "lineHeight" : 1.4,
+          "color" : "#ffffff",
+          "borderTopRightRadius" : 0,
+          "borderTopLeftRadius" : 0,
+          "borderBottomRightRadius" : 0,
+          "borderBottomLeftRadius" : 0,
+          "borderTopWidth" : 0,
+          "borderBottomWidth" : 0,
+          "borderRightWidth" : 0,
+          "borderLeftWidth" : 0,
+          "borderTopColor" : "#333333",
+          "borderBottomColor" : "#333333",
+          "borderRightColor" : "#333333",
+          "borderLeftColor" : "#333333",
+          "background" : "#263236",
+          "paddingTop" : 0,
+          "paddingBottom" : 0,
+          "paddingLeft" : 0,
+          "paddingRight" : 0,
+          "textShadow" : null
+        },
+        "id" : "w11912_15572",
+        "created" : 1683820630962,
+        "modified" : 1685482016715,
+        "copyOf" : "w10495_48701"
+      },
+      "w12018_58010" : {
+        "id" : "w12018_58010",
+        "type" : "DropDown",
+        "name" : "DropDown",
+        "x" : 2771,
+        "y" : 3034,
+        "w" : 140,
+        "h" : 29,
+        "z" : 107,
+        "props" : {
+          "options" : [ "SORT BY", "Name", "Address", "Native Chain" ],
+          "hideUpperBorder" : false
+        },
+        "has" : {
+          "onclick" : true,
+          "border" : true,
+          "backgroundColor" : true,
+          "data" : true,
+          "padding" : true,
+          "label" : true
+        },
+        "style" : {
+          "borderTopRightRadius" : 3,
+          "borderTopLeftRadius" : 3,
+          "borderBottomRightRadius" : 3,
+          "borderBottomLeftRadius" : 3,
+          "borderTopWidth" : 0,
+          "borderBottomWidth" : 0,
+          "borderRightWidth" : 0,
+          "borderLeftWidth" : 0,
+          "borderTopColor" : "#333333",
+          "borderBottomColor" : "#333333",
+          "borderRightColor" : "#333333",
+          "borderLeftColor" : "#333333",
+          "background" : "#39444a",
+          "popupBackground" : "#ffffff",
+          "popupColor" : "#333333",
+          "color" : "#ffffff",
+          "fontSize" : 10,
+          "fontFamily" : "Roboto, sans-serif",
+          "textAlign" : "center",
+          "paddingTop" : 5,
+          "paddingBottom" : 5,
+          "paddingLeft" : 6,
+          "paddingRight" : 6,
+          "selectedOptionColor" : "#333333",
+          "selectedOptionBackground" : "#f2f2f2",
+          "fontWeight" : "bold",
+          "verticalAlign" : "middle",
+          "lineHeight" : 1.9,
+          "letterSpacing" : 0
+        },
+        "error" : {
+          "borderTopColor" : "#cc0000",
+          "borderBottomColor" : "#cc0000",
+          "borderRightColor" : "#cc0000",
+          "borderLeftColor" : "#cc0000",
+          "background" : "#ffcaca",
+          "color" : "#cc0000"
+        },
+        "created" : 1684291596740,
+        "modified" : 1685482546738,
+        "copyOf" : "w10752_98431"
+      },
+      "w12019_13389" : {
+        "id" : "w12019_13389",
+        "type" : "Repeater",
+        "name" : "Grid",
+        "x" : 2771,
+        "y" : 3075,
+        "w" : 574,
+        "h" : 514,
+        "z" : 108,
+        "props" : {
+          "data" : [ ],
+          "auto" : false,
+          "rows" : -1,
+          "columns" : -1,
+          "layout" : "grid",
+          "distanceX" : -1,
+          "distanceY" : "5",
+          "resize" : {
+            "right" : false,
+            "up" : false,
+            "left" : false,
+            "down" : false,
+            "fixedHorizontal" : true,
+            "fixedVertical" : false
+          },
+          "databinding" : {
+            "default" : "NFTs"
+          },
+          "callbacks" : {
+            "click" : "ClickNFTs",
+            "change" : "ChangeNFTs",
+            "load" : "",
+            "render" : "RenderNFTs"
+          },
+          "customComponent" : ""
+        },
+        "isContainer" : true,
+        "has" : {
+          "backgroundColor" : true,
+          "border" : true
+        },
+        "style" : {
+          "color" : "#333333",
+          "borderTopRightRadius" : 0,
+          "borderTopLeftRadius" : 0,
+          "borderBottomRightRadius" : 0,
+          "borderBottomLeftRadius" : 0,
+          "borderTopWidth" : 0,
+          "borderBottomWidth" : 0,
+          "borderRightWidth" : 0,
+          "borderLeftWidth" : 0,
+          "borderTopColor" : "#333333",
+          "borderBottomColor" : "#333333",
+          "borderRightColor" : "#333333",
+          "borderLeftColor" : "#333333",
+          "background" : null
+        },
+        "created" : 1684292619442,
+        "modified" : 1685482546738,
+        "copyOf" : "w10756_57078"
+      },
+      "w12020_38247" : {
+        "id" : "w12020_38247",
+        "type" : "Box",
+        "name" : "Rounded Rectangle 2",
+        "x" : 2896,
+        "y" : 3085,
+        "w" : 100,
+        "h" : 100,
+        "z" : 119,
+        "props" : { },
+        "has" : {
+          "backgroundColor" : true,
+          "border" : true
+        },
+        "actions" : { },
+        "style" : {
+          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+          "borderTopRightRadius" : 10,
+          "borderTopLeftRadius" : 10,
+          "borderBottomRightRadius" : 10,
+          "borderBottomLeftRadius" : 10,
+          "borderTopWidth" : 0,
+          "borderBottomWidth" : 0,
+          "borderRightWidth" : 0,
+          "borderLeftWidth" : 0,
+          "borderTopColor" : "#333333",
+          "borderBottomColor" : "#333333",
+          "borderRightColor" : "#333333",
+          "borderLeftColor" : "#333333",
+          "background" : "#a8d324"
+        },
+        "created" : 1684293318266,
+        "modified" : 1685482546739,
+        "copyOf" : "w10763_53284"
+      },
+      "w12021_74412" : {
+        "id" : "w12021_74412",
+        "type" : "UploadPreview",
+        "name" : "Camerea Image 1",
+        "x" : 2901,
+        "y" : 3090,
+        "w" : 90,
+        "h" : 90,
+        "z" : 120,
+        "props" : {
+          "databinding" : {
+            "default" : "NFTs[0].testImg"
+          }
+        },
+        "has" : {
+          "backgroundColor" : true,
+          "onclick" : true,
+          "border" : true
+        },
+        "actions" : { },
+        "style" : {
+          "borderTopRightRadius" : 0,
+          "borderTopLeftRadius" : 0,
+          "borderBottomRightRadius" : 0,
+          "borderBottomLeftRadius" : 0,
+          "borderTopWidth" : 1,
+          "borderBottomWidth" : 1,
+          "borderRightWidth" : 1,
+          "borderLeftWidth" : 1,
+          "borderTopColor" : "#333333",
+          "borderBottomColor" : "#333333",
+          "borderRightColor" : "#333333",
+          "borderLeftColor" : "#333333",
+          "backgroundImage" : null
+        },
+        "created" : 1684293318267,
+        "modified" : 1685482546739,
+        "copyOf" : "w10764_23234"
+      },
+      "w12022_82579" : {
+        "id" : "w12022_82579",
+        "type" : "Box",
+        "name" : "Rounded Rectangle 3",
+        "x" : 3008,
+        "y" : 3085,
+        "w" : 100,
+        "h" : 100,
+        "z" : 121,
+        "props" : { },
+        "has" : {
+          "backgroundColor" : true,
+          "border" : true
+        },
+        "actions" : { },
+        "style" : {
+          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+          "borderTopRightRadius" : 10,
+          "borderTopLeftRadius" : 10,
+          "borderBottomRightRadius" : 10,
+          "borderBottomLeftRadius" : 10,
+          "borderTopWidth" : 0,
+          "borderBottomWidth" : 0,
+          "borderRightWidth" : 0,
+          "borderLeftWidth" : 0,
+          "borderTopColor" : "#333333",
+          "borderBottomColor" : "#333333",
+          "borderRightColor" : "#333333",
+          "borderLeftColor" : "#333333",
+          "background" : "#a8d324"
+        },
+        "created" : 1684293322342,
+        "modified" : 1685482546739,
+        "copyOf" : "w10766_34003"
+      },
+      "w12023_66471" : {
+        "id" : "w12023_66471",
+        "type" : "UploadPreview",
+        "name" : "Camerea Image 2",
+        "x" : 3013,
+        "y" : 3090,
+        "w" : 90,
+        "h" : 90,
+        "z" : 122,
+        "props" : { },
+        "has" : {
+          "backgroundColor" : true,
+          "onclick" : true,
+          "border" : true
+        },
+        "actions" : { },
+        "style" : {
+          "borderTopRightRadius" : 0,
+          "borderTopLeftRadius" : 0,
+          "borderBottomRightRadius" : 0,
+          "borderBottomLeftRadius" : 0,
+          "borderTopWidth" : 1,
+          "borderBottomWidth" : 1,
+          "borderRightWidth" : 1,
+          "borderLeftWidth" : 1,
+          "borderTopColor" : "#333333",
+          "borderBottomColor" : "#333333",
+          "borderRightColor" : "#333333",
+          "borderLeftColor" : "#333333",
+          "backgroundImage" : null
+        },
+        "created" : 1684293322342,
+        "modified" : 1685482546739,
+        "copyOf" : "w10767_58678"
+      },
+      "w12024_64499" : {
+        "id" : "w12024_64499",
+        "type" : "Box",
+        "name" : "Rounded Rectangle 5",
+        "x" : 3121,
+        "y" : 3085,
+        "w" : 100,
+        "h" : 100,
+        "z" : 123,
+        "props" : { },
+        "has" : {
+          "backgroundColor" : true,
+          "border" : true
+        },
+        "actions" : { },
+        "style" : {
+          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+          "borderTopRightRadius" : 10,
+          "borderTopLeftRadius" : 10,
+          "borderBottomRightRadius" : 10,
+          "borderBottomLeftRadius" : 10,
+          "borderTopWidth" : 0,
+          "borderBottomWidth" : 0,
+          "borderRightWidth" : 0,
+          "borderLeftWidth" : 0,
+          "borderTopColor" : "#333333",
+          "borderBottomColor" : "#333333",
+          "borderRightColor" : "#333333",
+          "borderLeftColor" : "#333333",
+          "background" : "#a8d324"
+        },
+        "created" : 1684293326656,
+        "modified" : 1685482546739,
+        "copyOf" : "w10769_71825"
+      },
+      "w12025_47263" : {
+        "id" : "w12025_47263",
+        "type" : "UploadPreview",
+        "name" : "Camerea Image 3",
+        "x" : 3126,
+        "y" : 3090,
+        "w" : 90,
+        "h" : 90,
+        "z" : 124,
+        "props" : { },
+        "has" : {
+          "backgroundColor" : true,
+          "onclick" : true,
+          "border" : true
+        },
+        "actions" : { },
+        "style" : {
+          "borderTopRightRadius" : 0,
+          "borderTopLeftRadius" : 0,
+          "borderBottomRightRadius" : 0,
+          "borderBottomLeftRadius" : 0,
+          "borderTopWidth" : 1,
+          "borderBottomWidth" : 1,
+          "borderRightWidth" : 1,
+          "borderLeftWidth" : 1,
+          "borderTopColor" : "#333333",
+          "borderBottomColor" : "#333333",
+          "borderRightColor" : "#333333",
+          "borderLeftColor" : "#333333",
+          "backgroundImage" : null
+        },
+        "created" : 1684293326656,
+        "modified" : 1685482546739,
+        "copyOf" : "w10770_84304"
+      },
+      "w12026_4177" : {
+        "id" : "w12026_4177",
+        "type" : "Box",
+        "name" : "Rounded Rectangle 6",
+        "x" : 3235,
+        "y" : 3085,
+        "w" : 100,
+        "h" : 100,
+        "z" : 125,
+        "props" : { },
+        "has" : {
+          "backgroundColor" : true,
+          "border" : true
+        },
+        "actions" : { },
+        "style" : {
+          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+          "borderTopRightRadius" : 10,
+          "borderTopLeftRadius" : 10,
+          "borderBottomRightRadius" : 10,
+          "borderBottomLeftRadius" : 10,
+          "borderTopWidth" : 0,
+          "borderBottomWidth" : 0,
+          "borderRightWidth" : 0,
+          "borderLeftWidth" : 0,
+          "borderTopColor" : "#333333",
+          "borderBottomColor" : "#333333",
+          "borderRightColor" : "#333333",
+          "borderLeftColor" : "#333333",
+          "background" : "#a8d324"
+        },
+        "created" : 1684293330664,
+        "modified" : 1685482546739,
+        "copyOf" : "w10772_77760"
+      },
+      "w12027_89049" : {
+        "id" : "w12027_89049",
+        "type" : "UploadPreview",
+        "name" : "Camerea Image 4",
+        "x" : 3240,
+        "y" : 3090,
+        "w" : 90,
+        "h" : 90,
+        "z" : 126,
+        "props" : { },
+        "has" : {
+          "backgroundColor" : true,
+          "onclick" : true,
+          "border" : true
+        },
+        "actions" : { },
+        "style" : {
+          "borderTopRightRadius" : 0,
+          "borderTopLeftRadius" : 0,
+          "borderBottomRightRadius" : 0,
+          "borderBottomLeftRadius" : 0,
+          "borderTopWidth" : 1,
+          "borderBottomWidth" : 1,
+          "borderRightWidth" : 1,
+          "borderLeftWidth" : 1,
+          "borderTopColor" : "#333333",
+          "borderBottomColor" : "#333333",
+          "borderRightColor" : "#333333",
+          "borderLeftColor" : "#333333",
+          "backgroundImage" : null
+        },
+        "created" : 1684293330665,
+        "modified" : 1685482546739,
+        "copyOf" : "w10773_87701"
+      },
+      "w12030_46989" : {
+        "id" : "w12030_46989",
+        "type" : "UploadPreview",
+        "name" : "Child1",
+        "x" : 2784,
+        "y" : 3087,
+        "w" : 100,
+        "h" : 100,
+        "z" : 127,
+        "props" : {
+          "databinding" : {
+            "default" : "NFTs[0].imageUrl"
+          }
+        },
+        "has" : {
+          "backgroundColor" : true,
+          "onclick" : true,
+          "border" : true
+        },
+        "actions" : { },
+        "style" : {
+          "borderTopRightRadius" : 0,
+          "borderTopLeftRadius" : 0,
+          "borderBottomRightRadius" : 0,
+          "borderBottomLeftRadius" : 0,
+          "borderTopWidth" : 1,
+          "borderBottomWidth" : 1,
+          "borderRightWidth" : 1,
+          "borderLeftWidth" : 1,
+          "borderTopColor" : "#333333",
+          "borderBottomColor" : "#333333",
+          "borderRightColor" : "#333333",
+          "borderLeftColor" : "#333333",
+          "backgroundImage" : null
+        },
+        "created" : 1685003447185,
+        "modified" : 1685482546739,
+        "copyOf" : "w11910_44350"
+      }
+    },
+    "lines" : { },
+    "groups" : {
+      "g12049_60950" : {
+        "id" : "g12049_60950",
+        "children" : [ "w12021_74412", "w12020_38247" ],
+        "groups" : [ ],
+        "copyOf" : "g10765_52416",
+        "name" : "Child2"
+      },
+      "g12050_91967" : {
+        "id" : "g12050_91967",
+        "children" : [ "w12023_66471", "w12022_82579" ],
+        "groups" : [ ],
+        "copyOf" : "g10768_91498",
+        "name" : "Child3"
+      },
+      "g12051_13726" : {
+        "id" : "g12051_13726",
+        "children" : [ "w12025_47263", "w12024_64499" ],
+        "groups" : [ ],
+        "copyOf" : "g10771_1382",
+        "name" : "Child4"
+      },
+      "g12052_11889" : {
+        "id" : "g12052_11889",
+        "children" : [ "w12027_89049", "w12026_4177" ],
+        "groups" : [ ],
+        "copyOf" : "g10774_67291",
+        "name" : "Child5"
+      }
+    },
+    "templates" : {
+      "tg10431_61936" : {
+        "id" : "tg10431_61936",
+        "type" : "Group",
+        "templateType" : "Group",
+        "visible" : true,
+        "name" : "Icon Token",
+        "children" : [ "tw10432_20702", "tw10433_93115", "tw10434_19896" ],
+        "groups" : [ ],
+        "w" : 82,
+        "h" : 82
+      },
+      "tw10432_20702" : {
+        "id" : "tw10432_20702",
+        "style" : {
+          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+          "borderTopRightRadius" : 400,
+          "borderTopLeftRadius" : 400,
+          "borderBottomRightRadius" : 400,
+          "borderBottomLeftRadius" : 400,
+          "borderTopWidth" : 0,
+          "borderBottomWidth" : 0,
+          "borderRightWidth" : 0,
+          "borderLeftWidth" : 0,
+          "borderTopColor" : "#333333",
+          "borderBottomColor" : "#333333",
+          "borderRightColor" : "#333333",
+          "borderLeftColor" : "#333333",
+          "background" : "#a8d324"
+        },
+        "has" : {
+          "backgroundColor" : true,
+          "border" : true
+        },
+        "props" : {
+          "resize" : {
+            "right" : false,
+            "up" : false,
+            "left" : false,
+            "down" : false,
+            "fixedHorizontal" : true,
+            "fixedVertical" : true
+          }
+        },
+        "w" : 82,
+        "h" : 82,
+        "z" : 0,
+        "x" : 0,
+        "y" : 0,
+        "templateType" : "Widget",
+        "type" : "Box",
+        "visible" : false,
+        "name" : "Circle",
+        "modified" : 1683803618603,
+        "created" : 1683803580020
+      },
+      "tw10433_93115" : {
+        "id" : "tw10433_93115",
+        "style" : {
+          "fontFamily" : "Helvetica Neue,Helvetica,Arial,sans-serif",
+          "borderTopRightRadius" : 400,
+          "borderTopLeftRadius" : 400,
+          "borderBottomRightRadius" : 400,
+          "borderBottomLeftRadius" : 400,
+          "borderTopWidth" : 0,
+          "borderBottomWidth" : 0,
+          "borderRightWidth" : 0,
+          "borderLeftWidth" : 0,
+          "borderTopColor" : "#333333",
+          "borderBottomColor" : "#333333",
+          "borderRightColor" : "#333333",
+          "borderLeftColor" : "#333333",
+          "background" : "#ffffff",
+          "fixed" : false
+        },
+        "has" : {
+          "backgroundColor" : true,
+          "border" : true
+        },
+        "props" : {
+          "resize" : {
+            "right" : false,
+            "up" : false,
+            "left" : false,
+            "down" : false,
+            "fixedHorizontal" : true,
+            "fixedVertical" : true
+          }
+        },
+        "w" : 76,
+        "h" : 76,
+        "z" : 1,
+        "x" : 3,
+        "y" : 3,
+        "templateType" : "Widget",
+        "type" : "Box",
+        "visible" : false,
+        "name" : "Circle 1",
+        "modified" : 1683803618604,
+        "created" : 1683803580020
+      },
+      "tw10434_19896" : {
+        "id" : "tw10434_19896",
+        "style" : {
+          "borderTopRightRadius" : 0,
+          "borderTopLeftRadius" : 0,
+          "borderBottomRightRadius" : 0,
+          "borderBottomLeftRadius" : 0,
+          "borderTopWidth" : 0,
+          "borderBottomWidth" : 0,
+          "borderRightWidth" : 0,
+          "borderLeftWidth" : 0,
+          "borderTopColor" : "#333333",
+          "borderBottomColor" : "#333333",
+          "borderRightColor" : "#333333",
+          "borderLeftColor" : "#333333",
+          "backgroundImage" : null,
+          "fixed" : false
+        },
+        "has" : {
+          "onclick" : true,
+          "backgroundImage" : true,
+          "borderRadius" : true
+        },
+        "props" : {
+          "resize" : {
+            "right" : false,
+            "up" : false,
+            "left" : false,
+            "down" : false,
+            "fixedHorizontal" : true,
+            "fixedVertical" : true
+          }
+        },
+        "w" : 68,
+        "h" : 68,
+        "z" : 2,
+        "x" : 7,
+        "y" : 7,
+        "templateType" : "Widget",
+        "type" : "Image",
+        "visible" : false,
+        "name" : "Image 6",
+        "modified" : 1683803618604,
+        "created" : 1683803580020
+      }
+    },
+    "designtokens" : { },
+    "lastUUID" : 12054,
+    "lastUpdate" : 1685482546742,
+    "created" : 1685482456178,
+    "startScreen" : "",
+    "grid" : {
+      "w" : 8,
+      "h" : 8,
+      "style" : "line",
+      "color" : "#cecece",
+      "visible" : false,
+      "enabled" : false
+    },
+    "domain" : "Quant-UX.com",
+    "screenCount" : 1,
+    "widgetCount" : 13,
+    "lastCategory" : "WireFrame",
+    "sizeBackup" : 11839622,
+    "isPublic" : false,
+    "parent" : "645a61d103e7a20038ad3986",
+    "id" : "64766bd87001be11c164ed07",
+    "isDirty" : true
+  }

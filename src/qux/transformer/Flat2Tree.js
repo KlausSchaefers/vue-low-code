@@ -139,9 +139,16 @@ function layoutTree(screen) {
 	// screen = Rows.addRows(screen)
 
 	/**
+	 * Repeaters should have only one child
+	 */
+	addRepeaterWrapper(screen)
+
+
+	/**
 	 * First we determine the type of layout
 	 */
 	addLayoutType(screen)
+
 
 
 	/**
@@ -149,8 +156,55 @@ function layoutTree(screen) {
 	 */
 	fixParents(screen)
 
+
+
 	screen = addGrid(screen)
 	return screen
+}
+
+
+function addRepeaterWrapper(element) {
+	if (element.type === 'Repeater' && element.children.length > 1) {
+		Logger.log(-1, "Flat2TRee.addRepeaterWrapper() > fix ", element.name, element.children.length)
+		const wrapper = createWrapper(element)
+		element.children = [wrapper]
+	}
+	element.children.forEach(child => {
+		addRepeaterWrapper(child)
+	})
+}
+
+function createWrapper (element) {
+
+
+	let boundingBox = Util.getBoundingBoxByTreeChildren(element.children)
+
+
+	const wrapper = {
+		id: `w${element.id}`,
+		name: element.name + 'Wrapper',
+		groupId: element.id,
+		isGroup: true,
+		type: "Box",
+		x: 0,
+		y: 0,
+		w: boundingBox.w,
+		h: boundingBox.h,
+		style: element.style ? element.style : {},
+		props: {
+			resize: element.props && element.props.resize ? element.props.resize : {
+				right: false,
+				up: false,
+				left: false,
+				down: false,
+				fixedHorizontal: false,
+				fixedVertical: false,
+			}
+		},
+		children: element.children
+	}
+
+	return wrapper
 }
 
 function addLayoutType (element) {
