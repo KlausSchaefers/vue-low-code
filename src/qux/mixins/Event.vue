@@ -12,8 +12,21 @@ export default {
   name: 'Event',
   methods: {
 
+    onViewModelChange (element, path, value) {
+        Logger.log(3, 'Event.onViewModelChange() > ' + path, value)
+        this.executeDataScripts()
+    },
+
+    onDesignLoaded () {
+        Logger.log(3, 'Event.onScreenLoaded() > ', screen)
+        this.initLoadRest()
+        this.initRepeatRest()
+        this.initLoadScripts()
+        this.initRepeatScripts()
+    },
+
     onScreenLoaded (screen) {
-        Logger.log(3, 'Luisa.onScreenLoaded() > ', screen)
+        Logger.log(3, 'Event.onScreenLoaded() > ', screen)
         this.setSystemVariable('screen', screen.name)
         this.purgeValidationErrors()
         this.$emit('qScreenLoad', {
@@ -33,7 +46,7 @@ export default {
      * contains the callback and the data of the row as 'params'.
      */
     async onCallback (element, e) {
-        Logger.log(1, 'Luisa.onCallback() > ' + element.name, e.callback)
+        Logger.log(1, 'Event.onCallback() > ' + element.name, e.callback)
         let executor = this.getMethodExcutor()
         if (executor) {
             if (executor[e.callback]) {
@@ -54,16 +67,16 @@ export default {
                    this.handleCallbackResult(result, e.callback)
                     return;
                 } else {
-                    console.warn('Luisa.onCallback() > Callback is not method ', e.callback)
+                    console.warn('Event.onCallback() > Callback is not method ', e.callback)
                 }
             } else {
-                console.warn('Luisa.onCallback() > no method in executor with name ', e.callback)
+                console.warn('Event.onCallback() > no method in executor with name ', e.callback)
             }
         }
     },
 
     onEnter (element, e, value) {
-        Logger.log(4, 'Luisa.onEnter() > enter', element)
+        Logger.log(4, 'Event.onEnter() > enter', element)
 
         if (element.lines) {
             let line = Util.getLineByType(element, 'KeyboardEnter')
@@ -75,9 +88,9 @@ export default {
     },
 
     onClick (element, e, value) {
-        Logger.log(4, 'Luisa.onClick() > enter', element)
+        Logger.log(4, 'Event.onClick() > enter', element)
         if (Logger.logLevel > 10) {
-            Logger.log(10, 'Luisa.onClick()', e.target)
+            Logger.log(10, 'Event.onClick()', e.target)
         }
         if (element.lines) {
             let line = Util.getClickLine(element)
@@ -89,7 +102,7 @@ export default {
 
         if (element.action) {
             if (element.action.type === 'back') {
-                Logger.log(1, 'Luisa.onClick() > Go back')
+                Logger.log(1, 'Event.onClick() > Go back')
                 this.stopEvent(e)
                 if (this.overlayScreenIds.length > 0) {
                     this.removeLastOverlay()
@@ -110,17 +123,17 @@ export default {
     },
 
     executeLine(line, value) {
-        Logger.log(-1, 'Luisa.executeLine() > enter', line, value)
+        Logger.log(-1, 'Event.executeLine() > enter', line, value)
    
         if (line) {
             if (line && line.validation) {
                 this.validateAllWidgets()
                 if (Object.values(this.validationErrors).length > 0) {
-                    Logger.log(-1, 'Luisa.executeLine() > exit because of validation errors', line, value)
+                    Logger.log(-1, 'Event.executeLine() > exit because of validation errors', line, value)
                     return
                 }                
             }
-            const box = Util.getBoxById(line.to, this.model)
+            const box = Util.getBoxById(line.to, this.model)    
             if (box.type === 'Screen') {
                 this.navigateToScreen(box, line, value)
                 return
@@ -130,38 +143,54 @@ export default {
             } else if (box.type === 'LogicOr') {
                 this.executeLogic(box, line)
                 return
+            } else if (box.type === 'Script') {
+                this.executeScript(box, line)
+                return
             } else {
                 if (!line.isComponentLine) {
-                    Logger.warn('Luisa.executeLine() > Not supported line target', box)
+                    Logger.warn('Event.executeLine() > Not supported line target', box)
                 }
             }
         } else {
-            Logger.error('Luisa.executeLine() > ERROR. Null passed', line)
+            Logger.error('Event.executeLine() > ERROR. Null passed', line)
         }
     },
 
-    dispatchScreenAnimation (screen) {
+    dispatchScreenAnimation (scrn) {
+     
         // sometimes this is not the tree model!!
-        if (screen.lines) {
-            const line = Util.getLineByType(screen, 'timer')
+        if (!scrn.lines) {
+            const found = this.treeModel.screens.find(s => s.id === scrn.id)
+            if (found) {
+                scrn = found
+            }     
+        }
+
+        if (scrn.lines) {  
+            const line = Util.getLineByType(scrn, 'timer')
             if (line) {
-                Logger.log(-1, 'Luisa.dispatchScreenAnimation() > move to > ', line)
+                Logger.log(-1, 'Event.dispatchScreenAnimation() > move to > ', line)
                 setTimeout(() => {
                     this.executeLine(line)
                 }, line.timer * 1000)
             }
-        }
+            const loadedLine = Util.getLineByType(scrn, 'loaded')
+            if (loadedLine) {
+                Logger.log(-1, 'Event.dispatchScreenAnimation() > Loaded line > ', loadedLine)            
+                this.executeLine(loadedLine)             
+            }
+        } 
     },
 
     async dispatchCallback (element, e, type, value) {
-        Logger.log(4, 'Luisa.dispatchCallback() > enter > ' + type, element,)
+        Logger.log(4, 'Event.dispatchCallback() > enter > ' + type, element,)
         if (element.props && element.props.callbacks) {
             const callback = element.props.callbacks[type]
             if (callback) {
-                Logger.log(2, 'Luisa.dispatchCallback() > callback > ' + type, callback)
+                Logger.log(2, 'Event.dispatchCallback() > callback > ' + type, callback)
 
                 if (this.actionEngine && this.actionEngine.hasAction(callback)) {
-                    Logger.log(-1, 'Luisa.dispatchCallback() > action engine: ', callback)
+                    Logger.log(-1, 'Event.dispatchCallback() > action engine: ', callback)
                     let result = await this.actionEngine.executeAction(this.app, callback, this.modelValue)
                     this.handleCallbackResult(result, callback)
                     return
@@ -187,10 +216,10 @@ export default {
                             this.handleCallbackResult(result, callback)
                             return;
                         } else {
-                            console.warn('Luisa.dispatchCallback() > Callback is not method ', callback)
+                            console.warn('Event.dispatchCallback() > Callback is not method ', callback)
                         }
                     } else {
-                        console.warn('Luisa.dispatchCallback() > no method in $parent with name ', callback)
+                        console.warn('Event.dispatchCallback() > no method in $parent with name ', callback)
                     }
                 }
             }
@@ -202,29 +231,29 @@ export default {
          * Since 0.4 we check if we can dispatch the result to a screen.
          */
         if (result) {
-            Logger.log(-1, 'Luisa.handleCallbackResult() > callback > ' + callback, result)
+            Logger.log(-1, 'Event.handleCallbackResult() > callback > ' + callback, result)
             let nextScreen = Object.values(this.model.screens).find(s => s.name === result)
             if (nextScreen) {
                 this.setScreen(result)
                 this.scrollToTop()
             } else {
-                Logger.warn('Luisa.handleCallbackResult() > no screen with name > ' + result)
+                Logger.warn('Event.handleCallbackResult() > no screen with name > ' + result)
             }
         }
     },
 
     navigateToScreen (screen, line, value) {
         if (screen.style && screen.style.overlay === true) {
-            Logger.log(1, 'Luisa(Event).navigateToScreen() > Overlay', screen.name)
+            Logger.log(1, 'Event.navigateToScreen() > Overlay', screen.name)
             this.overlayScreenIds.push(screen.id)
         } else {
-            Logger.log(1, 'Luisa(Event).navigateToScreen() > Link', screen.name)
+            Logger.log(1, 'Event.navigateToScreen() > Link', screen.name)
             this.overlayScreenIds = []
             this.setScreen(screen.name, this.getValueQuery(value))
             if (!line || line.scroll !== true) {
                 this.scrollToTop()
             } else {
-                Logger.log(1, 'Luisa(Event).navigateToScreen() > Do not scroll')
+                Logger.log(1, 'Event.navigateToScreen() > Do not scroll')
                 this.ignoreNextScroll = true
             }
         }
@@ -240,9 +269,9 @@ export default {
     },
 
     scrollToTop () {
-        Logger.log(2, 'Luisa(Event).scrollToTop()', this.mergedConfig.scrollToTopAfterNavigation)
+        Logger.log(2, 'Event.scrollToTop()', this.mergedConfig.scrollToTopAfterNavigation)
         if (this.ignoreNextScroll) {
-            Logger.log(-1, 'Luisa(Event).scrollToTop() > ignore')
+            Logger.log(-1, 'Event.scrollToTop() > ignore')
             delete this.ignoreNextScroll
             return
         }
@@ -259,25 +288,25 @@ export default {
          * Only pop of the screen background was hit.
          */
         if (this.$refs.overlayCntr && e && e.target === this.$refs.overlayCntr.$el) {
-            Logger.log(4, 'Luisa(Event).popOverlay()')
+            Logger.log(4, 'Event).popOverlay()')
             this.removeLastOverlay()
         }
     },
 
     removeLastOverlay () {
-        Logger.log(4, 'Luisa(Event).removeLastOverlay()')
+        Logger.log(4, 'Event).removeLastOverlay()')
         if (this.overlayScreenIds.length > 0) {
             this.overlayScreenIds.pop()
         }
     },
 
     closeAllOverlays () {
-        Logger.log(4, 'Luisa(Event).closeAllOverlays()')
+        Logger.log(4, 'Event).closeAllOverlays()')
         this.overlayScreenIds = []
     },
 
     onChange (element, e, value) {
-        Logger.log(1, 'Luisa(Event).onChange() > ', value)
+        Logger.log(1, 'Event).onChange() > ', value)
         this.$emit('qChange', this.getBaseEvent(element, e))
         this.dispatchCallback(element, e, 'change', value)
         if (element.lines) {
@@ -290,7 +319,7 @@ export default {
     },
 
     onKeyPress (element, e, value) {
-        Logger.log(2, 'Luisa(Event).onKeyPress() > ', e.keyCode, value)
+        Logger.log(2, 'Event).onKeyPress() > ', e.keyCode, value)
         this.$emit('qKeyPress', this.getBaseEvent(element, e))
         this.dispatchCallback(element, e, 'change', value)
         if (e.keyCode === 13) {

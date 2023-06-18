@@ -12,11 +12,70 @@ export default {
   name: 'Logic',
   methods: {
 
-    executeLogic (widget, line) {
-        Logger.log(0, 'Luisa.executeLogic() > enter', widget.props, line)
+    async initLoadRest() {
+      Logger.log(2,"Logic.initLoadRest()","enter");
+
+      if (this.doNotExecuteScripts) {
+          Logger.log(2,"Logic.initLoadRest()","do not run");
+          return
+      }
+      const widgets = this.getLoadRests()
+      for (let i=0; i< widgets.length; i++) {
+          const widget = widgets[i]
+          this.executeRest(widget)
+      }
+      Logger.log(2,"Logic.initLoadRest() > exit", this.dataBindingValues );
+    },
+
+    getLoadRests () {
+        return Object
+            .values(this.model.widgets)
+            .filter(w => w.type === 'Rest' && w.props.trigger === 'load')
+    },
+
+    async initRepeatRest() {
+      Logger.log(2,"Logic.initRepeatRest","enter");
+
+      if (this.doNotExecuteScripts) {
+          Logger.log(2,"Logic.initRepeatRest","exit > Do not run" );
+          return
+      }
+      this._repeatRestIntervals = []
+      const widgets = this.getRepeatRests()
+      for (let i=0; i< widgets.length; i++) {
+          const widget = widgets[i]
+          const id = setInterval(() => {
+            this.executeRest(widget)
+          }, widget.props.delay * 1000)
+          this._repeatRestIntervals.push(id)
+      }
+      Logger.log(2,"Logic.initRepeatRest","exit", this.dataBindingValues );
+
+    },
+
+
+    getRepeatRests () {
+        return Object
+            .values(this.model.widgets)
+            .filter(w => w.type === 'Rest' && w.props.trigger === 'repeat')
+    },
+
+
+    cleanUpRepeatRests () {
+        Logger.log(-2,"Logic.cleanUpRepeatRests","enter" );
+        if (this._repeatRestIntervals) {
+            this._repeatRestIntervals.forEach(id => {
+                clearInterval(id)
+            })
+        }
+    },
+
+    async executeLogic (widget, line) {
+        Logger.log(1, 'Luisa.executeLogic() > enter', widget, line)
 
         let lines = ExportUtil.getLines(widget, this.model)
-				var nextLine = null;
+				let nextLine = null;
+
 
 				if (widget.props && widget.props.isRandom){
 						var random = Math.random()
@@ -71,18 +130,23 @@ export default {
     },
 
     async runRestEngine (rest, data) {
+      Logger.log(-1, "Luisa.runRestEngine()","enter");
       try {
-        let result = await RestEngine.run(rest, data)
-        Logger.log(1, "Luisa.executeRest","set data " + rest.output.databinding, result);
-        if (rest.output.databinding) {
-            JSONPath.set(this.modelValue, rest.output.databinding, result)
-        }
-        return true
+          let result = await RestEngine.run(rest, data, this.hash, this.model.id)
+          Logger.log(1, "Luisa.executeRest()","set data " + rest.output.databinding, result);
+          if (rest.output.path) {
+              Logger.log(-1, "Luisa.executeRest()","path", rest.output.path);
+              result = JSONPath.get(result, rest.output.path)
+          }
+          if (rest.output.databinding) {
+              JSONPath.set(this.modelValue, rest.output.databinding, result)
+          }
+          return true
       } catch (e) {
-        Logger.error("Luisa.executeRest","error", e);
-        if (rest.output.databinding) {
-            JSONPath.set(this.modelValue, rest.output.databinding, 'Error')
-        }
+          Logger.error("Luisa.executeRest","error", e);
+          if (rest.output.databinding) {
+              JSONPath.set(this.modelValue, rest.output.databinding, 'Error')
+          }
       }
       return false
     },

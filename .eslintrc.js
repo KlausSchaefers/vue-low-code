@@ -11,6 +11,8 @@ module.exports = {
     'no-console': 'off',
     'no-debugger': 'off',
     'no-async-promise-executor': 'off',
+    'vue/multi-word-component-names': 'off',
+    'vue/no-async-in-computed-properties': 'off',
     'no-useless-escape': 'off'
   },
   parserOptions: {

@@ -16,6 +16,7 @@
           @qBlur="forwardBlur"
           @qMouseOver="forwardMouseOver"
           @qMouseOut="forwardMouseOut"
+          @qViewModelChange="forwardViewModel"
           />
 
         <template v-if="element.fixedChildren">
@@ -34,6 +35,7 @@
             @qBlur="forwardBlur"
             @qMouseOver="forwardMouseOver"
             @qMouseOut="forwardMouseOut"
+            @qViewModelChange="forwardViewModel"
             />
         </template>
       </template>
@@ -94,6 +96,9 @@ export default {
     },
     forwardCallback (element, e, value) {
       this.$emit('qCallback', element, e, value)
+    },
+    forwardViewModel (element, path, value) {
+      this.$emit('qViewModelChange', element, path, value)
     }
   },
   mounted () {

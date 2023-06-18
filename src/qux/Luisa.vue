@@ -12,6 +12,7 @@
             @qBlur="onBlur"
             @qMouseOver="onMouseOver"
             @qMouseOut="onMouseOut"  
+            @qViewModelChange="onViewModelChange"
             ></qContainer>
       <div v-else>
           {{msg}}
@@ -33,6 +34,7 @@
                 @qBlur="onBlur"
                 @qMouseOver="onMouseOver"
                 @qMouseOut="onMouseOut"
+                @qViewModelChange="onViewModelChange"
             ></qContainer>
       </div>
   </div>
@@ -55,12 +57,13 @@ import FigmaService from './figma/FigmaService'
 
 import Logic from './mixins/Logic.vue'
 import Event from './mixins/Event.vue'
+import Script from './mixins/Script.vue'
 import Validation from './mixins/Validation.vue'
 
 import JSONPath from './core/JSONPath'
 
 export default {
-    mixins: [Event, Logic, Validation],
+    mixins: [Event, Logic, Validation, Script],
     name: 'Luisa',
     emits: ['update:modelValue', 'qScreenLoad', 'qClick', 'click', 'qChange', 'change', 'qKeyPress', 'qFocus', 'qBlur', 'qDesignSystemCallback', 'qScrollTop'],
     props: {
@@ -276,6 +279,7 @@ export default {
                 this.model = app
             }
             this.initViewModel()
+            this.onDesignLoaded()
         },
         async loadAppByKey(key) {
             Logger.log(3, 'Luisa.loadAppByKey() > enter', key)
@@ -392,11 +396,24 @@ export default {
                     screen.name = Util.getFileName(screen.name)
                 })
 
+                Object.values(this.model.widgets).forEach(widget => {
+                    if (widget?.props?.databinding?.default) {
+                        if (Util.hasDefaultValue(widget)) {
+                            const defaultBinding = widget?.props?.databinding?.default
+                            if (Util.hasDefaultValue(widget)) {
+                                const defaultValue = widget.props.label
+                                Logger.log(-1, `Luisa.initViewModel() > set default "$${defaultBinding}" : "${defaultValue}"`)
+                                JSONPath.set(this.modelValue, defaultBinding, defaultValue)
+                            }                            
+                        }
+                    }
+                })
+
                 /**
                  * Add default databinding if needed. This might have consequences on
                  * reactiveness. In general it is not advided to do this.
                  */
-                let dataBindings = Object.values(this.model.widgets).flatMap(widget => {
+                const dataBindings = Object.values(this.model.widgets).flatMap(widget => {
                     if (widget.props && widget.props.databinding) {
                         return Object.values(widget.props.databinding)
                     }
@@ -405,19 +422,21 @@ export default {
                 dataBindings.sort((a, b) => {
                     return a.localeCompare(b)
                 })
-                let value = this.mergedConfig.databinding.default
+                const value = this.mergedConfig.databinding.default
                 dataBindings.forEach(databinding => {
                     /**
                      * At some point we should have default values in the model...
                      *
                      * FIXME: This should be more intelligent and add arrays and so if needed
                      */
-                    let has = JSONPath.has(this.modelValue, databinding)
+                    const has = JSONPath.has(this.modelValue, databinding)
                     if (!has) {
                         Logger.log(-1, 'Luisa.initViewModel > Missing data in view model', databinding)
                         JSONPath.set(this.modelValue, databinding, value)
                     }
                 })
+
+                
             }
         },
         initReziseListener() {

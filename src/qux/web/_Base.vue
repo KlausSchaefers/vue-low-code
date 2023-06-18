@@ -12,7 +12,7 @@ import Bus from '../core/Bus'
 
 export default {
   name: '_Base',
-  emits: ['update:modelValue', 'qClick', 'click', 'qChange', 'change', 'qKeyPress', 'qFocus', 'qBlur', 'qDesignSystemCallback', 'qScrollTop'],
+  emits: ['update:modelValue', 'qClick', 'click', 'qChange', 'change', 'qKeyPress', 'qFocus', 'qBlur', 'qDesignSystemCallback', 'qScrollTop', 'qViewModelChange'],
   props: {
       'model': {
         type: Object
@@ -202,10 +202,13 @@ export default {
         return ''
       },
       dataBindingLabel () {
+
         /**
          * First, cgeck if we have set a lbl property
          */
         if (this.lbl) {
+          Logger.log(6, '_Base.dataBindingLabel() > lbl ',`"${this.lbl}"`)
+          this.afterDataBindingChange(this.lbl)
           return this.lbl
         }
         /**
@@ -221,7 +224,9 @@ export default {
             if (dsRoot) {
               let path = this.dataBindingInputPath.substring(1)
               if (dsRoot[path]) {
+                this.afterDataBindingChange(dsRoot[path])
                 return dsRoot[path]
+   
               }
             }
           } else {
@@ -230,7 +235,8 @@ export default {
              */
             let value = this.dataBindingInput
             if (value !== undefined && value != null) {
-              Logger.log(6, '_Base.dataBindingLabel() > ',`"${value}"`)
+              Logger.log(6, '_Base.dataBindingLabel() > databinding > ',`"${value}"`)
+              this.afterDataBindingChange(value)
               return value
             }
           }
@@ -239,8 +245,11 @@ export default {
          * Last, check element properties
          */
         if (this.element && this.element.props && this.element.props.label) {
-            return this.escapeLabel(this.element.props.label)
+            const escapted = this.escapeLabel(this.element.props.label)
+            this.afterDataBindingChange(escapted)
+            return escapted
         }
+        this.afterDataBindingChange('')
         return ''
       },
       hasError () {
@@ -267,6 +276,8 @@ export default {
   watch: {   
   },
   methods: {
+    afterDataBindingChange () {
+    },
     stopEvent (e) {
       Logger.log(1, '_Base.stopEvent()')
       if (e) {
@@ -409,6 +420,7 @@ export default {
           try {
             Logger.log(4, '_Base.onValueChange() > change : ' + path, value)
             JSONPath.set(this.viewModel, path, value)
+            this.$parent.$emit('qViewModelChange', this.element, path, value)
           } catch (ex) {
             Logger.error('_Base.onValueChange() > Could not set value in path' + path, this.viewModel)
           }

@@ -22,6 +22,7 @@
             @qBlur="forwardBlur"
             @qMouseOver="forwardMouseOver"
             @qMouseOut="forwardMouseOut"
+            @qViewModelChange="forwardViewModel"
             />
       </div>
 
@@ -192,6 +193,9 @@ export default {
     },
     forwardCallback (element, e, value) {
       this.$emit('qCallback', element, e, value)
+    },
+    forwardViewModel (element, path, value) {
+      this.$emit('qViewModelChange', element, path, value)
     },
     getRowsFromTable (widget) {
         let result = []

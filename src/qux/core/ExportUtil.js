@@ -1,6 +1,10 @@
 import Logger from "./Logger";
 import {Layout} from './Const'
 
+export function hasDefaultValue (element, inputWidgets = ['TextArea', 'TextBox', 'Label']) {
+    return  element?.props?.label && !element?.props?.placeholder && inputWidgets.includes(element.type)
+}
+
 export function isLayoutWrap (e) {
     return e.layout && e.layout.type === Layout.Wrap
 }

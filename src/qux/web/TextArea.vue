@@ -6,7 +6,7 @@
     @click="onClick"
     @change="onChange"
     @keyup="onKeyPress"
-    :value="dataBindingInput"
+    :value="textValue"
     />
 </template>
 <style lang="scss">
@@ -25,6 +25,32 @@ export default {
       }
   },
   computed: {
+    textValue () {
+      if (this.element && this.element.isDesignSystemRoot) {
+        return this.value
+      }
+      if (this.element) {
+            let input = this.dataBindingInput
+            if (input) {
+              if (!input.toLowerCase) {
+                if (isNaN(input)) {
+                  try {
+                    input = JSON.stringify(input)
+                  } catch (e) {
+                    Logger.warn('TextBox.selectedValue() > Can stringify ', input)
+                  }
+                }
+              }
+            }
+            // } else {
+            //   if (this.element?.props?.label && !this.element.props.placeholder) {
+            //     input = this.element?.props?.label
+            //   }
+            // }           
+            return input
+       }
+       return ''
+    },
     type () {
       if (this.element && this.element.type === 'Password') {
         return 'password'
