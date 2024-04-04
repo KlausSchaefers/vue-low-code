@@ -1,6 +1,6 @@
 {
   "name": "luisa-vue",
-  "version": "3.0.33alpha",
+  "version": "3.0.34",
   "description": "Luisa - VUE Renderer for FIGMA designs. Turn your Figma or Quant-UX design into VUE, or create re-usable designlets",
   "main": "./dist/luisa-vue3.common.js",
   "scripts": {
@@ -38,7 +38,6 @@
     "babel-eslint": "^10.1.0",
     "bili": "^5.0.5",
     "chalk": "^4.1.2",
-    "compression": "^1.7.4",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
     "sass": "^1.32.7",
@@ -49,7 +48,7 @@
     "jest-environment-jsdom": "^27.5.1"
   },
   "dependencies": {
-       "core-js": "^3.18.2",
+    "core-js": "^3.18.2",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3"
   },

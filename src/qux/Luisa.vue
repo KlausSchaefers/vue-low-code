@@ -110,7 +110,7 @@ export default {
     },
     data: function () {
         return {
-            server: 'https://quant-ux.com',
+            server: 'https://v1.quant-ux.com',
             model: null,
             mobileModel: null,
             tabletModel: null,
