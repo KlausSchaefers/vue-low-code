@@ -349,7 +349,7 @@ You can also use some **Vue emits** (event listeners) that are propagated to the
 
 ### Emits
 
-The `qContainer` component emits several events that can be used to handle interactions and changes within the component. Below is a list of available emits along with their descriptions and parameters.
+Below is a list of available emits along with their descriptions and parameters.
 
 #### Event List
 
