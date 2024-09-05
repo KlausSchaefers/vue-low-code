@@ -343,6 +343,114 @@ We envision the following workflow to enable painless collaboration between desi
 5. The QUX component renders the design and invokes the callbacks in clicks.
 6. Changes in the design are transparent to the developer, he just reloads the design from Quant-UX.
 
+## Luisa vue component emits availability
+
+You can also use some **Vue emits** (event listeners) that are propagated to the Luisa vue component parent by its childrens created with Quant-UX or Figma
+
+### Emits
+
+The `qContainer` component emits several events that can be used to handle interactions and changes within the component. Below is a list of available emits along with their descriptions and parameters.
+
+#### Event List
+
+- **`qClick`**
+  - **Description**: Emitted when a click event occurs on the component.
+  - **Parameters**:
+    - `element`: The element that was clicked.
+    - `e`: The original event object.
+    - `value`: The value associated with the click event.
+
+- **`qChange`**
+  - **Description**: Emitted when a change event occurs (e.g., input change).
+  - **Parameters**:
+    - `element`: The element that triggered the change.
+    - `e`: The original event object.
+    - `value`: The new value after the change.
+
+- **`qFocus`**
+  - **Description**: Emitted when the component gains focus.
+  - **Parameters**:
+    - `element`: The element that received focus.
+    - `e`: The original event object.
+    - `value`: The value associated with the focused element.
+
+- **`qBlur`**
+  - **Description**: Emitted when the component loses focus.
+  - **Parameters**:
+    - `element`: The element that lost focus.
+    - `e`: The original event object.
+    - `value`: The value associated with the blurred element.
+
+- **`qMouseOver`**
+  - **Description**: Emitted when the mouse pointer enters the component.
+  - **Parameters**:
+    - `element`: The element that the mouse is over.
+    - `e`: The original event object.
+    - `value`: The value associated with the mouse over event.
+
+- **`qMouseOut`**
+  - **Description**: Emitted when the mouse pointer leaves the component.
+  - **Parameters**:
+    - `element`: The element that the mouse left.
+    - `e`: The original event object.
+    - `value`: The value associated with the mouse out event.
+
+- **`qKeyPress`**
+  - **Description**: Emitted when a key is pressed while the component is focused.
+  - **Parameters**:
+    - `element`: The element that received the key press.
+    - `e`: The original event object.
+    - `value`: The value associated with the key press event.
+
+- **`qCallback`**
+  - **Description**: Emitted for custom callback actions.
+  - **Parameters**:
+    - `element`: The element that triggered the callback.
+    - `e`: The original event object.
+    - `value`: The value associated with the callback.
+
+- **`qViewModelChange`**
+  - **Description**: Emitted when the view model changes.
+  - **Parameters**:
+    - `element`: The element associated with the view model change.
+    - `path`: The path to the changed property.
+    - `value`: The new value of the property.
+
+### Usage
+
+You can listen to these emits events in the Luisa parent component like so:
+**example**
+
+```javascript
+<Luisa
+  :design="design" :config="config" v-model="viewModel"
+  @qClick="handleClick"
+  @qChange="handleChange"
+  @qFocus="handleFocus"
+  @qBlur="handleBlur"
+  @qMouseOver="handleMouseOver"
+  @qMouseOut="handleMouseOut"
+  @qKeyPress="handleKeyPress"
+  @qCallback="handleCallback"
+  @qViewModelChange="handleViewModelChange"
+/>
+...
+methods: {
+  handleClick(element, event, value) {
+    if(element.element.name != 'Screen') {
+      console.log("name: " + element.element.name)  // name: Button1
+      console.log("label: " + element.element.props.label). // label: Order Now
+      console.log("databinding: " + element.element.props.databinding.default)  //databinding: Screen.Button1
+      console.log(event)
+      console.log(value)
+    }
+    // the you can add some business logic here based on name, label, or databinding
+  }
+  ....
+  other handling methods
+}
+...
+```
 
 ## Dev Setup
 
