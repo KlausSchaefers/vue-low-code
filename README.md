@@ -443,8 +443,12 @@ methods: {
       console.log("databinding: " + element.element.props.databinding.default)  //databinding: Screen.Button1
       console.log(event)
       console.log(value)
+      const name = element.element.name
+      const label = element.element.props.label
+      const databinding = element.element.props.databinding.default
+      ...
+      // then you can add or call more business logic from here based on name, label, or databinding
     }
-    // the you can add some business logic here based on name, label, or databinding
   }
   ....
   other handling methods
