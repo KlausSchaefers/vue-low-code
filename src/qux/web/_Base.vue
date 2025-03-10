@@ -12,7 +12,7 @@ import Bus from '../core/Bus'
 
 export default {
   name: '_Base',
-  emits: ['update:modelValue', 'qClick', 'click', 'qChange', 'change', 'qKeyPress', 'qFocus', 'qBlur', 'qDesignSystemCallback', 'qScrollTop', 'qViewModelChange'],
+  emits: ['update:modelValue', 'qClick', 'click', 'qChange', 'change', 'qKeyPress', 'qFocus', 'qBlur', 'qDesignSystemCallback', 'qScrollTop', 'qViewModelChange', 'qCallback'],
   props: {
       'model': {
         type: Object

@@ -46,7 +46,7 @@ export default {
      * contains the callback and the data of the row as 'params'.
      */
     async onCallback (element, e) {
-        Logger.log(1, 'Event.onCallback() > ' + element.name, e.callback)
+        Logger.log(-5, 'Event.onCallback() > ' + element.name, e.callback)
         let executor = this.getMethodExcutor()
         if (executor) {
             if (executor[e.callback]) {

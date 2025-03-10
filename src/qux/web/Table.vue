@@ -17,7 +17,7 @@
             </thead>
 
             <tbody>
-                <tr v-for="row in sortedRows" :key="row.id" class="qux-table-row">
+                <tr v-for="row in sortedRows" :key="row.id" class="qux-table-row" @click.stop="onRowClick(row, $event)">
                     <td v-if="hasCheckBox" class="qux-table-cell">
                         <CheckBox :value="isRowSelected(row)" @change="selectRow(row)"/>
                     </td>
@@ -167,6 +167,18 @@ export default {
     }
   },
   methods: {
+    onRowClick(row, e) {
+        Logger.log(-5, 'qTable.onRowClick() enter > ', row)
+        if (this.hasCheckBox) {
+            this.selectRow(row, e);
+        } else {
+            const databinding = this.dataBinding
+            if (databinding.output) {
+                this.onValueChange(row.obj, 'output')
+            }
+            this.$emit('qClick', this.element, e, row.obj)
+        }
+    },
     sortBy (col) {
         Logger.log(0, 'qTable.sortBy() enter > ', col)
         this.sortColumn = col
@@ -177,9 +189,12 @@ export default {
         }
     },
     onActionClick (action, row) {
-        Logger.log(5, 'qTable.onActionClick() enter > ' + action.label, row)
+        console.debug(action)
+        Logger.log(-5, 'qTable.onActionClick() enter > ' + action.label, row)
+   
+        const callback = action.callback ? action.callback : action.id
         this.$emit('qCallback', this.element, {
-            callback: action.callback,
+            callback: callback,
             params: row.obj
         })
     },
