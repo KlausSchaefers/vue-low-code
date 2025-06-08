@@ -283,8 +283,8 @@ export default class CSSWidgetFactory {
     result += selector + ' .qux-radiobox-cntr {\n'
     result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.borderProperties)
     result += this.cssFactory.getBackGround(style, widget)
-    result += `  height:${this.cssFactory.getCorrectedHeight(widget)};\n`
-    result += `  width:${this.cssFactory.getCorrectedWidth(widget)};\n`
+    result += `  height:${this.cssFactory.getCorrectedHeight(widget, true)};\n`
+    result += `  width:${this.cssFactory.getCorrectedWidth(widget, true)};\n`
     result += '}\n\n'
 
 
@@ -313,8 +313,8 @@ export default class CSSWidgetFactory {
     result += selector + ' .qux-checkbox-cntr {\n'
     result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.borderProperties)
     result += this.cssFactory.getBackGround(style, widget)
-    result += `  height:${this.cssFactory.getCorrectedHeight(widget)};\n`
-    result += `  width:${this.cssFactory.getCorrectedWidth(widget)};\n`
+    result += `  height:${this.cssFactory.getCorrectedHeight(widget, true)};\n`
+    result += `  width:${this.cssFactory.getCorrectedWidth(widget, true)};\n`
     result += '}\n\n'
 
 

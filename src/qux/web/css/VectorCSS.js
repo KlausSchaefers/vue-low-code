@@ -16,8 +16,8 @@ export default class VectorCSS {
 
     
         if (Util.isFixedHorizontal(widget)) {
-          result += `  width:${this.cssFactory.getCorrectedWidth(widget)};\n`
-          result += `  height:${this.cssFactory.getCorrectedHeight(widget)};\n`
+          result += `  width:${this.cssFactory.getCorrectedWidth(widget, true)};\n`
+          result += `  height:${this.cssFactory.getCorrectedHeight(widget, true)};\n`
         }
 
         if (style.backgroundImage && style.backgroundImage.url) {

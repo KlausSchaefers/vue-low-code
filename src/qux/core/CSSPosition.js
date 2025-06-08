@@ -763,7 +763,7 @@ export default class CSSPosition {
 			 * For wrapped we just add margins
 			 */
 			if (Util.isFixedHorizontal(widget)) {
-				result += `  width: ${this.getCorrectedWidth(widget)};\n`
+				result += `  width: ${this.getCorrectedWidth(widget, true)};\n`
 			} else if (Util.hasMinMaxWdith(widget)) {
 				result += this.getMinMaxWidth(widget, false)
 			}else {
@@ -771,9 +771,9 @@ export default class CSSPosition {
 			}
 
 			if (Util.isFixedVertical(widget)) {
-				result += `  height: ${this.getCorrectedHeight(widget)};\n`
+				result += `  height: ${this.getCorrectedHeight(widget, true)};\n`
 			} else {
-				result += `  min-height: ${this.getCorrectedHeight(widget)};\n`
+				result += `  min-height: ${this.getCorrectedHeight(widget, true)};\n`
 			}
 
 			if (Util.hasChildren(widget)) {
@@ -879,7 +879,7 @@ export default class CSSPosition {
 		if (Util.isFullWidth(widget)) {
 			return "100%"
 		}
-		return this.getCorrectedWidth(widget)
+		return this.getCorrectedWidth(widget, true)
 	}
 
 	getFixedTop(widget) {
@@ -931,18 +931,22 @@ export default class CSSPosition {
 	getResponsiveWidth(widget) {
 		if (widget.parent) {
 			let width = Math.round((widget.w * 100) / widget.parent.w)
-			let horizontalSpacing = this.getPaddingAndBorderHorizontal(widget)
-			if (horizontalSpacing > 0) {
-				return `calc(${width}% - ${horizontalSpacing}px)`
-			} else {
-				return  width + "%"
-			}
+			// let horizontalSpacing = this.getPaddingAndBorderHorizontal(widget)
+	
+			// if (horizontalSpacing > 0) {
+			// 	return `calc(${width}% - ${horizontalSpacing}px)`
+			// } else {
+				return width + "%"
+			//}
 		}
 		Logger.warn("CSSPosition.getResponsiveWidth() > No parent! " + widget.name)
 		return "100%"
 	}
 
-	getPaddingAndBorderHorizontal (widget) {
+	getPaddingAndBorderHorizontal(widget) {
+		if (this.ignoreCorrectWidthAndHeigth.indexOf(widget.type)) {
+			return 0
+		}
 		let result = 0
 		this.widthProperties.forEach((key) => {
 			if (widget.style[key]) {
@@ -951,6 +955,7 @@ export default class CSSPosition {
 		})
 		return result
 	}
+
 
 	getFixedHeight(widget) {
 		return widget.h + "px"

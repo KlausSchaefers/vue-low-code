@@ -22,17 +22,17 @@ export default class ComponentSetCSS {
         widget.children.forEach(child => {
           result += child.cssSelector +' {\n'
           if (Util.isFixedHorizontal(child)) {
-            result += `  width: ${this.cssFactory.getCorrectedWidth(child)};\n`
+            result += `  width: ${this.cssFactory.getCorrectedWidth(child, true)};\n`
           } else if (Util.hasMinMaxWdith(child)) {
             result += this.getMinMaxWidth(child, false)
           }else {
-            result += `  min-width: ${this.cssFactory.getCorrectedWidth(child)};\n`
+            result += `  min-width: ${this.cssFactory.getCorrectedWidth(child, true)};\n`
           }
 
           if (Util.isFixedVertical(child)) {
-            result += `  height: ${this.cssFactory.getCorrectedHeight(child)};\n`
+            result += `  height: ${this.cssFactory.getCorrectedHeight(child, true)};\n`
           } else {
-            result += `  min-height: ${this.cssFactory.getCorrectedHeight(child)};\n`
+            result += `  min-height: ${this.cssFactory.getCorrectedHeight(child, true)};\n`
           }
 
           result += '}\n\n'

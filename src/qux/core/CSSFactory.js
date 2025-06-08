@@ -776,11 +776,11 @@ export default class CSSFactory {
 		return this.positionFactory.getWrappedWidth(widget)
 	}
 
-	getCorrectedHeight (widget, isPosition = false, h = -1) {
+	getCorrectedHeight (widget, isPosition = true, h = -1) {
 		return this.positionFactory.getCorrectedHeight(widget, isPosition, h)
 	}
 
-	getCorrectedWidth(widget, isPosition = false, w = -1) {
+	getCorrectedWidth(widget, isPosition = true, w = -1) {
 		return this.positionFactory.getCorrectedWidth(widget, isPosition, w)
 	}
 
