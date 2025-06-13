@@ -1,5 +1,7 @@
 .qux-checkbox{
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     overflow: hidden;
     cursor: pointer;
     /* Use here somehow flex? */
@@ -8,9 +10,8 @@
         position: relative;
         width: 100%;
         height: 100%;
-        display: inline-block;
-        vertical-align: top;
         border:1px solid #333;
+        box-sizing: border-box;
     }
 
     .qux-checkbox-hook{
@@ -33,7 +34,6 @@
     }
 
     .qux-checkbox-label {
-        margin-left: 10px;
         vertical-align: middle;
         cursor: pointer;
     }

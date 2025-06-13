@@ -965,12 +965,13 @@ export default class CSSPosition {
 		if (h < 0) {
 			h = widget.h
 		}
+		
 
 		/**
 		 * when we are positioning, we only sustract
 		 * for certain widgets
 		 */
-		if (isPosition && this.ignoreCorrectWidthAndHeigth.indexOf(widget.type) >= 0) {
+		if (isPosition) {
 			return h + "px"
 		}
 		this.heightProperties.forEach((key) => {

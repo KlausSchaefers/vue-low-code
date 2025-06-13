@@ -218,6 +218,7 @@ export default class CSSWidgetFactory {
     let result = ''
 
     let correctedHeight = this.cssFactory.getCorrectedHeight(widget, false, widget.style.boxHeight)
+
     let height = widget.style.boxHeight + 'px'
 
     result += selector + ' {\n'
@@ -232,14 +233,12 @@ export default class CSSWidgetFactory {
     result += `  width:${height};\n`
     result += '}\n\n'
 
-
     result += selector + ' .qux-checkbox-cntr {\n'
     result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.borderProperties)
     result += this.cssFactory.getBackGround(style, widget)
     result += `  height:${correctedHeight};\n`
     result += `  width:${correctedHeight};\n`
     result += '}\n\n'
-
 
     result += selector + ' .qux-checkbox-hook {\n'
     result += `  border-color: ${style.colorButton};\n`
@@ -301,7 +300,60 @@ export default class CSSWidgetFactory {
     return result
   }
 
+  getCSS_LabeledCheckBox(selector, style, widget) {
+    let result = ''
+
+    let correctedHeight = this.cssFactory.getCorrectedHeight(widget, false, widget.style.boxHeight)
+
+    result += selector + ' {\n'
+    result += this.cssFactory.getPosition(widget);
+    result += '}\n\n'
+
+    result += selector + '.qux-checkbox {\n'
+    result += `  height:${correctedHeight};\n`
+    result += `  width:${this.cssFactory.getCorrectedWidth(widget, true)};\n`
+    result += '}\n\n'
+
+    result += selector + ' .qux-checkbox-cntr {\n'
+    result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.borderProperties)
+    result += this.cssFactory.getBackGround(style, widget)
+    result += `  height:${correctedHeight};\n`
+    result += `  width:${correctedHeight};\n`
+    result += '}\n\n'
+
+    result += selector + ' .qux-checkbox-hook {\n'
+    result += `  border-color: ${style.colorButton};\n`
+    result += `  border-bottom-width: ${Math.round(correctedHeight/ 10)}px;\n`
+    result += `  border-right-width:  ${Math.round(correctedHeight / 10)}px;\n`
+    result += '}\n\n'
+
+    result += selector + ' .qux-checkbox-label {\n'
+    result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.fontProperties)
+    result += '}\n\n'
+
+    if (widget.checked) {
+      result += selector + '.qux-checkbox-checked .qux-checkbox-cntr {\n'
+      result += this.cssFactory.getStyleByKey(widget.checked, widget, this.cssFactory.borderColorProperties)
+      result += '}\n\n'
+    }
+
+    if (widget.error) {
+      result += selector + '.qux-validation-error .qux-checkbox-cntr {\n'
+      result += this.cssFactory.getStyleByKey(widget.error, widget, this.cssFactory.borderColorProperties)
+      if(widget.error.background) {
+        result += `  background:${widget.error.background};\n`
+      }
+      if(widget.error.color) {
+        result += `  color:${widget.error.color};\n`
+      }
+      result += '}\n\n'
+    }
+
+    return result
+  }
+
   getCSS_CheckBox(selector, style, widget) {
+
     let result = ''
     result += selector + ' {\n'
     result += this.cssFactory.getPosition(widget);
@@ -310,13 +362,14 @@ export default class CSSWidgetFactory {
     result += `  width:${widget.w}px;\n`
     result += '}\n\n'
 
+    const height = this.cssFactory.getCorrectedHeight(widget, true)
+
     result += selector + ' .qux-checkbox-cntr {\n'
     result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.borderProperties)
     result += this.cssFactory.getBackGround(style, widget)
-    result += `  height:${this.cssFactory.getCorrectedHeight(widget, true)};\n`
-    result += `  width:${this.cssFactory.getCorrectedWidth(widget, true)};\n`
+    result += `  height:${height};\n`
+    result += `  width:${height};\n`
     result += '}\n\n'
-
 
     result += selector + ' .qux-checkbox-hook {\n'
     result += `  border-color: ${style.colorButton};\n`

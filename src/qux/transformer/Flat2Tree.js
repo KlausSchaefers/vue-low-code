@@ -17,6 +17,7 @@ const supportedWidgetTypes = [
 	"Icon",
 	"Image",
 	"CheckBox",
+	"LabeledCheckBox",
 	"RadioBox",
 	"RadioBox2",
 	"HotSpot",

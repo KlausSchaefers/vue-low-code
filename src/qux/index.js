@@ -78,6 +78,7 @@ export default {
         app.component('qRepeater', Repeater)
         app.component('qImage', Image)
         app.component('qCheckBox', CheckBox)
+        app.component('qLabeledCheckBox', CheckBox)
         app.component('qRadioBox', RadioBox)
         app.component('qRadioBox2', RadioBox)
         app.component('qRadioGroup', RadioGroup)
