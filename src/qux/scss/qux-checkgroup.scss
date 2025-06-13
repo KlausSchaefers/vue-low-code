@@ -4,10 +4,11 @@
     justify-content: space-between;
 
     .qux-checkbox{
-        display: block;
+        display: flex;
+        align-items: center;
+        gap: 8px;
 
         .qux-checkbox-cntr{
-            vertical-align: middle;
             box-sizing: border-box;
         }
     }
