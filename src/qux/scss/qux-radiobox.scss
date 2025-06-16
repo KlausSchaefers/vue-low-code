@@ -1,5 +1,7 @@
 .qux-radiobox{
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap:8px;
     overflow: hidden;
 
     .qux-radiobox-cntr{
@@ -8,6 +10,7 @@
         height: 100%;
         display: inline-block;
         vertical-align: middle;
+        box-sizing: border-box;
     }
 
     .qux-radiobox-hook{
@@ -27,7 +30,6 @@
     }
 
     .qux-radiobox-label {
-        margin-left: 10px;
         vertical-align: middle;
         cursor: pointer;
     }

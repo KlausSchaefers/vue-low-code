@@ -1,5 +1,8 @@
 <template>
-  <div :class="['qux-image', cssClass]" @click="onClick">
+  <div :class="['qux-image', cssClass, {'qux-image-icon-back': hasIcon}]" @click="onClick">
+    <span v-if="hasIcon" class="mdi mdi-image-outline">
+
+    </span>
   </div>
 </template>
 <style lang="scss">
@@ -17,11 +20,22 @@ export default {
       return {
       }
   },
+  computed: {
+    hasIcon() {
+      if (this.element?.style?.backgroundImage) {
+        return false
+      }
+      if (this.element?.has?.iconPlaceholder) {
+        return true
+      }
+      return false
+    }
+  },
   /**
    * FIXME: add here some stuff for image uploads
    */
   mounted () {
-     Logger.log(0, 'qImage.mounted()')
+     Logger.log(4, 'qImage.mounted()')
   }
 }
 </script>

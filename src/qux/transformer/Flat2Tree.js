@@ -19,6 +19,7 @@ const supportedWidgetTypes = [
 	"CheckBox",
 	"LabeledCheckBox",
 	"RadioBox",
+	"LabeledRadioBox",
 	"RadioBox2",
 	"HotSpot",
 	"TextBox",

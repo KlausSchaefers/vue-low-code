@@ -81,6 +81,7 @@ export default {
         app.component('qLabeledCheckBox', CheckBox)
         app.component('qRadioBox', RadioBox)
         app.component('qRadioBox2', RadioBox)
+        app.component('qLabeledRadioBox', RadioBox)
         app.component('qRadioGroup', RadioGroup)
         app.component('qCheckBoxGroup', CheckBoxGroup)
         app.component('qToggleButton', Toggle)

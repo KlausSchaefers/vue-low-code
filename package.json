@@ -1,6 +1,6 @@
 {
   "name": "luisa-vue",
-  "version": "3.0.39",
+  "version": "3.0.41",
   "description": "Luisa - VUE Renderer for FIGMA designs. Turn your Figma or Quant-UX design into VUE, or create re-usable designlets",
   "main": "./dist/luisa-vue3.common.js",
   "scripts": {

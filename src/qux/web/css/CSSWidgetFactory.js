@@ -167,6 +167,47 @@ export default class CSSWidgetFactory {
     return result
   }
 
+   getCSS_LabeledRadioBox(selector, style, widget) {
+    let result = ''
+
+    let correctedHeight = this.cssFactory.getCorrectedHeight(widget, false, widget.style.boxHeight)
+
+
+    result += selector + ' {\n'
+    result += this.cssFactory.getPosition(widget);
+    result += '}\n\n'
+
+    result += selector + '.qux-radiobox {\n'
+    result += `  height:${correctedHeight};\n`
+    result += `  width:${this.cssFactory.getCorrectedWidth(widget, true)};\n`
+    result += '}\n\n'
+
+
+    result += selector + ' .qux-radiobox-cntr {\n'
+    result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.borderProperties)
+    result += this.cssFactory.getBackGround(style, widget)
+    result += `  height:${correctedHeight};\n`
+    result += `  width:${correctedHeight};\n`
+    result += '}\n\n'
+
+
+    result += selector + ' .qux-radiobox-hook {\n'
+    result += `  background: ${style.colorButton};\n`
+    result += '}\n\n'
+
+    result += selector + ' .qux-radiobox-label {\n'
+    result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.fontProperties)
+    result += '}\n\n'
+
+    if (widget.checked) {
+      result += selector + '.qux-radiobox-checked .qux-radiobox-cntr {\n'
+      result += this.cssFactory.getStyleByKey(widget.checked, widget, this.cssFactory.borderColorProperties)
+      result += '}\n\n'
+    }
+
+
+    return result
+  }
 
   getCSS_RadioGroup(selector, style, widget) {
     let result = ''

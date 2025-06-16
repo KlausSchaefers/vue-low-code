@@ -16,11 +16,17 @@ export default class ImageCSS {
         } else {
           Logger.log(5, 'ImageCSS.run()', 'No background for image > ' + widget.name)
           result += this.cssFactory.getStyleByKey(style, widget, this.cssFactory.borderProperties)
-          result += `  background-image:${this.getImagePlaceHolder(widget)};\n`
-          result += `  background-size: 100% 100%;\n`
-          result += `  border: 1px solid #333;\n`
+          if (widget?.has?.iconPlaceholder) {
+              const s = Math.round(Math.min(widget.w, widget.h) * 0.3)
+              result += `  font-size: ${s}px;\n`;
+          } else {
+            result += `  background-image:${this.getImagePlaceHolder(widget)};\n`
+            result += `  background-size: 100% 100%;\n`
+            result += `  border: 1px solid #333;\n`
+          } 
         }
         result += '}\n\n'
+
         return result
     }
 
